@@ -6,5 +6,3 @@ function header() {
 
 export default header;
 
-프롭스 -> 인터페이스
-나머지 -> 타입
