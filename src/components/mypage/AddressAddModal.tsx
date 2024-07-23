@@ -4,6 +4,7 @@ import Head from 'next/head';
 
 interface AddressAddModalProps {
   onClose: () => void;
+  onAddAddress: (address: any) => void;
 }
 
 declare global {
@@ -12,10 +13,21 @@ declare global {
   }
 }
 
-const AddressAddModal: React.FC<AddressAddModalProps> = ({ onClose }) => {
+const AddressAddModal: React.FC<AddressAddModalProps> = ({
+  onClose,
+  onAddAddress,
+}) => {
   const [postcode, setPostcode] = useState('');
-  const [address, setAddress] = useState('');
+  const [newAddress, setNewAddress] = useState('');
+  const [oldAddress, setOldAddress] = useState('');
   const [detailAddress, setDetailAddress] = useState('');
+  const [alias, setAlias] = useState('');
+  const [recipient, setRecipient] = useState('');
+  const [phone, setPhone] = useState('');
+  const [phoneError, setPhoneError] = useState('');
+  const [aliasError, setAliasError] = useState('');
+  const [recipientError, setRecipientError] = useState('');
+  const [addressError, setAddressError] = useState('');
 
   useEffect(() => {
     const script = document.createElement('script');
@@ -34,33 +46,31 @@ const AddressAddModal: React.FC<AddressAddModalProps> = ({ onClose }) => {
   }, []);
 
   const handleComplete = (data: any) => {
-    let fullAddress = data.address;
+    let newAddress = data.roadAddress;
+    let oldAddress = data.jibunAddress;
 
     if (data.addressType === 'R') {
       if (data.bname !== '') {
-        fullAddress += ` (${data.bname})`;
+        newAddress += ` (${data.bname})`;
       }
       if (data.buildingName !== '') {
-        fullAddress +=
-          fullAddress !== '' ? `, ${data.buildingName}` : data.buildingName;
+        newAddress +=
+          newAddress !== '' ? `, ${data.buildingName}` : data.buildingName;
       }
     }
 
     setPostcode(data.zonecode);
-    setAddress(fullAddress);
+    setNewAddress(newAddress);
+    setOldAddress(oldAddress);
     setDetailAddress('');
   };
 
   const themeObj = {
     bgColor: '#B3B3B3', //바탕 배경색
     searchBgColor: '#4E367C', //검색창 배경색
-    //contentBgColor: "", //본문 배경색(검색결과,결과없음,첫화면,검색서제스트)
     pageBgColor: '#f2f2f2', //페이지 배경색
-    //textColor: "", //기본 글자색
     queryTextColor: '#FFFFFF', //검색창 글자색
-    //postcodeTextColor: "", //우편번호 글자색
     emphTextColor: '#4E367C', //강조 글자색
-    // outlineColor: '"', //테두리
   };
 
   const handlePostCode = () => {
@@ -74,6 +84,73 @@ const AddressAddModal: React.FC<AddressAddModalProps> = ({ onClose }) => {
     }
   };
 
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const rawValue = e.target.value.replace(/[^0-9]/g, '');
+    let formattedValue = '';
+    if (rawValue.length <= 3) {
+      formattedValue = rawValue;
+    } else if (rawValue.length <= 7) {
+      formattedValue = `${rawValue.slice(0, 3)}-${rawValue.slice(3)}`;
+    } else {
+      formattedValue = `${rawValue.slice(0, 3)}-${rawValue.slice(
+        3,
+        7,
+      )}-${rawValue.slice(7, 11)}`;
+    }
+    setPhone(formattedValue);
+
+    if (!/^(\d{3}-\d{4}-\d{4})$/.test(formattedValue)) {
+      setPhoneError('올바른 형식으로 입력해주세요 (000-0000-0000)');
+    } else {
+      setPhoneError('');
+    }
+  };
+
+  const handleAliasChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setAlias(value);
+
+    if (value.length > 6) {
+      setAliasError('주소별칭은 6자 이내로 입력해주세요');
+    } else {
+      setAliasError('');
+    }
+  };
+
+  const handleRecipientChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setRecipient(value);
+
+    if (/[^a-zA-Z0-9가-힣\s]/.test(value)) {
+      setRecipientError('받으실분에는 특수기호를 사용할 수 없습니다.');
+    } else {
+      setRecipientError('');
+    }
+  };
+
+  const handleSave = () => {
+    if (aliasError || recipientError || phoneError) {
+      alert('옳바르게 작성되지 않은 항목이 있습니다.');
+      return;
+    }
+
+    if (!alias || !recipient || !phone || !postcode || !newAddress) {
+      alert('작성하지 않은 항목이 있습니다.');
+      return;
+    }
+
+    const newAddressData = {
+      alias,
+      postcode,
+      address: newAddress || oldAddress,
+      oldAddress,
+      detailAddress,
+      recipient,
+      phone,
+    };
+    onAddAddress(newAddressData);
+  };
+
   return (
     <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50'>
       <Head>
@@ -83,7 +160,7 @@ const AddressAddModal: React.FC<AddressAddModalProps> = ({ onClose }) => {
         <div className='flex justify-center items-center mb-4'>
           <p className='text-lg font-semibold text-white'>국내 배송지 추가</p>
           <button className='absolute right-4 top-4' onClick={onClose}>
-            <IoMdClose className='text-white' />
+            <IoMdClose className='text-white text-2xl' />
           </button>
         </div>
         <div className='space-y-4'>
@@ -92,21 +169,36 @@ const AddressAddModal: React.FC<AddressAddModalProps> = ({ onClose }) => {
             <input
               className='w-full px-3 py-2 border border-gray-600 rounded-lg bg-gray-700 text-white'
               placeholder='6글자 이내로 입력해주세요'
+              value={alias}
+              onChange={handleAliasChange}
             />
+            {aliasError && (
+              <p className='text-red-500 text-xs mt-1'>{aliasError}</p>
+            )}
           </div>
           <div>
             <label className='block text-gray-400 mb-1'>받으실분</label>
             <input
               className='w-full px-3 py-2 border border-gray-600 rounded-lg bg-gray-700 text-white'
               placeholder='이름을 입력해주세요'
+              value={recipient}
+              onChange={handleRecipientChange}
             />
+            {recipientError && (
+              <p className='text-red-500 text-xs mt-1'>{recipientError}</p>
+            )}
           </div>
           <div>
             <label className='block text-gray-400 mb-1'>휴대폰 번호</label>
             <input
               className='w-full px-3 py-2 border border-gray-600 rounded-lg bg-gray-700 text-white'
-              placeholder='이름을 입력해주세요'
+              placeholder='000-0000-0000'
+              value={phone}
+              onChange={handlePhoneChange}
             />
+            {phoneError && (
+              <p className='text-red-500 text-xs mt-1'>{phoneError}</p>
+            )}
           </div>
           <div>
             <label className='block text-gray-400 mb-1'>배송주소</label>
@@ -127,7 +219,7 @@ const AddressAddModal: React.FC<AddressAddModalProps> = ({ onClose }) => {
             <input
               className='mt-2 w-full px-3 py-2 border border-gray-600 rounded-lg bg-gray-700 text-white'
               placeholder='주소'
-              value={address}
+              value={newAddress || oldAddress}
               readOnly
             />
             <input
@@ -138,7 +230,10 @@ const AddressAddModal: React.FC<AddressAddModalProps> = ({ onClose }) => {
             />
           </div>
         </div>
-        <button className='w-full mt-6 px-4 py-2 bg-purple-600 text-white rounded-lg'>
+        <button
+          className='w-full mt-6 px-4 py-2 bg-purple-600 text-white rounded-lg'
+          onClick={handleSave}
+        >
           배송지 저장
         </button>
       </div>
