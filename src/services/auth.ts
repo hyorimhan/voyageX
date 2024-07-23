@@ -7,10 +7,6 @@ export const signUp = async ({ email, password }: any) => {
     body: JSON.stringify({ email, password }),
   });
 
-  if (!response.ok) {
-    const errorData = await response.json();
-    throw new Error(errorData.message || '회원가입에 실패했습니다');
-  }
-
-  return response.json();
+  const responseData = await response.json();
+  return responseData;
 };

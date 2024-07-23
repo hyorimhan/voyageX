@@ -12,11 +12,22 @@ export async function POST(request: NextRequest) {
     } = await supabase.auth.signUp({ email, password });
 
     if (error) {
+      console.log('Supabase Error:', error);
+      if (
+        error.status === 422 &&
+        error.message.includes('already registered')
+      ) {
+        return NextResponse.json(
+          { message: '이미 가입된 이메일입니다', details: error.message },
+          { status: 409 },
+        );
+      }
       return NextResponse.json(
         { message: '회원가입에 실패했습니다', details: error.message },
         { status: 401 },
       );
     }
+
     if (user) {
       return NextResponse.json({ message: '회원가입에 성공했습니다' });
     }
