@@ -1,7 +1,7 @@
 'use client';
 
 import AddressAddModal from '@/components/mypage/AddressAddModal';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { MdOutlineRadioButtonUnchecked } from 'react-icons/md';
 
 interface Address {
