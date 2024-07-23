@@ -1,10 +1,4 @@
-import axios from 'axios';
-
 export const signUp = async ({ email, password }: any) => {
-  // const response = await axios.post('http://localhost:3000/api/auth/signup', {
-  //   email,
-  //   password,
-  // });
   const response = await fetch('/api/auth/signup', {
     method: 'POST',
     headers: {
