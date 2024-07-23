@@ -1,1 +1,7 @@
-여러 곳에서 쓰이는 공통 훅들
+import React from 'react';
+
+const test = () => {
+  return <div>test</div>;
+};
+
+export default test;
