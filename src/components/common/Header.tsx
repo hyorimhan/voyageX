@@ -11,15 +11,15 @@ const Header = () => {
   };
 
   return (
-    <header className='bg-black bg-opacity-60 h-16 flex items-center justify-between px-4 w-full mx-auto'>
-      <div className='flex items-center space-x-4'>
+    <header className='bg-black bg-opacity-10 h-16 flex fixed z-20 top-0 items-center justify-between px-4 w-full mx-auto'>
+      <div className='flex items-center space-x-4 justify-between'>
         <Link href='/'>
           <span className='font-bold text-2xl text-white cursor-pointer'>
             Voyage X
           </span>
         </Link>
       </div>
-      <nav className='hidden md:flex items-center space-x-8'>
+      <nav className='hidden md:flex items-center space-x-12'>
         <Link href='/travel'>
           <span className='text-white hover:text-gray-300 cursor-pointer'>
             여행 상품
