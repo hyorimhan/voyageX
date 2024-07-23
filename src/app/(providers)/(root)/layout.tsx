@@ -1,6 +1,11 @@
+import { Toaster } from 'react-hot-toast';
+
 function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className='max-w-screen-lg mx-auto'>
+    <div>
+      <div>
+        <Toaster />
+      </div>
       <main>{children}</main>
     </div>
   );
