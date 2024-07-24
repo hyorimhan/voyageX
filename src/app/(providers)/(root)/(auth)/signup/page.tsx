@@ -1,4 +1,4 @@
-import SignupForm from '@/components/auth/signup/signupForm';
+import SignupForm from '@/components/auth/signup/SignupForm';
 import SparkleEffect from '@/components/auth/SparkleEffect';
 import Page from '@/components/pages/Page';
 
