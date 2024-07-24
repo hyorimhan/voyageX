@@ -23,3 +23,11 @@
 .scroll-container::-webkit-scrollbar {
     display: none;
 }
+
+@layer utilities {
+    .text-gradient {
+      background: linear-gradient(to right, #9b5de5, #f15bb5, #fee440, #00bbf9);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  }

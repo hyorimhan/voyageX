@@ -69,10 +69,10 @@ const MainPage = () => {
     planetsRef.current.forEach((planet, index) => {
       if (planet) {
         const isActive = index === currentSlide;
-        const xPos = (index - currentSlide) * 300;
+        const xPos = (index - currentSlide) * 300; // 행성 위치
         const scale = isActive ? 1.5 : 1;
-        const zIndex = isActive ? 10 : 0;
-        const opacity = isActive ? 1 : 0.5;
+        const zIndex = isActive ? 10 : 0; 
+        const opacity = isActive ? 1 : 0.5; 
 
         gsap.to(planet, {
           x: xPos,
@@ -102,7 +102,7 @@ const MainPage = () => {
           muted
         />
         <div className="absolute z-10 text-center top-48 sm:w-auto sm:text-left sm:left-48 md:left-40 lg:left-52 xl:left-64">
-          <h1 className="text-white text-6xl font-bold text-purple-200">Voyage X</h1>
+          <h1 className="text-gradient text-6xl font-bold">Voyage X</h1>
           <p className="text-white p-4 text-3xl">상상을 현실로, 우주에서의 만남</p>
           <p className="text-white p-4">
             우주 여행의 문을 여는 창구, Voyage X입니다.
