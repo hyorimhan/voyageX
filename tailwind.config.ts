@@ -9,10 +9,15 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        ticketBg: '#B6A6D8',
+        purple: {
+          300: '#9b5de5',
+          500: '#f15bb5',
+          700: '#fee440',
+          900: '#00bbf9',
+        },
       },
     },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/typography')],
 };
 export default config;
