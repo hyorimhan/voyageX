@@ -18,12 +18,12 @@ export async function POST(request: NextRequest) {
         error.message.includes('already registered')
       ) {
         return NextResponse.json(
-          { message: '이미 가입된 이메일입니다', details: error.message },
+          { message: '이미 가입된 이메일입니다' },
           { status: 409 },
         );
       }
       return NextResponse.json(
-        { message: '회원가입에 실패했습니다', details: error.message },
+        { message: '회원가입에 실패했습니다' },
         { status: 401 },
       );
     }
@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
     }
   } catch (error) {
     return NextResponse.json(
-      { message: '네트워크 오류가 발생했습니다', details: error },
+      { message: '네트워크 오류가 발생했습니다' },
       { status: 500 },
     );
   }
