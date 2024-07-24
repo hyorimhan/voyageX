@@ -9,11 +9,6 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        purple: {
-          300: '#9b5de5',
-          500: '#f15bb5',
-          700: '#fee440',
-          900: '#00bbf9', 
         primary: {
           50: '#F0EDF7',
           100: '#D3CAE8',
@@ -23,6 +18,11 @@ const config: Config = {
           500: '#6346A0',
           600: '#4D367C',
           700: '#372759',
+          800: '#211735',
+          900: '#0B0812',
+        },
+        secondary: {
+          // 추후 넣기
         },
         black: {
           50: '#F4F4F4',
@@ -35,6 +35,10 @@ const config: Config = {
           700: '#666666',
           800: '#525252',
           900: '#3D3D3D',
+        },
+        static: {
+          white: '#FFFFFF',
+          black: '#000000',
         },
         error: {
           900: '#EE4700',
@@ -51,9 +55,16 @@ const config: Config = {
         dimmer: {
           900: '#171719', //50%
         },
+        purple: {
+          300: '#9b5de5',
+          500: '#f15bb5',
+          700: '#fee440',
+          900: '#00bbf9',
+        },
       },
     },
   },
   plugins: [require('@tailwindcss/typography')],
 };
+
 export default config;
