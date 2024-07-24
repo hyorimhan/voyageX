@@ -42,15 +42,15 @@ function ExpressInfo({ setExpressInfo }: ExpressInfoProps) {
   return (
     <>
       <div>
+        <div className='py-4 mb-4'>
+          <span className='text-xl'>배송정보</span>
+        </div>
         <div className='flex justify-end'>
-          <button type='button' className='bg-[#4D367C]'>
+          <button type='button' className='bg-[#4D367C] rounded p-2 text-xs'>
             기본배송지 설정
           </button>
         </div>
-        <div className='border-b-2 border-white'>
-          <span className='text-xl'>배송정보</span>
-        </div>
-        <div className='grid grid-flow-col grid-cols-4 border-b-2 border-white py-2'>
+        <div className='grid grid-flow-col grid-cols-4 border-b-2 border-white py-2 text-base'>
           <span className='mx-auto'>주소별칭</span>
           <span className='mx-auto'>배송주소</span>
           <span className='mx-auto'>받으실분/연락처</span>
@@ -68,19 +68,21 @@ function ExpressInfo({ setExpressInfo }: ExpressInfoProps) {
               />
             </div>
             <div className='grid grid-cols-4 py-4 w-full'>
-              <p className='mx-auto self-center'>{address.address_name}</p>
+              <p className='mx-auto self-center text-sm'>
+                {address.address_name}
+              </p>
               <div className='mx-auto self-center'>
-                <p>{address.address}</p>
+                <p className='text-xs'>{address.address}</p>
               </div>
               <div className='mx-auto'>
                 <div className='flex flex-col items-center'>
-                  <p>{address.user_id}</p>
-                  <p>{address.contact}</p>
+                  <p className='text-sm'>{address.user_id}</p>
+                  <p className='text-xs'>{address.contact}</p>
                 </div>
               </div>
               <button
                 type='button'
-                className='mx-auto border-2 border-[#4D367C] rounded text-sm self-center p-1'
+                className='mx-auto border-2 border-[#4D367C] rounded text-xs self-center p-1'
               >
                 수정
               </button>

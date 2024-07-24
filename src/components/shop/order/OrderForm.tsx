@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import ExpressInfo from './ExpressInfo';
+import PayButton from './PayButton';
+import ItemsInfo from './ItemsInfo';
 
 export type AddressType = {
   id: string;
@@ -24,6 +26,7 @@ function OrderForm() {
   const [customerName, setCustomerName] = useState(expressInfo.user_id);
   const [phoneNumber, setPhoneNumber] = useState(expressInfo.contact);
   const [email, setEmail] = useState(expressInfo.email);
+  const [totalPrice, setTotalPrice] = useState(0);
 
   const handleSubmitOrderForm: React.FormEventHandler<HTMLFormElement> = (
     e,
@@ -40,7 +43,8 @@ function OrderForm() {
 
   return (
     <form className='flex flex-col gap-4 mt-4' onSubmit={handleSubmitOrderForm}>
-      <div className='flex flex-col border-y-2 border-white py-4 mt-10'>
+      <ExpressInfo setExpressInfo={setExpressInfo} />
+      <div className='flex flex-col py-4 mt-10'>
         <span className='text-xl pb-4'>고객정보</span>
         <label className='text-[#999999] mb-1' htmlFor='name'>
           이름*
@@ -76,8 +80,8 @@ function OrderForm() {
           className='w-1/2 h-16 rounded-lg text-black p-1'
         />
       </div>
-      <ExpressInfo setExpressInfo={setExpressInfo} />
-      <button>클릭</button>
+      <ItemsInfo setTotalPrice={setTotalPrice} />
+      <PayButton totalPrice={totalPrice} />
     </form>
   );
 }
