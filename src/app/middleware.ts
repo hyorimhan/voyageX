@@ -1,11 +1,19 @@
-// import { NextResponse, type NextRequest } from 'next/server';
-// import { supabase } from '@/supabase/middleware';
+// import { updateSession } from '@/supabase/middleware';
+// import { type NextRequest } from 'next/server';
 
 // export async function middleware(request: NextRequest) {
-//   // return await updateSession(request)
+//   return await updateSession(request);
 // }
 
 // export const config = {
-//   // TODO: 장바구니 페이지 추가 후 수정
-//   // matcher: ['/', "/products/:path*"],
+//   matcher: [
+//     /*
+//      * Match all request paths except for the ones starting with:
+//      * - _next/static (static files)
+//      * - _next/image (image optimization files)
+//      * - favicon.ico (favicon file)
+//      * Feel free to modify this pattern to include more paths.
+//      */
+//     '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+//   ],
 // };
