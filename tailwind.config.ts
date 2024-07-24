@@ -9,17 +9,15 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        'purple': {
+        purple: {
           300: '#9b5de5',
           500: '#f15bb5',
           700: '#fee440',
-          900: '#00bbf9', 
+          900: '#00bbf9',
         },
       },
     },
   },
-  plugins: [
-    require('@tailwindcss/typography'),
-  ],
+  plugins: [require('@tailwindcss/typography')],
 };
 export default config;
