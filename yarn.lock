@@ -313,45 +313,10 @@
   resolved "https://registry.yarnpkg.com/@types/aos/-/aos-3.0.7.tgz#81c60dde68d67b7ea941a37ec3638b88ac90001c"
   integrity sha512-sEhyFqvKauUJZDbvAB3Pggynrq6g+2PS4XB3tmUr+mDL1gfDJnwslUC4QQ7/l8UD+LWpr3RxZVR/rHoZrLqZVg==
 
-"@tosspayments/brandpay-types@^0.2.6":
-  version "0.2.6"
-  resolved "https://registry.yarnpkg.com/@tosspayments/brandpay-types/-/brandpay-types-0.2.6.tgz#0a64d6cd4a6be97af374ad6cf0f2d155312d3819"
-  integrity sha512-FY8aOm/2rqtXjYux9ZdNTL6GC5+VNIw8eOQ7TP01dS2uGWSzAtR6uuw9HVsgkmJtSyJgmo97tjmbio5oyeyFlg==
-
-"@tosspayments/payment-widget-sdk@^0.11.1":
-  version "0.11.1"
-  resolved "https://registry.yarnpkg.com/@tosspayments/payment-widget-sdk/-/payment-widget-sdk-0.11.1.tgz#72786671cefebd43ce5b9409172704b3a15c161b"
-  integrity sha512-MQKS1GnBO6h6RNWDsV7CoNAt0OUYs7jspxIwqaEzzFK0xgQdLp2X/Q5wyu7eyPYX4hu1aWztzYPJhYc3SdMuMw==
-  dependencies:
-    "@tosspayments/payment-widget__types" "1.0.1"
-
-"@tosspayments/payment-widget-types@^0.0.5":
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/@tosspayments/payment-widget-types/-/payment-widget-types-0.0.5.tgz#649f1baf063eaeb59bcd24d6a2064f0841aed9fe"
-  integrity sha512-Daaui9u7aRPzJhw4omJIUAbYBSmNAFNjWWkuUnX9uHxzE3gtjcJHIpGrjlzmCFm+j3ZH4rgyrgv4pkazVYH3OQ==
-
-"@tosspayments/payment-widget__types@1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@tosspayments/payment-widget__types/-/payment-widget__types-1.0.1.tgz#5ecc9df87915715417eb839f24d897c25ca6c79e"
-  integrity sha512-p2l6ni4ZAH0Jh7Yo4hwwDAECN0rz6Io9R19oBJ5ZkL0H1upMhGzT6xrdymIYQwcUSzIcwHwI2u03eeAX19hmug==
-  dependencies:
-    "@tosspayments/brandpay-types" "^0.2.6"
-    "@tosspayments/payment-widget-types" "^0.0.5"
-    "@tosspayments/payment__types" "^1.66.3"
-
-"@tosspayments/payment__types@^1.66.3":
-  version "1.67.2"
-  resolved "https://registry.yarnpkg.com/@tosspayments/payment__types/-/payment__types-1.67.2.tgz#182f5e72b58985c747ba6219ee8dca3f2c3361a8"
-  integrity sha512-GVXhGeKSruo4VTi8GNLISvhDeF4HfVLPN4UHjo2Dl3e7DPh40h6TKq5nCnt5hVbH7CcpyE5yfbWvI2RV0ABDcw==
-  dependencies:
-    "@tosspayments/sdk-constants" "^0.2.2"
-
-"@tosspayments/sdk-constants@^0.2.2":
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/@tosspayments/sdk-constants/-/sdk-constants-0.2.2.tgz#91bd84fc1543eb2382b2a9b40792eed9f9146b1e"
-  integrity sha512-qTIcD9JnVtN65/yiW5sPAlvK5fpQtDluv4IEyslubncbQLQKE+ePSnGZU1fLNPxcchv6QTnwmgj9Ndm6EN/Ymg==
-  dependencies:
-    type-fest "^2.11.2"
+"@types/aos@^3.0.7":
+  version "3.0.7"
+  resolved "https://registry.yarnpkg.com/@types/aos/-/aos-3.0.7.tgz#81c60dde68d67b7ea941a37ec3638b88ac90001c"
+  integrity sha512-sEhyFqvKauUJZDbvAB3Pggynrq6g+2PS4XB3tmUr+mDL1gfDJnwslUC4QQ7/l8UD+LWpr3RxZVR/rHoZrLqZVg==
 
 "@types/json5@^0.0.29":
   version "0.0.29"
@@ -502,6 +467,15 @@ anymatch@~3.1.2:
   dependencies:
     normalize-path "^3.0.0"
     picomatch "^2.0.4"
+
+aos@^2.3.4:
+  version "2.3.4"
+  resolved "https://registry.yarnpkg.com/aos/-/aos-2.3.4.tgz#eb1c29f5c1806a197cf6323080747547edd3db8e"
+  integrity sha512-zh/ahtR2yME4I51z8IttIt4lC1Nw0ktsFtmeDzID1m9naJnWXhCoARaCgNOGXb5CLy3zm+wqmRAEgMYB5E2HUw==
+  dependencies:
+    classlist-polyfill "^1.0.3"
+    lodash.debounce "^4.0.6"
+    lodash.throttle "^4.0.1"
 
 aos@^2.3.4:
   version "2.3.4"
