@@ -1,7 +1,6 @@
 import Image from 'next/image';
-import React from 'react';
 
-const TourOrders = () => {
+const TourOrdersPage = () => {
   return (
     <div>
       <p className='text-2xl mb-6'>여행상품 주문/배송조회</p>
@@ -54,4 +53,4 @@ const TourOrders = () => {
   );
 };
 
-export default TourOrders;
+export default TourOrdersPage;

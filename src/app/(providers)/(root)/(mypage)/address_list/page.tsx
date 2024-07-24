@@ -14,7 +14,7 @@ interface Address {
   phone: string;
 }
 
-const AddressList: React.FC = () => {
+const AddressListPage: React.FC = () => {
   const [showAddressAddModal, setShowAddressAddModal] = useState(false);
   const [addresses, setAddresses] = useState<Address[]>([]);
 
@@ -86,4 +86,4 @@ const AddressList: React.FC = () => {
   );
 };
 
-export default AddressList;
+export default AddressListPage;

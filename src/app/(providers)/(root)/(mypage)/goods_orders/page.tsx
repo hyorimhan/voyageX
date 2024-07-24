@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-const GoodsOrders = () => {
+const GoodsOrdersPage = () => {
   return (
     <div>
       <p className='text-2xl mb-9'>굿즈샵 주문/배송조회</p>
@@ -40,4 +40,4 @@ const GoodsOrders = () => {
   );
 };
 
-export default GoodsOrders;
+export default GoodsOrdersPage;

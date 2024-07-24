@@ -1,4 +1,4 @@
-const MyPosts = () => {
+const MyPostsPage = () => {
   return (
     <div>
       <p className='text-2xl mb-20'>커뮤니티 작성글 목록</p>
@@ -33,4 +33,4 @@ const MyPosts = () => {
   );
 };
 
-export default MyPosts;
+export default MyPostsPage;
