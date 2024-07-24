@@ -10,7 +10,8 @@ import useAuthStore from '../../../zustand/store/useAuth';
 
 function LoginForm() {
   const router = useRouter();
-  const userInfo = useAuthStore((state) => state.userInfo);
+  const saveUser = useAuthStore((state) => state.saveUser);
+  const user = useAuthStore((state) => state.user);
 
   const {
     register,
@@ -25,7 +26,8 @@ function LoginForm() {
       toast(response.message, {
         icon: '🌠',
       });
-      userInfo(response.user);
+      saveUser(response.user.user);
+      console.log(user);
       router.replace('/');
       return;
     }

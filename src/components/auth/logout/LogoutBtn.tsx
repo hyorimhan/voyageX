@@ -8,17 +8,19 @@ import toast from 'react-hot-toast';
 function LogoutBtn() {
   const router = useRouter();
   const user = useAuthStore((state) => state.user);
+  const saveUser = useAuthStore((state) => state.saveUser);
+
   const logoutFunc = async () => {
-    const response = await logout();
     if (!user) {
       toast('이미 로그아웃 되었습니다');
       return;
     }
+    const response = await logout();
     if (response.message) {
       toast(response.message);
     }
-    const userInfo = useAuthStore.getState().userInfo;
-    userInfo(null);
+
+    saveUser(null);
     router.replace('/');
   };
   return <button onClick={logoutFunc}>로그아웃</button>;

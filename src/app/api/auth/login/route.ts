@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
       });
     }
     if (user) {
-      return NextResponse.json({ message: '로그인 되었습니다' });
+      return NextResponse.json({ message: '로그인을 성공했습니다', user });
     }
   } catch (error) {
     return NextResponse.json({

@@ -1,3 +1,4 @@
+import KakaoLogin from '@/components/auth/kakao/kakaoLogin';
 import LoginForm from '@/components/auth/login/LoginForm';
 import LogoutBtn from '@/components/auth/logout/LogoutBtn';
 import Page from '@/components/pages/Page';
@@ -7,6 +8,7 @@ const LoginPage = () => {
     <Page>
       <LoginForm />
       <LogoutBtn />
+      <KakaoLogin />
     </Page>
   );
 };
