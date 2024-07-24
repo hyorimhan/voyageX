@@ -6,10 +6,12 @@ import {
   emailValidate,
   passwordConfirmValidate,
   passwordValidate,
-} from '@/components/auth/signup/signupValidate';
+} from '@/components/auth/authValidate';
 import toast from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
 
 function SignupForm() {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -29,7 +31,7 @@ function SignupForm() {
       toast(response.message, {
         icon: '🌠',
       });
-      return;
+      router.replace('/login');
     }
   };
 
@@ -49,7 +51,10 @@ function SignupForm() {
 
   return (
     <>
-      <form onSubmit={handleSubmit(joinForm, handleError)}>
+      <form
+        onSubmit={handleSubmit(joinForm, handleError)}
+        className='text-center flex flex-col justify-center '
+      >
         <label htmlFor='email'>이메일</label>
         <input
           id='email'
