@@ -9,6 +9,11 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        purple: {
+          300: '#9b5de5',
+          500: '#f15bb5',
+          700: '#fee440',
+          900: '#00bbf9', 
         primary: {
           50: '#F0EDF7',
           100: '#D3CAE8',

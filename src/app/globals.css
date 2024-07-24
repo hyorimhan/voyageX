@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  background-color: black;
+  color: white;
+}
+
 .scroll-container {
   display: flex;
   scroll-snap-type: x mandatory; /* 스크롤 스냅핑 수평 설정 */
