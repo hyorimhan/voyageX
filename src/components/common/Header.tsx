@@ -20,12 +20,12 @@ const Header = () => {
         </Link>
       </div>
       <nav className='hidden md:flex items-center space-x-12 text-lg'>
-        <Link href='/travel'>
+        <Link href='/tour'>
           <span className='text-white hover:text-gray-300 cursor-pointer'>
             여행 상품
           </span>
         </Link>
-        <Link href='/goodsShop'>
+        <Link href='/shop'>
           <span className='text-white hover:text-gray-300 cursor-pointer'>
             굿즈샵
           </span>
@@ -35,7 +35,7 @@ const Header = () => {
             커뮤니티
           </span>
         </Link>
-        <Link href='/mypage'>
+        <Link href='/address_list'>
           <span className='text-white hover:text-gray-300 cursor-pointer'>
             마이 페이지
           </span>
