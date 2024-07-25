@@ -1,23 +1,46 @@
 'use client';
 
 import AddressAddModal from '@/components/mypage/AddressAddModal';
-import { useState } from 'react';
+import { createClient } from '@/supabase/client';
+import useAuthStore from '@/zustand/store/useAuth';
+import { useEffect, useState } from 'react';
 import { MdOutlineRadioButtonUnchecked } from 'react-icons/md';
 
 type Address = {
-  alias: string;
-  postcode: string;
-  address: string;
-  oldAddress: string;
-  detailAddress: string;
-  recipient: string;
-  phone: string;
+  alias: string | null;
+  postcode: string | null;
+  address: string | null;
+  oldAddress: string | null;
+  detailAddress: string | null;
+  recipient: string | null;
+  phone: string | null;
 };
 
 const AddressListPage: React.FC = () => {
   const [showAddressAddModal, setShowAddressAddModal] =
     useState<boolean>(false);
   const [addresses, setAddresses] = useState<Address[]>([]);
+  const supabase = createClient();
+  const user = useAuthStore((state) => state.user);
+
+  useEffect(() => {
+    const fetchAddresses = async () => {
+      if (!user || !user.id) return;
+
+      const { data, error } = await supabase
+        .from('addresses')
+        .select('*')
+        .eq('user_id', user.id);
+
+      if (error) {
+        console.error('Error fetching addresses:', error);
+      } else {
+        setAddresses(data);
+      }
+    };
+
+    fetchAddresses();
+  }, [supabase, user]);
 
   const handleAddressAddClick = () => {
     setShowAddressAddModal(true);

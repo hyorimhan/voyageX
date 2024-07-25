@@ -12,7 +12,13 @@ export type Database = {
       addresses: {
         Row: {
           address: string | null;
+          alias: string | null;
+          detailAddress: string | null;
           id: string;
+          oldAddress: string | null;
+          phone: string | null;
+          postcode: string | null;
+          recipient: string | null;
           user_id: string;
         };
         Insert: {
