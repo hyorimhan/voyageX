@@ -1,13 +1,14 @@
 'use client';
-import Header from '@/components/common/Header';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
+import useAuthStore from '@/zustand/store/useAuth';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const MainPage = () => {
+  const user = useAuthStore((state) => state.user);
   const sectionsRef = useRef<(HTMLDivElement | null)[]>([]);
   const planetsRef = useRef<(HTMLDivElement | null)[]>([]);
   const videoRef = useRef<HTMLVideoElement | null>(null);
@@ -85,10 +86,9 @@ const MainPage = () => {
       }
     });
   }, [currentSlide]);
-
+  console.log(user);
   return (
     <div className='w-full'>
-      <Header />
       <section
         ref={(el) => {
           sectionsRef.current[0] = el as HTMLDivElement;

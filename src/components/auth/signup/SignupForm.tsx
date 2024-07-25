@@ -26,7 +26,7 @@ function SignupForm() {
 
   const joinForm = async (data: formType) => {
     const response = await signUp(data);
-
+    console.log(response);
     if (response.message) {
       toast(response.message, {
         icon: '🌠',
@@ -51,33 +51,43 @@ function SignupForm() {
 
   return (
     <>
-      <form
-        onSubmit={handleSubmit(joinForm, handleError)}
-        className='text-center flex flex-col justify-center '
-      >
-        <label htmlFor='email'>이메일</label>
-        <input
-          id='email'
-          type='email'
-          placeholder='email@email.com'
-          {...register('email', emailValidate())}
-        />
+      <div>
+        <div>회원가입</div>
+        <form
+          onSubmit={handleSubmit(joinForm, handleError)}
+          className='flex flex-col items-end'
+        >
+          <div>
+            <label htmlFor='email' className='flex'>
+              이메일*
+            </label>
+            <input
+              id='email'
+              type='email'
+              placeholder='email@email.com'
+              {...register('email', emailValidate())}
+              className='text-black-900'
+            />
+          </div>
 
-        <label htmlFor='password'>비밀번호</label>
-        <input
-          id='password'
-          type='password'
-          {...register('password', passwordValidate())}
-        />
+          <label htmlFor='password'>비밀번호*</label>
+          <input
+            id='password'
+            type='password'
+            {...register('password', passwordValidate())}
+            className='text-black-900'
+          />
 
-        <label htmlFor='passwordConfirm'>비밀번호 확인</label>
-        <input
-          id='passwordConfirm'
-          type='password'
-          {...register('passwordConfirm', passwordConfirmValidate(password))}
-        />
-        <button type='submit'>회원가입</button>
-      </form>
+          <label htmlFor='passwordConfirm'>비밀번호 확인*</label>
+          <input
+            id='passwordConfirm'
+            type='password'
+            {...register('passwordConfirm', passwordConfirmValidate(password))}
+            className='text-black-900'
+          />
+          <button type='submit'>회원가입</button>
+        </form>
+      </div>
     </>
   );
 }

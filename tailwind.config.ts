@@ -8,6 +8,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      backgroundImage: {
+        'custom-background': "url('/images/배경.png')",
+      },
       colors: {
         primary: {
           50: '#F0EDF7',

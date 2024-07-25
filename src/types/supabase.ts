@@ -353,17 +353,14 @@ export type Database = {
         Row: {
           email: string;
           id: string;
-          password: string;
         };
         Insert: {
           email: string;
           id: string;
-          password: string;
         };
         Update: {
           email?: string;
           id?: string;
-          password?: string;
         };
         Relationships: [
           {
