@@ -27,7 +27,7 @@ function LoginForm() {
       });
 
       saveUser(response.user);
-      router.replace('/');
+      // router.replace('/');
       return;
     }
   };
