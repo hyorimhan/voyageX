@@ -20,7 +20,7 @@ function DropDownButton(props: DropDownButtonProps) {
         {isActive ? '▲' : '▼'}
       </button>
       <ul
-        className={`text-white cursor-pointer w-32 absolute border border-gray-300 shadow-lg transition-all duration-300 ease-out overflow-hidden rounded ${
+        className={`text-white cursor-pointer w-32 absolute border border-black-300 shadow-lg transition-all duration-300 ease-out overflow-hidden rounded ${
           isActive ? 'max-h-60 opacity-100' : 'max-h-0 opacity-0'
         }`}
       >
@@ -28,7 +28,7 @@ function DropDownButton(props: DropDownButtonProps) {
           sortByList.map((item) => (
             <li
               key={item}
-              className='cursor-pointer w-full bg-white text-black hover:bg-gray-500'
+              className='cursor-pointer w-full text-black-900 bg-white border border-black-300 hover:bg-gray-500'
               onClick={() => setSortBy(item)}
             >
               {item}
