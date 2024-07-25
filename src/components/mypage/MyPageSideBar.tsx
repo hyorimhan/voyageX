@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import { IoMdHeart } from 'react-icons/io';
 
