@@ -50,6 +50,7 @@ function LoginForm() {
         id='email'
         placeholder='email@email.com'
         {...register('email', emailValidate())}
+        className='text-black-900'
       />
 
       <label htmlFor='password'>비밀번호</label>
@@ -57,6 +58,7 @@ function LoginForm() {
         type='password'
         id='password'
         {...register('password', passwordValidate())}
+        className='text-black-900'
       />
       <button type='submit'>로그인</button>
     </form>

@@ -53,7 +53,7 @@ function SignupForm() {
     <>
       <form
         onSubmit={handleSubmit(joinForm, handleError)}
-        className='text-center flex flex-col justify-center '
+        className='text-center flex flex-col justify-center'
       >
         <label htmlFor='email'>이메일</label>
         <input
@@ -61,6 +61,7 @@ function SignupForm() {
           type='email'
           placeholder='email@email.com'
           {...register('email', emailValidate())}
+          className='text-black-900'
         />
 
         <label htmlFor='password'>비밀번호</label>
@@ -68,6 +69,7 @@ function SignupForm() {
           id='password'
           type='password'
           {...register('password', passwordValidate())}
+          className='text-black-900'
         />
 
         <label htmlFor='passwordConfirm'>비밀번호 확인</label>
@@ -75,6 +77,7 @@ function SignupForm() {
           id='passwordConfirm'
           type='password'
           {...register('passwordConfirm', passwordConfirmValidate(password))}
+          className='text-black-900'
         />
         <button type='submit'>회원가입</button>
       </form>
