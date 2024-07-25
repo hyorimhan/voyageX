@@ -1,4 +1,3 @@
-import { MdOutlineRadioButtonUnchecked } from 'react-icons/md';
 import { Address } from './OrderForm';
 import { Dispatch, SetStateAction } from 'react';
 
@@ -15,7 +14,7 @@ function AddressChangeModal({ setExpressInfo }: AddressChangeModal) {
       oldAddress: '경남 남해군 창선면 상죽리 80',
       detailAddress: '초록색대문',
       recipient: 'gusdnr',
-      phone: '010-1234-1234',
+      phone: '01012341234',
     },
     {
       alias: '광화문',
@@ -24,7 +23,7 @@ function AddressChangeModal({ setExpressInfo }: AddressChangeModal) {
       oldAddress: '세종로 1-57',
       detailAddress: '',
       recipient: '세종대왕',
-      phone: '010-5678-9101',
+      phone: '01056789101',
     },
   ];
 
@@ -44,10 +43,12 @@ function AddressChangeModal({ setExpressInfo }: AddressChangeModal) {
       {addresses.map((address, index) => (
         <div key={index}>
           <div className='flex w-full text-center py-7 items-center'>
-            <MdOutlineRadioButtonUnchecked
-              onClick={() => handleSelectAddress(address)}
-              className='text-3xl ml-7 mr-7'
-            />
+            <div className='ml-7 mr-7 w-8 h-8'>
+              <div
+                onClick={() => handleSelectAddress(address)}
+                className='text-3xl w-full h-full rounded-full border-2 border-white cursor-pointer'
+              ></div>
+            </div>
             <p className='text-lg w-28 text-center'>{address.alias}</p>
             <div className='text-left text-xs w-80 ml-16'>
               <p>({address.postcode})</p>
