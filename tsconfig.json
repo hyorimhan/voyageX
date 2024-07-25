@@ -21,6 +21,13 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/components/auth/signup/tinkerbell.js"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "src/components/auth/signup/tinkerbell.js",
+    "src/app/(providers)/(root)/(auth)/layout.tsx"
+  ],
   "exclude": ["node_modules"]
 }
