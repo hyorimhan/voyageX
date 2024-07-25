@@ -41,54 +41,28 @@ function ExpressInfo({ setExpressInfo }: ExpressInfoProps) {
 
   return (
     <>
-      <div>
+      <div className='border-2 border-white rounded-lg p-4'>
         <div className='py-4 mb-4'>
           <span className='text-xl'>배송정보</span>
         </div>
-        <div className='flex justify-end'>
-          <button type='button' className='bg-[#4D367C] rounded p-2 text-xs'>
-            기본배송지 설정
-          </button>
-        </div>
-        <div className='grid grid-flow-col grid-cols-4 border-b-2 border-white py-2 text-base'>
-          <span className='mx-auto'>주소별칭</span>
-          <span className='mx-auto'>배송주소</span>
-          <span className='mx-auto'>받으실분/연락처</span>
-          <span className='mx-auto'>관리</span>
-        </div>
-        {addresses.map((address) => (
-          <div
-            key={address.id}
-            className='flex flex-row w-full items-center border-b-2 border-white'
-          >
-            <div>
-              <input
-                type='checkbox'
-                onChange={() => handleChangeAddress(address)}
-              />
-            </div>
-            <div className='grid grid-cols-4 py-4 w-full'>
-              <p className='mx-auto self-center text-sm'>
-                {address.address_name}
-              </p>
-              <div className='mx-auto self-center'>
-                <p className='text-xs'>{address.address}</p>
-              </div>
-              <div className='mx-auto'>
-                <div className='flex flex-col items-center'>
-                  <p className='text-sm'>{address.user_id}</p>
-                  <p className='text-xs'>{address.contact}</p>
-                </div>
-              </div>
-              <button
-                type='button'
-                className='mx-auto border-2 border-[#4D367C] rounded text-xs self-center p-1'
-              >
-                수정
-              </button>
-            </div>
+        <div className='flex flex-row items-start justify-between'>
+          <div>
+            <p>김철수</p>
+            <p>010-1234-5678</p>
+            <p>
+              도로명 : 서울특별시 영등포구 영등포로 183, 701호 {'(미래아파트)'}
+            </p>
+            <p>
+              지번 : {'서울특별시 영등포구 영등포동 482-8 미래아파트 701호'}
+            </p>
+            <span>{'07839'}</span>
           </div>
-        ))}
+          <div>
+            <button className='bg-primary-400 rounded-lg p-2'>
+              배송지 변경
+            </button>
+          </div>
+        </div>
       </div>
     </>
   );

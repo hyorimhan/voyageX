@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import ExpressInfo from './ExpressInfo';
 import PayButton from './PayButton';
 import ItemsInfo from './ItemsInfo';
+import CustomerInfo from './CustomerInfo';
 
 export type AddressType = {
   id: string;
@@ -42,47 +43,24 @@ function OrderForm() {
   }, [expressInfo]);
 
   return (
-    <form className='flex flex-col gap-4 mt-4' onSubmit={handleSubmitOrderForm}>
-      <ExpressInfo setExpressInfo={setExpressInfo} />
-      <div className='flex flex-col py-4 mt-10'>
-        <span className='text-xl pb-4'>고객정보</span>
-        <label className='text-[#999999] mb-1' htmlFor='name'>
-          이름*
-        </label>
-        <input
-          id='name'
-          type='text'
-          placeholder=' 이름을 입력해주세요.'
-          value={customerName}
-          onChange={(e) => setCustomerName(e.target.value)}
-          className='w-1/2 h-16 rounded-lg text-black p-1'
-        />
-        <label className='text-[#999999] mb-1' htmlFor='phone'>
-          휴대폰번호*
-        </label>
-        <input
-          id='phone'
-          type='text'
-          placeholder=' 휴대폰번호를 입력해주세요.'
-          value={phoneNumber}
-          onChange={(e) => setPhoneNumber(e.target.value)}
-          className='w-1/2 h-16 rounded-lg text-black p-1'
-        />
-        <label className='text-[#999999] mb-1' htmlFor='name'>
-          이메일*
-        </label>
-        <input
-          id='email'
-          type='email'
-          placeholder=' 이메일을 입력해주세요.'
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className='w-1/2 h-16 rounded-lg text-black p-1'
-        />
+    <>
+      <div className='grid grid-cols-[minmax(0,1fr)_minmax(0,0.3fr)] gap-x-4'>
+        <div className='flex flex-col items-start'>
+          <div className='mt-4 w-full'>
+            <ExpressInfo setExpressInfo={setExpressInfo} />
+          </div>
+          <div className='mt-4 w-full'>
+            <CustomerInfo />
+          </div>
+          <div className='mt-4 w-full'>
+            <ItemsInfo />
+          </div>
+        </div>
+        <div>
+          <PayButton />
+        </div>
       </div>
-      <ItemsInfo setTotalPrice={setTotalPrice} />
-      <PayButton totalPrice={totalPrice} />
-    </form>
+    </>
   );
 }
 
