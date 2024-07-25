@@ -2,17 +2,16 @@ import { createClient } from '@/supabase/server';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(request: NextRequest) {
+  const supabase = createClient();
+
   try {
     const { email, password } = await request.json();
-    const supabase = createClient();
-
     const {
       data: { user },
       error,
     } = await supabase.auth.signUp({ email, password });
 
     if (error) {
-      console.log('Supabase Error:', error);
       if (
         error.status === 422 &&
         error.message.includes('already registered')
@@ -22,6 +21,7 @@ export async function POST(request: NextRequest) {
           { status: 409 },
         );
       }
+
       return NextResponse.json(
         { message: '회원가입에 실패했습니다' },
         { status: 401 },
@@ -29,6 +29,17 @@ export async function POST(request: NextRequest) {
     }
 
     if (user) {
+      const { error: usersError } = await supabase.from('users').insert([
+        {
+          email,
+        },
+      ]);
+
+      if (usersError) {
+        return NextResponse.json({
+          message: '프로필 등록에 실패했습니다',
+        });
+      }
       return NextResponse.json({ message: '회원가입에 성공했습니다' });
     }
   } catch (error) {

@@ -1,17 +1,34 @@
 'use client';
+import useAuthStore from '@/zustand/store/useAuth';
+import { User } from '@supabase/supabase-js';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaUserCircle, FaBars } from 'react-icons/fa';
+import LogoutBtn from '@/components/auth/logout/LogoutBtn';
 
-const Header = () => {
+interface LoginInfo {
+  user: User | null;
+}
+
+const Header = ({ loginInfo }: { loginInfo: LoginInfo }) => {
+  const user = useAuthStore((state) => state.user);
+  const saveUser = useAuthStore((state) => state.saveUser);
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
+  useEffect(() => {
+    if (loginInfo) {
+      saveUser(loginInfo.user);
+    } else {
+      saveUser(null);
+    }
+  }, [loginInfo, saveUser]);
+
   return (
-    <header className='bg-black bg-opacity-10 h-16 flex fixed z-20 top-0 items-center justify-between px-4 w-full mx-auto'>
+    <header className='bg-black bg-opacity-10 h-16 flex fixed z-20 top-0 items-center justify-between px-4 w-full mx-auto '>
       <div className='flex items-center space-x-4 justify-between'>
         <Link href='/'>
           <span className='font-bold text-4xl text-white cursor-pointer'>
@@ -43,11 +60,15 @@ const Header = () => {
       </nav>
       <div className='flex items-center space-x-2'>
         <FaUserCircle className='text-white w-6 h-6' />
-        <Link href='/login'>
-          <span className='text-white hover:text-gray-300 cursor-pointer'>
-            로그인
-          </span>
-        </Link>
+        {user ? (
+          <LogoutBtn />
+        ) : (
+          <Link href='/login'>
+            <span className='text-white hover:text-gray-300 cursor-pointer'>
+              로그인
+            </span>
+          </Link>
+        )}
         <button onClick={toggleMenu} className='md:hidden text-white'>
           <FaBars className='w-6 h-6' />
         </button>
