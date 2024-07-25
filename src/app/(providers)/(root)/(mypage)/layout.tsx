@@ -6,7 +6,7 @@ function Layout({ children }: { children: React.ReactNode }) {
     <Page>
       <div className='flex mt-44'>
         <MyPageSideBar />
-        <main className='flex-grow ml-48 w-96'>{children}</main>
+        <main className='flex-grow ml-36 w-96'>{children}</main>
       </div>
     </Page>
   );

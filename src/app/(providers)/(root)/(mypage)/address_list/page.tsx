@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { MdOutlineRadioButtonUnchecked } from 'react-icons/md';
 
 type Address = {
+  id: string;
   alias: string | null;
   postcode: string | null;
   address: string | null;
@@ -23,22 +24,22 @@ const AddressListPage: React.FC = () => {
   const supabase = createClient();
   const user = useAuthStore((state) => state.user);
 
+  const fetchAddresses = async () => {
+    if (!user || !user.id) return;
+
+    const { data, error } = await supabase
+      .from('addresses')
+      .select('*')
+      .eq('user_id', user.id);
+
+    if (error) {
+      console.error('Error fetching addresses:', error);
+    } else {
+      setAddresses(data);
+    }
+  };
+
   useEffect(() => {
-    const fetchAddresses = async () => {
-      if (!user || !user.id) return;
-
-      const { data, error } = await supabase
-        .from('addresses')
-        .select('*')
-        .eq('user_id', user.id);
-
-      if (error) {
-        console.error('Error fetching addresses:', error);
-      } else {
-        setAddresses(data);
-      }
-    };
-
     fetchAddresses();
   }, [supabase, user]);
 
@@ -46,11 +47,22 @@ const AddressListPage: React.FC = () => {
     setShowAddressAddModal(true);
   };
 
-  const handleAddAddress = (newAddress: Address) => {
-    setAddresses([...addresses, newAddress]);
+  const handleAddAddress = () => {
     setShowAddressAddModal(false);
+    fetchAddresses();
   };
 
+  const handleDeleteAddress = async (id: string) => {
+    try {
+      const { error } = await supabase.from('addresses').delete().eq('id', id);
+
+      if (error) throw error;
+
+      fetchAddresses();
+    } catch (error) {
+      console.error('삭제오류', error);
+    }
+  };
   return (
     <div>
       <div className='flex justify-between'>
@@ -67,19 +79,19 @@ const AddressListPage: React.FC = () => {
           </button>
         </div>
       </div>
-      <div className='flex gap-10 w-full text-center text-lg mt-3'>
-        <p className='ml-24'>주소별칭</p>
-        <p className='w-80 ml-6'>배송주소</p>
-        <p className='w-36 ml-8'>받으실분/연락처</p>
-        <p>관리</p>
+      <div className='flex gap-4 w-full text-center text-lg mt-3'>
+        <p className='w-40 text-end'>주소별칭</p>
+        <p className='flex-grow'>배송주소</p>
+        <p className='w-40'>받으실분/연락처</p>
+        <p className='w-24'>관리</p>
       </div>
       <div className='border-b-2 border-solid border-white mt-3'></div>
       {addresses.map((address, index) => (
         <div key={index}>
-          <div className='flex w-full text-center py-7 items-center'>
-            <MdOutlineRadioButtonUnchecked className='text-3xl ml-7 mr-7' />
-            <p className='text-lg w-28 text-center'>{address.alias}</p>
-            <div className='text-left text-xs w-80 ml-16 flex-grow'>
+          <div className='flex w-full text-center py-5 items-center'>
+            <MdOutlineRadioButtonUnchecked className='text-3xl w-20' />
+            <p className='text-lg w-24 text-center'>{address.alias}</p>
+            <div className='text-left text-xs w-96 ml-3 px-5'>
               <p>({address.postcode})</p>
               <p>
                 도로명 : {address.address} {address.detailAddress}
@@ -88,16 +100,20 @@ const AddressListPage: React.FC = () => {
                 지번 : {address.oldAddress} {address.detailAddress}
               </p>
             </div>
-            <div className='text-base'>
+            <div className='text-xs w-48'>
               <p className='mb-3'>{address.recipient}</p>
-              <p className='text-xs'>{address.phone}</p>
+              <p>{address.phone}</p>
             </div>
-            <div className='gap-3 flex justify-center ml-10 text-xs'>
-              <button className='bg-black-900 border-2 border-solid border-primary-600 p-2 rounded-md'>
+            <div className='gap-3 flex text-xs w-28 justify-end'>
+              <button className='bg-black-1000 border-2 border-solid border-primary-600 p-2 rounded-md h-8'>
                 수정
               </button>
-              <button className='bg-black-600 p-2 rounded-md'>삭제</button>
-              {/* 🎈 */}
+              <button
+                className='bg-black-600 p-2 rounded-md h-8'
+                onClick={() => handleDeleteAddress(address.id)}
+              >
+                삭제
+              </button>
             </div>
           </div>
           <div className='border-b-2 border-solid border-white mt-3'></div>

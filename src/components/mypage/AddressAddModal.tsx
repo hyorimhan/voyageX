@@ -3,7 +3,7 @@ import { IoMdClose } from 'react-icons/io';
 import AddressApiScript from './AddressApiScript';
 import { createClient } from '@/supabase/client';
 import useAuthStore from '@/zustand/store/useAuth';
-import themeObj from './AddressTheme';
+import AddressSearchModal from './AddressSearchModal';
 
 interface AddressAddModalProps {
   onClose: () => void;
@@ -30,6 +30,8 @@ const AddressAddModal: React.FC<AddressAddModalProps> = ({
   const [phoneError, setPhoneError] = useState<string>('');
   const [aliasError, setAliasError] = useState<string>('');
   const [recipientError, setRecipientError] = useState<string>('');
+  const [showAddressSearchModal, setShowAddressSearchModal] =
+    useState<boolean>(false);
 
   const supabase = createClient();
   const user = useAuthStore((state) => state.user);
@@ -52,17 +54,7 @@ const AddressAddModal: React.FC<AddressAddModalProps> = ({
     setNewAddress(newAddress);
     setOldAddress(oldAddress);
     setDetailAddress('');
-  };
-
-  const handlePostCode = () => {
-    if (window.daum && window.daum.Postcode) {
-      new window.daum.Postcode({
-        oncomplete: handleComplete,
-        theme: themeObj,
-      }).open();
-    } else {
-      console.error('스크립트 로드가 완료되지 않았습니다');
-    }
+    setShowAddressSearchModal(false);
   };
 
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -115,7 +107,14 @@ const AddressAddModal: React.FC<AddressAddModalProps> = ({
       return;
     }
 
-    if (!alias || !recipient || !phone || !postcode || !newAddress) {
+    if (
+      !alias ||
+      !recipient ||
+      !phone ||
+      !postcode ||
+      !newAddress ||
+      !oldAddress
+    ) {
       alert('작성하지 않은 항목이 있습니다.');
       return;
     }
@@ -128,12 +127,12 @@ const AddressAddModal: React.FC<AddressAddModalProps> = ({
     const newAddressData = {
       alias,
       postcode,
-      address: newAddress || oldAddress,
+      address: newAddress,
       oldAddress,
       detailAddress,
       recipient,
       phone,
-      user_id: user?.id,
+      user_id: user.id,
     };
 
     try {
@@ -210,7 +209,7 @@ const AddressAddModal: React.FC<AddressAddModalProps> = ({
               />
               <button
                 className='px-4 py-2 bg-white text-black-1000 text-sm rounded-lg w-48'
-                onClick={handlePostCode}
+                onClick={() => setShowAddressSearchModal(true)}
               >
                 우편번호 찾기
               </button>
@@ -230,6 +229,12 @@ const AddressAddModal: React.FC<AddressAddModalProps> = ({
           배송지 저장
         </button>
       </div>
+      {showAddressSearchModal && (
+        <AddressSearchModal
+          onComplete={handleComplete}
+          onClose={() => setShowAddressSearchModal(false)}
+        />
+      )}
     </div>
   );
 };
