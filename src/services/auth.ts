@@ -26,7 +26,7 @@ export const login = async ({ email, password }: formType) => {
   });
 
   const responseData = await response.json();
-  console.log('Response Data:', responseData);
+
   return responseData;
 };
 
@@ -46,6 +46,6 @@ export const signInWithKakao = async () => {
 };
 
 export const userLoginInfo = async () => {
-  const { data: userInfo } = await supabase.auth.getUser();
-  return userInfo;
+  const { data: loginInfo } = await supabase.auth.getUser();
+  return loginInfo;
 };
