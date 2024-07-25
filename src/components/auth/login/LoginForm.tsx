@@ -27,7 +27,7 @@ function LoginForm() {
       });
 
       saveUser(response.user);
-      router.replace('/');
+      // router.replace('/');
       return;
     }
   };
@@ -51,7 +51,7 @@ function LoginForm() {
         {...register('email', emailValidate())}
       />
 
-      <label htmlFor='password'>비밀번호</label>
+      <label htmlFor='password'>비밀번호*</label>
       <input
         type='password'
         id='password'

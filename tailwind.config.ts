@@ -11,6 +11,9 @@ const config: Config = {
       backgroundImage: {
         'custom-background': "url('/images/배경.png')",
       },
+      fontFamily: {
+        pretendard: ['Pretendard-Regular'],
+      },
       colors: {
         primary: {
           50: '#F0EDF7',
