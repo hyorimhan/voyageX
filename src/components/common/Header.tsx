@@ -1,6 +1,5 @@
 'use client';
 import useAuthStore from '@/zustand/store/useAuth';
-import { User } from '@supabase/supabase-js';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { FaUserCircle, FaBars } from 'react-icons/fa';
