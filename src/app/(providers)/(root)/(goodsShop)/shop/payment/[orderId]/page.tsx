@@ -1,17 +1,17 @@
 import Page from '@/components/pages/Page';
-import OrderForm from '@/components/shop/order/OrderForm';
+import PaymentWidget from '@/components/pay/PaymentWidget';
 
-const OrderPage = () => {
+const PaymentPage = () => {
   return (
     <>
       <Page>
         <h1 className='border-b-2 border-white text-lg font-bold text-white mt-20 py-4'>
           GOODS SHOP
         </h1>
-        <OrderForm />
+        <PaymentWidget />
       </Page>
     </>
   );
 };
 
-export default OrderPage;
+export default PaymentPage;
