@@ -6,7 +6,7 @@ interface ItemsInfoProps {
   setTotalPrice: Dispatch<SetStateAction<number>>;
 }
 
-function ItemsInfo() {
+function ItemsInfo({ setTotalPrice }: ItemsInfoProps) {
   const itemList = [
     {
       id: '1',
@@ -27,6 +27,12 @@ function ItemsInfo() {
       quantity: 2,
     },
   ];
+
+  useEffect(() => {
+    setTotalPrice(
+      itemList.reduce((total, item) => (total = item.price * item.quantity), 0),
+    );
+  });
 
   return (
     <>

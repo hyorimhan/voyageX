@@ -6,27 +6,38 @@ import PayButton from './PayButton';
 import ItemsInfo from './ItemsInfo';
 import CustomerInfo from './CustomerInfo';
 
-export type AddressType = {
-  id: string;
-  user_id: string;
-  contact: string;
+export type Address = {
+  alias: string;
+  postcode: string;
   address: string;
-  address_name: string;
-  email: string;
+  oldAddress: string;
+  detailAddress: string;
+  recipient: string;
+  phone: string;
+};
+
+export type Customer = {
+  customerName: string;
+  customerPhone: string;
+  customerEmail: string;
 };
 
 function OrderForm() {
-  const [expressInfo, setExpressInfo] = useState({
-    id: '1',
-    user_id: 'gusdnr',
-    contact: '010-1234-1234',
-    address: '무슨시 무슨구',
-    address_name: '집',
-    email: 'abc123@abc.com',
+  const user_email = 'gusdnr0839@gmail.com';
+  const [expressInfo, setExpressInfo] = useState<Address>({
+    alias: '집',
+    postcode: '52453',
+    address: '경남 남해군 창선면 창선로94번길 11-2 (상죽리)',
+    oldAddress: '경남 남해군 창선면 상죽리 80',
+    detailAddress: '초록색대문',
+    recipient: 'gusdnr',
+    phone: '010-1234-1234',
   });
-  const [customerName, setCustomerName] = useState(expressInfo.user_id);
-  const [phoneNumber, setPhoneNumber] = useState(expressInfo.contact);
-  const [email, setEmail] = useState(expressInfo.email);
+  const [customerInfo, setCustomerInfo] = useState<Customer>({
+    customerName: expressInfo.recipient,
+    customerPhone: expressInfo.phone,
+    customerEmail: 'gusdnr0839@gmail.com',
+  });
   const [totalPrice, setTotalPrice] = useState(0);
 
   const handleSubmitOrderForm: React.FormEventHandler<HTMLFormElement> = (
@@ -37,27 +48,36 @@ function OrderForm() {
   };
 
   useEffect(() => {
-    setCustomerName(expressInfo.user_id);
-    setPhoneNumber(expressInfo.contact);
-    setEmail(expressInfo.email);
+    setCustomerInfo((prev) => ({
+      ...prev,
+      customerName: expressInfo.recipient,
+      customerPhone: expressInfo.phone,
+      customerEmail: user_email,
+    }));
   }, [expressInfo]);
 
   return (
     <>
-      <div className='grid grid-cols-[minmax(0,1fr)_minmax(0,0.3fr)] gap-x-4'>
+      <div className='grid grid-cols-[minmax(0,1fr)_minmax(0,0.3fr)] gap-x-10'>
         <div className='flex flex-col items-start'>
           <div className='mt-4 w-full'>
-            <ExpressInfo setExpressInfo={setExpressInfo} />
+            <ExpressInfo
+              expressInfo={expressInfo}
+              setExpressInfo={setExpressInfo}
+            />
           </div>
           <div className='mt-4 w-full'>
-            <CustomerInfo />
+            <CustomerInfo
+              customerInfo={customerInfo}
+              setCustomerInfo={setCustomerInfo}
+            />
           </div>
           <div className='mt-4 w-full'>
-            <ItemsInfo />
+            <ItemsInfo setTotalPrice={setTotalPrice} />
           </div>
         </div>
         <div>
-          <PayButton />
+          <PayButton totalPrice={totalPrice} />
         </div>
       </div>
     </>

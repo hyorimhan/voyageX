@@ -1,8 +1,10 @@
+import { Dispatch, SetStateAction } from 'react';
+
 interface PayButtonProps {
   totalPrice: number;
 }
 
-function PayButton() {
+function PayButton({ totalPrice }: PayButtonProps) {
   return (
     <>
       <div className='border-2 border-white p-4 rounded-lg mt-4'>
@@ -10,11 +12,11 @@ function PayButton() {
           <span className='text-xl'>주문요약</span>
         </div>
         <div className='flex flex-col items-start gap-4'>
-          <p>{`총 주문 금액 60,200`}</p>
-          <p className='border-b-2 border-white w-full pb-4'>{`총 배송비 3,000`}</p>
           <div>
             <span>{`총 결제 금액 `}</span>
-            <span className='text-primary-400'>63,200</span>
+            <span className='text-primary-400'>
+              {totalPrice.toLocaleString()}
+            </span>
           </div>
         </div>
       </div>
@@ -28,7 +30,7 @@ function PayButton() {
         </div>
       </div>
       <button className='bg-[#4D367C] rounded-md p-4 w-full mt-4 text-lg'>
-        {`63,200 결제하기`}
+        {`${totalPrice.toLocaleString()} 결제하기`}
       </button>
     </>
   );

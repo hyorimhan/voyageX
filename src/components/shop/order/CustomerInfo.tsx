@@ -1,4 +1,14 @@
-function CustomerInfo() {
+import { Dispatch, SetStateAction } from 'react';
+import { Address, Customer } from './OrderForm';
+
+interface CustomerInfoProps {
+  customerInfo: Customer;
+  setCustomerInfo: Dispatch<SetStateAction<Customer>>;
+}
+
+function CustomerInfo({ customerInfo, setCustomerInfo }: CustomerInfoProps) {
+  const user_id = 'gusdnr0839@gmail.com';
+
   return (
     <>
       <div className='border-2 border-white rounded-lg p-4'>
@@ -7,14 +17,12 @@ function CustomerInfo() {
         </div>
         <div className='flex flex-row items-start justify-between'>
           <div>
-            <p>김철수</p>
-            <p>010-1234-5678</p>
-            <p>voyageX@gmail.com</p>
+            <p>{customerInfo?.customerName}</p>
+            <p>{customerInfo?.customerPhone}</p>
+            <p>{customerInfo?.customerEmail}</p>
           </div>
           <div>
-            <button className='bg-primary-400 rounded-lg p-2'>
-              배송지 변경
-            </button>
+            <button className='bg-primary-400 rounded-lg p-2'>정보 변경</button>
           </div>
         </div>
       </div>
