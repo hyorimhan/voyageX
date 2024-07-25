@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Address, Customer, ItemList } from './OrderForm';
 import { useRouter } from 'next/navigation';
 import { customAlphabet } from 'nanoid';
+import toast from 'react-hot-toast';
 
 interface PayButtonProps {
   expressInfo: Address;
@@ -22,7 +23,10 @@ function PayButton({
   const [isAgree, setIsAgree] = useState(false);
 
   const handleClickPayButton = () => {
-    if (!isAgree) return alert('약관에 동의하셔야합니다.');
+    if (!isAgree) {
+      toast.error('약관에 동의하셔야합니다!');
+      return;
+    }
     const today = new Date();
     const year = today.getFullYear().toString().slice(-2);
     const month = (today.getMonth() + 1).toString().padStart(2, '0');
