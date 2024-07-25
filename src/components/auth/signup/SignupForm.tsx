@@ -51,41 +51,56 @@ function SignupForm() {
 
   return (
     <>
-      <div>
+      <div className='flex flex-col items-end '>
         <div>회원가입</div>
-        <form
-          onSubmit={handleSubmit(joinForm, handleError)}
-          className='flex flex-col items-end'
-        >
-          <div>
-            <label htmlFor='email' className='flex'>
-              이메일*
-            </label>
+
+        <form onSubmit={handleSubmit(joinForm, handleError)}>
+          <div className='flex flex-col'>
+            <label htmlFor='email'>이메일*</label>
             <input
               id='email'
               type='email'
-              placeholder='email@email.com'
+              placeholder='예) voyageX@gmail.com'
               {...register('email', emailValidate())}
-              className='text-black-900'
+              className='text-black-900 w-[500px] h-16  rounded-lg p-2 '
             />
           </div>
 
-          <label htmlFor='password'>비밀번호*</label>
-          <input
-            id='password'
-            type='password'
-            {...register('password', passwordValidate())}
-            className='text-black-900'
-          />
+          <div className='flex flex-col mt-4'>
+            <label htmlFor='password'>비밀번호*</label>
+            <input
+              id='password'
+              type='password'
+              placeholder='영문, 숫자, 특수문자 조합 8-16자'
+              {...register('password', passwordValidate())}
+              className='text-black-900 w-[500px] h-16  rounded-lg p-2'
+            />
+          </div>
 
-          <label htmlFor='passwordConfirm'>비밀번호 확인*</label>
-          <input
-            id='passwordConfirm'
-            type='password'
-            {...register('passwordConfirm', passwordConfirmValidate(password))}
-            className='text-black-900'
-          />
-          <button type='submit'>회원가입</button>
+          <div className='flex flex-col my-3'>
+            <label htmlFor='passwordConfirm'></label>
+            <input
+              id='passwordConfirm'
+              type='password'
+              placeholder='비밀번호를 다시 한번 입력해주세요'
+              {...register(
+                'passwordConfirm',
+                passwordConfirmValidate(password),
+              )}
+              className='text-black-900 w-[500px] h-16 rounded-lg p-2'
+            />
+          </div>
+          <div>전체동의</div>
+          <div className='flex flex-row'>
+            <input type='checkbox' id='checkbox' />
+            <label htmlFor='checkbox'> 만 14세 이상입니다</label>
+          </div>
+          <button
+            type='submit'
+            className='bg-purple-300 w-[500px] h-16 rounded-lg p-2'
+          >
+            회원가입
+          </button>
         </form>
       </div>
     </>

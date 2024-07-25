@@ -7,11 +7,7 @@ import { FaUserCircle, FaBars } from 'react-icons/fa';
 import LogoutBtn from '@/components/auth/logout/LogoutBtn';
 import { userLoginInfo } from '@/services/auth';
 
-interface LoginInfo {
-  user: User | null;
-}
-
-const Header = ({ loginInfo }: { loginInfo: LoginInfo }) => {
+const Header = () => {
   const user = useAuthStore((state) => state.user);
   const saveUser = useAuthStore((state) => state.saveUser);
 
@@ -24,7 +20,6 @@ const Header = ({ loginInfo }: { loginInfo: LoginInfo }) => {
   useEffect(() => {
     userLoginInfo().then((res) => {
       saveUser(res.user);
-      console.log(res);
     });
   }, []);
 
