@@ -1,18 +1,15 @@
 'use client';
 import useAuthStore from '@/zustand/store/useAuth';
-import { User } from '@supabase/supabase-js';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { FaUserCircle, FaBars } from 'react-icons/fa';
 import LogoutBtn from '@/components/auth/logout/LogoutBtn';
+import { userLoginInfo } from '@/services/auth';
 
-interface LoginInfo {
-  user: User | null;
-}
-
-const Header = ({ loginInfo }: { loginInfo: LoginInfo }) => {
+const Header = () => {
   const user = useAuthStore((state) => state.user);
   const saveUser = useAuthStore((state) => state.saveUser);
+
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -20,12 +17,10 @@ const Header = ({ loginInfo }: { loginInfo: LoginInfo }) => {
   };
 
   useEffect(() => {
-    if (loginInfo) {
-      saveUser(loginInfo.user);
-    } else {
-      saveUser(null);
-    }
-  }, [loginInfo, saveUser]);
+    userLoginInfo().then((res) => {
+      saveUser(res.user);
+    });
+  }, []);
 
   return (
     <header className='bg-black bg-opacity-10 h-16 flex fixed z-20 top-0 items-center justify-between px-4 w-full mx-auto '>
