@@ -1,5 +1,4 @@
 'use client';
-import Header from '@/components/common/Header';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import React, { useEffect, useRef, useState } from 'react';
@@ -99,7 +98,6 @@ const MainPage = () => {
 
   return (
     <div className='w-full'>
-      <Header />
       <section
         ref={(el) => {
           sectionsRef.current[0] = el as HTMLDivElement;
