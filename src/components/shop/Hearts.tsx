@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { IoMdHeart } from 'react-icons/io';
 
 function Hearts() {
   const [isClicked, setIsClicked] = useState(false);
@@ -10,7 +11,7 @@ function Hearts() {
         className='cursor-pointer'
         onClick={() => setIsClicked((prev) => !prev)}
       >
-        {isClicked ? '♥️' : '♡'}
+        {isClicked ? <IoMdHeart /> : '♡'}
       </span>
     </>
   );
