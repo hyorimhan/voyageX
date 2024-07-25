@@ -1,11 +1,16 @@
+'use client';
+
 import { Address } from './OrderForm';
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 
 interface AddressChangeModal {
   setExpressInfo: Dispatch<SetStateAction<Address>>;
 }
 
 function AddressChangeModal({ setExpressInfo }: AddressChangeModal) {
+  const [selectedAddress, setSelectedAddress] = useState<string>(
+    '경남 남해군 창선면 창선로94번길 11-2 (상죽리)',
+  );
   const addresses: Address[] = [
     {
       alias: '집',
@@ -28,6 +33,7 @@ function AddressChangeModal({ setExpressInfo }: AddressChangeModal) {
   ];
 
   const handleSelectAddress = (address: Address) => {
+    setSelectedAddress(address.address);
     setExpressInfo(address);
   };
 
@@ -46,7 +52,12 @@ function AddressChangeModal({ setExpressInfo }: AddressChangeModal) {
             <div className='ml-7 mr-7 w-8 h-8'>
               <div
                 onClick={() => handleSelectAddress(address)}
-                className='text-3xl w-full h-full rounded-full border-2 border-white cursor-pointer'
+                className={`text-3xl w-full h-full rounded-full border-2 border-white cursor-pointer
+                  ${
+                    selectedAddress?.includes(address.address)
+                      ? 'bg-white'
+                      : 'bg-transparent'
+                  }`}
               ></div>
             </div>
             <p className='text-lg w-28 text-center'>{address.alias}</p>
