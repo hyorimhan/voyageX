@@ -19,7 +19,7 @@ function AddressChangeModal({ setExpressInfo }: AddressChangeModal) {
       oldAddress: '경남 남해군 창선면 상죽리 80',
       detailAddress: '초록색대문',
       recipient: 'gusdnr',
-      phone: '01012341234',
+      phone: '010-1234-1234',
     },
     {
       alias: '광화문',
@@ -28,7 +28,7 @@ function AddressChangeModal({ setExpressInfo }: AddressChangeModal) {
       oldAddress: '세종로 1-57',
       detailAddress: '',
       recipient: '세종대왕',
-      phone: '01056789101',
+      phone: '010-5678-9101',
     },
   ];
 

@@ -44,7 +44,7 @@ function PayButton({
       orderId,
       orderName: `${customerInfo.customerName}님의 주문`,
       customerName: customerInfo.customerName,
-      customerMobilePhone: customerInfo.customerPhone,
+      customerMobilePhone: customerInfo.customerPhone.split('-').join(''),
       itemInfo: `${itemList.map((item) => item.name)}`,
       totalPrice,
     };
@@ -88,7 +88,7 @@ function PayButton({
       </div>
       <button
         onClick={handleClickPayButton}
-        className='bg-[#4D367C] rounded-md p-4 w-full mt-4 text-lg'
+        className='bg-primary-400 rounded-md p-4 w-full mt-4 text-lg'
       >
         {`${totalPrice.toLocaleString()} 결제하기`}
       </button>

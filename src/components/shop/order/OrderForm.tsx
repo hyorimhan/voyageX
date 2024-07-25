@@ -63,7 +63,7 @@ function OrderForm() {
     oldAddress: '경남 남해군 창선면 상죽리 80',
     detailAddress: '초록색대문',
     recipient: 'gusdnr',
-    phone: '01012341234',
+    phone: '010-1234-1234',
   });
   const [customerInfo, setCustomerInfo] = useState<Customer>({
     customerName: expressInfo.recipient,
