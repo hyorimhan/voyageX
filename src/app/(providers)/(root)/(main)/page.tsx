@@ -11,8 +11,8 @@ const MainPage = () => {
   const sectionsRef = useRef<(HTMLDivElement | null)[]>([]);
   const planetsRef = useRef<(HTMLDivElement | null)[]>([]);
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  const [videoLoaded, setVideoLoaded] = useState(false);
-  const [currentSlide, setCurrentSlide] = useState(0);
+  const [videoLoaded, setVideoLoaded] = useState<boolean>(false);
+  const [currentSlide, setCurrentSlide] = useState<number>(0);
 
   const planets = [
     '/images/화성.png',
@@ -20,20 +20,17 @@ const MainPage = () => {
     '/images/화성.png',
     '/images/화성.png',
     '/images/화성.png',
-    '/images/화성.png',
   ];
 
-  // 다음 슬라이드
-  const handleNextSlide = () => {
+  const handleNextSlide = () => { // 다음 슬라이드 핸들
     setCurrentSlide((prev) => (prev + 1) % planets.length);
   };
 
-  // 이전 슬라이드
-  const handlePrevSlide = () => {
+  const handlePrevSlide = () => { // 이전 슬라이드 핸들
     setCurrentSlide((prev) => (prev - 1 + planets.length) % planets.length);
   };
 
-  // 비디오 로드됐는지 확인
+  // 비디오 로드 확인
   useEffect(() => {
     if (videoRef.current) {
       const videoElement = videoRef.current;
@@ -46,7 +43,7 @@ const MainPage = () => {
     }
   }, []);
 
-  // 비디오 로드 후 섹션을 ScrollTrigger로 설정
+  // 비디오 로드 후 섹션에 ScrollTrigger로 설정
   useEffect(() => {
     if (videoLoaded) {
       sectionsRef.current.forEach((section) => {
@@ -64,27 +61,41 @@ const MainPage = () => {
     }
   }, [videoLoaded]);
 
-  // 슬라이드 시 행성 선택 애니메이션
+  // 슬라이드 행성 애니메이션
   useEffect(() => {
-    planetsRef.current.forEach((planet, index) => {
-      if (planet) {
-        const isActive = index === currentSlide;
-        const xPos = (index - currentSlide) * 300; // 행성 위치
-        const scale = isActive ? 1.5 : 1;
-        const zIndex = isActive ? 10 : 0;
-        const opacity = isActive ? 1 : 0.5;
+    const animatePlanets = () => {
+      const radiusX = 300; // 타원형 X축 반경
+      const radiusY = 150; // 타원형 Y축 반경
+      const angleStep = (2 * Math.PI) / planets.length; // 각 행성 사이의 각도
+      const offsetAngle = currentSlide * angleStep; // 선택된 행성을 중앙에 두기 위한 오프셋
 
-        gsap.to(planet, {
-          x: xPos,
-          scale: scale,
-          zIndex: zIndex,
-          opacity: opacity,
-          duration: 1,
-          ease: 'power2.inOut',
-        });
-      }
-    });
-  }, [currentSlide]);
+      planetsRef.current.forEach((planet, index) => {
+        if (planet) {
+          const angle = index * angleStep - offsetAngle; // 각 행성의 위치 계산
+          const xPos = radiusX * Math.sin(angle); // x 좌표
+          const yPos = radiusY * Math.cos(angle); // y 좌표
+          const isActive = index === currentSlide;
+          const scale = isActive ? 1.5 : 1;
+          const zIndex = isActive ? 10 : 0;
+          const opacity = isActive ? 1 : 0.5;
+
+          gsap.to(planet, {
+            x: xPos,
+            y: yPos,
+            scale: scale,
+            zIndex: zIndex,
+            opacity: opacity,
+            duration: 1,
+            ease: 'power2.inOut',
+          });
+        }
+      });
+    };
+
+    if (videoLoaded) {
+      animatePlanets();
+    }
+  }, [currentSlide, videoLoaded]);
 
   return (
     <div className='w-full'>
@@ -104,7 +115,9 @@ const MainPage = () => {
           muted
         />
         <div className='absolute z-10 text-center top-48 sm:w-auto sm:text-left sm:left-48 md:left-40 lg:left-52 xl:left-64'>
-          <h1 className='text-gradient text-6xl font-bold'>Voyage X</h1>
+          <h1 className='text-gradient text-6xl font-bold font-yangpyeong'>
+            Voyage X
+          </h1>
           <p className='text-white p-4 text-3xl'>
             상상을 현실로, 우주에서의 만남
           </p>
@@ -137,7 +150,10 @@ const MainPage = () => {
                 ref={(el) => {
                   planetsRef.current[index] = el as HTMLDivElement;
                 }}
-                className='planet absolute w-80 h-80 flex items-center justify-center'
+                className='absolute w-32 h-32 transform-gpu'
+                style={{
+                  transform: `translate3d(${300 * Math.sin((index - currentSlide) * (2 * Math.PI) / planets.length)}px, ${200 * Math.cos((index - currentSlide) * (2 * Math.PI) / planets.length)}px, 0)`
+                }}
               >
                 <Image
                   src={planet}
@@ -154,6 +170,9 @@ const MainPage = () => {
           >
             →
           </button>
+        </div>
+        <div className='absolute top-44 left-16 text-white font-yangpyeong text-4xl font-bold'>
+          Let's Find Popular Planets!
         </div>
       </section>
     </div>
