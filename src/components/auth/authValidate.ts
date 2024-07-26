@@ -21,3 +21,7 @@ export const passwordConfirmValidate = (password: string) => ({
       ? true
       : '비밀번호, 비밀번호 확인 값을 다시 입력해주세요',
 });
+
+export const checkboxValidate = () => ({
+  required: '필수입니다',
+});
