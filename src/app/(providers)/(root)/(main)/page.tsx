@@ -74,10 +74,12 @@ const MainPage = () => {
           const adjustedIndex = (index + (planets.length - Math.floor(visiblePlanetsCount / 2))) % planets.length;
           const angle = (adjustedIndex - currentSlide) * angleStep; // 각 행성의 위치 계산
           const xPos = radius * Math.sin(angle); // x 좌표 
-          const yPos = 0; // y 좌표 (수평으로 회전)
+          const yPos = 0; // y 좌표
           const zPos = radius * Math.cos(angle); // z 좌표
-          const isVisible = (index >= currentSlide && index < currentSlide + visiblePlanetsCount) || (index < currentSlide && index + planets.length < currentSlide + visiblePlanetsCount);
-          const isActive = index === (currentSlide + Math.floor(visiblePlanetsCount / 2)) % planets.length;
+          const isVisible = (index >= currentSlide && index < currentSlide + visiblePlanetsCount)// 
+          // visiblePlanetsCount 개수만큼 행성이 보이도록 조건식
+          || (index < currentSlide && index + planets.length < currentSlide + visiblePlanetsCount); 
+          const isActive = index === (currentSlide + Math.floor(visiblePlanetsCount / 2)) % planets.length; 
           const scale = isActive ? 2 : 1;
           const zIndex = isActive ? 10 : 0;
           const opacity = isVisible ? (isActive ? 1 : 0.5) : 0;
