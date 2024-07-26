@@ -3,38 +3,36 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
-import useAuthStore from '@/zustand/store/useAuth';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const MainPage = () => {
-  const user = useAuthStore((state) => state.user);
   const sectionsRef = useRef<(HTMLDivElement | null)[]>([]);
   const planetsRef = useRef<(HTMLDivElement | null)[]>([]);
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  const [videoLoaded, setVideoLoaded] = useState(false);
-  const [currentSlide, setCurrentSlide] = useState(0);
+  const [videoLoaded, setVideoLoaded] = useState<boolean>(false);
+  const [currentSlide, setCurrentSlide] = useState<number>(0);
 
   const planets = [
     '/images/화성.png',
-    '/images/화성.png',
-    '/images/화성.png',
-    '/images/화성.png',
-    '/images/화성.png',
-    '/images/화성.png',
+    '/images/jupiter.png',
+    '/images/달.png',
+    '/images/케레스.png',
+    '/images/pluto.png',
+    '/images/neptune.png',
   ];
 
-  // 다음 슬라이드
+  const visiblePlanetsCount = 3; // 처음에 보일 행성 수
+
   const handleNextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % planets.length);
   };
 
-  // 이전 슬라이드
   const handlePrevSlide = () => {
     setCurrentSlide((prev) => (prev - 1 + planets.length) % planets.length);
   };
 
-  // 비디오 로드됐는지 확인
+  // 비디오 로드 확인
   useEffect(() => {
     if (videoRef.current) {
       const videoElement = videoRef.current;
@@ -47,7 +45,7 @@ const MainPage = () => {
     }
   }, []);
 
-  // 비디오 로드 후 섹션을 ScrollTrigger로 설정
+  // 비디오 로드 후 섹션에 ScrollTrigger로 설정
   useEffect(() => {
     if (videoLoaded) {
       sectionsRef.current.forEach((section) => {
@@ -65,27 +63,53 @@ const MainPage = () => {
     }
   }, [videoLoaded]);
 
-  // 슬라이드 시 행성 선택 애니메이션
+  // 슬라이드 행성 애니메이션
   useEffect(() => {
-    planetsRef.current.forEach((planet, index) => {
-      if (planet) {
-        const isActive = index === currentSlide;
-        const xPos = (index - currentSlide) * 300; // 행성 위치
-        const scale = isActive ? 1.5 : 1;
-        const zIndex = isActive ? 10 : 0;
-        const opacity = isActive ? 1 : 0.5;
+    const animatePlanets = () => {
+      const radius = 500; // 고리 반경
+      const angleStep = (2 * Math.PI) / planets.length; // 각 행성 사이의 각도
 
-        gsap.to(planet, {
-          x: xPos,
-          scale: scale,
-          zIndex: zIndex,
-          opacity: opacity,
-          duration: 1,
-          ease: 'power2.inOut',
-        });
-      }
-    });
-  }, [currentSlide]);
+      planetsRef.current.forEach((planet, index) => {
+        if (planet) {
+          const adjustedIndex =
+            (index + (planets.length - Math.floor(visiblePlanetsCount / 2))) %
+            planets.length;
+          const angle = (adjustedIndex - currentSlide) * angleStep; // 각 행성의 위치 계산
+          const xPos = radius * Math.sin(angle); // x 좌표
+          const yPos = 0; // y 좌표
+          const zPos = radius * Math.cos(angle); // z 좌표
+          const isVisible =
+            (index >= currentSlide &&
+              index < currentSlide + visiblePlanetsCount) || //
+            // visiblePlanetsCount 개수만큼 행성이 보이도록 조건식
+            (index < currentSlide &&
+              index + planets.length < currentSlide + visiblePlanetsCount);
+          const isActive =
+            index ===
+            (currentSlide + Math.floor(visiblePlanetsCount / 2)) %
+              planets.length;
+          const scale = isActive ? 2 : 1;
+          const zIndex = isActive ? 10 : 0;
+          const opacity = isVisible ? (isActive ? 1 : 0.5) : 0;
+
+          gsap.to(planet, {
+            x: xPos,
+            y: yPos,
+            z: zPos,
+            scale: scale,
+            zIndex: zIndex,
+            opacity: opacity,
+            duration: 1,
+            ease: 'power2.inOut',
+          });
+        }
+      });
+    };
+
+    if (videoLoaded) {
+      animatePlanets();
+    }
+  }, [currentSlide, videoLoaded]);
 
   return (
     <div className='w-full'>
@@ -104,7 +128,9 @@ const MainPage = () => {
           muted
         />
         <div className='absolute z-10 text-center top-48 sm:w-auto sm:text-left sm:left-48 md:left-40 lg:left-52 xl:left-64'>
-          <h1 className='text-gradient text-6xl font-bold'>Voyage X</h1>
+          <h1 className='text-gradient text-6xl font-bold font-yangpyeong'>
+            Voyage X
+          </h1>
           <p className='text-white p-4 text-3xl'>
             상상을 현실로, 우주에서의 만남
           </p>
@@ -131,22 +157,56 @@ const MainPage = () => {
             ←
           </button>
           <div className='slider-container relative flex items-center justify-center'>
-            {planets.map((planet, index) => (
-              <div
-                key={index}
-                ref={(el) => {
-                  planetsRef.current[index] = el as HTMLDivElement;
-                }}
-                className='planet absolute w-80 h-80 flex items-center justify-center'
-              >
-                <Image
-                  src={planet}
-                  alt={`Planet ${index + 1}`}
-                  layout='fill'
-                  objectFit='contain'
-                />
-              </div>
-            ))}
+            {planets.map((planet, index) => {
+              const isVisible =
+                (index >= currentSlide &&
+                  index < currentSlide + visiblePlanetsCount) ||
+                (index < currentSlide &&
+                  index + planets.length < currentSlide + visiblePlanetsCount);
+              const adjustedIndex =
+                (index +
+                  (planets.length - Math.floor(visiblePlanetsCount / 2))) %
+                planets.length;
+              const isActive =
+                adjustedIndex ===
+                (currentSlide + Math.floor(visiblePlanetsCount / 2)) %
+                  planets.length;
+              return (
+                <div
+                  key={index}
+                  ref={(el) => {
+                    planetsRef.current[index] = el as HTMLDivElement;
+                  }}
+                  className={`absolute w-24 h-24 transform-gpu transition-opacity duration-500 ${
+                    isVisible ? 'opacity-100' : 'opacity-0'
+                  }`}
+                  style={{
+                    transform: `translate3d(${
+                      500 *
+                      Math.sin(
+                        ((adjustedIndex - currentSlide) * (2 * Math.PI)) /
+                          planets.length,
+                      )
+                    }px, 0, ${
+                      500 *
+                      Math.cos(
+                        ((adjustedIndex - currentSlide) * (2 * Math.PI)) /
+                          planets.length,
+                      )
+                    }px) scale(${isActive ? 2 : 1})`,
+                    zIndex: isActive ? 10 : 0,
+                    opacity: isVisible ? (isActive ? 1 : 0.5) : 0,
+                  }}
+                >
+                  <Image
+                    src={planet}
+                    alt={`Planet ${index + 1}`}
+                    layout='fill'
+                    objectFit='contain'
+                  />
+                </div>
+              );
+            })}
           </div>
           <button
             onClick={handleNextSlide}
@@ -154,6 +214,9 @@ const MainPage = () => {
           >
             →
           </button>
+        </div>
+        <div className='absolute top-44 left-16 text-white font-yangpyeong text-4xl font-bold'>
+          Let's Find Popular Planets!
         </div>
       </section>
     </div>
