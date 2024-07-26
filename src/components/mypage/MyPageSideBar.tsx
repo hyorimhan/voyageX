@@ -1,13 +1,17 @@
 'use client';
 
+import useAuthStore from '@/zustand/store/useAuth';
 import Link from 'next/link';
 import { IoMdHeart } from 'react-icons/io';
 
 const MyPageSideBar = () => {
+  const user = useAuthStore((state) => state.user);
+  const emailId = user?.email ? user.email.split('@')[0] : '비회원';
+
   return (
     <div className='w-fit sticky top-0 p-5'>
       <div className='mb-10'>
-        <p>아이디</p>
+        <p className='text-2xl'>{emailId}</p>
         <p className='flex flex-row items-center'>
           작성글 수 5 |<IoMdHeart className='ml-1' /> 35
         </p>
