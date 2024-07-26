@@ -96,9 +96,6 @@ function GoodsList() {
                 src={item.img}
                 alt={item.description}
               />
-              <div className='absolute right-3 bottom-2'>
-                <Hearts />
-              </div>
             </div>
             <div className='p-2'>
               <p className='flex justify-start text-base'>{item.name}</p>
@@ -113,6 +110,7 @@ function GoodsList() {
                     무료배송
                   </div>
                 </div>
+                <Hearts />
               </div>
             </div>
           </li>
