@@ -1,17 +1,29 @@
 'use client';
+import useAuthStore from '@/zustand/store/useAuth';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaUserCircle, FaBars } from 'react-icons/fa';
+import LogoutBtn from '@/components/auth/logout/LogoutBtn';
+import { userLoginInfo } from '@/services/auth';
 
 const Header = () => {
+  const user = useAuthStore((state) => state.user);
+  const saveUser = useAuthStore((state) => state.saveUser);
+
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
+  useEffect(() => {
+    userLoginInfo().then((res) => {
+      saveUser(res.user);
+    });
+  }, []);
+
   return (
-    <header className='bg-black bg-opacity-10 h-16 flex fixed z-20 top-0 items-center justify-between px-4 w-full mx-auto'>
+    <header className='bg-black bg-opacity-10 h-16 flex fixed z-20 top-0 items-center justify-between px-4 w-full mx-auto '>
       <div className='flex items-center space-x-4 justify-between'>
         <Link href='/'>
           <span className='font-bold text-4xl text-white cursor-pointer'>
@@ -20,12 +32,12 @@ const Header = () => {
         </Link>
       </div>
       <nav className='hidden md:flex items-center space-x-12 text-lg'>
-        <Link href='/travel'>
+        <Link href='/tour'>
           <span className='text-white hover:text-gray-300 cursor-pointer'>
             여행 상품
           </span>
         </Link>
-        <Link href='/goodsShop'>
+        <Link href='/shop'>
           <span className='text-white hover:text-gray-300 cursor-pointer'>
             굿즈샵
           </span>
@@ -35,7 +47,7 @@ const Header = () => {
             커뮤니티
           </span>
         </Link>
-        <Link href='/mypage'>
+        <Link href='/address_list'>
           <span className='text-white hover:text-gray-300 cursor-pointer'>
             마이 페이지
           </span>
@@ -43,11 +55,15 @@ const Header = () => {
       </nav>
       <div className='flex items-center space-x-2'>
         <FaUserCircle className='text-white w-6 h-6' />
-        <Link href='/login'>
-          <span className='text-white hover:text-gray-300 cursor-pointer'>
-            로그인
-          </span>
-        </Link>
+        {user ? (
+          <LogoutBtn />
+        ) : (
+          <Link href='/login'>
+            <span className='text-white hover:text-gray-300 cursor-pointer'>
+              로그인
+            </span>
+          </Link>
+        )}
         <button onClick={toggleMenu} className='md:hidden text-white'>
           <FaBars className='w-6 h-6' />
         </button>
