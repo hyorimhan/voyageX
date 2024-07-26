@@ -8,9 +8,9 @@ function TabSelector() {
   const [selectedTab, setSelectedTab] = useState('LikedGoods');
   return (
     <>
-      <div className='flex flex-row justify-evenly w-full mb-8 border-b-2 border-white'>
+      <div className='flex flex-row justify-evenly w-full mb-8 border-b-2 border-white text-black-50'>
         <div
-          className={`w-1/2 flex justify-center ${
+          className={`w-1/2 flex justify-center pb-1 ${
             selectedTab === 'LikedGoods'
               ? 'border-b-4 border-white'
               : 'border-none'
@@ -24,7 +24,7 @@ function TabSelector() {
           </button>
         </div>
         <div
-          className={`w-1/2 flex justify-center ${
+          className={`w-1/2 flex justify-center pb-1 ${
             selectedTab === 'MyCart' ? 'border-b-4 border-white' : 'border-none'
           }`}
         >

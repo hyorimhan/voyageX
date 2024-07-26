@@ -49,7 +49,7 @@ function MyCart() {
           {cartList.map((item) => (
             <li
               key={item.id}
-              className='border-2 border-white p-4 rounded-lg grid grid-cols-[minmax(0,0.2fr)_minmax(0,0.5fr)_minmax(0,1.2fr)_minmax(0,1fr)_minmax(0,0.5fr)]'
+              className='border-2 border-black-50 p-4 rounded-lg grid grid-cols-[minmax(0,0.2fr)_minmax(0,0.5fr)_minmax(0,1.2fr)_minmax(0,1fr)_minmax(0,0.5fr)]'
             >
               <button className='w-5 h-5 border-2 border-black-50 rounded self-center'></button>
               <div className='w-20 h-24 self-center'>
@@ -68,7 +68,9 @@ function MyCart() {
                 <button>+</button>
               </div>
               <div className='self-center'>
-                <span className='text-base'>{item.가격.toLocaleString()}</span>
+                <span className='text-base'>
+                  {item.가격.toLocaleString()}원
+                </span>
               </div>
             </li>
           ))}
@@ -77,21 +79,21 @@ function MyCart() {
           <div className='flex flex-row justify-evenly p-4'>
             <div className='flex flex-col items-center'>
               <span className='text-base'>총 주문금액</span>
-              <span className='text-lg'>100,000</span>
+              <span className='text-lg'>100,000원</span>
             </div>
             <div className='self-center'>
               <span className='text-lg'>+</span>
             </div>
             <div className='flex flex-col items-center'>
               <span className='text-base'>총 배송비</span>
-              <span className='text-lg'>0</span>
+              <span className='text-lg'>0원</span>
             </div>
             <div className='self-center'>
               <span className='text-lg'>=</span>
             </div>
             <div className='flex flex-col items-center'>
               <span className='text-base'>총 결제금액</span>
-              <span className='text-lg'>100,000</span>
+              <span className='text-lg'>100,000원</span>
             </div>
           </div>
         </div>
