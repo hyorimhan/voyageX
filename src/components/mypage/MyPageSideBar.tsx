@@ -9,8 +9,8 @@ const MyPageSideBar = () => {
   const emailId = user?.email ? user.email.split('@')[0] : '비회원';
 
   return (
-    <div className='w-fit sticky top-0 p-5'>
-      <div className='mb-10'>
+    <div className='w-fit sticky top-0 mt-36'>
+      <div className='mb-12'>
         <p className='text-2xl'>{emailId}</p>
         <p className='flex flex-row items-center'>
           작성글 수 5 |<IoMdHeart className='ml-1' /> 35

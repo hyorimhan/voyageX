@@ -20,6 +20,7 @@ export type Database = {
           postcode: string | null;
           recipient: string | null;
           user_id: string;
+          is_default: boolean;
         };
         Insert: {
           address?: string | null;
