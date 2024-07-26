@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import { IoMdClose } from 'react-icons/io';
 import AddressApiScript from './AddressApiScript';
+import { createClient } from '@/supabase/client';
+import useAuthStore from '@/zustand/store/useAuth';
+import AddressSearchModal from './AddressSearchModal';
 
 interface AddressAddModalProps {
   onClose: () => void;
@@ -23,10 +26,15 @@ const AddressAddModal: React.FC<AddressAddModalProps> = ({
   const [detailAddress, setDetailAddress] = useState<string>('');
   const [alias, setAlias] = useState<string>('');
   const [recipient, setRecipient] = useState<string>('');
-  const [phone, setPhone] = useState<string>();
+  const [phone, setPhone] = useState<string>('');
   const [phoneError, setPhoneError] = useState<string>('');
   const [aliasError, setAliasError] = useState<string>('');
   const [recipientError, setRecipientError] = useState<string>('');
+  const [showAddressSearchModal, setShowAddressSearchModal] =
+    useState<boolean>(false);
+
+  const supabase = createClient();
+  const user = useAuthStore((state) => state.user);
 
   const handleComplete = (data: any) => {
     let newAddress = data.roadAddress;
@@ -46,25 +54,7 @@ const AddressAddModal: React.FC<AddressAddModalProps> = ({
     setNewAddress(newAddress);
     setOldAddress(oldAddress);
     setDetailAddress('');
-  };
-
-  const themeObj = {
-    bgColor: '#B3B3B3', //바탕 배경색
-    searchBgColor: '#4E367C', //검색창 배경색
-    pageBgColor: '#f2f2f2', //페이지 배경색
-    queryTextColor: '#FFFFFF', //검색창 글자색
-    emphTextColor: '#4E367C', //강조 글자색
-  };
-
-  const handlePostCode = () => {
-    if (window.daum && window.daum.Postcode) {
-      new window.daum.Postcode({
-        oncomplete: handleComplete,
-        theme: themeObj,
-      }).open();
-    } else {
-      console.error('스크립트 로드가 완료되지 않았습니다');
-    }
+    setShowAddressSearchModal(false);
   };
 
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -111,32 +101,58 @@ const AddressAddModal: React.FC<AddressAddModalProps> = ({
     }
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (aliasError || recipientError || phoneError) {
       alert('옳바르게 작성되지 않은 항목이 있습니다.');
       return;
     }
 
-    if (!alias || !recipient || !phone || !postcode || !newAddress) {
+    if (
+      !alias ||
+      !recipient ||
+      !phone ||
+      !postcode ||
+      !newAddress ||
+      !oldAddress
+    ) {
       alert('작성하지 않은 항목이 있습니다.');
+      return;
+    }
+
+    if (!user || !user.id) {
+      alert('사용자 정보를 가져오지 못했습니다. 다시 로그인 해주세요.');
       return;
     }
 
     const newAddressData = {
       alias,
       postcode,
-      address: newAddress || oldAddress,
+      address: newAddress,
       oldAddress,
       detailAddress,
       recipient,
       phone,
+      user_id: user.id,
     };
-    onAddAddress(newAddressData);
+
+    try {
+      const { error } = await supabase
+        .from('addresses')
+        .insert([newAddressData]);
+
+      if (error) throw error;
+
+      onAddAddress(newAddressData);
+      alert('주소가 저장되었습니다.');
+      onClose();
+    } catch (error) {
+      alert('안됌');
+      console.log(error);
+    }
   };
 
   return (
-    <div className='fixed inset-0 flex items-center justify-center bg-black-900 bg-opacity-50 z-30'>
-      //🔥
+    <div className='fixed inset-0 flex items-center justify-center bg-black-1000 bg-opacity-50 z-30'>
       <AddressApiScript />
       <div className='bg-black-800 p-6 rounded-lg shadow-lg relative w-96'>
         <div className='flex justify-center items-center mt-3'>
@@ -192,12 +208,11 @@ const AddressAddModal: React.FC<AddressAddModalProps> = ({
                 readOnly
               />
               <button
-                className='px-4 py-2 bg-white text-black-900 text-sm rounded-lg w-48'
-                onClick={handlePostCode}
+                className='px-4 py-2 bg-white text-black-1000 text-sm rounded-lg w-48'
+                onClick={() => setShowAddressSearchModal(true)}
               >
                 우편번호 찾기
               </button>
-              {/* //🔥 */}
             </div>
             <input
               className='mt-2 w-full px-3 py-4 border rounded-lg text-black-400 text-sm'
@@ -214,6 +229,12 @@ const AddressAddModal: React.FC<AddressAddModalProps> = ({
           배송지 저장
         </button>
       </div>
+      {showAddressSearchModal && (
+        <AddressSearchModal
+          onComplete={handleComplete}
+          onClose={() => setShowAddressSearchModal(false)}
+        />
+      )}
     </div>
   );
 };

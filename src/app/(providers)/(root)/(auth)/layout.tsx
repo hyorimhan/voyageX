@@ -4,7 +4,7 @@ function Layout({ children }: { children: React.ReactNode }) {
   //     <main>{children}</main>
   //   </div>
   return (
-    <div className='bg-custom-background  flex flex-col h-screen pt-[80px]'>
+    <div className='bg-custom-background bg-contain flex flex-col h-screen pt-[80px]'>
       <main className='flex-grow overflow-hidden'>{children}</main>
     </div>
   );

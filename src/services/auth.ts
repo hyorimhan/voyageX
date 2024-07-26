@@ -3,6 +3,7 @@ import { formType } from '@/types/authFormType';
 
 const supabase = createClient();
 
+// 회원가입
 export const signUp = async ({ email, password }: formType) => {
   const response = await fetch('/api/auth/signup', {
     method: 'POST',
@@ -16,6 +17,7 @@ export const signUp = async ({ email, password }: formType) => {
   return responseData;
 };
 
+// 로그인
 export const login = async ({ email, password }: formType) => {
   const response = await fetch('/api/auth/login', {
     method: 'POST',
@@ -30,6 +32,7 @@ export const login = async ({ email, password }: formType) => {
   return responseData;
 };
 
+// 로그아웃
 export const logout = async () => {
   const response = await fetch('/api/auth/logout', {
     method: 'DELETE',
@@ -38,6 +41,7 @@ export const logout = async () => {
   return responseData;
 };
 
+// 카카오
 export const signInWithKakao = async () => {
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: 'kakao',
@@ -45,7 +49,36 @@ export const signInWithKakao = async () => {
   return { data, error };
 };
 
+// 현재 로그인 유저 정보
 export const userLoginInfo = async () => {
   const { data: loginInfo } = await supabase.auth.getUser();
   return loginInfo;
+};
+
+export const updatePassword = async (
+  email: string,
+  currentPassword: string,
+  newPassword: string,
+) => {
+  // 현재 비밀번호로 로그인 시도
+  const { data: signInData, error: signInError } =
+    await supabase.auth.signInWithPassword({
+      email,
+      password: currentPassword,
+    });
+
+  if (signInError) {
+    return { error: { message: '현재 비밀번호가 올바르지 않습니다.' } };
+  }
+
+  // 비밀번호 변경
+  const { error: updateError } = await supabase.auth.updateUser({
+    password: newPassword,
+  });
+
+  if (updateError) {
+    return { error: { message: '비밀번호 변경에 실패했습니다.' } };
+  }
+
+  return { error: null };
 };
