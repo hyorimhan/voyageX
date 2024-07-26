@@ -52,7 +52,7 @@ function AddressChangeModal({
       <section
         className={`flex w-full h-full fixed top-0 left-0 justify-center`}
       >
-        <div className='relative bg-black-800 w-3/4 h-[700px] my-24 mx-auto rounded-lg'>
+        <div className='relative bg-black-800 w-3/5 h-[700px] my-24 mx-auto rounded-lg'>
           <div className='flex justify-end'>
             <button
               className='mr-10 mt-4 text-3xl bg-transparent'

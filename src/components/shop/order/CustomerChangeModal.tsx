@@ -32,7 +32,7 @@ function CustomerChangeModal({
       <section
         className={`flex w-full h-full fixed top-0 left-0 justify-center`}
       >
-        <div className='relative bg-black-800 w-3/4 h-[700px] my-24 mx-auto rounded-lg'>
+        <div className='relative bg-black-800 w-3/5 h-[700px] my-24 mx-auto rounded-lg'>
           <div className='flex justify-end'>
             <button
               className='mr-10 mt-4 text-3xl bg-transparent'
@@ -48,7 +48,7 @@ function CustomerChangeModal({
             }}
           >
             <div className='flex flex-col items-center'>
-              <div className='flex flex-row justify-between w-full p-8'>
+              <div className='flex flex-row justify-center w-full p-4'>
                 <p className='text-xl'>주문자 정보</p>
               </div>
               <div className='flex flex-col w-1/2 gap-4'>
@@ -85,7 +85,7 @@ function CustomerChangeModal({
               </div>
               <button
                 type='submit'
-                className='bg-primary-600 p-4 mt-4 w-1/2 rounded-lg'
+                className='bg-primary-600 p-4 mt-16 w-1/2 rounded-lg'
               >
                 주문자 정보 변경
               </button>
