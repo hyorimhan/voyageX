@@ -1,5 +1,6 @@
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { Address, Customer } from './OrderForm';
+import CustomerChangeModal from './CustomerChangeModal';
 
 interface CustomerInfoProps {
   customerInfo: Customer;
@@ -7,6 +8,7 @@ interface CustomerInfoProps {
 }
 
 function CustomerInfo({ customerInfo, setCustomerInfo }: CustomerInfoProps) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const user_id = 'gusdnr0839@gmail.com';
 
   return (
@@ -15,7 +17,12 @@ function CustomerInfo({ customerInfo, setCustomerInfo }: CustomerInfoProps) {
         <div className='py-4 mb-4 border-b-2 border-black-700 flex flex-row items-start justify-between'>
           <span className='text-xl'>주문자 정보</span>
           <div>
-            <button className='bg-primary-400 rounded-lg p-2'>정보 변경</button>
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className='bg-primary-400 rounded-lg p-2'
+            >
+              정보 변경
+            </button>
           </div>
         </div>
         <div className='flex flex-row items-start justify-between'>
@@ -33,6 +40,13 @@ function CustomerInfo({ customerInfo, setCustomerInfo }: CustomerInfoProps) {
           </div>
         </div>
       </div>
+      {isModalOpen && (
+        <CustomerChangeModal
+          customerInfo={customerInfo}
+          setCustomerInfo={setCustomerInfo}
+          setIsModalOpen={setIsModalOpen}
+        />
+      )}
     </>
   );
 }

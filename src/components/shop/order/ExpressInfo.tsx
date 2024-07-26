@@ -49,6 +49,7 @@ function ExpressInfo({ expressInfo, setExpressInfo }: ExpressInfoProps) {
       </div>
       {isModalOpen && (
         <AddressChangeModal
+          expressInfo={expressInfo}
           setIsModalOpen={setIsModalOpen}
           setExpressInfo={setExpressInfo}
         />
