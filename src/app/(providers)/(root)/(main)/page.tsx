@@ -3,6 +3,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
+import { text } from 'stream/consumers';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -10,6 +11,7 @@ const MainPage = () => {
   const sectionsRef = useRef<(HTMLDivElement | null)[]>([]);
   const planetsRef = useRef<(HTMLDivElement | null)[]>([]);
   const videoRef = useRef<HTMLVideoElement | null>(null);
+  const textRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [videoLoaded, setVideoLoaded] = useState<boolean>(false);
   const [currentSlide, setCurrentSlide] = useState<number>(0);
 
@@ -48,7 +50,7 @@ const MainPage = () => {
   // 비디오 로드 후 섹션에 ScrollTrigger로 설정
   useEffect(() => {
     if (videoLoaded) {
-      sectionsRef.current.forEach((section) => {
+      sectionsRef.current.forEach((section, index) => {
         if (section) {
           ScrollTrigger.create({
             trigger: section,
@@ -57,11 +59,28 @@ const MainPage = () => {
             pinSpacing: false,
             scrub: true,
           });
+           // 각 섹션의 텍스트가 점점 투명해지는 애니메이션
+           if (textRefs.current[index]) {
+            gsap.fromTo(
+              textRefs.current[index],
+              { opacity: 1 },
+              {
+                opacity: 0,
+                scrollTrigger: {
+                  trigger: section,
+                  start: 'top+=300 top',
+                  end: 'bottom top+=100',
+                  scrub: true,
+                },
+              }
+            );
+          }
         }
       });
       ScrollTrigger.refresh();
     }
   }, [videoLoaded]);
+
 
   // 슬라이드 행성 애니메이션
   useEffect(() => {
@@ -119,7 +138,11 @@ const MainPage = () => {
           loop
           muted
         />
-        <div className='absolute z-10 text-center top-48 sm:w-auto sm:text-left sm:left-48 md:left-40 lg:left-52 xl:left-64'>
+        <div 
+          ref={(el) => {
+            textRefs.current[0] = el;
+          }}
+          className='absolute z-10 text-center top-48 sm:w-auto sm:text-left sm:left-48 md:left-40 lg:left-52 xl:left-64'>
           <h1 className='text-gradient text-6xl font-bold font-yangpyeong'>
             Voyage X
           </h1>
@@ -141,6 +164,14 @@ const MainPage = () => {
         className='section h-screen flex items-center justify-center relative bg-center bg-cover bg-no-repeat'
         style={{ backgroundImage: 'url(/images/section2.png)' }}
       >
+        <div 
+          ref={(el) => {
+            textRefs.current[1] = el;
+          }}
+          className='absolute top-44 left-16 text-white font-yangpyeong text-4xl font-bold fade-text'
+        >
+          Let's Find Popular Planets!
+        </div>
         <div className='scroll-container h-full w-full relative flex items-center justify-center'>
           <button
             onClick={handlePrevSlide}
@@ -183,9 +214,31 @@ const MainPage = () => {
             →
           </button>
         </div>
-        <div className='absolute top-44 left-16 text-white font-yangpyeong text-4xl font-bold'>
-          Let's Find Popular Planets!
-        </div>
+      </section>
+      
+      <section
+        ref={(el) => {
+          sectionsRef.current[2] = el as HTMLDivElement
+        }}
+        className='section h-screen flex items-center justify-center'
+      >
+        <h1>3번째 섹션입니다</h1>
+      </section>
+      <section
+        ref={(el) => {
+          sectionsRef.current[3] = el as HTMLDivElement
+        }}
+        className='section h-screen flex items-center justify-center'
+      >
+        <h1>4번째 섹션입니다</h1>
+      </section>
+      <section
+        ref={(el) => {
+          sectionsRef.current[4] = el as HTMLDivElement
+        }}
+        className='section h-screen flex items-center justify-center'
+      >
+        <h1>5번째 섹션입니다</h1>
       </section>
     </div>
   );
