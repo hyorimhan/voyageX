@@ -12,23 +12,14 @@ type Order = {
   orderName: string;
   customerName: string;
   customerMobilePhone: string;
-  products: [
-    {
-      name: string;
-      quantity: number;
-      unitAmount: number;
-      currency: string;
-      description: string;
-    },
-  ];
   totalPrice: number;
 };
 
 const PaymentWidget = () => {
   const searchParams = useSearchParams();
-  const query: string = searchParams.get('currentOrder')!;
-  const currentOrder: Order = JSON.parse(query);
-  console.log(currentOrder);
+  const query: string = searchParams.get('orderInfo')!;
+  const orderInfo: Order = JSON.parse(query);
+  console.log('orderInfo => ', orderInfo);
   const userId = 'gusdnr0839';
   const paymentWidgetRef = useRef<PaymentWidgetInstance | null>(null);
   const paymentMethodWidgetRef = useRef<ReturnType<
@@ -42,13 +33,12 @@ const PaymentWidget = () => {
 
     try {
       await paymentWidget?.requestPayment({
-        orderId: currentOrder.orderId,
-        orderName: currentOrder.orderName,
-        customerName: currentOrder.customerName,
-        customerMobilePhone: currentOrder.customerMobilePhone,
-        products: currentOrder.products,
-        successUrl: `${window.location.origin}/order/success`,
-        failUrl: `${window.location.origin}/order/fail`,
+        orderId: orderInfo.orderId,
+        orderName: orderInfo.orderName,
+        customerName: orderInfo.customerName,
+        customerMobilePhone: orderInfo.customerMobilePhone,
+        successUrl: `${window.location.origin}/shop/payment/success`,
+        failUrl: `${window.location.origin}/shop/payment/fail`,
       });
     } catch (err: any) {
       alert(err);
@@ -63,7 +53,7 @@ const PaymentWidget = () => {
       // 결제방법 위젯
       const paymentMethodsWidget = paymentWidget.renderPaymentMethods(
         '#payment-widget',
-        currentOrder.totalPrice, // 구매 가격
+        orderInfo.totalPrice, // 구매 가격
       );
 
       // 약관동의 위젯
@@ -75,12 +65,18 @@ const PaymentWidget = () => {
     loadWidget();
   });
   return (
-    <div>
-      <div id='payment-widget' />
-      <div id='agreement' />
-      <button type='button' onClick={proceedPayment}>
-        결제하기
-      </button>
+    <div className='flex flex-col justify-center items-center mt-10'>
+      <div id='payment-widget' className='w-2/3' />
+      <div id='agreement' className='w-2/3' />
+      <div className='bg-white w-2/3 flex justify-center mb-4'>
+        <button
+          type='button'
+          onClick={proceedPayment}
+          className='bg-[#4D367C] rounded-md p-3 my-4 text-lg'
+        >
+          결제하기
+        </button>
+      </div>
     </div>
   );
 };
