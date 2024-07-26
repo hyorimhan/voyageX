@@ -3,7 +3,7 @@ import * as ChannelService from '@channel.io/channel-web-sdk-loader';
 export const initializeChannelService = async () => {
   try {
     console.log('Loading Channel.io script...');
-    await ChannelService.loadScript();
+    ChannelService.loadScript();
     console.log('Channel.io script loaded.');
 
     ChannelService.boot({

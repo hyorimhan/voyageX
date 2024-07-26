@@ -1,5 +1,5 @@
+import { initializeChannelService } from '@/components/chatbot/c';
 import { NextRequest, NextResponse } from 'next/server';
-import { initializeChannelService } from '@/services/chatUtils';
 
 export async function POST(request: NextRequest) {
   try {
