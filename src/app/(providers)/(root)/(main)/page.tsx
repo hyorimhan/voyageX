@@ -15,17 +15,20 @@ const MainPage = () => {
 
   const planets = [
     '/images/화성.png',
-    '/images/화성.png',
-    '/images/화성.png',
-    '/images/화성.png',
-    '/images/화성.png',
+    '/images/jupiter.png',
+    '/images/달.png',
+    '/images/케레스.png',
+    '/images/pluto.png',
+    '/images/neptune.png',
   ];
 
-  const handleNextSlide = () => { // 다음 슬라이드 핸들
+  const visiblePlanetsCount = 3; // 처음에 보일 행성 수
+
+  const handleNextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % planets.length);
   };
 
-  const handlePrevSlide = () => { // 이전 슬라이드 핸들
+  const handlePrevSlide = () => {
     setCurrentSlide((prev) => (prev - 1 + planets.length) % planets.length);
   };
 
@@ -63,24 +66,24 @@ const MainPage = () => {
   // 슬라이드 행성 애니메이션
   useEffect(() => {
     const animatePlanets = () => {
-      const radiusX = 300; // 타원형 X축 반경
-      const radiusY = 150; // 타원형 Y축 반경
+      const radius = 500; // 고리 반경
       const angleStep = (2 * Math.PI) / planets.length; // 각 행성 사이의 각도
-      const offsetAngle = currentSlide * angleStep; // 선택된 행성을 중앙에 두기 위한 오프셋
 
       planetsRef.current.forEach((planet, index) => {
         if (planet) {
-          const angle = index * angleStep - offsetAngle; // 각 행성의 위치 계산
-          const xPos = radiusX * Math.sin(angle); // x 좌표
-          const yPos = radiusY * Math.cos(angle); // y 좌표
-          const isActive = index === currentSlide;
-          const scale = isActive ? 1.5 : 1;
-          const zIndex = isActive ? 10 : 0;
-          const opacity = isActive ? 1 : 0.5;
+          const angle = (index - currentSlide) * angleStep; // 각 행성의 위치 계산
+          const xPos = radius * Math.sin(angle); // x 좌표 
+          const yPos = 0; // y 좌표 (수평으로 회전)
+          const zPos = radius * Math.cos(angle); // z 좌표
+          const isVisible = index >= currentSlide && index < currentSlide + visiblePlanetsCount;
+          const scale = isVisible ? 1.5 : 1;
+          const zIndex = isVisible ? 10 : 0;
+          const opacity = isVisible ? 1 : 0.5;
 
           gsap.to(planet, {
             x: xPos,
             y: yPos,
+            z: zPos,
             scale: scale,
             zIndex: zIndex,
             opacity: opacity,
@@ -142,25 +145,28 @@ const MainPage = () => {
             ←
           </button>
           <div className='slider-container relative flex items-center justify-center'>
-            {planets.map((planet, index) => (
-              <div
-                key={index}
-                ref={(el) => {
-                  planetsRef.current[index] = el as HTMLDivElement;
-                }}
-                className='absolute w-32 h-32 transform-gpu'
-                style={{
-                  transform: `translate3d(${300 * Math.sin((index - currentSlide) * (2 * Math.PI) / planets.length)}px, ${200 * Math.cos((index - currentSlide) * (2 * Math.PI) / planets.length)}px, 0)`
-                }}
-              >
-                <Image
-                  src={planet}
-                  alt={`Planet ${index + 1}`}
-                  layout='fill'
-                  objectFit='contain'
-                />
-              </div>
-            ))}
+            {planets.map((planet, index) => {
+              const isVisible = index >= currentSlide && index < currentSlide + visiblePlanetsCount;
+              return (
+                <div
+                  key={index}
+                  ref={(el) => {
+                    planetsRef.current[index] = el as HTMLDivElement;
+                  }}
+                  className={`absolute w-24 h-24 transform-gpu transition-opacity duration-500 ${isVisible ? 'opacity-100' : 'opacity-0'}`}
+                  style={{
+                    transform: `translate3d(${500 * Math.sin((index - currentSlide) * (2 * Math.PI) / planets.length)}px, 0, ${500 * Math.cos((index - currentSlide) * (2 * Math.PI) / planets.length)}px)`
+                  }}
+                >
+                  <Image
+                    src={planet}
+                    alt={`Planet ${index + 1}`}
+                    layout='fill'
+                    objectFit='contain'
+                  />
+                </div>
+              );
+            })}
           </div>
           <button
             onClick={handleNextSlide}
