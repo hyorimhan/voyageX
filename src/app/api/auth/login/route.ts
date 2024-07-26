@@ -13,11 +13,11 @@ export async function POST(request: NextRequest) {
 
     if (error) {
       return NextResponse.json({
-        error: '로그인을 실패했습니다',
+        error: '로그인에 실패했습니다',
       });
     }
     if (user) {
-      return NextResponse.json({ message: '로그인을 성공했습니다', user });
+      return NextResponse.json({ message: '로그인에 성공했습니다', user });
     }
   } catch (error) {
     return NextResponse.json({

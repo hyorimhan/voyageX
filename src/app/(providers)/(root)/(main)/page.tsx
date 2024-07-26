@@ -86,7 +86,7 @@ const MainPage = () => {
       }
     });
   }, [currentSlide]);
-  console.log(user);
+
   return (
     <div className='w-full'>
       <section
