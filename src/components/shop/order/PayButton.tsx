@@ -60,7 +60,7 @@ function PayButton({
   return (
     <>
       <div className='border-2 border-white p-4 rounded-lg mt-4'>
-        <div className='py-4 mb-4'>
+        <div className='pt-4 pb-2 mb-4 border-b-2 border-black-700'>
           <span className='text-xl'>주문요약</span>
         </div>
         <div className='flex flex-col items-start gap-4'>
@@ -75,7 +75,9 @@ function PayButton({
         </div>
       </div>
       <div className='border-2 border-white p-4 rounded-lg mt-4 flex flex-col items-start gap-y-5'>
-        <p className='text-xl'>주문동의</p>
+        <div className='border-b-2 border-black-700 w-full pt-4 pb-2'>
+          <p className='text-xl'>주문동의</p>
+        </div>
         <div className='flex flex-row items-center justify-center gap-2'>
           <button
             onClick={() => setIsAgree((prev) => !prev)}
@@ -90,9 +92,10 @@ function PayButton({
       </div>
       <button
         onClick={handleClickPayButton}
-        className='bg-primary-400 rounded-md p-4 w-full h-14 mt-4 text-lg'
+        className='bg-primary-600 rounded-md p-4 w-full h-14 mt-4 text-lg'
       >
-        {`${totalPrice.toLocaleString()} 결제하기`}
+        <span className='text-lg'>{totalPrice.toLocaleString()}</span>
+        <span className='text-base'> 결제하기</span>
       </button>
     </>
   );
