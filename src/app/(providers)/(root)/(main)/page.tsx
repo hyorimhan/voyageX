@@ -71,14 +71,16 @@ const MainPage = () => {
 
       planetsRef.current.forEach((planet, index) => {
         if (planet) {
-          const angle = (index - currentSlide) * angleStep; // 각 행성의 위치 계산
+          const adjustedIndex = (index + (planets.length - Math.floor(visiblePlanetsCount / 2))) % planets.length;
+          const angle = (adjustedIndex - currentSlide) * angleStep; // 각 행성의 위치 계산
           const xPos = radius * Math.sin(angle); // x 좌표 
           const yPos = 0; // y 좌표 (수평으로 회전)
           const zPos = radius * Math.cos(angle); // z 좌표
-          const isVisible = index >= currentSlide && index < currentSlide + visiblePlanetsCount;
-          const scale = isVisible ? 1.5 : 1;
-          const zIndex = isVisible ? 10 : 0;
-          const opacity = isVisible ? 1 : 0.5;
+          const isVisible = (index >= currentSlide && index < currentSlide + visiblePlanetsCount) || (index < currentSlide && index + planets.length < currentSlide + visiblePlanetsCount);
+          const isActive = index === (currentSlide + Math.floor(visiblePlanetsCount / 2)) % planets.length;
+          const scale = isActive ? 2 : 1;
+          const zIndex = isActive ? 10 : 0;
+          const opacity = isVisible ? (isActive ? 1 : 0.5) : 0;
 
           gsap.to(planet, {
             x: xPos,
@@ -146,7 +148,9 @@ const MainPage = () => {
           </button>
           <div className='slider-container relative flex items-center justify-center'>
             {planets.map((planet, index) => {
-              const isVisible = index >= currentSlide && index < currentSlide + visiblePlanetsCount;
+              const isVisible = (index >= currentSlide && index < currentSlide + visiblePlanetsCount) || (index < currentSlide && index + planets.length < currentSlide + visiblePlanetsCount);
+              const adjustedIndex = (index + (planets.length - Math.floor(visiblePlanetsCount / 2))) % planets.length;
+              const isActive = adjustedIndex === (currentSlide + Math.floor(visiblePlanetsCount / 2)) % planets.length;
               return (
                 <div
                   key={index}
@@ -155,7 +159,9 @@ const MainPage = () => {
                   }}
                   className={`absolute w-24 h-24 transform-gpu transition-opacity duration-500 ${isVisible ? 'opacity-100' : 'opacity-0'}`}
                   style={{
-                    transform: `translate3d(${500 * Math.sin((index - currentSlide) * (2 * Math.PI) / planets.length)}px, 0, ${500 * Math.cos((index - currentSlide) * (2 * Math.PI) / planets.length)}px)`
+                    transform: `translate3d(${500 * Math.sin((adjustedIndex - currentSlide) * (2 * Math.PI) / planets.length)}px, 0, ${500 * Math.cos((adjustedIndex - currentSlide) * (2 * Math.PI) / planets.length)}px) scale(${isActive ? 2 : 1})`,
+                    zIndex: isActive ? 10 : 0,
+                    opacity: isVisible ? (isActive ? 1 : 0.5) : 0,
                   }}
                 >
                   <Image
