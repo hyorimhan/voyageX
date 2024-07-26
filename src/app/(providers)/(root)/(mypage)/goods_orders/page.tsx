@@ -18,7 +18,7 @@ const GoodsOrdersPage = () => {
         <div className='flex justify-between'>
           <div className='flex gap-5 mt-2'>
             <Image
-              src='/svgs/goodsItem.svg'
+              src='/images/goodsItem.svg'
               alt='goodsItem'
               width={100}
               height={100}

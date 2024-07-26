@@ -28,20 +28,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    if (user) {
-      const { error: usersError } = await supabase.from('users').insert([
-        {
-          email,
-        },
-      ]);
-
-      if (usersError) {
-        return NextResponse.json({
-          message: '프로필 등록에 실패했습니다',
-        });
-      }
-      return NextResponse.json({ message: '회원가입에 성공했습니다' });
-    }
+    return NextResponse.json({ message: '회원가입에 성공했습니다' });
   } catch (error) {
     return NextResponse.json(
       { message: '네트워크 오류가 발생했습니다' },
