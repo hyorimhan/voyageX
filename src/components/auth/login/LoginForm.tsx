@@ -11,7 +11,6 @@ import useAuthStore from '../../../zustand/store/useAuth';
 function LoginForm() {
   const router = useRouter();
   const saveUser = useAuthStore((state) => state.saveUser);
-  const user = useAuthStore((state) => state.user);
 
   const {
     register,
@@ -26,9 +25,9 @@ function LoginForm() {
       toast(response.message, {
         icon: '🌠',
       });
-      saveUser(response.user.user);
-      console.log(user);
-      router.replace('/');
+
+      saveUser(response.user);
+      // router.replace('/');
       return;
     }
   };
@@ -50,13 +49,15 @@ function LoginForm() {
         id='email'
         placeholder='email@email.com'
         {...register('email', emailValidate())}
+        className='text-black-900'
       />
 
-      <label htmlFor='password'>비밀번호</label>
+      <label htmlFor='password'>비밀번호*</label>
       <input
         type='password'
         id='password'
         {...register('password', passwordValidate())}
+        className='text-black-900'
       />
       <button type='submit'>로그인</button>
     </form>

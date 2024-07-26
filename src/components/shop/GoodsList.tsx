@@ -86,7 +86,7 @@ function GoodsList() {
           setSortBy={setSortBy}
         />
       </div>
-      <ul className='text-white my-20 grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 p-10'>
+      <ul className='text-white my-4 grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 p-10'>
         {sortedGoods.map((item) => (
           <li key={item.id} className='mx-auto my-4 w-full'>
             <div className='flex justify-center'>

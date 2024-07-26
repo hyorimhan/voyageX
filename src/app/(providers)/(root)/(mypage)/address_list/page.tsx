@@ -4,7 +4,7 @@ import AddressAddModal from '@/components/mypage/AddressAddModal';
 import { useState } from 'react';
 import { MdOutlineRadioButtonUnchecked } from 'react-icons/md';
 
-interface Address {
+type Address = {
   alias: string;
   postcode: string;
   address: string;
@@ -12,10 +12,11 @@ interface Address {
   detailAddress: string;
   recipient: string;
   phone: string;
-}
+};
 
 const AddressListPage: React.FC = () => {
-  const [showAddressAddModal, setShowAddressAddModal] = useState(false);
+  const [showAddressAddModal, setShowAddressAddModal] =
+    useState<boolean>(false);
   const [addresses, setAddresses] = useState<Address[]>([]);
 
   const handleAddressAddClick = () => {
@@ -33,12 +34,12 @@ const AddressListPage: React.FC = () => {
         <p className='text-2xl mb-6'>배송지 관리</p>
         <div className='flex items-center'>
           <button
-            className='bg-slate-700 p-2 rounded-md mr-2 h-8 text-xs'
+            className='bg-primary-600 p-2 rounded-md mr-2 h-8 text-xs'
             onClick={handleAddressAddClick}
           >
             새 배송지 추가
           </button>
-          <button className='bg-slate-700 p-2 rounded-md h-8 text-xs'>
+          <button className='bg-primary-600 p-2 rounded-md h-8 text-xs'>
             기본배송지 설정
           </button>
         </div>
@@ -55,7 +56,7 @@ const AddressListPage: React.FC = () => {
           <div className='flex w-full text-center py-7 items-center'>
             <MdOutlineRadioButtonUnchecked className='text-3xl ml-7 mr-7' />
             <p className='text-lg w-28 text-center'>{address.alias}</p>
-            <div className='text-left text-xs w-80 ml-16'>
+            <div className='text-left text-xs w-80 ml-16 flex-grow'>
               <p>({address.postcode})</p>
               <p>
                 도로명 : {address.address} {address.detailAddress}
@@ -64,13 +65,16 @@ const AddressListPage: React.FC = () => {
                 지번 : {address.oldAddress} {address.detailAddress}
               </p>
             </div>
-            <div className='text-base ml-20'>
+            <div className='text-base'>
               <p className='mb-3'>{address.recipient}</p>
               <p className='text-xs'>{address.phone}</p>
             </div>
             <div className='gap-3 flex justify-center ml-10 text-xs'>
-              <button className='bg-slate-500 p-1 rounded-sm'>수정</button>
-              <button className='bg-slate-500 p-1 rounded-sm'>삭제</button>
+              <button className='bg-black-900 border-2 border-solid border-primary-600 p-2 rounded-md'>
+                수정
+              </button>
+              <button className='bg-black-600 p-2 rounded-md'>삭제</button>
+              {/* 🎈 */}
             </div>
           </div>
           <div className='border-b-2 border-solid border-white mt-3'></div>

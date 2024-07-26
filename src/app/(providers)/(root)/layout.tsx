@@ -1,11 +1,10 @@
-// import { userLoginInfo } from '@/services/auth';
+import Header from '@/components/common/Header';
 import { Toaster } from 'react-hot-toast';
 
 async function RootLayout({ children }: { children: React.ReactNode }) {
-  // const userInfo = await userLoginInfo();
-
   return (
-    <div>
+    <div className='font-pretendard'>
+      <Header />
       <Toaster />
       <main>{children}</main>
     </div>
