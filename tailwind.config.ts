@@ -11,10 +11,22 @@ const config: Config = {
       backgroundImage: {
         'custom-background': "url('/images/배경.png')",
       },
+
+      backgroundSize: {
+        '50%': '50%',
+        '70%': '70%',
+        '75%': '75%',
+        '40%': '40%',
+        '30%': '30%',
+        '25%': '25%',
+        '20%': '20%',
+        '10%': '10%',
+      },
       fontFamily: {
         pretendard: ['Pretendard-Regular'],
         yangpyeong: ["'Yangpyeong'", 'sans-serif'],
       },
+
       colors: {
         primary: {
           50: '#F0EDF7',
@@ -66,10 +78,15 @@ const config: Config = {
           900: '#00bbf9',
         },
       },
+
       keyframes: {
         'rotate-axis': {
-          from: { transform: 'rotateZ(350deg) perspective(800px) rotateY(0deg)' },
-          to: { transform: 'rotateZ(350deg) perspective(800px) rotateY(360deg)' },
+          from: {
+            transform: 'rotateZ(350deg) perspective(800px) rotateY(0deg)',
+          },
+          to: {
+            transform: 'rotateZ(350deg) perspective(800px) rotateY(360deg)',
+          },
         },
       },
       animation: {
