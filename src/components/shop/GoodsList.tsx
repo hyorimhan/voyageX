@@ -4,11 +4,17 @@ import { useEffect, useState } from 'react';
 import DropDownButton from './DropDownButton';
 import Hearts from './Hearts';
 import Stars from './Stars';
-import CountHearts from './CountHearts';
 
 function GoodsList() {
   const [sortBy, setSortBy] = useState('인기순');
-  const sortByList = ['인기순', '최신순', '이름순', '낮은가격순', '높은가격순'];
+  const sortByList = [
+    '인기순',
+    '최신순',
+    '가격 높은 순',
+    '가격 낮은 순',
+    '별점 높은 순',
+    '별점 낮은 순',
+  ];
 
   const goods = [
     {
@@ -87,7 +93,7 @@ function GoodsList() {
           setSortBy={setSortBy}
         />
       </div>
-      <ul className='text-white my-4 grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 p-10'>
+      <ul className='text-black-50 mb-4 grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
         {sortedGoods.map((item) => (
           <li key={item.id} className='mx-auto my-4 w-full bg-black-1000'>
             <div className='relative'>
