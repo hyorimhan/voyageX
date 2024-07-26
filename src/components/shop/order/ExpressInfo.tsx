@@ -16,32 +16,43 @@ function ExpressInfo({ expressInfo, setExpressInfo }: ExpressInfoProps) {
   return (
     <>
       <div className='border-2 border-white rounded-lg p-4'>
-        <div className='py-4 mb-4'>
+        <div className='py-4 mb-4 border-b-2 border-black-700 flex flex-row items-center justify-between'>
           <span className='text-xl'>배송정보</span>
+          <button
+            className='bg-primary-400 rounded-lg p-2'
+            onClick={() => setIsModalOpen(true)}
+          >
+            배송지 변경
+          </button>
         </div>
-        <div className='flex flex-row items-start justify-between'>
-          <div>
+        <div className='flex flex-row items-start gap-8'>
+          <div className='flex flex-col gap-4'>
+            <p>받는 분</p>
+            <p>휴대전화 번호</p>
+            <p>배송지 정보</p>
+          </div>
+          <div className='flex flex-col gap-4'>
             <p>{expressInfo.recipient}</p>
             <p>{expressInfo.phone}</p>
-            <p>
-              도로명 : {expressInfo.address + ' ' + expressInfo.detailAddress}
-            </p>
-            <p>
-              지번 : {expressInfo.oldAddress + ' ' + expressInfo.detailAddress}
-            </p>
-            <span>{expressInfo.postcode}</span>
-          </div>
-          <div>
-            <button
-              className='bg-primary-400 rounded-lg p-2'
-              onClick={() => setIsModalOpen(true)}
-            >
-              배송지 변경
-            </button>
+            <div>
+              <p>
+                도로명 : {expressInfo.address + ' ' + expressInfo.detailAddress}
+              </p>
+              <p>
+                지번 :{' '}
+                {expressInfo.oldAddress + ' ' + expressInfo.detailAddress}
+              </p>
+              <span>({expressInfo.postcode})</span>
+            </div>
           </div>
         </div>
       </div>
-      {isModalOpen && <AddressChangeModal setExpressInfo={setExpressInfo} />}
+      {isModalOpen && (
+        <AddressChangeModal
+          setIsModalOpen={setIsModalOpen}
+          setExpressInfo={setExpressInfo}
+        />
+      )}
     </>
   );
 }

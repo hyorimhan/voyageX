@@ -18,8 +18,8 @@ function ItemsInfo({ itemList, setTotalPrice }: ItemsInfoProps) {
   return (
     <>
       <div className='border-2 border-white p-4 rounded-lg'>
-        <div className='py-4 mb-4'>
-          <span className='text-xl'>상품정보/ 총{` ${itemList.length}개`}</span>
+        <div className='py-4 mb-4 border-b-2 border-black-700'>
+          <span className='text-xl'>{`상품정보 총 ${itemList.length}개`}</span>
         </div>
         {itemList.map((item) => (
           <div
