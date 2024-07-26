@@ -60,25 +60,32 @@ export const updatePassword = async (
   currentPassword: string,
   newPassword: string,
 ) => {
-  // 현재 비밀번호로 로그인 시도
-  const { data: signInData, error: signInError } =
-    await supabase.auth.signInWithPassword({
-      email,
-      password: currentPassword,
+  try {
+    // 현재 비밀번호로 로그인 시도
+    const { data: signInData, error: signInError } =
+      await supabase.auth.signInWithPassword({
+        email,
+        password: currentPassword,
+      });
+
+    if (signInError) {
+      console.error('Sign-in error:', signInError);
+      return { error: { message: '현재 비밀번호가 올바르지 않습니다.' } };
+    }
+
+    // 비밀번호 변경
+    const { error: updateError } = await supabase.auth.updateUser({
+      password: newPassword,
     });
 
-  if (signInError) {
-    return { error: { message: '현재 비밀번호가 올바르지 않습니다.' } };
+    if (updateError) {
+      console.error('Update password error:', updateError);
+      return { error: { message: '비밀번호 변경에 실패했습니다.' } };
+    }
+
+    return { error: null };
+  } catch (error) {
+    console.error('Unexpected error:', error);
+    return { error: { message: '비밀번호 변경 중 오류가 발생했습니다.' } };
   }
-
-  // 비밀번호 변경
-  const { error: updateError } = await supabase.auth.updateUser({
-    password: newPassword,
-  });
-
-  if (updateError) {
-    return { error: { message: '비밀번호 변경에 실패했습니다.' } };
-  }
-
-  return { error: null };
 };
