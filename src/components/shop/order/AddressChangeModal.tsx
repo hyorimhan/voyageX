@@ -4,15 +4,18 @@ import { Address } from './OrderForm';
 import { Dispatch, SetStateAction, useState } from 'react';
 
 interface AddressChangeModalProps {
+  expressInfo: Address;
   setIsModalOpen: Dispatch<SetStateAction<boolean>>;
   setExpressInfo: Dispatch<SetStateAction<Address>>;
 }
 
 function AddressChangeModal({
+  expressInfo,
   setIsModalOpen,
   setExpressInfo,
 }: AddressChangeModalProps) {
-  const [selectedAddress, setSelectedAddress] = useState<string>('');
+  const [selectedAddress, setSelectedAddress] = useState<Address>(expressInfo);
+  const [isActive, setIsActive] = useState<string>(expressInfo.address);
   const addresses: Address[] = [
     {
       alias: '집',
@@ -35,16 +38,21 @@ function AddressChangeModal({
   ];
 
   const handleSelectAddress = (address: Address) => {
-    setSelectedAddress(address.address);
-    setExpressInfo(address);
+    setSelectedAddress(address);
+    setIsActive(address.address);
+  };
+
+  const handleChangeAddress = () => {
+    setExpressInfo(selectedAddress);
+    setIsModalOpen(false);
   };
 
   return (
     <>
       <section
-        className={`flex w-full h-full fixed top-0 left-0 justify-center bg-[rgba(0, 0, 0, 0.4)]`}
+        className={`flex w-full h-full fixed top-0 left-0 justify-center`}
       >
-        <div className='relative bg-black-800 w-3/4 my-24 mx-auto rounded-lg'>
+        <div className='relative bg-black-800 w-3/4 h-[700px] my-24 mx-auto rounded-lg'>
           <div className='flex justify-end'>
             <button
               className='mr-10 mt-4 text-3xl bg-transparent'
@@ -85,9 +93,7 @@ function AddressChangeModal({
                         onClick={() => handleSelectAddress(address)}
                         className={`text-3xl w-full h-full rounded-full border-2 border-white cursor-pointer
                   ${
-                    selectedAddress?.includes(address.address)
-                      ? 'bg-white'
-                      : 'bg-transparent'
+                    isActive === address.address ? 'bg-white' : 'bg-transparent'
                   }`}
                       ></div>
                     </div>
@@ -118,7 +124,7 @@ function AddressChangeModal({
               ))}
             </div>
             <button
-              onClick={() => setIsModalOpen(false)}
+              onClick={handleChangeAddress}
               className='bg-primary-600 p-4 mt-20 w-1/2 rounded-lg'
             >
               배송지 변경
