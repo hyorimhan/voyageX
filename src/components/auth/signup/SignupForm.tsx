@@ -9,6 +9,7 @@ import {
 } from '@/components/auth/authValidate';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
+import SignupCheckbox from './SignupCheckbox';
 
 function SignupForm() {
   const router = useRouter();
@@ -16,6 +17,7 @@ function SignupForm() {
     register,
     handleSubmit,
     control,
+    setValue,
     formState: { errors },
   } = useForm<formType>();
 
@@ -26,7 +28,7 @@ function SignupForm() {
 
   const joinForm = async (data: formType) => {
     const response = await signUp(data);
-    console.log(response);
+    console.log('Response from signUp:', response);
     if (response.message) {
       toast(response.message, {
         icon: '🌠',
@@ -47,45 +49,74 @@ function SignupForm() {
     if (errors.passwordConfirm?.message) {
       toast.error(errors.passwordConfirm.message);
     }
+
+    if (
+      errors.age14?.message ||
+      errors.terms?.message ||
+      errors.privacy?.message
+    ) {
+      toast.error('모든 체크박스를 선택해주세요');
+    }
   };
 
   return (
     <>
-      <div>
-        <div>회원가입</div>
-        <form
-          onSubmit={handleSubmit(joinForm, handleError)}
-          className='flex flex-col items-end'
-        >
-          <div>
-            <label htmlFor='email' className='flex'>
-              이메일*
+      <div className='flex flex-col items-end mt-[3%]'>
+        <form onSubmit={handleSubmit(joinForm, handleError)}>
+          <div className='text-center text-2xl my-4 text-black-50'>
+            회원가입
+          </div>
+          <div className='flex flex-col'>
+            <label htmlFor='email' className='mb-[4px] text-black-200'>
+              이메일 *
             </label>
             <input
               id='email'
               type='email'
-              placeholder='email@email.com'
+              placeholder='예) voyageX@gmail.com'
               {...register('email', emailValidate())}
-              className='text-black-900'
+              className='text-black-900 w-[469px] h-[60px]   rounded-lg p-2 '
+              autoFocus
             />
           </div>
-
-          <label htmlFor='password'>비밀번호*</label>
-          <input
-            id='password'
-            type='password'
-            {...register('password', passwordValidate())}
-            className='text-black-900'
-          />
-
-          <label htmlFor='passwordConfirm'>비밀번호 확인*</label>
-          <input
-            id='passwordConfirm'
-            type='password'
-            {...register('passwordConfirm', passwordConfirmValidate(password))}
-            className='text-black-900'
-          />
-          <button type='submit'>회원가입</button>
+          <div className='flex flex-col mt-4'>
+            <label htmlFor='password' className='mb-[4px] text-black-200'>
+              비밀번호 *
+            </label>
+            <input
+              id='password'
+              type='password'
+              placeholder='영문, 숫자, 특수문자 조합 8-16자'
+              {...register('password', passwordValidate())}
+              className='text-black-900 w-[469px] h-[60px]  rounded-lg p-2'
+            />
+          </div>
+          <div className='flex flex-col my-3'>
+            <label htmlFor='passwordConfirm'></label>
+            <input
+              id='passwordConfirm'
+              type='password'
+              placeholder='비밀번호를 다시 한번 입력해주세요'
+              {...register(
+                'passwordConfirm',
+                passwordConfirmValidate(password),
+              )}
+              className='text-black-900 w-[469px] h-[60px]  rounded-lg p-2'
+            />
+          </div>
+          <div className='flex flex-col'>
+            <SignupCheckbox
+              control={control}
+              setValue={setValue}
+              register={register}
+            />
+          </div>
+          <button
+            type='submit'
+            className='bg-primary-600 w-[469px] h-[60px]  rounded-lg p-2 mt-5'
+          >
+            가입하기
+          </button>
         </form>
       </div>
     </>

@@ -7,6 +7,8 @@ import { FieldErrors, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { emailValidate, passwordValidate } from '../authValidate';
 import useAuthStore from '../../../zustand/store/useAuth';
+import Link from 'next/link';
+import KakaoLogin from '../kakao/KakaoLogin';
 
 function LoginForm() {
   const router = useRouter();
@@ -15,11 +17,18 @@ function LoginForm() {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<formType>();
 
   const loginForm = async (data: formType) => {
     const response = await login(data);
+
+    if (response.error) {
+      toast(response.error);
+      reset();
+      return;
+    }
 
     if (response.message) {
       toast(response.message, {
@@ -28,6 +37,7 @@ function LoginForm() {
 
       saveUser(response.user);
       // router.replace('/');
+
       return;
     }
   };
@@ -42,25 +52,59 @@ function LoginForm() {
     }
   };
   return (
-    <form onSubmit={handleSubmit(loginForm, handleError)}>
-      <label htmlFor='email'>이메일</label>
-      <input
-        type='email'
-        id='email'
-        placeholder='email@email.com'
-        {...register('email', emailValidate())}
-        className='text-black-900'
-      />
+    <div className='flex flex-col items-end mt-[5%]'>
+      <form onSubmit={handleSubmit(loginForm, handleError)}>
+        <div className='text-center text-2xl my-4 text-black-50'>로그인</div>
+        <div className='flex flex-col'>
+          <label htmlFor='email' className='mb-[4px] text-black-200'>
+            이메일 *
+          </label>
+          <input
+            type='email'
+            id='email'
+            placeholder='예) voyageX@gmail.com'
+            {...register('email', emailValidate())}
+            className='text-black-900 w-[469px] h-[60px]   rounded-lg p-2 '
+            autoFocus
+          />
+        </div>
 
-      <label htmlFor='password'>비밀번호*</label>
-      <input
-        type='password'
-        id='password'
-        {...register('password', passwordValidate())}
-        className='text-black-900'
-      />
-      <button type='submit'>로그인</button>
-    </form>
+        <div className='flex flex-col mt-4'>
+          <label htmlFor='password' className='mb-[4px] text-black-200'>
+            비밀번호 *
+          </label>
+          <input
+            type='password'
+            id='password'
+            placeholder='영문, 숫자, 특수문자 조합 8-16자'
+            {...register('password', passwordValidate())}
+            className='text-black-900 w-[469px] h-[60px]   rounded-lg p-2 '
+          />
+        </div>
+        <div className='flex flex-col'>
+          <button
+            type='submit'
+            className='bg-primary-600 w-[469px] h-[60px]  rounded-lg p-2 mt-5 text-black-50'
+          >
+            로그인
+          </button>
+          <Link
+            href={'/signup'}
+            className='bg-primary-100 w-[469px] h-[60px] rounded-lg p-2 mt-3 flex justify-center items-center text-primary-600'
+          >
+            이메일로 회원가입
+          </Link>
+        </div>
+        <div className='flex items-center mt-10'>
+          <div className='flex-1 border-b-[0.5px] border-white' />
+          <div className='px-4 text-black-50'>
+            SNS계정으로 간편 로그인/회원가입
+          </div>
+          <div className='flex-1 border-b-[0.5px] border-white' />
+        </div>
+      </form>
+      <KakaoLogin />
+    </div>
   );
 }
 
