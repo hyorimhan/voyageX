@@ -109,7 +109,6 @@ function GoodsList() {
               <div className='flex flex-row justify-between items-center'>
                 <div className='flex flex-row gap-2'>
                   <Stars />
-                  <CountHearts />
                   <div className='bg-black-600 rounded-xl text-xs p-1.5'>
                     무료배송
                   </div>

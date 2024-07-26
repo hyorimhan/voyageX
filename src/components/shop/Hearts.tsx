@@ -9,7 +9,9 @@ function Hearts() {
   return (
     <>
       <span
-        className='cursor-pointer text-3xl text-primary-500'
+        className={`cursor-pointer text-3xl ${
+          isClicked ? 'text-primary-400' : 'text-black-50'
+        }`}
         onClick={() => setIsClicked((prev) => !prev)}
       >
         {isClicked ? <IoHeart /> : <IoHeartOutline />}
