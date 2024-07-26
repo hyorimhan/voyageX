@@ -17,7 +17,8 @@ const PasswordChangePage = () => {
     setError('');
     setSuccess('');
 
-    // 비밀번호 일치 확인
+    // 비밀번호 일치 확인 dla
+
     if (!currentPassword) {
       setError('현재 비밀번호를 입력해주세요.');
       return;
