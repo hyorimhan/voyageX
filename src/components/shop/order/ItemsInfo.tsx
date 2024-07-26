@@ -17,7 +17,7 @@ function ItemsInfo({ itemList, setTotalPrice }: ItemsInfoProps) {
 
   return (
     <>
-      <div className='border-2 border-white p-4 rounded-lg mb-4'>
+      <div className='border-2 border-black-300 p-4 rounded-lg mb-4 text-black-50'>
         <div className='py-4 mb-4 border-b-2 border-black-700'>
           <span className='text-xl'>{`상품정보 총 ${itemList.length}개`}</span>
         </div>
@@ -32,7 +32,7 @@ function ItemsInfo({ itemList, setTotalPrice }: ItemsInfoProps) {
               </div>
               <p>{item.name}</p>
             </div>
-            <div className='border-l-2 border-white flex flex-col items-center justify-center'>
+            <div className='border-l-2 border-black-300 flex flex-col items-center justify-center'>
               <p>{`${item.price.toLocaleString()}원`}</p>
               <p>{`수량 ${item.quantity}개`}</p>
             </div>

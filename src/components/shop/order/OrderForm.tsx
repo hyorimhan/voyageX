@@ -83,7 +83,7 @@ function OrderForm() {
 
   return (
     <>
-      <div className='grid grid-cols-[minmax(0,1fr)_minmax(0,0.3fr)] gap-x-10'>
+      <div className='grid grid-cols-[minmax(0,1fr)_minmax(0,0.5fr)] gap-x-10'>
         <div className='flex flex-col items-start'>
           <div className='mt-4 w-full'>
             <ExpressInfo
