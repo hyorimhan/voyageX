@@ -65,6 +65,21 @@ const config: Config = {
           900: '#00bbf9',
         },
       },
+      fontFamily: {
+        yangpyeong: ["'Yangpyeong'", 'sans-serif'],
+      },
+      keyframes: {
+        'rotate-axis': {
+          from: { transform: 'rotateZ(350deg) perspective(800px) rotateY(0deg)' },
+          to: { transform: 'rotateZ(350deg) perspective(800px) rotateY(360deg)' },
+        },
+      },
+      animation: {
+        'rotate-axis': 'rotate-axis 10s linear infinite',
+      },
+      transformOrigin: {
+        'preserve-3d': 'transform-style: preserve-3d',
+      },
     },
   },
   plugins: [require('@tailwindcss/typography')],
