@@ -1,6 +1,6 @@
 'use client';
 
-import AddressAddModal from '@/components/mypage/AddressAddModal';
+import AddressAddModal from '@/components/mypage/address_list/AddressAddModal';
 import { createClient } from '@/supabase/client';
 import useAuthStore from '@/zustand/store/useAuth';
 import { useEffect, useState } from 'react';
@@ -63,6 +63,7 @@ const AddressListPage: React.FC = () => {
       console.error('삭제오류', error);
     }
   };
+
   return (
     <div>
       <div className='flex justify-between'>
