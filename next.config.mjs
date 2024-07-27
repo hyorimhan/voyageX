@@ -29,6 +29,14 @@ const nextConfig = {
     includePaths: [path.join(__dirname, 'styles')],
   },
   trailingSlash: true,
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'uvjnwqdttdhvwexypdhx.supabase.co',
+      },
+    ],
+  },
 };
 
 export default nextConfig;
