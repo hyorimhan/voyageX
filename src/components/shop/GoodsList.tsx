@@ -60,7 +60,7 @@ function GoodsList() {
                     무료배송
                   </div>
                 </div>
-                <Hearts />
+                <Hearts goods_id={item.id} />
               </div>
             </div>
           </li>
