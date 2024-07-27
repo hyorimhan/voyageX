@@ -2,7 +2,6 @@
 import { signInWithKakao } from '@/services/auth';
 import toast from 'react-hot-toast';
 import Image from 'next/image';
-// import kakaoTalk from '/public/images/카톡.png';
 
 function KakaoLogin() {
   const kakao = async () => {
@@ -22,7 +21,7 @@ function KakaoLogin() {
       <div className='flex justify-center mt-4 w-[469px]'>
         <button onClick={kakao}>
           <Image
-            src={'/images/카톡.png'}
+            src={'/images/kakaoIcon.png'}
             alt='kakaoIcon'
             width={48}
             height={48}

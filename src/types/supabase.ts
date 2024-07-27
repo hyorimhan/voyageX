@@ -23,12 +23,24 @@ export type Database = {
         };
         Insert: {
           address?: string | null;
+          alias?: string | null;
+          detailAddress?: string | null;
           id?: string;
+          oldAddress?: string | null;
+          phone?: string | null;
+          postcode?: string | null;
+          recipient?: string | null;
           user_id: string;
         };
         Update: {
           address?: string | null;
+          alias?: string | null;
+          detailAddress?: string | null;
           id?: string;
+          oldAddress?: string | null;
+          phone?: string | null;
+          postcode?: string | null;
+          recipient?: string | null;
           user_id?: string;
         };
         Relationships: [
@@ -126,6 +138,7 @@ export type Database = {
           goods_name: string;
           goods_price: number;
           id: string;
+          like_count: number;
         };
         Insert: {
           description: string;
@@ -133,6 +146,7 @@ export type Database = {
           goods_name: string;
           goods_price: number;
           id?: string;
+          like_count?: number;
         };
         Update: {
           description?: string;
@@ -140,6 +154,7 @@ export type Database = {
           goods_name?: string;
           goods_price?: number;
           id?: string;
+          like_count?: number;
         };
         Relationships: [];
       };
@@ -231,24 +246,60 @@ export type Database = {
           },
         ];
       };
+      likes: {
+        Row: {
+          created_at: string;
+          id: string;
+          post_id: string;
+          user_id: string;
+        };
+        Insert: {
+          created_at?: string;
+          id?: string;
+          post_id?: string;
+          user_id?: string;
+        };
+        Update: {
+          created_at?: string;
+          id?: string;
+          post_id?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'likes_post_id_fkey';
+            columns: ['post_id'];
+            isOneToOne: false;
+            referencedRelation: 'posts';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'likes_user_id_fkey';
+            columns: ['user_id'];
+            isOneToOne: false;
+            referencedRelation: 'users';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
       planets: {
         Row: {
           description: string;
           id: string;
           name: string;
-          planet_icon: string;
+          planet_img: string;
         };
         Insert: {
           description: string;
           id?: string;
           name: string;
-          planet_icon: string;
+          planet_img: string;
         };
         Update: {
           description?: string;
           id?: string;
           name?: string;
-          planet_icon?: string;
+          planet_img?: string;
         };
         Relationships: [];
       };
@@ -258,6 +309,7 @@ export type Database = {
           content: string;
           created_at: string;
           id: string;
+          like_count: number;
           title: string;
           user_id: string;
         };
@@ -266,6 +318,7 @@ export type Database = {
           content: string;
           created_at?: string;
           id?: string;
+          like_count?: number;
           title: string;
           user_id: string;
         };
@@ -274,6 +327,7 @@ export type Database = {
           content?: string;
           created_at?: string;
           id?: string;
+          like_count?: number;
           title?: string;
           user_id?: string;
         };
@@ -325,25 +379,22 @@ export type Database = {
       };
       tours: {
         Row: {
-          duration: string;
+          tag: string;
           id: string;
           planet_id: string;
           price: number;
-          weather: number;
         };
         Insert: {
-          duration: string;
+          tag: string;
           id?: string;
           planet_id?: string;
           price: number;
-          weather: number;
         };
         Update: {
-          duration?: string;
+          tag?: string;
           id?: string;
           planet_id?: string;
           price?: number;
-          weather?: number;
         };
         Relationships: [
           {
@@ -362,7 +413,7 @@ export type Database = {
         };
         Insert: {
           email: string;
-          id: string;
+          id?: string;
         };
         Update: {
           email?: string;
