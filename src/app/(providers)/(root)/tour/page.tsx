@@ -1,14 +1,11 @@
-import React from 'react';
-import TourList from '@/components/tour/TourList';
+import Page from '@/components/pages/Page';
+import TourList from '@/components/tour/tourList/TourList';
 
 const TourPage = () => {
   return (
-    <div>
-      Travel Package
-      <div>
-        <TourList />
-      </div>
-    </div>
+    <Page>
+      <TourList />
+    </Page>
   );
 };
 
