@@ -1,10 +1,14 @@
 import { HiStar } from 'react-icons/hi2';
 
-function Stars() {
+interface StarsProps {
+  ratingAvg: number;
+}
+
+function Stars({ ratingAvg }: StarsProps) {
   return (
     <span className='flex flex-row items-center text-xl text-black-50'>
       <HiStar />
-      4.5
+      {ratingAvg}
     </span>
   );
 }
