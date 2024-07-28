@@ -1,8 +1,11 @@
+'use client';
 import { Tour } from '@/types/tourPropsType';
+import useAuthStore from '@/zustand/store/useAuth';
 import Image from 'next/image';
 import Link from 'next/link';
 
 function DetailCard({ tour }: { tour: Tour }) {
+  const user = useAuthStore((state) => state.user);
   return (
     <>
       <div className='  mt-[156px] flex '>
@@ -17,6 +20,7 @@ function DetailCard({ tour }: { tour: Tour }) {
         </div>
         <div className='w-[504px] h-[552px] ml-[64px]'>
           <div className='text-[28px] mb-[16px]'>{tour.planets.name}</div>
+          <div></div>
           <div className='text-[14px] mb-[32px]'>{tour.tag}</div>
           <div className='text-[18px] mb-[12px]'>6박 7일 패키지</div>
           <div className='text-[24px] mb-[32px]'>
