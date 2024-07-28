@@ -1,29 +1,14 @@
-import { createClient } from '@/supabase/client';
 import { Tour, tourProps } from '@/types/tourPropsType';
 import toast from 'react-hot-toast';
 import DetailCard from './DetailCard';
+import { tourDetail } from '../../../services/tour';
 
 async function TourDetail({ params }: tourProps) {
-  const supabase = createClient();
   const { id } = params;
-  const { data: tours, error } = await supabase
-    .from('tours')
-    .select(
-      `
-    price,
-    tag,
-    id,
-    planets (
-      name,
-      description,
-      planet_img
-    )
-  `,
-    )
-    .eq('id', id);
+  const { tours, error } = await tourDetail(id);
 
   if (error) {
-    toast(error.message);
+    toast.error(error.message);
   }
 
   return (
