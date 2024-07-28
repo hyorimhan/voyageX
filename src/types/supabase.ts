@@ -15,6 +15,7 @@ export type Database = {
           alias: string | null;
           detailAddress: string | null;
           id: string;
+          is_default: boolean | null;
           oldAddress: string | null;
           phone: string | null;
           postcode: string | null;
@@ -26,6 +27,7 @@ export type Database = {
           alias?: string | null;
           detailAddress?: string | null;
           id?: string;
+          is_default?: boolean | null;
           oldAddress?: string | null;
           phone?: string | null;
           postcode?: string | null;
@@ -37,6 +39,7 @@ export type Database = {
           alias?: string | null;
           detailAddress?: string | null;
           id?: string;
+          is_default?: boolean | null;
           oldAddress?: string | null;
           phone?: string | null;
           postcode?: string | null;
@@ -133,28 +136,34 @@ export type Database = {
       };
       goods: {
         Row: {
+          created_at: string;
           description: string;
           goods_img: string;
           goods_name: string;
           goods_price: number;
           id: string;
           like_count: number;
+          rating_avg: number;
         };
         Insert: {
+          created_at?: string;
           description: string;
           goods_img: string;
           goods_name: string;
           goods_price: number;
           id?: string;
           like_count?: number;
+          rating_avg?: number;
         };
         Update: {
+          created_at?: string;
           description?: string;
           goods_img?: string;
           goods_name?: string;
           goods_price?: number;
           id?: string;
           like_count?: number;
+          rating_avg?: number;
         };
         Relationships: [];
       };
@@ -239,6 +248,42 @@ export type Database = {
           },
           {
             foreignKeyName: 'goods_reviews_user_id_fkey';
+            columns: ['user_id'];
+            isOneToOne: false;
+            referencedRelation: 'users';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      liked_goods: {
+        Row: {
+          created_at: string;
+          goods_id: string;
+          id: string;
+          user_id: string;
+        };
+        Insert: {
+          created_at?: string;
+          goods_id: string;
+          id?: string;
+          user_id: string;
+        };
+        Update: {
+          created_at?: string;
+          goods_id?: string;
+          id?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'liked_goods_goods_id_fkey';
+            columns: ['goods_id'];
+            isOneToOne: false;
+            referencedRelation: 'goods';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'liked_goods_user_id_fkey';
             columns: ['user_id'];
             isOneToOne: false;
             referencedRelation: 'users';
@@ -379,22 +424,22 @@ export type Database = {
       };
       tours: {
         Row: {
-          tag: string;
           id: string;
           planet_id: string;
           price: number;
+          tag: string;
         };
         Insert: {
-          tag: string;
           id?: string;
           planet_id?: string;
           price: number;
+          tag: string;
         };
         Update: {
-          tag?: string;
           id?: string;
           planet_id?: string;
           price?: number;
+          tag?: string;
         };
         Relationships: [
           {
