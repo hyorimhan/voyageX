@@ -57,12 +57,16 @@ body {
 @font-face {
   font-family: 'Yangpyeong';
   src: url('/fonts/yangpyeong_B.ttf') format('truetype'),
-       url('/fonts/yangpyeong_L.ttf') format('truetype'),
-       url('/fonts/yangpyeong_M.ttf') format('truetype');
+    url('/fonts/yangpyeong_L.ttf') format('truetype'),
+    url('/fonts/yangpyeong_M.ttf') format('truetype');
   font-weight: bold;
   font-style: normal;
 }
 
 .text-yangpyeong {
   font-family: 'Yangpyeong', sans-serif;
+}
+
+.cursor-wait {
+  cursor: wait;
 }

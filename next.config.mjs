@@ -13,6 +13,10 @@ const nextConfig = {
         hostname: 'i.ibb.co',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'uvjnwqdttdhvwexypdhx.supabase.co',
+      },
     ],
   },
   eslint: {
