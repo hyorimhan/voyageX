@@ -1,8 +1,10 @@
 import {
   getGoods,
   getIsLikeOfGoodsByUser,
+  getLikedGoodsByUser,
   toggleLikeGoods,
 } from '@/services/goods';
+import { LikedGoodsType } from '@/types/goods';
 import { Tables } from '@/types/supabase';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
@@ -27,5 +29,12 @@ export const useToggleLikeGoods = (goods_id: string, user_id: string) => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['like', goods_id, user_id] });
     },
+  });
+};
+
+export const useGetAllLIkedGoodsByUser = (user_id: string) => {
+  return useQuery<LikedGoodsType[]>({
+    queryKey: ['likedGoods', user_id],
+    queryFn: () => getLikedGoodsByUser(user_id),
   });
 };

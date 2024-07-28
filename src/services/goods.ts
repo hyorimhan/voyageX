@@ -1,9 +1,13 @@
 import { toggleLikeGoodsParamsType } from '@/types/goods';
-import { Tables } from '@/types/supabase';
 import axios from 'axios';
 
 export const getGoods = async (order: string) => {
   const response = await axios.get(`/api/goods?order=${order}`);
+  return response.data;
+};
+
+export const getLikedGoodsByUser = async (user_id: string) => {
+  const response = await axios.get(`/api/goods/like?user_id=${user_id}`);
   return response.data;
 };
 
