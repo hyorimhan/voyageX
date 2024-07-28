@@ -6,8 +6,11 @@ import Hearts from './Hearts';
 import Stars from './Stars';
 import Image from 'next/image';
 import { useGetOrderedGoods } from '@/hooks/goodsHooks';
+import useAuthStore from '@/zustand/store/useAuth';
 
 function GoodsList() {
+  const user = useAuthStore((state) => state.user);
+  console.log(user?.id);
   const [sortBy, setSortBy] = useState('like_count');
   const sortByList = [
     'like_count',
@@ -60,7 +63,7 @@ function GoodsList() {
                     무료배송
                   </div>
                 </div>
-                <Hearts goods_id={item.id} />
+                {user && <Hearts goods_id={item.id} user_id={user.id} />}
               </div>
             </div>
           </li>
