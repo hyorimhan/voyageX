@@ -52,7 +52,7 @@ function LoginForm() {
     }
   };
   return (
-    <div className='flex flex-col items-end mt-[5%]'>
+    <div className='flex flex-col items-end h-screen justify-center'>
       <form onSubmit={handleSubmit(loginForm, handleError)}>
         <div className='text-center text-2xl my-4 text-black-50'>로그인</div>
         <div className='flex flex-col'>
