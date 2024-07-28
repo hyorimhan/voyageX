@@ -13,6 +13,10 @@ const nextConfig = {
         hostname: 'i.ibb.co',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'uvjnwqdttdhvwexypdhx.supabase.co',
+      },
     ],
   },
   eslint: {
@@ -40,14 +44,6 @@ const nextConfig = {
     includePaths: [path.join(__dirname, 'styles')],
   },
   trailingSlash: true,
-  images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'uvjnwqdttdhvwexypdhx.supabase.co',
-      },
-    ],
-  },
 };
 
 export default nextConfig;

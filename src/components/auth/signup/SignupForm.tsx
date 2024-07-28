@@ -30,9 +30,7 @@ function SignupForm() {
     const response = await signUp(data);
     console.log('Response from signUp:', response);
     if (response.message) {
-      toast(response.message, {
-        icon: '🌠',
-      });
+      toast.success(response.message);
       router.replace('/login');
     }
   };

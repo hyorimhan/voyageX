@@ -11,7 +11,9 @@ const config: Config = {
       backgroundImage: {
         'custom-background': "url('/images/배경.png')",
       },
-
+      opacity: {
+        '60': '0.6',
+      },
       backgroundSize: {
         '50%': '50%',
         '70%': '70%',
@@ -76,6 +78,9 @@ const config: Config = {
           500: '#f15bb5',
           700: '#fee440',
           900: '#00bbf9',
+        },
+        header: {
+          default: '#2D2D2D', //투명도 60%
         },
       },
 

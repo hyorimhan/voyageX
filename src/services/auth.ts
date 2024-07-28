@@ -1,5 +1,6 @@
 import { createClient } from '@/supabase/client';
 import { formType } from '@/types/authFormType';
+import toast from 'react-hot-toast';
 
 const supabase = createClient();
 
@@ -45,8 +46,38 @@ export const logout = async () => {
 export const signInWithKakao = async () => {
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: 'kakao',
+    options: {
+      queryParams: {
+        access_type: 'offline',
+        prompt: 'consent',
+      },
+    },
   });
-  return { data, error };
+  if (data) {
+    toast.success('로그인 되었습니다');
+  }
+  if (error) {
+    toast.error(error.message);
+  }
+};
+
+// 구글
+export const signInWithGoogle = async () => {
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: 'google',
+    options: {
+      queryParams: {
+        access_type: 'offline',
+        prompt: 'consent',
+      },
+    },
+  });
+  if (data) {
+    toast.success('로그인 되었습니다');
+  }
+  if (error) {
+    toast.error(error.message);
+  }
 };
 
 // 현재 로그인 유저 정보
