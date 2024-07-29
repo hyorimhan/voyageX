@@ -1,4 +1,5 @@
 import {
+  deleteCartItem,
   getCartList,
   getGoods,
   getIsLikeOfGoodsByUser,
@@ -34,10 +35,10 @@ export const useToggleLikeGoods = (goods_id: string, user_id: string) => {
   });
 };
 
-export const useGetAllLIkedGoodsByUser = (user_id: string) => {
+export const useGetAllLIkedGoodsByUser = (user_id: string, table: string) => {
   return useQuery<LikedGoodsType[]>({
-    queryKey: ['likedGoods', user_id],
-    queryFn: () => getLikedGoodsByUser(user_id),
+    queryKey: ['likedGoods', user_id, table],
+    queryFn: () => getLikedGoodsByUser(user_id, table),
   });
 };
 

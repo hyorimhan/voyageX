@@ -12,7 +12,7 @@ function LikedItems({ user_id }: LikedItemsParamsType) {
     data: likedGoods,
     isError,
     isPending,
-  } = useGetAllLIkedGoodsByUser(user_id);
+  } = useGetAllLIkedGoodsByUser(user_id, 'liked_goods');
 
   if (isError) return <div>에러</div>;
   if (isPending) return <div>로딩 중..</div>;
