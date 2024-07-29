@@ -12,17 +12,38 @@ export type Database = {
       addresses: {
         Row: {
           address: string | null;
+          alias: string | null;
+          detailAddress: string | null;
           id: string;
+          is_default: boolean | null;
+          oldAddress: string | null;
+          phone: string | null;
+          postcode: string | null;
+          recipient: string | null;
           user_id: string;
         };
         Insert: {
           address?: string | null;
+          alias?: string | null;
+          detailAddress?: string | null;
           id?: string;
+          is_default?: boolean | null;
+          oldAddress?: string | null;
+          phone?: string | null;
+          postcode?: string | null;
+          recipient?: string | null;
           user_id: string;
         };
         Update: {
           address?: string | null;
+          alias?: string | null;
+          detailAddress?: string | null;
           id?: string;
+          is_default?: boolean | null;
+          oldAddress?: string | null;
+          phone?: string | null;
+          postcode?: string | null;
+          recipient?: string | null;
           user_id?: string;
         };
         Relationships: [
@@ -115,25 +136,34 @@ export type Database = {
       };
       goods: {
         Row: {
+          created_at: string;
           description: string;
           goods_img: string;
           goods_name: string;
           goods_price: number;
           id: string;
+          like_count: number;
+          rating_avg: number;
         };
         Insert: {
+          created_at?: string;
           description: string;
           goods_img: string;
           goods_name: string;
           goods_price: number;
           id?: string;
+          like_count?: number;
+          rating_avg?: number;
         };
         Update: {
+          created_at?: string;
           description?: string;
           goods_img?: string;
           goods_name?: string;
           goods_price?: number;
           id?: string;
+          like_count?: number;
+          rating_avg?: number;
         };
         Relationships: [];
       };
@@ -225,24 +255,96 @@ export type Database = {
           },
         ];
       };
+      liked_goods: {
+        Row: {
+          created_at: string;
+          goods_id: string;
+          id: string;
+          user_id: string;
+        };
+        Insert: {
+          created_at?: string;
+          goods_id: string;
+          id?: string;
+          user_id: string;
+        };
+        Update: {
+          created_at?: string;
+          goods_id?: string;
+          id?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'liked_goods_goods_id_fkey';
+            columns: ['goods_id'];
+            isOneToOne: false;
+            referencedRelation: 'goods';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'liked_goods_user_id_fkey';
+            columns: ['user_id'];
+            isOneToOne: false;
+            referencedRelation: 'users';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      likes: {
+        Row: {
+          created_at: string;
+          id: string;
+          post_id: string;
+          user_id: string;
+        };
+        Insert: {
+          created_at?: string;
+          id?: string;
+          post_id?: string;
+          user_id?: string;
+        };
+        Update: {
+          created_at?: string;
+          id?: string;
+          post_id?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'likes_post_id_fkey';
+            columns: ['post_id'];
+            isOneToOne: false;
+            referencedRelation: 'posts';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'likes_user_id_fkey';
+            columns: ['user_id'];
+            isOneToOne: false;
+            referencedRelation: 'users';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
       planets: {
         Row: {
           description: string;
           id: string;
           name: string;
-          planet_icon: string;
+          planet_img: string;
         };
         Insert: {
           description: string;
           id?: string;
           name: string;
-          planet_icon: string;
+          planet_img: string;
         };
         Update: {
           description?: string;
           id?: string;
           name?: string;
-          planet_icon?: string;
+          planet_img?: string;
         };
         Relationships: [];
       };
@@ -252,6 +354,7 @@ export type Database = {
           content: string;
           created_at: string;
           id: string;
+          like_count: number;
           title: string;
           user_id: string;
         };
@@ -260,6 +363,7 @@ export type Database = {
           content: string;
           created_at?: string;
           id?: string;
+          like_count?: number;
           title: string;
           user_id: string;
         };
@@ -268,6 +372,7 @@ export type Database = {
           content?: string;
           created_at?: string;
           id?: string;
+          like_count?: number;
           title?: string;
           user_id?: string;
         };
@@ -319,25 +424,22 @@ export type Database = {
       };
       tours: {
         Row: {
-          duration: string;
           id: string;
           planet_id: string;
           price: number;
-          weather: number;
+          tag: string;
         };
         Insert: {
-          duration: string;
           id?: string;
           planet_id?: string;
           price: number;
-          weather: number;
+          tag: string;
         };
         Update: {
-          duration?: string;
           id?: string;
           planet_id?: string;
           price?: number;
-          weather?: number;
+          tag?: string;
         };
         Relationships: [
           {
@@ -356,7 +458,7 @@ export type Database = {
         };
         Insert: {
           email: string;
-          id: string;
+          id?: string;
         };
         Update: {
           email?: string;

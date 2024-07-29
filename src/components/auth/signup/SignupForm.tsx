@@ -30,9 +30,7 @@ function SignupForm() {
     const response = await signUp(data);
     console.log('Response from signUp:', response);
     if (response.message) {
-      toast(response.message, {
-        icon: '🌠',
-      });
+      toast.success(response.message);
       router.replace('/login');
     }
   };
@@ -61,7 +59,7 @@ function SignupForm() {
 
   return (
     <>
-      <div className='flex flex-col items-end mt-[3%]'>
+      <div className='flex flex-col items-end justify-center h-screen'>
         <form onSubmit={handleSubmit(joinForm, handleError)}>
           <div className='text-center text-2xl my-4 text-black-50'>
             회원가입
