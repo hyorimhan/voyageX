@@ -1,9 +1,13 @@
-import { useEffect } from 'react';
-import themeObj from './AddressTheme';
-import { TfiClose } from 'react-icons/tfi';
+import DaumPostcodeEmbed from 'react-daum-postcode';
+import themeObj from './AddressSearchModalTheme';
+import Modal from './ModalForm';
 
 interface PostcodeModalProps {
-  onComplete: (data: any) => void;
+  onComplete: (
+    postcode: string,
+    newAddress: string,
+    oldAddress: string,
+  ) => void;
   onClose: () => void;
 }
 
@@ -11,30 +15,34 @@ const AddressSearchModal: React.FC<PostcodeModalProps> = ({
   onComplete,
   onClose,
 }) => {
-  useEffect(() => {
-    if (window.daum && window.daum.Postcode) {
-      new window.daum.Postcode({
-        oncomplete: onComplete,
-        theme: themeObj,
-        autoMappingJibun: false,
-        width: screen.width * 0.3,
-        height: screen.height * 0.5,
-      }).embed(document.getElementById('postcode-embed'));
+  const handleComplete = (data: any) => {
+    let newAddress = data.roadAddress;
+    let oldAddress = data.jibunAddress;
+
+    if (data.addressType === 'R') {
+      if (data.bname !== '') {
+        newAddress += ` (${data.bname})`;
+      }
+      if (data.buildingName !== '') {
+        newAddress +=
+          newAddress !== '' ? `, ${data.buildingName}` : data.buildingName;
+      }
     }
-  }, [onComplete]);
+
+    onComplete(data.zonecode, newAddress, oldAddress);
+  };
 
   return (
-    <div className='fixed inset-0 flex items-center justify-center bg-black-1000 bg-opacity-50 z-40'>
-      <div className='relative bg-white p-[38px]'>
-        <button
-          onClick={onClose}
-          className='absolute top-[45px] right-[76px] p-2 text-lg z-50'
-        >
-          <TfiClose />
-        </button>
-        <div id='postcode-embed' />
-      </div>
-    </div>
+    <Modal onClose={onClose}>
+      <DaumPostcodeEmbed
+        onComplete={handleComplete}
+        autoClose={false}
+        defaultQuery=''
+        style={{ width: '100%', height: '100%' }}
+        autoMappingJibun={false}
+        theme={themeObj}
+      />
+    </Modal>
   );
 };
 

@@ -5,7 +5,7 @@ export const emailValidate = () => ({
 export const passwordValidate = () => ({
   required: '비밀번호는 필수 값입니다.',
   minLength: {
-    value: 8,
+    value: 6,
     message: '비밀번호는 최소 8자 이상 입력해주세요',
   },
   maxLenth: {
