@@ -31,15 +31,17 @@ export const toggleLikeGoods = async (
   toggleLikeGoodsParams: toggleLikeGoodsParamsType,
 ) => {
   const { goods_id, user_id, isLiked } = toggleLikeGoodsParams;
-  if (!isLiked || isLiked.length) {
+  if (isLiked) {
     const response = await axios.delete(
       `/api/goods/${goods_id}/like?user_id=${user_id}`,
     );
+    console.log(response);
     return response;
   } else {
     const response = await axios.post(
       `/api/goods/${goods_id}/like?user_id=${user_id}`,
     );
+    console.log(response);
     return response;
   }
 };

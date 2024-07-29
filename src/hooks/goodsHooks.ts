@@ -19,17 +19,42 @@ export const useGetOrderedGoods = (order: string) => {
 };
 
 export const useGetLikedGoodsByUser = (goods_id: string, user_id: string) => {
-  return useQuery<Tables<'liked_goods'>[]>({
+  return useQuery<boolean>({
     queryKey: ['like', goods_id, user_id],
     queryFn: () => getIsLikeOfGoodsByUser(goods_id, user_id),
   });
 };
 
-export const useToggleLikeGoods = (goods_id: string, user_id: string) => {
+export const useToggleLikeGoods = (
+  goods_id: string,
+  user_id: string,
+  isLiked: boolean,
+) => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: toggleLikeGoods,
-    onSuccess: () => {
+    onMutate: async ({ goods_id, user_id, isLiked }) => {
+      await queryClient.cancelQueries({
+        queryKey: ['like', goods_id, user_id],
+      });
+      const previousHeart = queryClient.getQueryData([
+        'like',
+        goods_id,
+        user_id,
+      ]);
+      queryClient.setQueriesData(
+        { queryKey: ['like', goods_id, user_id] },
+        !isLiked,
+      );
+      return { previousState: previousHeart };
+    },
+    onError: (err, isLiked, context) => {
+      queryClient.setQueriesData(
+        { queryKey: ['like', goods_id, user_id] },
+        context?.previousState,
+      );
+    },
+    onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ['like', goods_id, user_id] });
     },
   });
