@@ -1,5 +1,9 @@
 function ShopLayout({ children }: { children: React.ReactNode }) {
-  return <>{children}</>;
+  return (
+    <>
+      <div className='bg-custom-background'>{children}</div>
+    </>
+  );
 }
 
 export default ShopLayout;

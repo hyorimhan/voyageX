@@ -6,9 +6,23 @@ const __dirname = path.dirname(__filename);
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'i.ibb.co',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'uvjnwqdttdhvwexypdhx.supabase.co',
+      },
+    ],
+  },
   eslint: {
     ignoreDuringBuilds: true,
   },
+
   webpack: (config, { isServer }) => {
     config.module.rules.push({
       test: /\.(png|jpe?g|gif|svg|eot|ttf|woff|woff2)$/,
@@ -25,6 +39,7 @@ const nextConfig = {
 
     return config;
   },
+
   sassOptions: {
     includePaths: [path.join(__dirname, 'styles')],
   },
