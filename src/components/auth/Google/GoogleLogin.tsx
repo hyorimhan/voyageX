@@ -5,7 +5,7 @@ import Image from 'next/image';
 function GoogleLogin() {
   return (
     <>
-      <div className='mx-[13.5px]'>
+      <div className='mx-3.5'>
         <button onClick={signInWithGoogle}>
           <Image
             src={'/images/google.png'}
@@ -14,7 +14,7 @@ function GoogleLogin() {
             height={48}
           />
         </button>
-        <div className=' mt-[6px] text-[14px] text-center '>구글</div>
+        <div className=' mt-1.5 text-sm text-center '>구글</div>
       </div>
     </>
   );

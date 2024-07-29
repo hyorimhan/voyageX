@@ -12,8 +12,8 @@ async function TourList() {
 
   return (
     <>
-      <div className='text-[28px] mt-[132px] text-center'>Travel Package</div>
-      <div className='grid grid-cols-3 gap-8 p-4 mt-[10%]'>
+      <div className='text-2xl mt-32 text-center'>Travel Package</div>
+      <div className='grid grid-cols-3 gap-8 p-4 mt-10'>
         {tours?.map((tour) => (
           <TourCard key={tour.id} tour={tour as Tour} />
         ))}
