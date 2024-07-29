@@ -6,4 +6,6 @@ export type formType = {
   terms: boolean;
   privacy: boolean;
   selectAll: boolean;
+  currentPassword: string;
+  newPassword: string;
 };
