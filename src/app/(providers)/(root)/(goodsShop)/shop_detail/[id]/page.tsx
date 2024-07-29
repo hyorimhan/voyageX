@@ -2,25 +2,28 @@
 
 import Page from '@/components/pages/Page';
 import Image from 'next/image';
-import { GoHeart } from 'react-icons/go';
 import { HiStar, HiOutlineStar } from 'react-icons/hi2';
 import { PiStarHalfFill } from 'react-icons/pi';
-import { FaCircle } from 'react-icons/fa';
 import FAQ from '@/components/shop/detail/FAQ';
 import { useEffect, useState } from 'react';
 import { createClient } from '@/supabase/client';
 import { useParams } from 'next/navigation';
 import { Database } from '@/types/supabase';
-import { IoHeart } from 'react-icons/io5';
+import Hearts from '@/components/shop/Hearts';
+import useAuthStore from '@/zustand/store/useAuth';
+import GoodsDetailPageTabSelector from '@/components/shop/detail/GoodsDetailPageTabSelector';
 
 const supabase = createClient();
 
 const ShopDetailPage = () => {
-  const { id } = useParams();
+  const params = useParams();
+  const id = Array.isArray(params.id) ? params.id[0] : params.id;
   const [goods, setGoods] =
     useState<Database['public']['Tables']['goods']['Row']>();
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
+  const user = useAuthStore((state) => state.user);
+  const [selectedTab, setSelectedTab] = useState('Details');
 
   useEffect(() => {
     if (id) {
@@ -49,14 +52,13 @@ const ShopDetailPage = () => {
       fetchGoods();
     }
   }, [id]);
-
   if (isLoading) return <div>로딩 중..</div>;
   if (isError) return <div>에러 발생</div>;
 
   return (
-    <div className='mt-[170px]'>
+    <div className='mt-[183px]'>
       <Page>
-        <p>GOODS SHOP</p>
+        <p className='text-xl'>GOODS SHOP</p>
         <div className='border-b-2 border-solid border-white mt-3 mb-8'></div>
         {goods && (
           <div className='flex'>
@@ -64,97 +66,60 @@ const ShopDetailPage = () => {
               <Image
                 src={goods.goods_img}
                 alt={goods.description}
-                width={1280}
-                height={1280}
+                width={497}
+                height={497}
               />
             </div>
-            <div className='ml-4 w-full gap-4 flex flex-col text- flex-grow'>
-              <div>
+            <div className='ml-14 flex flex-col text-2xl flex-grow'>
+              <div className='mb-4'>
                 <p>{goods.goods_name}</p>
                 <p>{goods.goods_name}</p>
               </div>
-
-              <div className='flex gap-2 font-bold flex-col'>
-                <p className='mt-4 text-2xl text-black-500'>
+              <div className='flex gap-1 flex-col'>
+                <p className='text-xl text-black-500'>
                   {goods.goods_price.toLocaleString()}원
                 </p>
-                <div className='flex'>
+                <div className='flex text-2xl'>
                   <p className='text-error-900 mr-2'>10%</p>
                   <p>{goods.goods_price.toLocaleString()}원</p>
                 </div>
               </div>
-              <div className='flex gap-14 mt-4'>
-                <div className='flex flex-col text-2xl'>
-                  <p className='mb-4'>배송정보</p>
-                  <p className='mb-6'>배송비</p>
-                  <p className='mb-8'>사이즈</p>
+              <div className='flex gap-4 mt-5 text-base'>
+                <div className='flex flex-col gap-[14px]'>
+                  <p>배송정보</p>
+                  <p>배송비</p>
+                  <p>사이즈</p>
                   <p>색상</p>
                 </div>
-                <div className='flex flex-col text-2xl'>
-                  <p className='mb-4'>예약 출고 2024.08.11 이내 출고</p>
-                  <p className='mb-4'>2,500원</p>
-                  <p className='mb-7 bg-primary-600 p-2 rounded-lg w-24 text-center'>
-                    FREE
-                  </p>
-
-                  <p>
-                    <FaCircle className='text-primary-600' />
-                  </p>
+                <div className='flex flex-col gap-[14px]'>
+                  <p>예약 출고 2024.08.11 이내 출고</p>
+                  <p>2,500원</p>
+                  <p>FREE</p>
+                  <p>RED</p>
                 </div>
               </div>
-              <div className='gap-2 w-full h-20 flex mt-auto'>
-                <GoHeart className='border-solid h-20 border-2 p-4 w-40 rounded-lg border-black-800' />
-                <button className='border-solid border-2 border-primary-600 rounded-lg p-2 w-full'>
-                  장바구니
-                </button>
-                <button className='bg-primary-600 rounded-lg p-2 w-full'>
-                  구매하기
-                </button>
+              <div className='gap-2 flex mt-auto w-full'>
+                {user && (
+                  <div className='flex p-[14px] rounded-lg items-center border-2 border-solid border-black-800'>
+                    <Hearts goods_id={id} user_id={user.id} />
+                  </div>
+                )}
+                <div className='flex flex-grow gap-2'>
+                  <button className='border-solid border-2 w-full border-primary-600 rounded-lg p-2 text-base'>
+                    장바구니
+                  </button>
+                  <button className='bg-primary-600 w-full rounded-lg p-2 text-base'>
+                    구매하기
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         )}
-        <div className='mt-24 mb-16'>
-          <div className='flex w-full text-center text-2xl'>
-            <p className='w-full '>상세정보</p>
-            <p className='w-full'>리뷰 45</p>
-          </div>
-          <div className='flex'>
-            <div className='border-b-2 border-solid border-white mt-3 w-full'></div>
-            <div className='border-b-4 border-solid border-white mt-3 w-full'></div>
-          </div>
-          <div className='mt-12 text-3xl flex flex-col items-center'>
-            <p>리뷰</p>
-            <div className='flex mt-6'>
-              <div className='flex items-center mr-4'>
-                <HiStar />
-                <HiStar />
-                <HiStar />
-                <PiStarHalfFill />
-                <HiOutlineStar />
-              </div>
-              <p>4.0/5.0</p>
-            </div>
-          </div>
-        </div>
-        <div className='flex py-7 w-full flex-grow'>
-          <div className='mr-6'>
-            <p className='flex mb-2'>
-              <HiStar />
-              <HiStar />
-              <HiStar />
-              <PiStarHalfFill />
-              <HiOutlineStar />
-            </p>
-            <p>아이디</p>
-          </div>
-          <div>
-            <p>튼튼하고 목늘어짐 없이 좋아용 추천!</p>
-          </div>
-          <div className='ml-auto'>
-            <p>2024.07.08</p>
-          </div>
-        </div>
+        <GoodsDetailPageTabSelector
+          selectedTab={selectedTab}
+          setSelectedTab={setSelectedTab}
+        />
         <FAQ />
       </Page>
     </div>
