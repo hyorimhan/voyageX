@@ -86,11 +86,12 @@ export const userLoginInfo = async () => {
   return loginInfo;
 };
 
-export const updatePassword = async (
-  email: string,
-  currentPassword: string,
-  newPassword: string,
-) => {
+// 비밀번호 변경
+export const updatePassword = async ({
+  email,
+  currentPassword,
+  newPassword,
+}: formType) => {
   try {
     // 현재 비밀번호로 로그인 시도
     const { data: signInData, error: signInError } =
@@ -119,4 +120,25 @@ export const updatePassword = async (
     console.error('Unexpected error:', error);
     return { error: { message: '비밀번호 변경 중 오류가 발생했습니다.' } };
   }
+};
+
+// 회원 탈퇴
+export const deleteUser = async (userId: string) => {
+  const response = await fetch('/api/auth/deleteUser', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ userId }),
+  });
+
+  const responseData = await response.json();
+
+  if (response.ok) {
+    toast.success('회원탈퇴가 완료되었습니다.');
+  } else {
+    toast.error(responseData.error || '회원탈퇴 중 오류가 발생했습니다.');
+  }
+
+  return responseData;
 };

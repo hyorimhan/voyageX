@@ -1,5 +1,5 @@
 import DaumPostcodeEmbed from 'react-daum-postcode';
-import themeObj from './AddressTheme';
+import themeObj from './AddressSearchModalTheme';
 import Modal from './ModalForm';
 
 interface PostcodeModalProps {

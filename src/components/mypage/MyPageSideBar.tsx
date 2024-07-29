@@ -23,7 +23,7 @@ const MyPageSideBar = () => {
         <Link href={'/mypage/address_list'}>배송지 관리</Link>
         <Link href={'/mypage/my_posts'}>커뮤니티 작성 글 목록</Link>
         <Link href={'/wishlist'}>찜 & 장바구니</Link>
-        <Link href={'/'}>회원탈퇴</Link>
+        <Link href={'/mypage/delete_account'}>회원탈퇴</Link>
       </div>
     </div>
   );
