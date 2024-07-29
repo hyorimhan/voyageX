@@ -1,3 +1,4 @@
+import TourHearts from '@/components/tour/tourDetail/TourHearts';
 import { useGetLikedToursByUser } from '@/hooks/toursHooks';
 import Image from 'next/image';
 
@@ -35,18 +36,11 @@ function LikedPlanet({ user_id }: LikedPlanetParamsType) {
                 {item.planets.name}
               </p>
               <div className='flex flex-row'>
-                <p className='flex justify-center text-xl'>{`${item.price}원`}</p>
+                <p className='flex justify-center text-xl'>{`${item.price.toLocaleString()}원`}</p>
               </div>
-              {/* <div className='flex flex-row justify-between items-center'>
-                <div className='flex flex-row gap-2'>
-                  <div className='bg-black-600 rounded-xl text-xs p-1.5'>
-                    무료배송
-                  </div>
-                </div>
-                {user_id && (
-                  <Hearts goods_id={item.goods_id} user_id={item.user_id} />
-                )}
-              </div> */}
+              <div className='flex flex-row justify-between items-center'>
+                {user_id && <TourHearts tour_id={item.id} user_id={user_id} />}
+              </div>
             </div>
           </li>
         ))}
