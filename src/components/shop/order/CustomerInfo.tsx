@@ -1,5 +1,5 @@
+import { Customer } from '@/types/userAddressType';
 import { Dispatch, SetStateAction } from 'react';
-import { Address, Customer } from './OrderForm';
 
 interface CustomerInfoProps {
   customerInfo: Customer;

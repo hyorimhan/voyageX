@@ -44,14 +44,14 @@ function SignupCheckbox({ control, setValue, register }: formProps) {
   };
   return (
     <>
-      <div className='border-b-[1px] border-white my-2 pb-2'>
+      <div className='border-b my-2 pb-2'>
         <label className='font-bold'>
           <input
             type='checkbox'
             {...register('selectAll')}
             checked={allSelected}
             onChange={handleSelectAll}
-            className='mr-2 text-black-50'
+            className='mr-2 '
           />
           전체동의
         </label>
@@ -61,7 +61,7 @@ function SignupCheckbox({ control, setValue, register }: formProps) {
           <input
             type='checkbox'
             {...register('age14', checkboxValidate())}
-            className='mr-2 text-black-50 '
+            className='mr-2 '
           />
           [필수] 만 14세 이상입니다.
         </label>
@@ -71,13 +71,13 @@ function SignupCheckbox({ control, setValue, register }: formProps) {
           <input
             type='checkbox'
             {...register('terms', checkboxValidate())}
-            className='mr-2 text-black-50 '
+            className='mr-2 '
           />
           [필수] Voyage X 이용약관 동의
           <button
             type='button'
             onClick={() => TermsOfServiceModal()}
-            className='ml-2 text-[13px] items-center text-black-50'
+            className='ml-2 text-xs items-center '
           >
             [상세]
           </button>
@@ -89,13 +89,13 @@ function SignupCheckbox({ control, setValue, register }: formProps) {
           <input
             type='checkbox'
             {...register('privacy', checkboxValidate())}
-            className='mr-2 text-black-50'
+            className='mr-2 '
           />
           [필수] 개인정보 수집 및 이용동의
           <button
             type='button'
             onClick={() => privacyPolicyAndConsentModal()}
-            className='ml-2 text-[13px] text-black-50'
+            className='ml-2 text-xs'
           >
             [상세]
           </button>
