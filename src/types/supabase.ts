@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 export type Json =
   | string
   | number
@@ -613,3 +614,8 @@ export type Enums<
   : PublicEnumNameOrOptions extends keyof PublicSchema["Enums"]
     ? PublicSchema["Enums"][PublicEnumNameOrOptions]
     : never
+=======
+Need to install the following packages:
+supabase@1.187.3
+Ok to proceed? (y) 
+>>>>>>> 75de9c51b43765256a53f3d5150aaa5d09f66d8c

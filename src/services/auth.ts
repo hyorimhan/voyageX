@@ -86,30 +86,59 @@ export const userLoginInfo = async () => {
   return loginInfo;
 };
 
-export const updatePassword = async (
-  email: string,
-  currentPassword: string,
-  newPassword: string,
-) => {
-  // 현재 비밀번호로 로그인 시도
-  const { data: signInData, error: signInError } =
-    await supabase.auth.signInWithPassword({
-      email,
-      password: currentPassword,
+// 비밀번호 변경
+export const updatePassword = async ({
+  email,
+  currentPassword,
+  newPassword,
+}: formType) => {
+  try {
+    // 현재 비밀번호로 로그인 시도
+    const { data: signInData, error: signInError } =
+      await supabase.auth.signInWithPassword({
+        email,
+        password: currentPassword,
+      });
+
+    if (signInError) {
+      console.error('Sign-in error:', signInError);
+      return { error: { message: '현재 비밀번호가 올바르지 않습니다.' } };
+    }
+
+    // 비밀번호 변경
+    const { error: updateError } = await supabase.auth.updateUser({
+      password: newPassword,
     });
 
-  if (signInError) {
-    return { error: { message: '현재 비밀번호가 올바르지 않습니다.' } };
-  }
+    if (updateError) {
+      console.error('Update password error:', updateError);
+      return { error: { message: '비밀번호 변경에 실패했습니다.' } };
+    }
 
-  // 비밀번호 변경
-  const { error: updateError } = await supabase.auth.updateUser({
-    password: newPassword,
+    return { error: null };
+  } catch (error) {
+    console.error('Unexpected error:', error);
+    return { error: { message: '비밀번호 변경 중 오류가 발생했습니다.' } };
+  }
+};
+
+// 회원 탈퇴
+export const deleteUser = async (userId: string) => {
+  const response = await fetch('/api/auth/deleteUser', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ userId }),
   });
 
-  if (updateError) {
-    return { error: { message: '비밀번호 변경에 실패했습니다.' } };
+  const responseData = await response.json();
+
+  if (response.ok) {
+    toast.success('회원탈퇴가 완료되었습니다.');
+  } else {
+    toast.error(responseData.error || '회원탈퇴 중 오류가 발생했습니다.');
   }
 
-  return { error: null };
+  return responseData;
 };
