@@ -62,3 +62,10 @@ body {
 .cursor-wait {
   cursor: wait;
 }
+
+.section-bg {
+  background-image: url('/images/section3-bg.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
