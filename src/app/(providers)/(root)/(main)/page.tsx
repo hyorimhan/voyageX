@@ -3,6 +3,9 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
+import useFetchGoods from '@/hooks/useFetchGoods';
+import Link from 'next/link';
+import Footer from '@/components/common/Footer';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -10,8 +13,11 @@ const MainPage = () => {
   const sectionsRef = useRef<(HTMLDivElement | null)[]>([]);
   const planetsRef = useRef<(HTMLDivElement | null)[]>([]);
   const videoRef = useRef<HTMLVideoElement | null>(null);
+  const textRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [videoLoaded, setVideoLoaded] = useState<boolean>(false);
   const [currentSlide, setCurrentSlide] = useState<number>(0);
+
+  const { goods, loading, error } = useFetchGoods();
 
   const planets = [
     '/images/화성.png',
@@ -48,7 +54,7 @@ const MainPage = () => {
   // 비디오 로드 후 섹션에 ScrollTrigger로 설정
   useEffect(() => {
     if (videoLoaded) {
-      sectionsRef.current.forEach((section) => {
+      sectionsRef.current.forEach((section, index) => {
         if (section) {
           ScrollTrigger.create({
             trigger: section,
@@ -57,6 +63,29 @@ const MainPage = () => {
             pinSpacing: false,
             scrub: true,
           });
+
+          // 각 섹션의 텍스트가 점점 투명해지는 애니메이션
+          if (textRefs.current[index]) {
+            gsap.fromTo(
+              textRefs.current[index],
+              { opacity: 1, y: 0 },
+              {
+                opacity: 0,
+                y: -50,
+                scrollTrigger: {
+                  trigger: section,
+                  start: 'top+=100% center', // 텍스트가 사라지기 시작하는 지점 조정
+                  end: 'bottom top', // 텍스트가 완전히 사라지는 지점 조정
+                  scrub: true,
+                  onUpdate: (self) => {
+                    if (self.progress < 0.1) {
+                      gsap.to(textRefs.current[index], { opacity: 1, y: 0 });
+                    }
+                  },
+                },
+              },
+            );
+          }
         }
       });
       ScrollTrigger.refresh();
@@ -127,7 +156,12 @@ const MainPage = () => {
           loop
           muted
         />
-        <div className='absolute z-10 text-center top-48 sm:w-auto sm:text-left sm:left-48 md:left-40 lg:left-52 xl:left-64'>
+        <div
+          ref={(el) => {
+            textRefs.current[0] = el as HTMLDivElement;
+          }}
+          className='absolute z-10 text-center top-48 sm:w-auto sm:text-left sm:left-48 md:left-40 lg:left-52 xl:left-64'
+        >
           <h1 className='text-gradient text-6xl font-bold font-yangpyeong'>
             Voyage X
           </h1>
@@ -146,13 +180,21 @@ const MainPage = () => {
         ref={(el) => {
           sectionsRef.current[1] = el as HTMLDivElement;
         }}
-        className='section h-screen flex items-center justify-center relative bg-center bg-cover bg-no-repeat'
+        className='section h-screen flex flex-col items-center justify-center relative bg-center bg-cover bg-no-repeat'
         style={{ backgroundImage: 'url(/images/section2.png)' }}
       >
+        <div
+          ref={(el) => {
+            textRefs.current[1] = el;
+          }}
+          className='absolute top-32 left-4 sm:top-44 sm:left-16 text-white font-yangpyeong text-2xl sm:text-4xl font-bold fade-text'
+        >
+          Let's Find Popular Planets!
+        </div>
         <div className='scroll-container h-full w-full relative flex items-center justify-center'>
           <button
             onClick={handlePrevSlide}
-            className='absolute left-4 z-10 p-2 bg-white rounded-full'
+            className='absolute left-2 sm:left-4 z-10 p-2 bg-white rounded-full'
           >
             ←
           </button>
@@ -177,23 +219,23 @@ const MainPage = () => {
                   ref={(el) => {
                     planetsRef.current[index] = el as HTMLDivElement;
                   }}
-                  className={`absolute w-24 h-24 transform-gpu transition-opacity duration-500 ${
+                  className={`absolute w-20 h-20 sm:w-24 sm:h-24 transform-gpu transition-opacity duration-500 ${
                     isVisible ? 'opacity-100' : 'opacity-0'
                   }`}
                   style={{
                     transform: `translate3d(${
-                      500 *
+                      150 *
                       Math.sin(
                         ((adjustedIndex - currentSlide) * (2 * Math.PI)) /
                           planets.length,
                       )
                     }px, 0, ${
-                      500 *
+                      150 *
                       Math.cos(
                         ((adjustedIndex - currentSlide) * (2 * Math.PI)) /
                           planets.length,
                       )
-                    }px) scale(${isActive ? 2 : 1})`,
+                    }px) scale(${isActive ? 1.5 : 1})`,
                     zIndex: isActive ? 10 : 0,
                     opacity: isVisible ? (isActive ? 1 : 0.5) : 0,
                   }}
@@ -210,15 +252,74 @@ const MainPage = () => {
           </div>
           <button
             onClick={handleNextSlide}
-            className='absolute right-4 z-10 p-2 bg-white rounded-full'
+            className='absolute right-2 sm:right-4 z-10 p-2 bg-white rounded-full'
           >
             →
           </button>
         </div>
-        <div className='absolute top-44 left-16 text-white font-yangpyeong text-4xl font-bold'>
-          Let's Find Popular Planets!
-        </div>
       </section>
+
+      <section
+        ref={(el) => {
+          sectionsRef.current[2] = el as HTMLDivElement;
+        }}
+        className='section section-bg h-screen flex flex-col items-center justify-center'
+      >
+        <h1 className='text-4xl font-bold mb-8 absolute top-44 left-12'>
+          Goods Item
+        </h1>
+        <Link href='/shop'>
+          <p className='absolute top-44 right-24 underline'>More+</p>
+        </Link>
+        {error && <p className='text-red-500'>{error}</p>}
+        {loading ? (
+          <p>Loading...</p>
+        ) : (
+          <div className='grid grid-cols-3 gap-4'>
+            {goods.map((item) => (
+              <div key={item.id} className='p-4 rounded shadow'>
+                <Image
+                  src={item.goods_img}
+                  alt={item.goods_name}
+                  width={300}
+                  height={300}
+                  className='object-cover bg-white-600'
+                />
+                <h2 className='text-xl font-semibold mt-4'>
+                  {item.goods_name}
+                </h2>
+                <p className='text-sm'>{item.goods_price}원</p>
+              </div>
+            ))}
+          </div>
+        )}
+      </section>
+
+      <section
+        ref={(el) => {
+          sectionsRef.current[3] = el as HTMLDivElement;
+        }}
+        className='section section-bg h-screen flex items-center justify-center'
+      >
+        <h1>4번째 섹션입니다</h1>
+      </section>
+
+      <section
+        ref={(el) => {
+          sectionsRef.current[4] = el as HTMLDivElement;
+        }}
+        className='section h-screen flex items-center justify-center'
+        style={{
+          backgroundImage: "url('/images/section5-bg.png')",
+          backgroundSize: 'cover',
+          backgroundRepeat: 'no-repeat',
+          backgroundPosition: 'center',
+          backgroundAttachment: 'fixed',
+        }}
+      >
+        <h1>5번째 섹션입니다</h1>
+      </section>
+      <Footer />
     </div>
   );
 };
