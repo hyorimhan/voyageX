@@ -47,7 +47,7 @@ const Header = () => {
             커뮤니티
           </span>
         </Link>
-        <Link href='/address_list'>
+        <Link href='/mypage/address_list'>
           <span className='text-white hover:text-gray-300 cursor-pointer'>
             마이 페이지
           </span>
