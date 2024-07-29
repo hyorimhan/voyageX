@@ -38,3 +38,9 @@ export const toggleLikeGoods = async (
     return response;
   }
 };
+
+export const getCartList = async (user_id: string) => {
+  const response = await axios.get(`/api/goods/cart/${user_id}`);
+  console.log(response);
+  return response.data;
+};

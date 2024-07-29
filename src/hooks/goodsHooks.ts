@@ -1,10 +1,12 @@
 import {
+  getCartList,
   getGoods,
   getIsLikeOfGoodsByUser,
   getLikedGoodsByUser,
   toggleLikeGoods,
 } from '@/services/goods';
 import { LikedGoodsType } from '@/types/goods';
+import { CartListType } from '@/types/mypageType';
 import { Tables } from '@/types/supabase';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
@@ -36,5 +38,12 @@ export const useGetAllLIkedGoodsByUser = (user_id: string) => {
   return useQuery<LikedGoodsType[]>({
     queryKey: ['likedGoods', user_id],
     queryFn: () => getLikedGoodsByUser(user_id),
+  });
+};
+
+export const useGetCartList = (user_id: string) => {
+  return useQuery<CartListType[]>({
+    queryKey: ['cart', user_id],
+    queryFn: () => getCartList(user_id),
   });
 };
