@@ -16,3 +16,10 @@ export type DeleteCartItemParamsType = {
   user_id: string;
   idList: string;
 };
+
+export type adjustQuantityParamsType = {
+  user_id: string;
+  cart_id: string;
+  task: string;
+  prev: number;
+};

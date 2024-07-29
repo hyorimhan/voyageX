@@ -1,7 +1,7 @@
 'use client';
 
 import { useGetCartList } from '@/hooks/goodsHooks';
-import { deleteCartItem } from '@/services/goods';
+import { deleteCartItem, adjustQuantity } from '@/services/goods';
 import { CartListType, WishListPropsType } from '@/types/mypageType';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Image from 'next/image';
@@ -35,6 +35,18 @@ function MyCart({ user_id }: WishListPropsType) {
     deleteCartItemMutate({ user_id, idList });
   };
 
+  const handleAdjustItemQuantity = (
+    id: string,
+    operator: string,
+    prev: number,
+  ) => {
+    if (operator === '+') {
+      quantityMutate({ user_id, cart_id: id, task: 'increase', prev });
+    } else {
+      quantityMutate({ user_id, cart_id: id, task: 'decrease', prev });
+    }
+  };
+
   const queryClient = useQueryClient();
 
   const { mutate: deleteCartItemMutate } = useMutation({
@@ -42,6 +54,16 @@ function MyCart({ user_id }: WishListPropsType) {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['cart', user_id] });
       setSelectItems([]);
+      setTotalPrice(0);
+    },
+  });
+
+  const { mutate: quantityMutate } = useMutation({
+    mutationFn: adjustQuantity,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['cart', user_id] });
+      setSelectItems([]);
+      setTotalPrice(0);
     },
   });
 
@@ -109,9 +131,22 @@ function MyCart({ user_id }: WishListPropsType) {
                 <span className='text-base'>{item.goods.goods_name}</span>
               </div>
               <div className='self-center flex flex-row gap-2 text-sm'>
-                <button>-</button>
+                <button
+                  onClick={() =>
+                    handleAdjustItemQuantity(item.id, '-', item.quantity)
+                  }
+                  disabled={item.quantity === 1}
+                >
+                  -
+                </button>
                 <span>{item.quantity}</span>
-                <button>+</button>
+                <button
+                  onClick={() =>
+                    handleAdjustItemQuantity(item.id, '+', item.quantity)
+                  }
+                >
+                  +
+                </button>
               </div>
               <div className='self-center'>
                 <span className='text-base'>

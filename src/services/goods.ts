@@ -1,5 +1,8 @@
 import { toggleLikeGoodsParamsType } from '@/types/goods';
-import { DeleteCartItemParamsType } from '@/types/mypageType';
+import {
+  adjustQuantityParamsType,
+  DeleteCartItemParamsType,
+} from '@/types/mypageType';
 import axios from 'axios';
 
 export const getGoods = async (order: string) => {
@@ -53,5 +56,16 @@ export const deleteCartItem = async (
   const response = await axios.delete(
     `/api/goods/cart/${user_id}?idList=${idList}`,
   );
+  return response.data;
+};
+
+export const adjustQuantity = async (
+  adjustQuantityParams: adjustQuantityParamsType,
+) => {
+  const { user_id, cart_id, prev, task } = adjustQuantityParams;
+  const response = await axios.patch(
+    `/api/goods/cart/${user_id}?cart_id=${cart_id}&prev=${prev}&task=${task}`,
+  );
+  console.log(response);
   return response.data;
 };
