@@ -27,7 +27,7 @@ const PostList = () => {
   }, []);
 
   return (
-    <div className='overflow-x-auto '>
+    <div className='overflow-x-auto'>
       <div className='flex flex-col'>
         <div className='flex mb-[10px] border-b-[0.4px] border-white text-center gap-x-4'>
           <span className='flex-none w-20 p-2 text-xs font-medium text-white'>
@@ -50,12 +50,14 @@ const PostList = () => {
           </span>
         </div>
         {posts.map((post, index) => (
-          <div key={post.id} className='flex mb-4 py-4 gap-x-4'>
+          <div key={post.id} className='flex mb-4 py-4 gap-x-4 items-center'>
             <span className='flex-none w-20 p-2 text-center'>
               {String(index + 1).padStart(5)}
             </span>
             <span className='flex-none w-32 p-2 text-center'>
-              {categories[post.category]}
+              <div className='inline-block px-2 py-1 rounded-[50px] bg-primary-50 text-primary-500'>
+                {categories[post.category]}
+              </div>
             </span>
             <span className='flex-grow p-2 ml-8'>{post.title}</span>
             <span className='flex-none w-32 p-2 text-center'>
