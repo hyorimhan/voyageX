@@ -3,9 +3,12 @@
 import { useState } from 'react';
 import LikedGoods from './LikedGoods';
 import MyCart from './MyCart';
+import useAuthStore from '@/zustand/store/useAuth';
 
 function TabSelector() {
   const [selectedTab, setSelectedTab] = useState('LikedGoods');
+  const user = useAuthStore((state) => state.user);
+  const user_id = user?.id;
   return (
     <>
       <div className='flex flex-row justify-evenly w-full mb-8 border-b-2 border-white text-black-50'>
@@ -33,7 +36,11 @@ function TabSelector() {
           </button>
         </div>
       </div>
-      {selectedTab === 'LikedGoods' ? <LikedGoods /> : <MyCart />}
+      {selectedTab === 'LikedGoods' ? (
+        <LikedGoods user_id={user_id!} />
+      ) : (
+        <MyCart user_id={user_id!} />
+      )}
     </>
   );
 }

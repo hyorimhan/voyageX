@@ -12,14 +12,14 @@ import { useRouter } from 'next/navigation';
 function GoodsList() {
   const user = useAuthStore((state) => state.user);
   console.log(user?.id);
-  const [sortBy, setSortBy] = useState('like_count');
+  const [sortBy, setSortBy] = useState('인기순');
   const sortByList = [
-    'like_count',
-    'created_at',
-    'goods_price',
-    '-goods_price',
-    'rating_avg',
-    '-rating_avg',
+    '인기순',
+    '최신순',
+    '가격 높은 순',
+    '가격 낮은 순',
+    '별점 높은 순',
+    '별점 낮은 순',
   ];
 
   const { data: goods, isError, isPending } = useGetOrderedGoods(sortBy);

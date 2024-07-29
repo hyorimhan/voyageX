@@ -61,11 +61,9 @@ function SignupForm() {
     <>
       <div className='flex flex-col items-end justify-center h-screen'>
         <form onSubmit={handleSubmit(joinForm, handleError)}>
-          <div className='text-center text-2xl my-4 text-black-50'>
-            회원가입
-          </div>
+          <div className='text-center text-2xl my-4 '>회원가입</div>
           <div className='flex flex-col'>
-            <label htmlFor='email' className='mb-[4px] text-black-200'>
+            <label htmlFor='email' className='mb-1 text-black-200'>
               이메일 *
             </label>
             <input
@@ -78,7 +76,7 @@ function SignupForm() {
             />
           </div>
           <div className='flex flex-col mt-4'>
-            <label htmlFor='password' className='mb-[4px] text-black-200'>
+            <label htmlFor='password' className='mb-1 text-black-200'>
               비밀번호 *
             </label>
             <input
