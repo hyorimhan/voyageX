@@ -7,7 +7,7 @@ function TermsOfServiceModal() {
       <div
         className={`${
           t.visible ? 'animate-enter' : 'animate-leave'
-        } flex items-center justify-center bg-gray-500 bg-opacity-50 mt-[10%]`}
+        } flex items-center justify-center bg-gray-500 bg-opacity-50 mt-10`}
       >
         <div className='bg-white max-w-3xl w-full shadow-lg rounded-lg pointer-events-auto flex flex-col ring-1 ring-black ring-opacity-5'>
           <div className='p-6'>

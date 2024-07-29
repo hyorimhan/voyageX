@@ -5,7 +5,7 @@ import Image from 'next/image';
 function KakaoLogin() {
   return (
     <>
-      <div className='mx-[13.5px]'>
+      <div className='mx-3.5'>
         <button onClick={signInWithKakao}>
           <Image
             src={'/images/kakaoIcon.png'}
@@ -15,7 +15,7 @@ function KakaoLogin() {
           />
         </button>
 
-        <div className='mt-[6px] text-[14px] text-center'>카카오</div>
+        <div className='mt-1.5 text-sm text-center'>카카오</div>
       </div>
     </>
   );
