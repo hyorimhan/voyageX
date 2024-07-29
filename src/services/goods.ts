@@ -1,4 +1,5 @@
 import { toggleLikeGoodsParamsType } from '@/types/goods';
+import { DeleteCartItemParamsType } from '@/types/mypageType';
 import axios from 'axios';
 
 export const getGoods = async (order: string) => {
@@ -6,8 +7,10 @@ export const getGoods = async (order: string) => {
   return response.data;
 };
 
-export const getLikedGoodsByUser = async (user_id: string) => {
-  const response = await axios.get(`/api/goods/like?user_id=${user_id}`);
+export const getLikedGoodsByUser = async (user_id: string, table: string) => {
+  const response = await axios.get(
+    `/api/goods/like?user_id=${user_id}&table=${table}`,
+  );
   return response.data;
 };
 
@@ -18,7 +21,6 @@ export const getIsLikeOfGoodsByUser = async (
   const response = await axios.get(
     `/api/goods/${goods_id}/like?user_id=${user_id}`,
   );
-  console.log(response);
   return response.data;
 };
 
@@ -41,6 +43,15 @@ export const toggleLikeGoods = async (
 
 export const getCartList = async (user_id: string) => {
   const response = await axios.get(`/api/goods/cart/${user_id}`);
-  console.log(response);
+  return response.data;
+};
+
+export const deleteCartItem = async (
+  deleteCartItemParams: DeleteCartItemParamsType,
+) => {
+  const { user_id, idList } = deleteCartItemParams;
+  const response = await axios.delete(
+    `/api/goods/cart/${user_id}?idList=${idList}`,
+  );
   return response.data;
 };

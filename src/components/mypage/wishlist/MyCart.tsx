@@ -1,7 +1,9 @@
 'use client';
 
 import { useGetCartList } from '@/hooks/goodsHooks';
+import { deleteCartItem } from '@/services/goods';
 import { CartListType, WishListPropsType } from '@/types/mypageType';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
@@ -27,6 +29,22 @@ function MyCart({ user_id }: WishListPropsType) {
     console.log('selectItems => ', selectItems);
   };
 
+  const handleDeleteItem = () => {
+    const selectedItemIds = selectItems.map((item) => item.id);
+    const idList = JSON.stringify(selectedItemIds);
+    deleteCartItemMutate({ user_id, idList });
+  };
+
+  const queryClient = useQueryClient();
+
+  const { mutate: deleteCartItemMutate } = useMutation({
+    mutationFn: deleteCartItem,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['cart', user_id] });
+      setSelectItems([]);
+    },
+  });
+
   useEffect(() => {
     setTotalPrice(
       selectItems.reduce((total, item) => {
@@ -49,7 +67,9 @@ function MyCart({ user_id }: WishListPropsType) {
               onClick={handleSelectAllItems}
               className={`w-5 h-5 border-2 border-black-50 rounded ${
                 selectItems.length === cartList.length
-                  ? 'bg-black-50'
+                  ? cartList.length === 0
+                    ? 'bg-transparent'
+                    : 'bg-black-50'
                   : 'bg-transparent'
               }`}
             ></button>
@@ -58,14 +78,17 @@ function MyCart({ user_id }: WishListPropsType) {
               )선택
             </span>
           </div>
-          <button className='bg-primary-400 text-xs rounded p-1'>
+          <button
+            onClick={handleDeleteItem}
+            className='bg-primary-400 text-xs rounded p-1'
+          >
             선택 삭제
           </button>
         </div>
         <ul className='flex flex-col gap-4'>
           {cartList.map((item) => (
             <li
-              key={item.goods_id}
+              key={item.id}
               className='border-2 border-black-50 p-4 rounded-lg grid grid-cols-[minmax(0,0.2fr)_minmax(0,0.5fr)_minmax(0,1.2fr)_minmax(0,1fr)_minmax(0,0.5fr)]'
             >
               <button
