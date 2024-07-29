@@ -58,3 +58,10 @@ body {
 .text-yangpyeong {
   font-family: 'Yangpyeong', sans-serif;
 }
+
+.section-bg {
+  background-image: url('/images/section3-bg.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
