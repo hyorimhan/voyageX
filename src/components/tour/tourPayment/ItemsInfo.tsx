@@ -18,7 +18,7 @@ function ItemsInfo({ id }: { id: string }) {
     <>
       <div className='border-[1px] border-black-300 rounded-lg  mb-8 '>
         <div className='items-center border-b-[1px] border-b-black-700 flex mt-[23px] mx-auto w-[672px] '>
-          <div className='text-xl pb-3'>상품 정보 ㅣ 총 1개</div>
+          <div className='text-xl pb-3'>상품 정보 ㅣ 총 ..1개</div>
         </div>
 
         <div className='w-[672px] mx-auto flex '>
