@@ -1,5 +1,6 @@
 import { createClient } from '@/supabase/client';
 import { formType } from '@/types/authFormType';
+import toast from 'react-hot-toast';
 
 const supabase = createClient();
 
@@ -45,12 +46,70 @@ export const logout = async () => {
 export const signInWithKakao = async () => {
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: 'kakao',
+    options: {
+      queryParams: {
+        access_type: 'offline',
+        prompt: 'consent',
+      },
+    },
   });
-  return { data, error };
+  if (data) {
+    toast.success('로그인 되었습니다');
+  }
+  if (error) {
+    toast.error(error.message);
+  }
+};
+
+// 구글
+export const signInWithGoogle = async () => {
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: 'google',
+    options: {
+      queryParams: {
+        access_type: 'offline',
+        prompt: 'consent',
+      },
+    },
+  });
+  if (data) {
+    toast.success('로그인 되었습니다');
+  }
+  if (error) {
+    toast.error(error.message);
+  }
 };
 
 // 현재 로그인 유저 정보
 export const userLoginInfo = async () => {
   const { data: loginInfo } = await supabase.auth.getUser();
   return loginInfo;
+};
+
+export const updatePassword = async (
+  email: string,
+  currentPassword: string,
+  newPassword: string,
+) => {
+  // 현재 비밀번호로 로그인 시도
+  const { data: signInData, error: signInError } =
+    await supabase.auth.signInWithPassword({
+      email,
+      password: currentPassword,
+    });
+
+  if (signInError) {
+    return { error: { message: '현재 비밀번호가 올바르지 않습니다.' } };
+  }
+
+  // 비밀번호 변경
+  const { error: updateError } = await supabase.auth.updateUser({
+    password: newPassword,
+  });
+
+  if (updateError) {
+    return { error: { message: '비밀번호 변경에 실패했습니다.' } };
+  }
+
+  return { error: null };
 };

@@ -12,12 +12,12 @@ function LogoutBtn() {
 
   const logoutFunc = async () => {
     if (!user) {
-      toast('이미 로그아웃 되었습니다');
+      toast.error('이미 로그아웃 되었습니다');
       return;
     }
     const response = await logout();
     if (response.message) {
-      toast(response.message);
+      toast.success(response.message);
     }
 
     saveUser(null);
