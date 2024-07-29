@@ -16,7 +16,7 @@ type Address = {
   detailAddress: string | null;
   recipient: string | null;
   phone: string | null;
-  is_default: boolean;
+  is_default: boolean | null;
 };
 
 const maxAddresses = 3; // 최대 주소지 제한
