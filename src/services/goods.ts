@@ -68,6 +68,5 @@ export const adjustQuantity = async (
   const response = await axios.patch(
     `/api/goods/cart/${user_id}?cart_id=${cart_id}&prev=${prev}&task=${task}`,
   );
-  console.log(response);
   return response.data;
 };

@@ -1,4 +1,5 @@
 import { createClient } from '@/supabase/client';
+import axios from 'axios';
 
 const supabase = createClient();
 
@@ -49,4 +50,9 @@ export const userAddress = async (id: string) => {
     .select('*')
     .eq('user_id', id);
   return { address, error };
+};
+
+export const getLikedToursByUser = async (user_id: string) => {
+  const response = await axios.get(`/api/tour/like/${user_id}`);
+  return response.data;
 };
