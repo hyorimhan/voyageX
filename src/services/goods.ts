@@ -17,7 +17,7 @@ export const getLikedGoodsByUser = async (user_id: string, table: string) => {
   return response.data;
 };
 
-export const getIsLikeOfGoodsByUser = async (
+export const getIsLikedGoodsByUser = async (
   goods_id: string,
   user_id: string,
 ) => {

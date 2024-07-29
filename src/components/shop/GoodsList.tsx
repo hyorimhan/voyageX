@@ -25,7 +25,8 @@ function GoodsList() {
   const { data: goods, isError, isPending } = useGetOrderedGoods(sortBy);
 
   const router = useRouter();
-  const handleItemClick = (id) => {
+
+  const handleItemClick = (id: string) => {
     router.push(`/shop_detail/${id}`);
   };
 
