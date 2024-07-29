@@ -1,25 +1,16 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> b408a0fbc0a5c86857bb3b99d344d6738ba3a2c7
 export type Json =
   | string
   | number
   | boolean
   | null
   | { [key: string]: Json | undefined }
-<<<<<<< HEAD
   | Json[]
-=======
-  | Json[];
->>>>>>> b408a0fbc0a5c86857bb3b99d344d6738ba3a2c7
 
 export type Database = {
   public: {
     Tables: {
       addresses: {
         Row: {
-<<<<<<< HEAD
           address: string | null
           alias: string | null
           detailAddress: string | null
@@ -76,8 +67,8 @@ export type Database = {
         Insert: {
           created_at?: string
           goods_id?: string
-          id: string
-          quantity: number
+          id?: string
+          quantity?: number
           user_id: string
         }
         Update: {
