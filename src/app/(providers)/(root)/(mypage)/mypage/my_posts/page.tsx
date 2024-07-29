@@ -28,7 +28,7 @@ const MyPostsPage = () => {
           </div>
         </div>
       </div>
-      <div className='border-b-2 border-solid border-white mt-7'></div>
+      <div className='border-b-2 border-solid border-black-700 mt-7'></div>
     </div>
   );
 };
