@@ -6,6 +6,7 @@ import Image from 'next/image';
 import useFetchGoods from '@/hooks/useFetchGoods';
 import Link from 'next/link';
 import Footer from '@/components/common/Footer';
+import useFetchTourDetail from '@/hooks/useFetchTourDetail';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -18,15 +19,7 @@ const MainPage = () => {
   const [currentSlide, setCurrentSlide] = useState<number>(0);
 
   const { goods, loading, error } = useFetchGoods();
-
-  const planets = [
-    '/images/화성.png',
-    '/images/jupiter.png',
-    '/images/달.png',
-    '/images/케레스.png',
-    '/images/pluto.png',
-    '/images/neptune.png',
-  ];
+  const { planets, loading: planetsLoading, error: planetsError } = useFetchTourDetail();
 
   const visiblePlanetsCount = 3; // 처음에 보일 행성 수
 
@@ -138,7 +131,7 @@ const MainPage = () => {
     if (videoLoaded) {
       animatePlanets();
     }
-  }, [currentSlide, videoLoaded]);
+  }, [currentSlide, videoLoaded, planets]);
 
   return (
     <div className='w-full'>
@@ -241,7 +234,7 @@ const MainPage = () => {
                   }}
                 >
                   <Image
-                    src={planet}
+                    src={planet.planet_img}
                     alt={`Planet ${index + 1}`}
                     layout='fill'
                     objectFit='contain'
