@@ -1,3 +1,6 @@
+Need to install the following packages:
+supabase@1.187.10
+Ok to proceed? (y) 
 export type Json =
   | string
   | number
@@ -466,18 +469,21 @@ export type Database = {
       }
       tours: {
         Row: {
+          amount: number | null
           id: string
           planet_id: string
           price: number
           tag: string
         }
         Insert: {
+          amount?: number | null
           id?: string
           planet_id?: string
           price: number
           tag: string
         }
         Update: {
+          amount?: number | null
           id?: string
           planet_id?: string
           price?: number
