@@ -40,11 +40,11 @@ const PasswordChangePage = () => {
     }
 
     try {
-      const response = await updatePassword(
-        user.email,
+      const response = await updatePassword({
+        email: user.email,
         currentPassword,
         newPassword,
-      );
+      });
 
       if (response.error) {
         setError(response.error.message);
