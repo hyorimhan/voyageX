@@ -2,6 +2,7 @@ import {
   deleteCartItem,
   getCartList,
   getGoods,
+  getGoodsItem,
   getIsLikedGoodsByUser,
   getLikedGoodsByUser,
   toggleLikeGoods,
@@ -78,5 +79,13 @@ export const useGetCartList = (user_id: string) => {
   return useQuery<CartListType[]>({
     queryKey: ['cart', user_id],
     queryFn: () => getCartList(user_id),
+  });
+};
+
+//굿즈 아이템 하나만 가져오기
+export const useGetGoodsItem = (id: string) => {
+  return useQuery<Tables<'goods'>>({
+    queryKey: ['goods', id],
+    queryFn: () => getGoodsItem(id),
   });
 };

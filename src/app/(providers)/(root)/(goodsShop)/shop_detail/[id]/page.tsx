@@ -3,53 +3,21 @@
 import Page from '@/components/pages/Page';
 import Image from 'next/image';
 import FAQ from '@/components/shop/detail/FAQ';
-import { useEffect, useState } from 'react';
-import { createClient } from '@/supabase/client';
 import { useParams } from 'next/navigation';
-import { Database } from '@/types/supabase';
 import Hearts from '@/components/shop/Hearts';
 import useAuthStore from '@/zustand/store/useAuth';
 import GoodsDetailPageTabSelector from '@/components/shop/detail/GoodsDetailPageTabSelector';
 import ShareIcon32px from '@/components/common/icons/32px/ShareIcon32px';
 import QuantityBtn from '@/components/shop/detail/QuantityBtn';
-
-const supabase = createClient();
+import { useGetGoodsItem } from '@/hooks/goodsHooks';
 
 const ShopDetailPage = () => {
   const params = useParams();
-  const id = Array.isArray(params.id) ? params.id[0] : params.id;
-  const [goods, setGoods] =
-    useState<Database['public']['Tables']['goods']['Row']>();
-  const [isLoading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState(false);
+  const goods_id = Array.isArray(params.id) ? params.id[0] : params.id;
   const user = useAuthStore((state) => state.user);
-  const [selectedTab, setSelectedTab] = useState('Reviews');
-
-  useEffect(() => {
-    if (id) {
-      const fetchGoods = async () => {
-        try {
-          const { data, error } = await supabase
-            .from('goods')
-            .select('*')
-            .eq('id', id)
-            .single();
-
-          if (error) {
-            setIsError(true);
-          } else {
-            setGoods(data);
-          }
-        } catch (error) {
-          setIsError(true);
-        } finally {
-          setIsLoading(false);
-        }
-      };
-
-      fetchGoods();
-    }
-  }, [id]);
+  const { data: goods, isLoading, isError } = useGetGoodsItem(goods_id);
+  const goodsPrice = goods?.goods_price || 0;
+  const formattedPrice = goodsPrice.toLocaleString();
 
   if (isLoading) return <div>로딩 중..</div>;
   if (isError) return <div>에러 발생</div>;
@@ -80,12 +48,10 @@ const ShopDetailPage = () => {
                 </button>
               </div>
               <div className='flex gap-1 flex-col font-bold'>
-                <p className='text-lg text-black-500'>
-                  {goods.goods_price.toLocaleString()}원
-                </p>
+                <p className='text-lg text-black-500'>{formattedPrice}원</p>
                 <div className='flex text-2xl font-bold'>
                   <p className='text-error-900 mr-2'>10%</p>
-                  <p>{goods.goods_price.toLocaleString()}원</p>
+                  <p>{formattedPrice}원</p>
                 </div>
               </div>
               <div className='flex mt-5 text-base flex-col'>
@@ -115,7 +81,7 @@ const ShopDetailPage = () => {
               <div className='gap-4 flex mt-5 w-full'>
                 {user && (
                   <div className='flex p-2 rounded-lg items-center border-2 border-solid border-primary-400'>
-                    <Hearts goods_id={id} user_id={user.id} />
+                    <Hearts goods_id={goods_id} user_id={user.id} />
                   </div>
                 )}
                 <div className='flex flex-grow gap-4 text-base h-[53px]'>
@@ -132,9 +98,7 @@ const ShopDetailPage = () => {
         )}
         <GoodsDetailPageTabSelector
           goodsRating={goods?.rating_avg}
-          goodsId={id}
-          selectedTab={selectedTab}
-          setSelectedTab={setSelectedTab}
+          goodsId={goods_id}
         />
         <FAQ />
       </Page>

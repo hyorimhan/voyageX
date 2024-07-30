@@ -70,3 +70,9 @@ export const adjustQuantity = async (
   );
   return response.data;
 };
+
+// 굿즈 아이템 하나만 가져오기
+export const getGoodsItem = async (id: string) => {
+  const response = await axios.get(`/api/goods/${id}`);
+  return response.data[0];
+};
