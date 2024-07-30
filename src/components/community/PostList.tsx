@@ -2,7 +2,8 @@
 
 import React, { useEffect, useState } from 'react';
 import { Tables } from '@/types/supabase';
-import { categories } from '@/utils/categories';
+import Link from 'next/link';
+import CategoryBadge from './CategoryBadge';
 
 const PostList = () => {
   const [posts, setPosts] = useState<Tables<'posts'>[]>([]);
@@ -50,22 +51,24 @@ const PostList = () => {
           </span>
         </div>
         {posts.map((post, index) => (
-          <div key={post.id} className='flex mb-4 py-4 gap-x-4 items-center'>
-            <span className='flex-none w-20 p-2 text-center'>
-              {String(index + 1).padStart(5)}
-            </span>
-            <span className='flex-none w-32 p-2 text-center'>
-              <div className='inline-block px-2 py-1 rounded-[50px] bg-primary-50 text-primary-500'>
-                {categories[post.category]}
-              </div>
-            </span>
-            <span className='flex-grow p-2 ml-8'>{post.title}</span>
-            <span className='flex-none w-32 p-2 text-center'>
-              {new Date(post.created_at).toLocaleDateString()}
-            </span>
-            <span className='flex-none w-20 p-2 text-center'>0</span>
-            <span className='flex-none w-20 p-2 text-center'>0</span>
-          </div>
+          <Link href={post.id} key={post.id}>
+            <div className='flex py-4 gap-x-4 items-center hover:bg-black-800 rounded-[8px]'>
+              <span className='flex-none w-20 p-2 text-center'>
+                {String(index + 1)}
+              </span>
+              <span className='flex-none w-32 p-2 text-center'>
+                <CategoryBadge category={post.category} />
+              </span>
+              <span className='flex-grow p-2 mx-7 overflow-hidden whitespace-nowrap text-ellipsis'>
+                {post.title}
+              </span>
+              <span className='flex-none w-32 p-2 text-center'>
+                {new Date(post.created_at).toLocaleDateString()}
+              </span>
+              <span className='flex-none w-20 p-2 text-center'>0</span>
+              <span className='flex-none w-20 p-2 text-center'>0</span>
+            </div>
+          </Link>
         ))}
       </div>
     </div>

@@ -91,7 +91,11 @@ export const updatePassword = async ({
   email,
   currentPassword,
   newPassword,
-}: formType) => {
+}: {
+  email: string;
+  currentPassword: string;
+  newPassword: string;
+}) => {
   try {
     // 현재 비밀번호로 로그인 시도
     const { data: signInData, error: signInError } =

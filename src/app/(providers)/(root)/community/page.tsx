@@ -7,14 +7,13 @@ import Link from 'next/link';
 const CommunityPage = () => {
   return (
     <Page>
-      <h1 className='text-[36px] font-bold text-white mt-[112px] mb-[64px]'>
-        <Link href='/community'>자유게시판</Link>
-      </h1>
-      <div className='flex justify-between items-center mb-11'>
-        <Filter />
-        <Search />
+      <div className='font-pretendard'>
+        <div className='flex justify-between items-center mb-11'>
+          <Filter />
+          <Search />
+        </div>
+        <PostList />
       </div>
-      <PostList />
     </Page>
   );
 };
