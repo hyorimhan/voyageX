@@ -46,16 +46,19 @@ function Payment({ params }: tourProps) {
 
   return (
     <>
-      <div className='border-b-[1px] mt-[132px] pb-[12px] text-[28px]'>
-        여행상품 결제
-      </div>
-      <div className='flex items-center gap-8 mt-8'>
-        <div className='w-[712px] '>
-          <CustomerInfo defaultAddress={defaultAddress as Address} />
-          <ItemsInfo id={id} />
+      <div className='h-[435px]'>
+        <div className='border-b mt-[132px] pb-[12px] text-[28px]'>
+          여행상품 결제
         </div>
-        <div className='w-[376px]'>
-          <PayButton />
+        <div className='flex items-center gap-8 mt-8'>
+          <div className='w-[712px] '>
+            <CustomerInfo defaultAddress={defaultAddress as Address} />
+            <ItemsInfo id={id} />
+          </div>
+
+          <div className='w-[376px]'>
+            <PayButton id={id} defaultAddress={defaultAddress as Address} />
+          </div>
         </div>
       </div>
     </>

@@ -1,22 +1,35 @@
 'use client';
 
+import { tourPayment } from '@/services/tour';
+import useAuthStore from '@/zustand/store/useAuth';
+import useShopStore from '@/zustand/store/useShop';
 import axios from 'axios';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 
 function SuccessPayment() {
   const router = useRouter();
+  const user = useAuthStore((state) => state.user);
+  const userOrder = useShopStore((state) => state.userOrder);
+
+  // 투어 관련
+  const userId = user?.id;
+  const tourId = userOrder?.itemInfo;
+  const orderId = userOrder?.orderId;
+
   const searchParams = useSearchParams();
-  const [result, setResult] = useState<any>();
+  const [result, setResult] = useState<any>('');
 
   const secretKey = process.env.NEXT_PUBLIC_TOSS_SECRET_KEY!;
-  const orderId = searchParams.get('orderId')!;
   const paymentKey = searchParams.get('paymentKey')!;
-  const amount = searchParams.get('amount')!;
   const authKey = btoa(secretKey + ':')!;
 
+  // const orderId = searchParams.get('orderId')!;
+  // const amount = searchParams.get('amount')!;
+  console.log(result);
   useEffect(() => {
-    if (!orderId || !paymentKey || !amount || !authKey) return;
+    if (!orderId || !paymentKey || !authKey) return;
     const getOrderConfirmData = async () => {
       try {
         const confirm = await axios.post(
@@ -36,13 +49,24 @@ function SuccessPayment() {
         console.log(confirm.data);
         setResult(confirm.data);
         console.log('result => ', result);
+
+        // 투어 상품 insert 테이블
+        const { error } = await tourPayment(userId!, tourId!);
+        if (error) {
+          toast(error.message);
+          router.replace('/tour');
+        } else {
+          toast.success('결제 되었습니다');
+        }
       } catch (err) {
         console.error(err);
+        router.replace('/tour');
       }
     };
     getOrderConfirmData();
-  });
-  if (!result) return <div>승인 중</div>;
+  }, []);
+
+  if (!result) return <div>승인 오류</div>;
 
   return (
     <>

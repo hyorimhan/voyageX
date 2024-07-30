@@ -50,3 +50,12 @@ export const userAddress = async (id: string) => {
     .eq('user_id', id);
   return { address, error };
 };
+
+// 투어 결제 (테이블에 넣기)
+export const tourPayment = async (userId: string, tourId: string) => {
+  const { data: payment, error } = await supabase
+    .from('tour_orders')
+    .insert([{ user_id: 'id', tour_id: 'tourId' }])
+    .select();
+  return { payment, error };
+};
