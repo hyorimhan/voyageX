@@ -1,32 +1,26 @@
 'use client';
 
-import useAuthStore from '@/zustand/store/useAuth';
-import useShopStore from '@/zustand/store/useShop';
 import {
   loadPaymentWidget,
   PaymentWidgetInstance,
 } from '@tosspayments/payment-widget-sdk';
+import { useSearchParams } from 'next/navigation';
 import { useEffect, useRef } from 'react';
-import toast from 'react-hot-toast';
 
-export type Order = {
+type Order = {
   orderId: string;
   orderName: string;
   customerName: string;
   customerMobilePhone: string;
-  itemInfo: string;
   totalPrice: number;
 };
 
 const PaymentWidget = () => {
-  const userOrder = useShopStore((state) => state.userOrder);
-  const user = useAuthStore((state) => state.user);
-  const userId = user?.id;
-  // const searchParams = useSearchParams();
-  // const query: string = searchParams.get('orderInfo')!;
-  // const orderInfo: Order = JSON.parse(query);
-  // console.log('orderInfo => ', orderInfo);
-  // const userId = 'gusdnr0839';
+  const searchParams = useSearchParams();
+  const query: string = searchParams.get('orderInfo')!;
+  const orderInfo: Order = JSON.parse(query);
+  console.log('orderInfo => ', orderInfo);
+  const userId = 'gusdnr0839';
   const paymentWidgetRef = useRef<PaymentWidgetInstance | null>(null);
   const paymentMethodWidgetRef = useRef<ReturnType<
     PaymentWidgetInstance['renderPaymentMethods']
@@ -39,27 +33,27 @@ const PaymentWidget = () => {
 
     try {
       await paymentWidget?.requestPayment({
-        orderId: userOrder?.orderId!,
-        orderName: userOrder?.orderName!,
-        customerName: userOrder?.customerName,
-        customerMobilePhone: userOrder?.customerMobilePhone,
+        orderId: orderInfo.orderId,
+        orderName: orderInfo.orderName,
+        customerName: orderInfo.customerName,
+        customerMobilePhone: orderInfo.customerMobilePhone,
         successUrl: `${window.location.origin}/shop/payment/success`,
         failUrl: `${window.location.origin}/shop/payment/fail`,
       });
     } catch (err: any) {
-      toast(err.message || '결제 중 오류가 발생했습니다');
+      alert(err);
     }
   };
 
   useEffect(() => {
     // 결제창 로드
     const loadWidget = async () => {
-      const paymentWidget = await loadPaymentWidget(clientKey, userId!);
+      const paymentWidget = await loadPaymentWidget(clientKey, userId);
 
       // 결제방법 위젯
       const paymentMethodsWidget = paymentWidget.renderPaymentMethods(
         '#payment-widget',
-        userOrder?.totalPrice!, // 구매 가격
+        orderInfo.totalPrice, // 구매 가격
       );
 
       // 약관동의 위젯
@@ -69,7 +63,7 @@ const PaymentWidget = () => {
       paymentMethodWidgetRef.current = paymentMethodsWidget;
     };
     loadWidget();
-  }, []);
+  });
   return (
     <div className='flex flex-col justify-center items-center mt-10'>
       <div id='payment-widget' className='w-2/3' />

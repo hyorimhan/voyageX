@@ -1,8 +1,13 @@
+'use client';
 import Page from '@/components/pages/Page';
 import SuccessPayment from '@/components/shop/order/payment/SuccessPayment';
+import TourSuccess from '@/components/tour/tourPayment/TourSuccess';
+import useShopStore from '@/zustand/store/useShop';
 import { Suspense } from 'react';
 
 const SuccessPage = () => {
+  const orderType = useShopStore((state) => state.orderType);
+
   return (
     <>
       <Page>

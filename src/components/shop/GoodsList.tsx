@@ -7,6 +7,7 @@ import Stars from './Stars';
 import Image from 'next/image';
 import { useGetOrderedGoods } from '@/hooks/goodsHooks';
 import useAuthStore from '@/zustand/store/useAuth';
+import { useRouter } from 'next/navigation';
 
 function GoodsList() {
   const user = useAuthStore((state) => state.user);
@@ -22,6 +23,12 @@ function GoodsList() {
   ];
 
   const { data: goods, isError, isPending } = useGetOrderedGoods(sortBy);
+
+  const router = useRouter();
+
+  const handleItemClick = (id: string) => {
+    router.push(`/shop_detail/${id}`);
+  };
 
   console.log(goods);
 
@@ -39,7 +46,11 @@ function GoodsList() {
       </div>
       <ul className='text-black-50 mb-4 grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
         {goods.map((item) => (
-          <li key={item.id} className='mx-auto my-4 w-full bg-black-1000'>
+          <li
+            key={item.id}
+            className='mx-auto my-4 w-full bg-black-1000'
+            onClick={() => handleItemClick(item.id)}
+          >
             <div className='relative'>
               <Image
                 src={item.goods_img}

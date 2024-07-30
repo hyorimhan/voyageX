@@ -27,7 +27,7 @@ function ItemsInfo({ id }: { id: string }) {
         </div>
 
         <div className='w-[672px] mx-auto flex  '>
-          {tours.map((tour) => {
+          {tours?.map((tour) => {
             return (
               <div key={tour.id} className='flex items-center'>
                 <div>

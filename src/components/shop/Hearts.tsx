@@ -1,6 +1,9 @@
 'use client';
 
-import { useGetLikedGoodsByUser, useToggleLikeGoods } from '@/hooks/goodsHooks';
+import {
+  useGetIsLikedGoodsByUser,
+  useToggleLikeGoods,
+} from '@/hooks/goodsHooks';
 import { toggleLikeGoodsParamsType } from '@/types/goods';
 import { IoHeart } from 'react-icons/io5';
 import { IoHeartOutline } from 'react-icons/io5';
@@ -15,7 +18,7 @@ function Hearts({ goods_id, user_id }: HeartsProps) {
     data: isLiked,
     isError,
     isPending,
-  } = useGetLikedGoodsByUser(goods_id, user_id);
+  } = useGetIsLikedGoodsByUser(goods_id, user_id);
 
   const { mutate: likeMutate } = useToggleLikeGoods(
     goods_id,

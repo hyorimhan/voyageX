@@ -3,20 +3,22 @@ import { userAddress } from '@/services/tour';
 import { tourProps } from '@/types/tourPropsType';
 import React, { useEffect, useState } from 'react';
 import CustomerInfo from './CustomerInfo';
-import PayButton from './PayButton';
 import ItemsInfo from './ItemsInfo';
 import { userLoginInfo } from '@/services/auth';
 import { useRouter } from 'next/navigation';
 import useAuthStore from '@/zustand/store/useAuth';
 import { Address } from '@/types/userAddressType';
 import toast from 'react-hot-toast';
+import useShopStore from '@/zustand/store/useShop';
+import TourPayButton from './TourPayButton';
 
 function Payment({ params }: tourProps) {
   const router = useRouter();
   const saveUser = useAuthStore((state) => state.saveUser);
   const [defaultAddress, setDefaultAddress] = useState<Address | null>(null);
   const { id } = params;
-
+  const userOrder = useShopStore((state) => state.userOrder);
+  console.log(userOrder);
   useEffect(() => {
     const userAndAddress = async () => {
       try {
@@ -28,6 +30,7 @@ function Payment({ params }: tourProps) {
           toast('로그인이 필요합니다');
           return;
         }
+
         const { address, error } = await userAddress(res.user.id);
 
         const defaulAdr =
@@ -57,7 +60,7 @@ function Payment({ params }: tourProps) {
           </div>
 
           <div className='w-[376px]'>
-            <PayButton id={id} defaultAddress={defaultAddress as Address} />
+            <TourPayButton id={id} defaultAddress={defaultAddress as Address} />
           </div>
         </div>
       </div>

@@ -1,11 +1,9 @@
 'use client';
 import { Tour } from '@/types/tourPropsType';
-import useAuthStore from '@/zustand/store/useAuth';
 import Image from 'next/image';
 import Link from 'next/link';
 
 function DetailCard({ tour }: { tour: Tour }) {
-  const user = useAuthStore((state) => state.user);
   return (
     <>
       <div className='  mt-40 flex '>

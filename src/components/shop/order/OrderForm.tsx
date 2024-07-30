@@ -67,8 +67,8 @@ function OrderForm() {
     phone: '010-1234-1234',
   });
   const [customerInfo, setCustomerInfo] = useState<Customer>({
-    customerName: expressInfo.recipient,
-    customerPhone: expressInfo.phone,
+    customerName: expressInfo.recipient!,
+    customerPhone: expressInfo.phone!,
     customerEmail: 'gusdnr0839@gmail.com',
   });
   const [totalPrice, setTotalPrice] = useState(0);

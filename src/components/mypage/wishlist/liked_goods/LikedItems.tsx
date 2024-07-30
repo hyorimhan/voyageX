@@ -1,6 +1,6 @@
 import Hearts from '@/components/shop/Hearts';
 import Stars from '@/components/shop/Stars';
-import { useGetAllLIkedGoodsByUser } from '@/hooks/goodsHooks';
+import { useGetLikedGoodsByUser } from '@/hooks/goodsHooks';
 import Image from 'next/image';
 
 interface LikedItemsParamsType {
@@ -12,7 +12,7 @@ function LikedItems({ user_id }: LikedItemsParamsType) {
     data: likedGoods,
     isError,
     isPending,
-  } = useGetAllLIkedGoodsByUser(user_id, 'liked_goods');
+  } = useGetLikedGoodsByUser(user_id, 'liked_goods');
 
   if (isError) return <div>에러</div>;
   if (isPending) return <div>로딩 중..</div>;
