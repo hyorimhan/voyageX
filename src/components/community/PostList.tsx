@@ -64,7 +64,9 @@ const PostList = () => {
                   {categories[post.category]}
                 </div>
               </span>
-              <span className='flex-grow p-2 ml-8'>{post.title}</span>
+              <span className='flex-grow p-2 ml-8 overflow-hidden whitespace-nowrap text-ellipsis'>
+                {post.title}
+              </span>
               <span className='flex-none w-32 p-2 text-center'>
                 {new Date(post.created_at).toLocaleDateString()}
               </span>
