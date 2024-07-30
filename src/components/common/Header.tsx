@@ -45,7 +45,7 @@ const Header = () => {
           </Link>
         </div>
         <div className='flex items-center justify-end space-x-2 w-[260px]'>
-          <Link href='/address_list'>
+          <Link href='/mypage'>
             <FaUserCircle className=' w-6 h-6 ' />
           </Link>
           {user ? (
