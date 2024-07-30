@@ -23,3 +23,11 @@ export type adjustQuantityParamsType = {
   task: string;
   prev: number;
 };
+
+export type LikedPlanetType = {
+  id: string;
+  planet_id: string;
+  price: number;
+  tag: string;
+  planets: Tables<'planets'>;
+};
