@@ -24,18 +24,18 @@ function CategoryFilter() {
           <button
             key={category.value}
             onClick={() => handleCategory(category.value)}
-            className={`relative px-3 py-2 rounded-lg text-[16px] text-gray-50 min-w-[100px] ${
+            className={`relative px-3 py-2 rounded-[10px] text-[16px] text-gray-50 ${
               selectedCategory === category.value
                 ? 'bg-primary-600'
-                : 'bg-black'
+                : 'bg-black-800'
             }`}
           >
             <div
               className={`absolute inset-0 border ${
                 selectedCategory === category.value
                   ? 'border-primary-600'
-                  : 'border-gray-400'
-              } pointer-events-none rounded-lg`}
+                  : 'border-black-800'
+              } pointer-events-none rounded-[10px]`}
             ></div>
             {category.name}
           </button>
