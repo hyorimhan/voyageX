@@ -1,5 +1,5 @@
+import SuccessPayment from '@/components/order/payment/success/SuccessPayment';
 import Page from '@/components/pages/Page';
-import SuccessPayment from '@/components/shop/order/payment/SuccessPayment';
 import { Suspense } from 'react';
 
 const SuccessPage = () => {
