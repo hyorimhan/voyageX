@@ -23,8 +23,8 @@ const TextArea: React.FC<ITextAreaProps> = ({
 
     const inputValue = (e.target as HTMLTextAreaElement).value;
 
-    if (inputValue.length > 50) {
-      setInvalidMsg('50자를 초과할 수 없습니다.');
+    if (inputValue.length > 150) {
+      setInvalidMsg('150자를 초과할 수 없습니다.');
       return;
     } else {
       setInvalidMsg('');
@@ -63,7 +63,7 @@ const TextArea: React.FC<ITextAreaProps> = ({
         }}
       />
       <p className='absolute bottom-4 right-4 text-xs text-gray-400'>
-        50자 이내
+        150자 이내
       </p>
       {invalidMsg && (
         <p className='text-red-500 text-xs absolute left-3'>{invalidMsg}</p>

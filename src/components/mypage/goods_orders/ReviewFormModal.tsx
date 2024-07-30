@@ -54,7 +54,7 @@ const ReviewFormModal: React.FC<ReviewFormModallProps> = ({
 
   return (
     <div className='fixed inset-0 flex items-center justify-center bg-black-1000 bg-opacity-50 z-30'>
-      <div className='bg-black-800 p-8 rounded-lg text-base gap-8 flex flex-col w-[400px]'>
+      <div className='bg-black-800 p-8 rounded-lg text-base gap-8 flex flex-col w-[500px]'>
         <div>
           <div className='flex justify-end mb-3'>
             <button onClick={onClose}>
@@ -71,8 +71,8 @@ const ReviewFormModal: React.FC<ReviewFormModallProps> = ({
                 {index < rating ? <StarTrueIcon32px /> : <StarFalseIcon32px />}
               </button>
             ))}
-            <div className='p-1'>
-              <p className='bg-primary-100 px-4 py-[2px] text-primary-500 rounded-full ml-2 text-[10px] font-bold'>
+            <div className='p-1 mt-1'>
+              <p className='bg-primary-100 py-[2px] text-primary-500 rounded-full ml-2 text-[10px] font-bold w-[73px] text-center'>
                 {rating === 5
                   ? '아주 좋아요!'
                   : rating === 4
