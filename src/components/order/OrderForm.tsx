@@ -15,7 +15,7 @@ function OrderForm() {
             <CustomerInfo />
           </div>
           <div className='mt-4 w-full'>
-            <ItemsInfo />
+            <ItemsInfo label='상품정보' />
           </div>
         </div>
         <div>

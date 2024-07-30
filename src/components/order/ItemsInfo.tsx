@@ -1,6 +1,10 @@
 import Image from 'next/image';
 
-function ItemsInfo() {
+interface ItemsInfoPropsType {
+  label: string;
+}
+
+function ItemsInfo({ label }: ItemsInfoPropsType) {
   const itemList = [
     {
       id: '1',
@@ -25,7 +29,7 @@ function ItemsInfo() {
     <>
       <div className='border-2 border-black-300 p-4 rounded-lg mb-4 text-black-50'>
         <div className='py-4 mb-4 border-b-2 border-black-700'>
-          <span className='text-xl'>{`상품정보 총 ${itemList.length}개`}</span>
+          <span className='text-xl'>{`${label} 총 ${itemList.length}개`}</span>
         </div>
         {itemList.map((item) => (
           <div

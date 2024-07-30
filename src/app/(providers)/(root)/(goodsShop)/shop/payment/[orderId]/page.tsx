@@ -1,5 +1,5 @@
+import PaymentWidget from '@/components/order/payment/PaymentWidget';
 import Page from '@/components/pages/Page';
-import PaymentWidget from '@/components/pay/PaymentWidget';
 
 const PaymentPage = () => {
   return (
