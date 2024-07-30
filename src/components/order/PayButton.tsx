@@ -1,24 +1,11 @@
 'use client';
 
 import { useState } from 'react';
-import { Address, Customer, ItemList } from './OrderForm';
 import { useRouter } from 'next/navigation';
 import { customAlphabet } from 'nanoid';
 import toast from 'react-hot-toast';
 
-interface PayButtonProps {
-  expressInfo: Address;
-  customerInfo: Customer;
-  itemList: ItemList;
-  totalPrice: number;
-}
-
-function PayButton({
-  expressInfo,
-  customerInfo,
-  itemList,
-  totalPrice,
-}: PayButtonProps) {
+function PayButton() {
   const router = useRouter();
   const [isAgree, setIsAgree] = useState(false);
 
@@ -42,15 +29,15 @@ function PayButton({
 
     const currentOrder = {
       orderId,
-      orderName: `${customerInfo.customerName}님의 주문`,
-      customerName: customerInfo.customerName,
-      customerMobilePhone: customerInfo.customerPhone.split('-').join(''),
-      itemInfo: `${itemList.map((item) => item.name)}`,
-      totalPrice,
+      orderName: `세종대왕님의 주문`,
+      customerName: `세종대왕`,
+      customerMobilePhone: '010-1234-5678'.split('-').join(''),
+      itemInfo: `더미1, 더미2`,
+      totalPrice: 50000,
     };
 
     const orderInfo = JSON.stringify(currentOrder);
-    const express = JSON.stringify(expressInfo);
+    const express = JSON.stringify('배송지정보');
     console.log(orderInfo);
     router.push(
       `/shop/payment/${orderId}?orderInfo=${orderInfo}&expressInfo=${express}`,
@@ -66,9 +53,7 @@ function PayButton({
         <div className='flex flex-col items-start gap-4'>
           <div className='w-full flex justify-between'>
             <span className='text-black-200'>총 주문 금액</span>
-            <span className='text-black-50'>
-              {totalPrice.toLocaleString()}원
-            </span>
+            <span className='text-black-50'>{'50,000'}원</span>
           </div>
           <div className='w-full flex justify-between'>
             <span className='text-black-200'>총 배송비</span>
@@ -76,9 +61,7 @@ function PayButton({
           </div>
           <div className='border-t-2 border-black-200 w-full pt-4 flex justify-between'>
             <span className='text-black-200'>{`총 결제 금액 `}</span>
-            <span className='text-primary-400'>
-              {totalPrice.toLocaleString()}원
-            </span>
+            <span className='text-primary-400'>{'50,000'}원</span>
           </div>
         </div>
       </div>
@@ -101,7 +84,7 @@ function PayButton({
           onClick={handleClickPayButton}
           className='bg-primary-600 rounded-md p-4 w-full h-14 mb-5 text-lg'
         >
-          <span className='text-lg'>{totalPrice.toLocaleString()}원</span>
+          <span className='text-lg'>{'50,000'}원</span>
           <span className='text-base'> 결제하기</span>
         </button>
       </div>

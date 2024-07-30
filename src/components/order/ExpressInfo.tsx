@@ -1,16 +1,10 @@
 'use client';
 
-import { Dispatch, SetStateAction, useState } from 'react';
+import { useState } from 'react';
 
 import AddressChangeModal from './AddressChangeModal';
-import { Address } from '@/types/userAddressType';
 
-interface ExpressInfoProps {
-  expressInfo: Address;
-  setExpressInfo: Dispatch<SetStateAction<Address>>;
-}
-
-function ExpressInfo({ expressInfo, setExpressInfo }: ExpressInfoProps) {
+function ExpressInfo() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
@@ -32,28 +26,17 @@ function ExpressInfo({ expressInfo, setExpressInfo }: ExpressInfoProps) {
             <p>배송지 정보</p>
           </div>
           <div className='flex flex-col gap-4 text-black-50'>
-            <p>{expressInfo.recipient}</p>
-            <p>{expressInfo.phone}</p>
+            <p>세종대왕</p>
+            <p>010-1234-5678</p>
             <div>
-              <p>
-                도로명 : {expressInfo.address + ' ' + expressInfo.detailAddress}
-              </p>
-              <p>
-                지번 :{' '}
-                {expressInfo.oldAddress + ' ' + expressInfo.detailAddress}
-              </p>
-              <span>({expressInfo.postcode})</span>
+              <p>도로명 : 서울 종로구 효자로 12 국립고궁박물관</p>
+              <p>지번 : 세종로 1-57</p>
+              <span>12345</span>
             </div>
           </div>
         </div>
       </div>
-      {isModalOpen && (
-        <AddressChangeModal
-          expressInfo={expressInfo}
-          setIsModalOpen={setIsModalOpen}
-          setExpressInfo={setExpressInfo}
-        />
-      )}
+      {isModalOpen && <AddressChangeModal setIsModalOpen={setIsModalOpen} />}
     </>
   );
 }

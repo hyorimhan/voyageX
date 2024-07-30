@@ -1,29 +1,15 @@
 import { Dispatch, SetStateAction, useState } from 'react';
-import { Customer } from './OrderForm';
-import CustomerInfo from './CustomerInfo';
 
 interface CustomerChangeModalProps {
-  customerInfo: Customer;
-  setCustomerInfo: Dispatch<SetStateAction<Customer>>;
   setIsModalOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-function CustomerChangeModal({
-  customerInfo,
-  setCustomerInfo,
-  setIsModalOpen,
-}: CustomerChangeModalProps) {
-  const [name, setName] = useState(customerInfo.customerName);
-  const [phone, setPhone] = useState(customerInfo.customerPhone);
-  const [email, setEmail] = useState(customerInfo.customerEmail);
+function CustomerChangeModal({ setIsModalOpen }: CustomerChangeModalProps) {
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
 
   const handleChangeCustomerInfo = () => {
-    setCustomerInfo((prev) => ({
-      ...prev,
-      customerName: name,
-      customerPhone: phone,
-      customerEmail: email,
-    }));
     setIsModalOpen(false);
   };
 

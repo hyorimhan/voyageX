@@ -1,5 +1,5 @@
 import Page from '@/components/pages/Page';
-import OrderForm from '@/components/shop/order/OrderForm';
+import OrderForm from '@/components/order/OrderForm';
 
 const OrderPage = () => {
   return (

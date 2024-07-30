@@ -1,15 +1,10 @@
-import { Customer } from '@/types/userAddressType';
-import { Dispatch, SetStateAction, useState } from 'react';
+'use client';
+
+import { useState } from 'react';
 import CustomerChangeModal from './CustomerChangeModal';
 
-interface CustomerInfoProps {
-  customerInfo: Customer;
-  setCustomerInfo: Dispatch<SetStateAction<Customer>>;
-}
-
-function CustomerInfo({ customerInfo, setCustomerInfo }: CustomerInfoProps) {
+function CustomerInfo() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const user_id = 'gusdnr0839@gmail.com';
 
   return (
     <>
@@ -33,20 +28,14 @@ function CustomerInfo({ customerInfo, setCustomerInfo }: CustomerInfoProps) {
               <p>이메일 주소</p>
             </div>
             <div className='flex flex-col gap-4 text-black-50'>
-              <p>{customerInfo?.customerName}</p>
-              <p>{customerInfo?.customerPhone}</p>
-              <p>{customerInfo?.customerEmail}</p>
+              <p>세종대왕</p>
+              <p>010-1234-5678</p>
+              <p>gusdnr@test.com</p>
             </div>
           </div>
         </div>
       </div>
-      {isModalOpen && (
-        <CustomerChangeModal
-          customerInfo={customerInfo}
-          setCustomerInfo={setCustomerInfo}
-          setIsModalOpen={setIsModalOpen}
-        />
-      )}
+      {isModalOpen && <CustomerChangeModal setIsModalOpen={setIsModalOpen} />}
     </>
   );
 }

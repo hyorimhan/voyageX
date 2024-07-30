@@ -1,43 +1,7 @@
-'use client';
+import Image from 'next/image';
 
-import { useEffect, useState } from 'react';
-import ExpressInfo from './ExpressInfo';
-import PayButton from './PayButton';
-import ItemsInfo from './ItemsInfo';
-import CustomerInfo from './CustomerInfo';
-
-// export type Address = {
-//   alias: string | null;
-//   postcode: string | null;
-//   address: string | null;
-//   oldAddress: string | null;
-//   detailAddress: string | null;
-//   recipient: string | null;
-//   phone: string | null;
-//   is_default: boolean | null;
-// };
-
-// export type Customer = {
-//   customerName: string;
-//   customerPhone: string;
-//   customerEmail: string;
-// };
-
-// export type Item = {
-//   id: string;
-//   name: string;
-//   createdAt: string;
-//   price: number;
-//   description: string;
-//   img: string;
-//   quantity: number;
-// };
-
-// export type ItemList = Item[];
-
-function OrderForm() {
-  const user_email = 'gusdnr0839@gmail.com';
-  const itemList: ItemList = [
+function ItemsInfo() {
+  const itemList = [
     {
       id: '1',
       name: '검은 티셔츠',
@@ -57,62 +21,32 @@ function OrderForm() {
       quantity: 2,
     },
   ];
-  const [expressInfo, setExpressInfo] = useState<Address>({
-    alias: '집',
-    postcode: '52453',
-    address: '경남 남해군 창선면 창선로94번길 11-2 (상죽리)',
-    oldAddress: '경남 남해군 창선면 상죽리 80',
-    detailAddress: '초록색대문',
-    recipient: 'gusdnr',
-    phone: '010-1234-1234',
-  });
-  const [customerInfo, setCustomerInfo] = useState<Customer>({
-    customerName: expressInfo.recipient,
-    customerPhone: expressInfo.phone,
-    customerEmail: 'gusdnr0839@gmail.com',
-  });
-  const [totalPrice, setTotalPrice] = useState(0);
-
-  useEffect(() => {
-    setCustomerInfo((prev) => ({
-      ...prev,
-      customerName: expressInfo.recipient,
-      customerPhone: expressInfo.phone,
-      customerEmail: user_email,
-    }));
-  }, [expressInfo]);
-
   return (
     <>
-      <div className='grid grid-cols-[minmax(0,1fr)_minmax(0,0.5fr)] gap-x-10'>
-        <div className='flex flex-col items-start'>
-          <div className='mt-4 w-full'>
-            <ExpressInfo
-              expressInfo={expressInfo}
-              setExpressInfo={setExpressInfo}
-            />
-          </div>
-          <div className='mt-4 w-full'>
-            <CustomerInfo
-              customerInfo={customerInfo}
-              setCustomerInfo={setCustomerInfo}
-            />
-          </div>
-          <div className='mt-4 w-full'>
-            <ItemsInfo itemList={itemList} setTotalPrice={setTotalPrice} />
-          </div>
+      <div className='border-2 border-black-300 p-4 rounded-lg mb-4 text-black-50'>
+        <div className='py-4 mb-4 border-b-2 border-black-700'>
+          <span className='text-xl'>{`상품정보 총 ${itemList.length}개`}</span>
         </div>
-        <div>
-          <PayButton
-            expressInfo={expressInfo}
-            customerInfo={customerInfo}
-            itemList={itemList}
-            totalPrice={totalPrice}
-          />
-        </div>
+        {itemList.map((item) => (
+          <div
+            key={item.id}
+            className='grid grid-cols-[minmax(0,1fr)_100px] mb-3'
+          >
+            <div className='flex items-center justify-start gap-4'>
+              <div className='w-20 h-24'>
+                <Image src={item.img} alt={item.name} width={80} height={96} />
+              </div>
+              <p>{item.name}</p>
+            </div>
+            <div className='border-l-2 border-black-300 flex flex-col items-center justify-center'>
+              <p>{`${item.price.toLocaleString()}원`}</p>
+              <p>{`수량 ${item.quantity}개`}</p>
+            </div>
+          </div>
+        ))}
       </div>
     </>
   );
 }
 
-export default OrderForm;
+export default ItemsInfo;
