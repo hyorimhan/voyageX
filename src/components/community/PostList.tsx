@@ -54,7 +54,7 @@ const PostList = () => {
           <Link href={post.id}>
             <div
               key={post.id}
-              className='flex mb-4 py-4 gap-x-4 items-center hover:text-primary-500'
+              className='flex py-4 gap-x-4 items-center hover:bg-black-800 rounded-[8px]'
             >
               <span className='flex-none w-20 p-2 text-center'>
                 {String(index + 1)}
