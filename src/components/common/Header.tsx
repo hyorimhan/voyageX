@@ -45,7 +45,7 @@ const Header = () => {
           </Link>
         </div>
         <div className='flex items-center justify-end space-x-2 w-[260px]'>
-          <Link href='/mypage'>
+          <Link href='/mypage/tour_orders'>
             <FaUserCircle className=' w-6 h-6 ' />
           </Link>
           {user ? (
@@ -82,7 +82,7 @@ const Header = () => {
                 커뮤니티
               </span>
             </Link>
-            <Link href='/mypage'>
+            <Link href='/mypage/tour_orders'>
               <span
                 className='text-white hover:text-gray-300 cursor-pointer'
                 onClick={toggleMenu}
