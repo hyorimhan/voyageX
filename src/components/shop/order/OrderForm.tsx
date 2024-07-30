@@ -6,33 +6,34 @@ import PayButton from './PayButton';
 import ItemsInfo from './ItemsInfo';
 import CustomerInfo from './CustomerInfo';
 
-export type Address = {
-  alias: string;
-  postcode: string;
-  address: string;
-  oldAddress: string;
-  detailAddress: string;
-  recipient: string;
-  phone: string;
-};
+// export type Address = {
+//   alias: string | null;
+//   postcode: string | null;
+//   address: string | null;
+//   oldAddress: string | null;
+//   detailAddress: string | null;
+//   recipient: string | null;
+//   phone: string | null;
+//   is_default: boolean | null;
+// };
 
-export type Customer = {
-  customerName: string;
-  customerPhone: string;
-  customerEmail: string;
-};
+// export type Customer = {
+//   customerName: string;
+//   customerPhone: string;
+//   customerEmail: string;
+// };
 
-export type Item = {
-  id: string;
-  name: string;
-  createdAt: string;
-  price: number;
-  description: string;
-  img: string;
-  quantity: number;
-};
+// export type Item = {
+//   id: string;
+//   name: string;
+//   createdAt: string;
+//   price: number;
+//   description: string;
+//   img: string;
+//   quantity: number;
+// };
 
-export type ItemList = Item[];
+// export type ItemList = Item[];
 
 function OrderForm() {
   const user_email = 'gusdnr0839@gmail.com';

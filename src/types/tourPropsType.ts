@@ -1,11 +1,13 @@
 export interface Tour {
   id: string;
-  price: number;
-  tag: string;
+  price: number | null;
+  tag: string | null;
   planets: {
-    name: string;
+    name: string | null;
     planet_img: string;
-    description: string;
+    description: string | null;
+    title: string | null;
+    english_name: string;
   };
 }
 

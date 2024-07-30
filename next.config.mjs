@@ -13,6 +13,10 @@ const nextConfig = {
         hostname: 'i.ibb.co',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'uvjnwqdttdhvwexypdhx.supabase.co',
+      },
     ],
   },
   eslint: {
@@ -42,6 +46,11 @@ const nextConfig = {
   trailingSlash: true,
   images: {
     remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'i.ibb.co',
+        pathname: '/**',
+      },
       {
         protocol: 'https',
         hostname: 'uvjnwqdttdhvwexypdhx.supabase.co',

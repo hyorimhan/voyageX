@@ -3,7 +3,7 @@
 import { Dispatch, SetStateAction, useState } from 'react';
 
 import AddressChangeModal from './AddressChangeModal';
-import { Address } from './OrderForm';
+import { Address } from '@/types/userAddressType';
 
 interface ExpressInfoProps {
   expressInfo: Address;

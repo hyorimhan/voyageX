@@ -9,6 +9,7 @@ import { emailValidate, passwordValidate } from '../authValidate';
 import useAuthStore from '../../../zustand/store/useAuth';
 import Link from 'next/link';
 import KakaoLogin from '../kakao/KakaoLogin';
+import GoogleLogin from '../Google/GoogleLogin';
 
 function LoginForm() {
   const router = useRouter();
@@ -25,18 +26,16 @@ function LoginForm() {
     const response = await login(data);
 
     if (response.error) {
-      toast(response.error);
+      toast.error(response.error);
       reset();
       return;
     }
 
     if (response.message) {
-      toast(response.message, {
-        icon: '🌠',
-      });
+      toast.success(response.message);
 
       saveUser(response.user);
-      // router.replace('/');
+      router.replace('/');
 
       return;
     }
@@ -54,9 +53,9 @@ function LoginForm() {
   return (
     <div className='flex flex-col items-end h-screen justify-center'>
       <form onSubmit={handleSubmit(loginForm, handleError)}>
-        <div className='text-center text-2xl my-4 text-black-50'>로그인</div>
+        <div className='text-center text-2xl my-4 '>로그인</div>
         <div className='flex flex-col'>
-          <label htmlFor='email' className='mb-[4px] text-black-200'>
+          <label htmlFor='email' className='mb-1 '>
             이메일 *
           </label>
           <input
@@ -64,13 +63,13 @@ function LoginForm() {
             id='email'
             placeholder='예) voyageX@gmail.com'
             {...register('email', emailValidate())}
-            className='text-black-900 w-[469px] h-[60px]   rounded-lg p-2 '
+            className='text-black-900 w-[469px] h-[60px] rounded-lg p-2 '
             autoFocus
           />
         </div>
 
         <div className='flex flex-col mt-4'>
-          <label htmlFor='password' className='mb-[4px] text-black-200'>
+          <label htmlFor='password' className='mb-1 text-black-200'>
             비밀번호 *
           </label>
           <input
@@ -84,7 +83,7 @@ function LoginForm() {
         <div className='flex flex-col'>
           <button
             type='submit'
-            className='bg-primary-600 w-[469px] h-[60px]  rounded-lg p-2 mt-5 text-black-50'
+            className='bg-primary-600 w-[469px] h-[60px]  rounded-lg p-2 mt-5 '
           >
             로그인
           </button>
@@ -96,14 +95,15 @@ function LoginForm() {
           </Link>
         </div>
         <div className='flex items-center mt-10'>
-          <div className='flex-1 border-b-[0.5px] border-white' />
-          <div className='px-4 text-black-50'>
-            SNS계정으로 간편 로그인/회원가입
-          </div>
-          <div className='flex-1 border-b-[0.5px] border-white' />
+          <div className='flex-1 border-b border-white' />
+          <div className='px-4 '>SNS계정으로 간편 로그인/회원가입</div>
+          <div className='flex-1 border-b border-white' />
         </div>
       </form>
-      <KakaoLogin />
+      <div className='flex mt-4 justify-center w-full max-w-[469px]'>
+        <KakaoLogin />
+        <GoogleLogin />
+      </div>
     </div>
   );
 }

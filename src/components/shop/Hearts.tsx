@@ -1,6 +1,9 @@
 'use client';
 
-import { useGetLikedGoodsByUser, useToggleLikeGoods } from '@/hooks/goodsHooks';
+import {
+  useGetIsLikedGoodsByUser,
+  useToggleLikeGoods,
+} from '@/hooks/goodsHooks';
 import { toggleLikeGoodsParamsType } from '@/types/goods';
 import { IoHeart } from 'react-icons/io5';
 import { IoHeartOutline } from 'react-icons/io5';
@@ -15,11 +18,16 @@ function Hearts({ goods_id, user_id }: HeartsProps) {
     data: isLiked,
     isError,
     isPending,
-  } = useGetLikedGoodsByUser(goods_id, user_id);
+  } = useGetIsLikedGoodsByUser(goods_id, user_id);
 
-  const { mutate: likeMutate } = useToggleLikeGoods(goods_id, user_id);
+  const { mutate: likeMutate } = useToggleLikeGoods(
+    goods_id,
+    user_id,
+    isLiked!,
+  );
 
   const handleToggleLike = () => {
+    if (isLiked === undefined) return;
     const toggleParams: toggleLikeGoodsParamsType = {
       goods_id,
       user_id,
@@ -35,11 +43,11 @@ function Hearts({ goods_id, user_id }: HeartsProps) {
     <>
       <span
         className={`cursor-pointer text-3xl ${
-          isLiked?.length ? 'text-primary-400' : 'text-black-50'
+          isLiked ? 'text-primary-400' : 'text-black-50'
         }`}
         onClick={handleToggleLike}
       >
-        {isLiked?.length ? <IoHeart /> : <IoHeartOutline />}
+        {isLiked ? <IoHeart /> : <IoHeartOutline />}
       </span>
     </>
   );
