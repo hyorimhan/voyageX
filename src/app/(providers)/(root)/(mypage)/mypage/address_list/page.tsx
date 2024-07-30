@@ -16,7 +16,7 @@ type Address = {
   detailAddress: string | null;
   recipient: string | null;
   phone: string | null;
-  is_default: boolean;
+  is_default: boolean | null;
 };
 
 const maxAddresses = 3; // 최대 주소지 제한
@@ -158,11 +158,11 @@ const AddressListPage: React.FC = () => {
             </span>
             <div>
               {address.is_default && (
-                <p className='text-primary-400 text-xs'>기본배송지</p>
+                <p className='text-primary-200 text-xs'>기본배송지</p>
               )}
               <p className='text-base w-24 text-center'>{address.alias}</p>
             </div>
-            <div className='text-left text-xs w-96 ml-3 px-5'>
+            <div className='text-left text-sm w-96 ml-3 px-5'>
               <p className='mb-1'>({address.postcode})</p>
               <p>
                 도로명 : {address.address} {address.detailAddress}
@@ -171,7 +171,7 @@ const AddressListPage: React.FC = () => {
                 지번 : {address.oldAddress} {address.detailAddress}
               </p>
             </div>
-            <div className='text-xs w-48'>
+            <div className='text-sm w-48'>
               <p className='mb-1'>{address.recipient}</p>
               <p>{address.phone}</p>
             </div>
