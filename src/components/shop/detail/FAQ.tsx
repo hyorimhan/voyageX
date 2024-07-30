@@ -1,7 +1,8 @@
 'use client';
 
+import ArrowDownWhiteIcon32px from '@/components/common/icons/32px/ArrowDownWhiteIcon32px';
+import ArrowUpWhiteIcon32px from '@/components/common/icons/32px/ArrowUpWhiteIcon32px';
 import { useState } from 'react';
-import { IoIosArrowUp, IoIosArrowDown } from 'react-icons/io';
 
 const FAQ = () => {
   const [openIndexes, setOpenIndexes] = useState<{ [key: number]: boolean }>(
@@ -44,26 +45,28 @@ const FAQ = () => {
   ];
 
   return (
-    <div>
-      <div className='w-full text-center text-3xl mb-16'>
-        <p className='mb-3 font-bold'>FAQ</p>
-        <p>자주 묻는 질문</p>
+    <div className='mb-[215px]'>
+      <div className='w-full text-center text-3xl mb-[61px]'>
+        <div className='flex text-2xl gap-2 font-bold'>
+          <p>자주 묻는 질문</p>
+          <p>FAQ</p>
+        </div>
       </div>
       {FAQList.map((faq, index) => (
         <div key={index}>
           <div
-            className='flex w-full flex-grow text-xl py-5 px-6 items-center cursor-pointer'
+            className='flex justify-between w-full flex-grow text-base py-5 px-6 items-center cursor-pointer'
             onClick={() => toggleFAQ(index)}
           >
             <p>{faq.question}</p>
             {openIndexes[index] ? (
-              <IoIosArrowUp className='ml-auto text-4xl' />
+              <ArrowUpWhiteIcon32px />
             ) : (
-              <IoIosArrowDown className='ml-auto text-4xl' />
+              <ArrowDownWhiteIcon32px />
             )}
           </div>
           {openIndexes[index] && (
-            <div className='flex w-full flex-grow text-lg py-5 px-6 items-center bg-black-900'>
+            <div className='flex w-full flex-grow text-base py-5 px-6 items-center bg-black-900'>
               <p>{faq.answer}</p>
             </div>
           )}

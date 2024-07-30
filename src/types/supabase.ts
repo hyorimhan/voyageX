@@ -466,18 +466,21 @@ export type Database = {
       }
       tours: {
         Row: {
+          amount: number | null
           id: string
           planet_id: string
           price: number
           tag: string
         }
         Insert: {
+          amount?: number | null
           id?: string
           planet_id?: string
           price: number
           tag: string
         }
         Update: {
+          amount?: number | null
           id?: string
           planet_id?: string
           price?: number
