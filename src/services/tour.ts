@@ -1,4 +1,6 @@
 import { createClient } from '@/supabase/client';
+import { toggleLikeToursParamsType } from '@/types/tour';
+import axios from 'axios';
 
 const supabase = createClient();
 
@@ -49,4 +51,35 @@ export const userAddress = async (id: string) => {
     .select('*')
     .eq('user_id', id);
   return { address, error };
+};
+
+export const getLikedToursByUser = async (user_id: string) => {
+  const response = await axios.get(`/api/tours/like/${user_id}`);
+  return response.data;
+};
+
+export const getIsLikeTourByUser = async (tour_id: string, user_id: string) => {
+  const response = await axios.get(
+    `/api/tours/${tour_id}/like?user_id=${user_id}`,
+  );
+  return response.data;
+};
+
+export const toggleLikeTours = async (
+  toggleLikeGoodsParams: toggleLikeToursParamsType,
+) => {
+  const { tour_id, user_id, isLiked } = toggleLikeGoodsParams;
+  if (isLiked) {
+    const response = await axios.delete(
+      `/api/tours/${tour_id}/like?user_id=${user_id}`,
+    );
+    console.log(response);
+    return response;
+  } else {
+    const response = await axios.post(
+      `/api/tours/${tour_id}/like?user_id=${user_id}`,
+    );
+    console.log(response);
+    return response;
+  }
 };
