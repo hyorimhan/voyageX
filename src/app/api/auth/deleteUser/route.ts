@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'User ID is required' });
     }
 
-    const { data, error } = await supabase.auth.admin.deleteUser(userId);
+    const { error } = await supabase.auth.admin.deleteUser(userId);
 
     if (error) {
       return NextResponse.json({ error: error.message });
@@ -23,13 +23,5 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ message: 'User deleted successfully' });
   } catch (error) {
     return NextResponse.json({ error: 'Network error occurred' });
-  }
-}
-
-export async function handler(req: NextRequest) {
-  if (req.method === 'POST') {
-    return POST(req);
-  } else {
-    return NextResponse.json({ error: `Method ${req.method} Not Allowed` });
   }
 }

@@ -1,6 +1,3 @@
-Need to install the following packages:
-supabase@1.187.10
-Ok to proceed? (y) 
 export type Json =
   | string
   | number
@@ -434,19 +431,19 @@ export type Database = {
       tour_orders: {
         Row: {
           id: string
-          order_date: string
+          order_date: string | null
           tour_id: string
           user_id: string
         }
         Insert: {
           id?: string
-          order_date?: string
+          order_date?: string | null
           tour_id?: string
           user_id: string
         }
         Update: {
           id?: string
-          order_date?: string
+          order_date?: string | null
           tour_id?: string
           user_id?: string
         }
