@@ -1,17 +1,13 @@
-import { Order } from '@/components/pay/PaymentWidget';
+import { Order } from '@/components/order/payment/PaymentWidget';
 import { create } from 'zustand';
 
 type userOrderType = {
   userOrder: Order | null;
-  orderType: string | null;
-  saveOrder: (info: Order) => string | void;
-  setOrderType: (type: string) => void;
+  setUserOrder: (info: Order) => string | void;
 };
 
 const useShopStore = create<userOrderType>((set) => ({
   userOrder: null,
-  orderType: null,
-  saveOrder: (info) => set({ userOrder: info }),
-  setOrderType: (type) => set({ orderType: type }),
+  setUserOrder: (info) => set({ userOrder: info }),
 }));
 export default useShopStore;

@@ -1,8 +1,18 @@
+'use client';
+
+import ReviewFormModal from '@/components/mypage/goods_orders/ReviewFormModal';
+import useAuthStore from '@/zustand/store/useAuth';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useState } from 'react';
 import { MdOutlineKeyboardArrowRight } from 'react-icons/md';
 
 const GoodsOrdersPage = () => {
+  const [showReviewFormAddModal, setShowReviewFormAddModal] =
+    useState<boolean>(false);
+  const user = useAuthStore((state) => state.user);
+  const goodsId = '2d0505e5-b4a9-4954-bb0b-7913af96ab75';
+
   return (
     <div>
       <p className='text-2xl mb-9'>굿즈샵 주문/배송조회</p>
@@ -45,11 +55,23 @@ const GoodsOrdersPage = () => {
               <p>무료배송</p>
               <p>구매확정</p>
             </div>
-            <button className='bg-primary-400 p-2 rounded-md'>리뷰작성</button>
+            <button
+              className='bg-primary-400 p-2 rounded-md'
+              onClick={() => setShowReviewFormAddModal(true)}
+            >
+              리뷰작성
+            </button>
           </div>
         </div>
         <div className='border-b-2 border-solid border-black-500 mt-9'></div>
       </div>
+      {showReviewFormAddModal && user && (
+        <ReviewFormModal
+          goodsId={goodsId}
+          userId={user?.id}
+          onClose={() => setShowReviewFormAddModal(false)}
+        />
+      )}
     </div>
   );
 };

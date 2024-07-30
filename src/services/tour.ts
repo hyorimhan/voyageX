@@ -89,7 +89,6 @@ export const toggleLikeTours = async (
 export const tourPayment = async (userId: string, tourId: string) => {
   const { data: payment, error } = await supabase
     .from('tour_orders')
-    .insert([{ user_id: userId, tour_id: tourId }])
-    .select();
+    .insert([{ user_id: userId, tour_id: tourId }]);
   return { payment, error };
 };

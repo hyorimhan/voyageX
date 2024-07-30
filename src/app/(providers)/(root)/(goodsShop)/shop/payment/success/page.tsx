@@ -1,13 +1,12 @@
 'use client';
+import SuccessPayment from '@/components/order/payment/success/SuccessPayment';
 import Page from '@/components/pages/Page';
-import SuccessPayment from '@/components/shop/order/payment/SuccessPayment';
-import TourSuccess from '@/components/tour/tourPayment/TourSuccess';
-import useShopStore from '@/zustand/store/useShop';
+import useTourIdStore from '@/zustand/store/useTourId';
 import { Suspense } from 'react';
 
 const SuccessPage = () => {
-  const orderType = useShopStore((state) => state.orderType);
-
+  const tourUrl = useTourIdStore((state) => state.tourUrl);
+  console.log('sPage', tourUrl);
   return (
     <>
       <Page>
@@ -15,7 +14,7 @@ const SuccessPage = () => {
           GOODS SHOP
         </h1>
         <Suspense>
-          <SuccessPayment />
+          <SuccessPayment tourUrl={tourUrl as string} />
         </Suspense>
       </Page>
     </>

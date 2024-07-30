@@ -9,16 +9,23 @@ import { useRouter } from 'next/navigation';
 import useAuthStore from '@/zustand/store/useAuth';
 import { Address } from '@/types/userAddressType';
 import toast from 'react-hot-toast';
-import useShopStore from '@/zustand/store/useShop';
 import TourPayButton from './TourPayButton';
+import useTourIdStore from '@/zustand/store/useTourId';
 
 function Payment({ params }: tourProps) {
   const router = useRouter();
   const saveUser = useAuthStore((state) => state.saveUser);
+  const setTourId = useTourIdStore((state) => state.setTourId);
+  const tourUrl = useTourIdStore((state) => state.tourUrl);
   const [defaultAddress, setDefaultAddress] = useState<Address | null>(null);
   const { id } = params;
-  const userOrder = useShopStore((state) => state.userOrder);
-  console.log(userOrder);
+
+  useEffect(() => {
+    setTourId(id);
+  }, [id, setTourId]);
+  console.log(tourUrl);
+  // const userOrder = useShopStore((state) => state.userOrder);
+  // console.log(userOrder);
   useEffect(() => {
     const userAndAddress = async () => {
       try {
