@@ -6,7 +6,7 @@ async function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <Page>
       <div className='font-yangpyeong'>
-        <h1 className='text-[36px] font-bold text-white mt-[112px] mb-[64px]'>
+        <h1 className='text-[36px] font-bold text-white mt-[112px] mb-14'>
           <Link href='/community'>자유게시판</Link>
         </h1>
         {children}
