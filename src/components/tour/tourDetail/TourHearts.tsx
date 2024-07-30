@@ -1,35 +1,34 @@
 'use client';
 
+import { useGetLikedGoodsByUser, useToggleLikeGoods } from '@/hooks/goodsHooks';
 import {
-  useGetIsLikedGoodsByUser,
-  useToggleLikeGoods,
-} from '@/hooks/goodsHooks';
-import { toggleLikeGoodsParamsType } from '@/types/goods';
+  useGetIsLikedTourByUser,
+  useToggleLikeTours,
+} from '@/hooks/toursHooks';
+import { toggleLikeToursParamsType } from '@/types/tour';
 import { IoHeart } from 'react-icons/io5';
 import { IoHeartOutline } from 'react-icons/io5';
 
-interface HeartsProps {
-  goods_id: string;
+interface TourHeartsProps {
+  tour_id: string;
   user_id: string;
 }
 
-function Hearts({ goods_id, user_id }: HeartsProps) {
+function TourHearts({ tour_id, user_id }: TourHeartsProps) {
   const {
     data: isLiked,
     isError,
     isPending,
-  } = useGetIsLikedGoodsByUser(goods_id, user_id);
+  } = useGetIsLikedTourByUser(tour_id, user_id);
 
-  const { mutate: likeMutate } = useToggleLikeGoods(
-    goods_id,
-    user_id,
-    isLiked!,
-  );
+  console.log(isLiked);
+
+  const { mutate: likeMutate } = useToggleLikeTours(tour_id, user_id, isLiked!);
 
   const handleToggleLike = () => {
     if (isLiked === undefined) return;
-    const toggleParams: toggleLikeGoodsParamsType = {
-      goods_id,
+    const toggleParams: toggleLikeToursParamsType = {
+      tour_id,
       user_id,
       isLiked,
     };
@@ -53,4 +52,4 @@ function Hearts({ goods_id, user_id }: HeartsProps) {
   );
 }
 
-export default Hearts;
+export default TourHearts;
