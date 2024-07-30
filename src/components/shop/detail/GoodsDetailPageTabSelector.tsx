@@ -3,14 +3,18 @@
 import RenderTabReviews from './RenderTabReviews';
 import RenderTabGoodsDetail from './RenderTabGoodsDetail';
 
-interface GoodsDetailPageTabSelectorProps {
+type GoodsDetailPageTabSelectorProps = {
   selectedTab: string;
   setSelectedTab: (tab: string) => void;
-}
+  goodsRating: number | undefined;
+  goodsId: string;
+};
 
 function GoodsDetailPageTabSelector({
   selectedTab,
   setSelectedTab,
+  goodsRating,
+  goodsId,
 }: GoodsDetailPageTabSelectorProps) {
   return (
     <>
@@ -47,7 +51,7 @@ function GoodsDetailPageTabSelector({
         </div>
       </div>
       {selectedTab === 'Reviews' ? (
-        <RenderTabReviews />
+        <RenderTabReviews goodsRating={goodsRating} goodsId={goodsId} />
       ) : (
         <RenderTabGoodsDetail />
       )}

@@ -2,8 +2,6 @@
 
 import Page from '@/components/pages/Page';
 import Image from 'next/image';
-import { HiStar, HiOutlineStar } from 'react-icons/hi2';
-import { PiStarHalfFill } from 'react-icons/pi';
 import FAQ from '@/components/shop/detail/FAQ';
 import { useEffect, useState } from 'react';
 import { createClient } from '@/supabase/client';
@@ -23,7 +21,7 @@ const ShopDetailPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
   const user = useAuthStore((state) => state.user);
-  const [selectedTab, setSelectedTab] = useState('Details');
+  const [selectedTab, setSelectedTab] = useState('Reviews');
 
   useEffect(() => {
     if (id) {
@@ -37,13 +35,11 @@ const ShopDetailPage = () => {
 
           if (error) {
             setIsError(true);
-            console.error('Error fetching goods:', error.message);
           } else {
             setGoods(data);
           }
         } catch (error) {
           setIsError(true);
-          console.error('Unexpected error fetching goods:', error.message);
         } finally {
           setIsLoading(false);
         }
@@ -52,6 +48,7 @@ const ShopDetailPage = () => {
       fetchGoods();
     }
   }, [id]);
+
   if (isLoading) return <div>로딩 중..</div>;
   if (isError) return <div>에러 발생</div>;
 
@@ -117,6 +114,8 @@ const ShopDetailPage = () => {
           </div>
         )}
         <GoodsDetailPageTabSelector
+          goodsRating={goods?.rating_avg}
+          goodsId={id}
           selectedTab={selectedTab}
           setSelectedTab={setSelectedTab}
         />

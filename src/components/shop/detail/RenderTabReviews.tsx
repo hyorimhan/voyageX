@@ -1,44 +1,37 @@
 import StarFalseIcon24px from '@/components/common/icons/24px/StarFalseIcon24px';
 import StarTrueIcon24px from '@/components/common/icons/24px/StarTrueIcon24px';
+import GoodsReviews from './GoodsReviews';
 
-import React from 'react';
+type RenderTabReviewsProps = {
+  goodsRating: number | undefined;
+  goodsId: string;
+};
 
-const RenderTabReviews = () => {
+const RenderTabReviews: React.FC<RenderTabReviewsProps> = ({
+  goodsRating,
+  goodsId,
+}) => {
+  const roundedStars = Math.round(goodsRating ?? 0);
+  const fullStars = roundedStars;
+  const emptyStars = 5 - roundedStars;
+
   return (
     <>
-      <div className='mt-[54px] flex flex-col items-center'>
-        <div className='gap-2'>
-          <p className='text-2xl'>리뷰 4.0</p>
-          <p className='text-xs'>총 12건 리뷰</p>
+      <div className='mt-[54px] flex flex-row items-center justify-center'>
+        <div className='flex mr-4'>
+          {Array.from({ length: fullStars }).map((_, index) => (
+            <StarTrueIcon24px key={index} />
+          ))}
+          {Array.from({ length: emptyStars }).map((_, index) => (
+            <StarFalseIcon24px key={index} />
+          ))}
         </div>
-        <div className='flex mt-5'>
-          <div className='flex items-center'>
-            <StarTrueIcon24px />
-            <StarTrueIcon24px />
-            <StarTrueIcon24px />
-            <StarTrueIcon24px />
-            <StarFalseIcon24px />
-          </div>
-        </div>
-      </div>
-      <div className='flex py-7 w-full flex-grow mt-11 text-xs mb-[148px] px-16'>
-        <div className='mr-6'>
-          <p className='flex mb-2'>
-            <StarTrueIcon24px />
-            <StarTrueIcon24px />
-            <StarTrueIcon24px />
-            <StarTrueIcon24px />
-            <StarFalseIcon24px />
-          </p>
-          <p>아이디</p>
-        </div>
-        <div>
-          <p className='text-sm'>튼튼하고 목늘어짐 없이 좋아용 추천!</p>
-        </div>
-        <div className='ml-auto'>
-          <p>2024.07.08</p>
+        <div className='flex items-end gap-1'>
+          <p className='text-4xl font-bold'>{goodsRating}</p>
+          <p className='text-2xl text-black-400 ml-1 font-bold'>/5.0</p>
         </div>
       </div>
+      <GoodsReviews goodsId={goodsId} />
     </>
   );
 };
