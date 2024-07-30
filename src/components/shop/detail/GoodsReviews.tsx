@@ -36,7 +36,7 @@ const GoodsReviews = ({ goodsId }: { goodsId: string }) => {
         }
       } catch (error) {
         setIsError(true);
-        console.error('Unexpected error fetching reviews:', error.message);
+        console.error('Unexpected error fetching reviews:', error);
       } finally {
         setIsLoading(false);
       }

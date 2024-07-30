@@ -1,5 +1,5 @@
+import FailPayment from '@/components/order/payment/FailPayment';
 import Page from '@/components/pages/Page';
-import FailPayment from '@/components/shop/order/payment/FailPayment';
 
 const FailPage = () => {
   return (
