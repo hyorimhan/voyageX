@@ -1,4 +1,4 @@
-type Json =
+export type Json =
   | string
   | number
   | boolean
@@ -431,19 +431,19 @@ export type Database = {
       tour_orders: {
         Row: {
           id: string;
-          order_date: string;
+          order_date: string | null;
           tour_id: string;
           user_id: string;
         };
         Insert: {
           id?: string;
-          order_date?: string;
+          order_date?: string | null;
           tour_id?: string;
           user_id: string;
         };
         Update: {
           id?: string;
-          order_date?: string;
+          order_date?: string | null;
           tour_id?: string;
           user_id?: string;
         };
