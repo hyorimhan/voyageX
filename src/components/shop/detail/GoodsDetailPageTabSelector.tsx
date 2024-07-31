@@ -36,15 +36,15 @@ function GoodsDetailPageTabSelector({
           <div
             className={`flex w-1/2  ${
               selectedTab === 'Details'
-                ? 'border-b-4 border-white'
-                : 'border-b-2'
+                ? 'border-b-2 border-white'
+                : 'border-b-[1px]'
             }`}
           ></div>
           <div
             className={` flex w-1/2 ${
               selectedTab === 'Reviews'
-                ? 'border-b-4 border-white'
-                : 'border-b-2'
+                ? 'border-b-2 border-white'
+                : 'border-b-[1px]'
             }`}
           ></div>
         </div>

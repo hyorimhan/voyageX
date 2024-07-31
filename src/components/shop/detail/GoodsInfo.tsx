@@ -45,27 +45,27 @@ const GoodsInfo = ({ goods, goods_id }: GoodsInfoProps) => {
           </div>
         </div>
         <div className='flex mt-5 text-base flex-col'>
-          <div className='border-t-2 border-black-700'></div>
+          <div className='border-t-[1px] border-black-700'></div>
           <div className='flex py-3 px-4 ga text-sm p-[18px]'>
             <p className=' w-[70px]'>배송정보</p>
             <p>예약 출고 (2024. 08. 11 이내 출고)</p>
           </div>
-          <div className='border-t-2 border-black-700'></div>
+          <div className='border-t-[1px] border-black-700'></div>
           <div className='flex py-3 px-4 ga text-sm p-[18px]'>
             <p className=' w-[70px]'>배송비</p>
             <p>무료배송</p>
           </div>
-          <div className='border-t-2 border-black-700'></div>
+          <div className='border-t-[1px] border-black-700'></div>
           <div className='flex py-3 px-4 ga text-sm p-[18px]'>
             <p className=' w-[70px]'>사이즈</p>
             <p>FREE</p>
           </div>
-          <div className='border-t-2 border-black-700'></div>
+          <div className='border-t-[1px] border-black-700'></div>
           <div className='flex py-3 px-4 ga text-sm p-[18px]'>
             <p className=' w-[70px]'>색상</p>
             <p>RED</p>
           </div>
-          <div className='border-t-2 border-black-700'></div>
+          <div className='border-t-[1px] border-black-700'></div>
           <QuantityBtn goodsPrice={goods.goods_price} />
         </div>
         <div className='gap-4 flex mt-5 w-full'>
