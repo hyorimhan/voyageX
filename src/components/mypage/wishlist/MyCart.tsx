@@ -3,11 +3,16 @@
 import { useGetCartList } from '@/hooks/goodsHooks';
 import { deleteCartItem, adjustQuantity } from '@/services/goods';
 import { CartListType, WishListPropsType } from '@/types/mypageType';
+import useItemListStore from '@/zustand/store/itemListStore';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 
 function MyCart({ user_id }: WishListPropsType) {
+  const router = useRouter();
+  const { setItemList } = useItemListStore((state) => state);
   const [totalPrice, setTotalPrice] = useState(0);
   const [selectItems, setSelectItems] = useState<CartListType[]>([]);
   const { data: cartList, isError, isPending } = useGetCartList(user_id);
@@ -35,11 +40,15 @@ function MyCart({ user_id }: WishListPropsType) {
     deleteCartItemMutate({ user_id, idList });
   };
 
-  const handleAdjustItemQuantity = (
-    id: string,
-    operator: string,
-    prev: number,
-  ) => {
+  const handleAdjustItemQuantity = ({
+    id,
+    operator,
+    prev,
+  }: {
+    id: string;
+    operator: string;
+    prev: number;
+  }) => {
     if (operator === '+') {
       quantityMutate({ user_id, cart_id: id, task: 'increase', prev });
     } else {
@@ -76,6 +85,20 @@ function MyCart({ user_id }: WishListPropsType) {
       }, 0),
     );
   }, [selectItems]);
+
+  const handleGoToPayPage = () => {
+    if (!selectItems.length) return toast.error('상품을 선택해주세요!');
+    const itemList = selectItems.map((item) => ({
+      quantity: item.quantity,
+      goods: item.goods,
+    }));
+    setItemList(itemList);
+    router.push(`/shop/order`);
+  };
+
+  const handleGoToShop = () => {
+    router.push('shop');
+  };
 
   if (isError) return <div>에러</div>;
   if (isPending) return <div>로딩 중..</div>;
@@ -133,7 +156,11 @@ function MyCart({ user_id }: WishListPropsType) {
               <div className='self-center flex flex-row gap-2 text-sm'>
                 <button
                   onClick={() =>
-                    handleAdjustItemQuantity(item.id, '-', item.quantity)
+                    handleAdjustItemQuantity({
+                      id: item.id,
+                      operator: '-',
+                      prev: item.quantity,
+                    })
                   }
                   disabled={item.quantity === 1}
                 >
@@ -142,7 +169,11 @@ function MyCart({ user_id }: WishListPropsType) {
                 <span>{item.quantity}</span>
                 <button
                   onClick={() =>
-                    handleAdjustItemQuantity(item.id, '+', item.quantity)
+                    handleAdjustItemQuantity({
+                      id: item.id,
+                      operator: '+',
+                      prev: item.quantity,
+                    })
                   }
                 >
                   +
@@ -179,10 +210,16 @@ function MyCart({ user_id }: WishListPropsType) {
           </div>
         </div>
         <section className='flex flex-row gap-4 mb-20'>
-          <button className='border-2 border-primary-600 w-1/2 rounded-lg p-4 text-base'>
+          <button
+            className='border-2 border-primary-600 w-1/2 rounded-lg p-4 text-base'
+            onClick={handleGoToShop}
+          >
             쇼핑 계속하기
           </button>
-          <button className='bg-primary-600 w-1/2 rounded-lg p-4 text-base'>
+          <button
+            className='bg-primary-600 w-1/2 rounded-lg p-4 text-base'
+            onClick={handleGoToPayPage}
+          >
             구매하기
           </button>
         </section>

@@ -22,8 +22,6 @@ const PaymentWidget = () => {
   const user = useAuthStore((state) => state.user);
   const query: string = searchParams.get('orderInfo')!;
   const orderInfo: Order = JSON.parse(query);
-  // console.log('orderInfo => ', orderInfo);
-  // const userId = 'gusdnr0839';
   const userId = user?.id;
   const paymentWidgetRef = useRef<PaymentWidgetInstance | null>(null);
   const paymentMethodWidgetRef = useRef<ReturnType<
