@@ -11,7 +11,7 @@ type Review = {
   rating: number;
   review: string;
   created_at: string;
-  users: { email: string } | null;
+  user: { email: string } | null;
 };
 
 const GoodsReviews = ({ goodsId }: { goodsId: string }) => {
@@ -25,7 +25,7 @@ const GoodsReviews = ({ goodsId }: { goodsId: string }) => {
       try {
         const { data, error } = await supabase
           .from('goods_reviews')
-          .select('*, users(email)')
+          .select('*, user:users(email)')
           .eq('goods_id', goodsId);
 
         if (error) {
@@ -67,7 +67,7 @@ const GoodsReviews = ({ goodsId }: { goodsId: string }) => {
                   ),
                 )}
               </p>
-              <p>{review.users?.email.split('@')[0]}</p>
+              <p>{review.user?.email.split('@')[0]}</p>
             </div>
             <div>
               <p className='text-sm'>{review.review}</p>
