@@ -2,9 +2,12 @@
 
 import { useState } from 'react';
 import CustomerChangeModal from './CustomerChangeModal';
+import useCustomerInfoStore from '@/zustand/store/customrInfoStore';
 
 function CustomerInfo() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { customerInfo } = useCustomerInfoStore((state) => state);
+  console.log(customerInfo);
 
   return (
     <>
@@ -28,9 +31,9 @@ function CustomerInfo() {
               <p>이메일 주소</p>
             </div>
             <div className='flex flex-col gap-4 text-black-50'>
-              <p>세종대왕</p>
-              <p>010-1234-5678</p>
-              <p>gusdnr@test.com</p>
+              <p>{customerInfo?.customerName}</p>
+              <p>{customerInfo?.customerPhone}</p>
+              <p>{customerInfo?.customerEmail}</p>
             </div>
           </div>
         </div>

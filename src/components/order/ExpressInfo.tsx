@@ -1,12 +1,27 @@
 'use client';
 
-import { useState } from 'react';
-
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import AddressChangeModal from './AddressChangeModal';
+import { Tables } from '@/types/supabase';
+import useExpressInfoStore from '@/zustand/store/expressInfoStore';
+import useAuthStore from '@/zustand/store/useAuth';
+import { getAddressList } from '@/services/address';
+import { useQuery } from '@tanstack/react-query';
 
-function ExpressInfo() {
+interface ExpressInfoPropsType {
+  currentAddress: Tables<'addresses'> | null;
+  setCurrentAddress: Dispatch<SetStateAction<Tables<'addresses'> | null>>;
+}
+
+function ExpressInfo({
+  currentAddress,
+  setCurrentAddress,
+}: ExpressInfoPropsType) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const { setExpressAddress } = useExpressInfoStore((state) => state);
+  useEffect(() => {
+    setExpressAddress(currentAddress);
+  }, [currentAddress]);
   return (
     <>
       <div className='border-2 border-black-300 rounded-lg p-4'>
@@ -26,12 +41,12 @@ function ExpressInfo() {
             <p>배송지 정보</p>
           </div>
           <div className='flex flex-col gap-4 text-black-50'>
-            <p>세종대왕</p>
-            <p>010-1234-5678</p>
+            <p>{currentAddress?.recipient}</p>
+            <p>{currentAddress?.phone}</p>
             <div>
-              <p>도로명 : 서울 종로구 효자로 12 국립고궁박물관</p>
-              <p>지번 : 세종로 1-57</p>
-              <span>12345</span>
+              <p>{`도로명 : ${currentAddress?.address} ${currentAddress?.detailAddress}`}</p>
+              <p>{`지번 : ${currentAddress?.oldAddress} ${currentAddress?.detailAddress}`}</p>
+              <span>{currentAddress?.postcode}</span>
             </div>
           </div>
         </div>

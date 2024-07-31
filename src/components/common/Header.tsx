@@ -9,7 +9,6 @@ import { userLoginInfo } from '@/services/auth';
 const Header = () => {
   const user = useAuthStore((state) => state.user);
   const saveUser = useAuthStore((state) => state.saveUser);
-
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
