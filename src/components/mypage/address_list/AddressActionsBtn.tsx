@@ -49,15 +49,15 @@ const AddressActionsBtn = ({
   };
 
   return (
-    <div className='flex items-center justify-end gap-2'>
+    <div className='flex items-center justify-end gap-2 text-black-50'>
       <button
-        className='bg-primary-400 p-2 rounded-md text-xs'
+        className='bg-primary-400 p-2  rounded-md text-xs transition-colors duration-200 hover:bg-primary-200 active:bg-primary-300'
         onClick={handleAddressAddClick}
       >
         새 배송지 추가
       </button>
       <button
-        className='bg-primary-400 p-2 rounded-md text-xs'
+        className='bg-primary-400 p-2 rounded-md text-xs transition-colors duration-200 hover:bg-primary-200 active:bg-primary-300'
         onClick={handleSetDefaultAddress}
       >
         기본배송지 설정

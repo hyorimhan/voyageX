@@ -42,8 +42,8 @@ const DeleteAccountBtn = ({ buttonText }: DeleteAccountBtnProps) => {
           onClick={handleDeleteAccount}
           className={`w-80 rounded-lg p-3 text-black-50 ${
             isChecked
-              ? 'bg-primary-600 hover:bg-primary-700 active:bg-primary-800'
-              : 'bg-black-200 cursor-not-allowed'
+              ? 'bg-primary-600 hover:bg-primary-400 active:bg-primary-500'
+              : 'bg-black-400 text-black-200 cursor-not-allowed'
           }`}
           disabled={!isChecked}
         >
