@@ -30,6 +30,7 @@ export const tourDetail = async (id: string) => {
   price,
   tag,
   id,
+  amount,
   planets (
     name,
     description,
@@ -82,4 +83,12 @@ export const toggleLikeTours = async (
     console.log(response);
     return response;
   }
+};
+
+// 투어 결제 (테이블에 넣기)
+export const tourPayment = async (userId: string, tourId: string) => {
+  const { data: payment, error } = await supabase
+    .from('tour_orders')
+    .insert([{ user_id: userId, tour_id: tourId }]);
+  return { payment, error };
 };

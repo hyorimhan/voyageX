@@ -3,20 +3,28 @@ import { userAddress } from '@/services/tour';
 import { tourProps } from '@/types/tourPropsType';
 import React, { useEffect, useState } from 'react';
 import CustomerInfo from './CustomerInfo';
-import PayButton from './PayButton';
 import ItemsInfo from './ItemsInfo';
 import { userLoginInfo } from '@/services/auth';
 import { useRouter } from 'next/navigation';
 import useAuthStore from '@/zustand/store/useAuth';
 import { Address } from '@/types/userAddressType';
 import toast from 'react-hot-toast';
+import TourPayButton from './TourPayButton';
+import useTourIdStore from '@/zustand/store/useTourId';
 
 function Payment({ params }: tourProps) {
   const router = useRouter();
   const saveUser = useAuthStore((state) => state.saveUser);
+  const setTourId = useTourIdStore((state) => state.setTourId);
   const [defaultAddress, setDefaultAddress] = useState<Address | null>(null);
   const { id } = params;
 
+  useEffect(() => {
+    setTourId(id);
+  }, [id, setTourId]);
+
+  // const userOrder = useShopStore((state) => state.userOrder);
+  // console.log(userOrder);
   useEffect(() => {
     const userAndAddress = async () => {
       try {
@@ -28,6 +36,7 @@ function Payment({ params }: tourProps) {
           toast('로그인이 필요합니다');
           return;
         }
+
         const { address, error } = await userAddress(res.user.id);
 
         const defaulAdr =
@@ -46,16 +55,19 @@ function Payment({ params }: tourProps) {
 
   return (
     <>
-      <div className='border-b-[1px] mt-[132px] pb-[12px] text-[28px]'>
-        여행상품 결제
-      </div>
-      <div className='flex items-center gap-8 mt-8'>
-        <div className='w-[712px] '>
-          <CustomerInfo defaultAddress={defaultAddress as Address} />
-          <ItemsInfo id={id} />
+      <div className='h-[435px]'>
+        <div className='border-b mt-[132px] pb-[12px] text-[28px]'>
+          여행상품 결제
         </div>
-        <div className='w-[376px]'>
-          <PayButton />
+        <div className='flex items-center gap-8 mt-8'>
+          <div className='w-[712px] '>
+            <CustomerInfo defaultAddress={defaultAddress as Address} />
+            <ItemsInfo id={id} />
+          </div>
+
+          <div className='w-[376px]'>
+            <TourPayButton id={id} defaultAddress={defaultAddress as Address} />
+          </div>
         </div>
       </div>
     </>
