@@ -84,7 +84,7 @@ export const useGetCartList = (user_id: string) => {
 
 //굿즈 아이템 하나만 가져오기
 export const useGetGoodsItem = (id: string) => {
-  return useQuery<Tables<'goods'>>({
+  return useQuery({
     queryKey: ['goods', id],
     queryFn: () => getGoodsItem(id),
   });
