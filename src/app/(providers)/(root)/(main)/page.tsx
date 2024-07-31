@@ -10,6 +10,16 @@ import useFetchTourDetail from '@/hooks/useFetchTourDetail';
 
 gsap.registerPlugin(ScrollTrigger);
 
+type Planet = {
+  id: string;
+  name: string;
+  description: string;
+  planet_img: string;
+  english_name: string | null;
+  title: string | null;
+  price?: number; // 추가된 속성
+};
+
 const MainPage = () => {
   const sectionsRef = useRef<(HTMLDivElement | null)[]>([]);
   const planetsRef = useRef<(HTMLDivElement | null)[]>([]);
@@ -91,8 +101,8 @@ const MainPage = () => {
       const radius = 500; // 고리 반경
       const angleStep = (2 * Math.PI) / planets.length; // 각 행성 사이의 각도
 
-      planetsRef.current.forEach((planet, index) => {
-        if (planet) {
+      planetsRef.current.forEach((planetElement, index) => {
+        if (planetElement) {
           const adjustedIndex =
             (index + (planets.length - Math.floor(visiblePlanetsCount / 2))) %
             planets.length;
@@ -114,7 +124,7 @@ const MainPage = () => {
           const zIndex = isActive ? 10 : 0;
           const opacity = isVisible ? (isActive ? 1 : 0.5) : 0;
 
-          gsap.to(planet, {
+          gsap.to(planetElement, {
             x: xPos,
             y: yPos,
             z: zPos,
@@ -124,14 +134,21 @@ const MainPage = () => {
             duration: 1,
             ease: 'power2.inOut',
           });
+
+          // 디버깅을 위한 로그 추가
+          const planet = planets[adjustedIndex]; // planets 배열의 요소 가져오기
+          const tourPrice: number | undefined = planet.price;
+          console.log(`Planet ${planet.id} - Price: ${tourPrice}`);
         }
       });
     };
 
-    if (videoLoaded) {
+    if (videoLoaded && planets.length > 0) {
       animatePlanets();
     }
   }, [currentSlide, videoLoaded, planets]);
+
+  console.log('Planets:', planets);
 
   return (
     <div className='w-full'>
@@ -198,20 +215,24 @@ const MainPage = () => {
                   index < currentSlide + visiblePlanetsCount) ||
                 (index < currentSlide &&
                   index + planets.length < currentSlide + visiblePlanetsCount);
+
               const adjustedIndex =
                 (index +
                   (planets.length - Math.floor(visiblePlanetsCount / 2))) %
                 planets.length;
+
               const isActive =
                 adjustedIndex ===
                 (currentSlide + Math.floor(visiblePlanetsCount / 2)) %
                   planets.length;
+
               return (
                 <div
                   key={index}
                   ref={(el) => {
                     planetsRef.current[index] = el as HTMLDivElement;
                   }}
+                  data-id={planet.id}
                   className={`absolute w-20 h-20 sm:w-24 sm:h-24 transform-gpu transition-opacity duration-500 ${
                     isVisible ? 'opacity-100' : 'opacity-0'
                   }`}
@@ -239,6 +260,12 @@ const MainPage = () => {
                     layout='fill'
                     objectFit='contain'
                   />
+                  <div
+                    className='text-center absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-full w-max'
+                  >
+                    <p>{planet.name}</p>
+                    <p>{planet.price ? `₩${planet.price.toLocaleString()}` : 'Price Does Not Exist'}</p>
+                  </div>
                 </div>
               );
             })}
