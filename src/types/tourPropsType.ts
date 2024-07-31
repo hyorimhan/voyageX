@@ -1,7 +1,8 @@
 export interface Tour {
   id: string;
-  price: number | null;
+  price: number;
   tag: string | null;
+  amount: number | null;
   planets: {
     name: string | null;
     planet_img: string;

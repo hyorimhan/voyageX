@@ -1,15 +1,14 @@
 'use client';
+import QuantityBtn from '@/components/shop/detail/QuantityBtn';
 import { Tour } from '@/types/tourPropsType';
-import useAuthStore from '@/zustand/store/useAuth';
 import Image from 'next/image';
 import Link from 'next/link';
 
 function DetailCard({ tour }: { tour: Tour }) {
-  const user = useAuthStore((state) => state.user);
   return (
     <>
       <div className='  mt-40 flex '>
-        <div className='flex w-[552px] h-[552px] rounded-lg border-2 border-black-600'>
+        <div className='flex w-[500px] h-[500px]'>
           <Image
             src={tour.planets.planet_img}
             alt={tour.planets.name!}
@@ -36,8 +35,9 @@ function DetailCard({ tour }: { tour: Tour }) {
             <div className=' border-b my-3  pb-3 '>우주선 명 스타라이저</div>
             <div className=' border-b my-3  pb-3'>티켓 배송비 3000원</div>
           </div>
+          <QuantityBtn goodsPrice={tour.price} />
           <Link href={`/tour/payment/${tour.id}`}>
-            <div className='h-[60px] bg-primary-600 rounded-lg justify-center flex items-center'>
+            <div className='h-[60px] bg-primary-600 rounded-lg justify-center flex items-center mt-[71px]'>
               구매하기
             </div>
           </Link>
