@@ -52,14 +52,14 @@ const PostList = () => {
         </div>
         {posts.map((post, index) => (
           <Link href={post.id} key={post.id}>
-            <div className='flex py-4 gap-x-4 items-center hover:bg-black-800 rounded-[8px]'>
+            <div className='flex py-4 gap-x-4 items-center group'>
               <span className='flex-none w-20 p-2 text-center'>
                 {String(index + 1)}
               </span>
               <span className='flex-none w-32 p-2 text-center'>
                 <CategoryBadge category={post.category} />
               </span>
-              <span className='flex-grow p-2 mx-7 overflow-hidden whitespace-nowrap text-ellipsis'>
+              <span className='flex-grow p-2 mx-7 overflow-hidden whitespace-nowrap text-ellipsis group-hover:font-bold group-hover:underline'>
                 {post.title}
               </span>
               <span className='flex-none w-32 p-2 text-center'>
