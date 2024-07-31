@@ -95,7 +95,7 @@ export const updatePassword = async ({
   email: string;
   currentPassword: string;
   newPassword: string;
-}) => {
+}): Promise<{ error?: { field: string; message: string } }> => {
   try {
     // 현재 비밀번호로 로그인 시도
     const { data: signInData, error: signInError } =
@@ -106,7 +106,12 @@ export const updatePassword = async ({
 
     if (signInError) {
       console.error('Sign-in error:', signInError);
-      return { error: { message: '현재 비밀번호가 올바르지 않습니다.' } };
+      return {
+        error: {
+          field: 'currentPassword',
+          message: '현재 비밀번호가 일치하지 않습니다',
+        },
+      };
     }
 
     // 비밀번호 변경
@@ -116,13 +121,23 @@ export const updatePassword = async ({
 
     if (updateError) {
       console.error('Update password error:', updateError);
-      return { error: { message: '비밀번호 변경에 실패했습니다.' } };
+      return {
+        error: {
+          field: 'currentPassword',
+          message: '현재 비밀번호가 일치하지 않습니다.',
+        },
+      };
     }
 
-    return { error: null };
+    return {};
   } catch (error) {
     console.error('Unexpected error:', error);
-    return { error: { message: '비밀번호 변경 중 오류가 발생했습니다.' } };
+    return {
+      error: {
+        field: 'unexpected',
+        message: '비밀번호 변경 중 오류가 발생했습니다.',
+      },
+    };
   }
 };
 

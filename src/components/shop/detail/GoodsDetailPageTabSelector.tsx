@@ -2,20 +2,19 @@
 
 import RenderTabReviews from './RenderTabReviews';
 import RenderTabGoodsDetail from './RenderTabGoodsDetail';
+import { useState } from 'react';
 
 type GoodsDetailPageTabSelectorProps = {
-  selectedTab: string;
-  setSelectedTab: (tab: string) => void;
   goodsRating: number | undefined;
   goodsId: string;
 };
 
 function GoodsDetailPageTabSelector({
-  selectedTab,
-  setSelectedTab,
   goodsRating,
   goodsId,
 }: GoodsDetailPageTabSelectorProps) {
+  const [selectedTab, setSelectedTab] = useState('Reviews');
+
   return (
     <>
       <div className='flex flex-col w-full mb-8 mt-[92px]'>

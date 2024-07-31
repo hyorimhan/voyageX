@@ -53,9 +53,16 @@ const FAQ = () => {
         </div>
       </div>
       {FAQList.map((faq, index) => (
-        <div key={index}>
+        <div
+          key={index}
+          className={`${
+            index !== FAQList.length - 1
+              ? 'border-black-800 border-b-[1px]'
+              : ''
+          }`}
+        >
           <div
-            className='flex justify-between w-full flex-grow text-base py-5 px-6 items-center cursor-pointer'
+            className='flex justify-between w-full flex-grow p-6 items-center cursor-pointer bg-black-900'
             onClick={() => toggleFAQ(index)}
           >
             <p>{faq.question}</p>
@@ -66,7 +73,9 @@ const FAQ = () => {
             )}
           </div>
           {openIndexes[index] && (
-            <div className='flex w-full flex-grow text-base py-5 px-6 items-center bg-black-900'>
+            <div
+              className={`flex w-full flex-grow text-sm pb-6 pt-4 px-8 items-center bg-black-900`}
+            >
               <p>{faq.answer}</p>
             </div>
           )}
