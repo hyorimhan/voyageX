@@ -1,5 +1,6 @@
 'use client';
 
+import useAuthStore from '@/zustand/store/useAuth';
 import {
   loadPaymentWidget,
   PaymentWidgetInstance,
@@ -7,20 +8,23 @@ import {
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useRef } from 'react';
 
-type Order = {
+export type Order = {
   orderId: string;
   orderName: string;
   customerName: string;
   customerMobilePhone: string;
   totalPrice: number;
+  itemInfo: string;
 };
 
 const PaymentWidget = () => {
   const searchParams = useSearchParams();
+  const user = useAuthStore((state) => state.user);
   const query: string = searchParams.get('orderInfo')!;
   const orderInfo: Order = JSON.parse(query);
-  console.log('orderInfo => ', orderInfo);
-  const userId = 'gusdnr0839';
+  // console.log('orderInfo => ', orderInfo);
+  // const userId = 'gusdnr0839';
+  const userId = user?.id;
   const paymentWidgetRef = useRef<PaymentWidgetInstance | null>(null);
   const paymentMethodWidgetRef = useRef<ReturnType<
     PaymentWidgetInstance['renderPaymentMethods']
@@ -48,7 +52,7 @@ const PaymentWidget = () => {
   useEffect(() => {
     // 결제창 로드
     const loadWidget = async () => {
-      const paymentWidget = await loadPaymentWidget(clientKey, userId);
+      const paymentWidget = await loadPaymentWidget(clientKey, userId!);
 
       // 결제방법 위젯
       const paymentMethodsWidget = paymentWidget.renderPaymentMethods(
