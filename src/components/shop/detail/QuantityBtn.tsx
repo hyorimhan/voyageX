@@ -25,11 +25,11 @@ const QuantityBtn = ({ goodsPrice }: QuantityBtnProps) => {
     <div className='flex py-3 px-4 items-center justify-between'>
       <div className='flex items-center text-sm '>
         <p className=' w-[70px]'>수량</p>
-        <div className='flex gap-3 bg-primary-300 rounded-lg py-2 px-4'>
+        <div className='flex justify-center gap-3 bg-primary-300 rounded-lg py-2 px-4 w-[112px]'>
           <button onClick={handleDecrease}>
             <MinusIcon20px />
           </button>
-          <p>{quantity}</p>
+          <p className='flex-grow text-center'>{quantity}</p>
           <button onClick={handleIncrease}>
             <PlusIcon20px />
           </button>

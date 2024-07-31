@@ -148,7 +148,7 @@ const AddressListPage: React.FC = () => {
       <div className='border-b-2 border-solid border-white mt-3'></div>
       {addresses.map((address, index) => (
         <div key={index}>
-          <div className='flex w-full text-center py-6 items-center'>
+          <div className='flex text-center py-6 items-center gap-4'>
             <span onClick={() => handleSelectAddress(address.id)}>
               {selectedAddressId === address.id ? (
                 <PiCheckCircleThin className='text-3xl w-20' />
@@ -156,13 +156,13 @@ const AddressListPage: React.FC = () => {
                 <PiCircleThin className='text-3xl w-20' />
               )}
             </span>
-            <div>
+            <div className='w-[78px] flex flex-col text-center'>
               {address.is_default && (
                 <p className='text-primary-200 text-xs'>기본배송지</p>
               )}
-              <p className='text-base w-24 text-center'>{address.alias}</p>
+              <p className='text-base text-center'>{address.alias}</p>
             </div>
-            <div className='text-left text-sm w-96 ml-3 px-5'>
+            <div className='text-left text-sm w-[363px] ml-3 px-5'>
               <p className='mb-1'>({address.postcode})</p>
               <p>
                 도로명 : {address.address} {address.detailAddress}
@@ -171,13 +171,13 @@ const AddressListPage: React.FC = () => {
                 지번 : {address.oldAddress} {address.detailAddress}
               </p>
             </div>
-            <div className='text-sm w-48'>
+            <div className='text-sm w-[173px]'>
               <p className='mb-1'>{address.recipient}</p>
               <p>{address.phone}</p>
             </div>
-            <div className='gap-2 flex text-xs w-24 justify-center items-center'>
+            <div className='gap-2 flex text-xs w-[79px] justify-center items-center'>
               <button
-                className='bg-black-1000 border-2 border-solid border-primary-600 p-2 rounded-md h-8'
+                className='bg-black-1000 border-2 border-solid border-primary-600 p-1 rounded-md'
                 onClick={() => handleEditAddressClick(address)}
               >
                 수정

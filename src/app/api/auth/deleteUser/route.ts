@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'User ID is required' });
     }
 
-    const { data, error } = await supabase.auth.admin.deleteUser(userId);
+    const { error } = await supabase.auth.admin.deleteUser(userId);
 
     if (error) {
       return NextResponse.json({ error: error.message });
