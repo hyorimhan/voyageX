@@ -29,6 +29,7 @@ function OrderForm({ isTour }: OrderFormPropsType) {
     customerPhone: '',
     customerEmail: '',
   });
+  const [totalPrice, setTotalPrice] = useState(0);
   const user = useAuthStore((state) => state.user);
   const user_id = user?.id;
   const user_email = user?.email;
