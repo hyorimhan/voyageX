@@ -1,4 +1,5 @@
 'use client';
+import QuantityBtn from '@/components/shop/detail/QuantityBtn';
 import { Tour } from '@/types/tourPropsType';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -34,6 +35,7 @@ function DetailCard({ tour }: { tour: Tour }) {
             <div className=' border-b my-3  pb-3 '>우주선 명 스타라이저</div>
             <div className=' border-b my-3  pb-3'>티켓 배송비 3000원</div>
           </div>
+          <QuantityBtn goodsPrice={tour.price} />
           <Link href={`/tour/payment/${tour.id}`}>
             <div className='h-[60px] bg-primary-600 rounded-lg justify-center flex items-center mt-[71px]'>
               구매하기

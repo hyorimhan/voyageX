@@ -1,7 +1,12 @@
+'use client';
+import CustomerChangeModal from '@/components/order/CustomerChangeModal';
 import { Address } from '@/types/userAddressType';
 import useAuthStore from '@/zustand/store/useAuth';
+import { useState } from 'react';
 
 function CustomerInfo({ defaultAddress }: { defaultAddress: Address }) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const user = useAuthStore((state) => state.user);
   return (
     <>
@@ -9,7 +14,10 @@ function CustomerInfo({ defaultAddress }: { defaultAddress: Address }) {
         <div className=' mb-5 flex'>
           <div className='items-center border-b border-b-black-700 flex mt-5 ml-5'>
             <div className='w-[570px] text-xl '>주문자 정보</div>
-            <button className='bg-primary-400 rounded-lg p-2 h-[30px] text-xs mb-3'>
+            <button
+              className='bg-primary-400 rounded-lg p-2 h-[30px] text-xs mb-3'
+              onClick={() => setIsModalOpen(true)}
+            >
               주문자 정보 변경
             </button>
           </div>
@@ -30,6 +38,7 @@ function CustomerInfo({ defaultAddress }: { defaultAddress: Address }) {
           </div>
         </div>
       </div>
+      {isModalOpen && <CustomerChangeModal setIsModalOpen={setIsModalOpen} />}
     </>
   );
 }

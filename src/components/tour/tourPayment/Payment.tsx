@@ -16,14 +16,13 @@ function Payment({ params }: tourProps) {
   const router = useRouter();
   const saveUser = useAuthStore((state) => state.saveUser);
   const setTourId = useTourIdStore((state) => state.setTourId);
-  const tourUrl = useTourIdStore((state) => state.tourUrl);
   const [defaultAddress, setDefaultAddress] = useState<Address | null>(null);
   const { id } = params;
 
   useEffect(() => {
     setTourId(id);
   }, [id, setTourId]);
-  console.log(tourUrl);
+
   // const userOrder = useShopStore((state) => state.userOrder);
   // console.log(userOrder);
   useEffect(() => {
