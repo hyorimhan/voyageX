@@ -1,5 +1,6 @@
 'use client';
 
+import { deleteAddress } from '@/app/api/mypage/address/list/route';
 import AddressActionsBtn from '@/components/mypage/address_list/AddressActionsBtn';
 import AddressAddModal from '@/components/mypage/address_list/AddressAddModal';
 import AddressesList from '@/components/mypage/address_list/AddressList';
@@ -38,13 +39,10 @@ const AddressListPage: React.FC = () => {
 
   const handleDeleteAddress = async (id: string) => {
     try {
-      const { error } = await supabase.from('addresses').delete().eq('id', id);
-
-      if (error) throw error;
-
+      await deleteAddress(id);
       refetch();
     } catch (error) {
-      console.error('삭제오류', error);
+      console.error('삭제 오류', error);
     }
   };
 
