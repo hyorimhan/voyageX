@@ -1,27 +1,21 @@
 'use client';
 
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { useState } from 'react';
 import AddressChangeModal from './AddressChangeModal';
 import { Tables } from '@/types/supabase';
 import useExpressInfoStore from '@/zustand/store/expressInfoStore';
-import useAuthStore from '@/zustand/store/useAuth';
-import { getAddressList } from '@/services/address';
-import { useQuery } from '@tanstack/react-query';
 
 interface ExpressInfoPropsType {
-  currentAddress: Tables<'addresses'> | null;
-  setCurrentAddress: Dispatch<SetStateAction<Tables<'addresses'> | null>>;
+  addressList: Tables<'addresses'>[];
 }
 
-function ExpressInfo({
-  currentAddress,
-  setCurrentAddress,
-}: ExpressInfoPropsType) {
+function ExpressInfo({ addressList }: ExpressInfoPropsType) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { setExpressAddress } = useExpressInfoStore((state) => state);
-  useEffect(() => {
-    setExpressAddress(currentAddress);
-  }, [currentAddress]);
+  const { expressAddress, setExpressAddress } = useExpressInfoStore(
+    (state) => state,
+  );
+  const defaultAddress = addressList.find((address) => address.is_default);
+
   return (
     <>
       <div className='border-2 border-black-300 rounded-lg p-4'>
@@ -41,12 +35,22 @@ function ExpressInfo({
             <p>배송지 정보</p>
           </div>
           <div className='flex flex-col gap-4 text-black-50'>
-            <p>{currentAddress?.recipient}</p>
-            <p>{currentAddress?.phone}</p>
+            <p>{expressAddress?.recipient ?? defaultAddress?.recipient}</p>
+            <p>{expressAddress?.phone ?? defaultAddress?.phone}</p>
             <div>
-              <p>{`도로명 : ${currentAddress?.address} ${currentAddress?.detailAddress}`}</p>
-              <p>{`지번 : ${currentAddress?.oldAddress} ${currentAddress?.detailAddress}`}</p>
-              <span>{currentAddress?.postcode}</span>
+              <p>{`도로명 : ${
+                expressAddress?.address ?? defaultAddress?.address
+              } ${
+                expressAddress?.detailAddress ?? defaultAddress?.detailAddress
+              }`}</p>
+              <p>{`지번 : ${
+                expressAddress?.oldAddress ?? defaultAddress?.oldAddress
+              } ${
+                expressAddress?.detailAddress ?? defaultAddress?.detailAddress
+              }`}</p>
+              <span>
+                {expressAddress?.postcode ?? defaultAddress?.postcode}
+              </span>
             </div>
           </div>
         </div>

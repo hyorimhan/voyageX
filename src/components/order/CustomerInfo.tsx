@@ -1,13 +1,30 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import CustomerChangeModal from './CustomerChangeModal';
 import useCustomerInfoStore from '@/zustand/store/customrInfoStore';
+import { Tables } from '@/types/supabase';
 
-function CustomerInfo() {
+interface CustomerInfo {
+  addressList: Tables<'addresses'>[];
+  user_email: string;
+}
+
+function CustomerInfo({ addressList, user_email }: CustomerInfo) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { customerInfo } = useCustomerInfoStore((state) => state);
-  console.log(customerInfo);
+  const { customerInfo, setCustomerInfo } = useCustomerInfoStore(
+    (state) => state,
+  );
+  const defaultAddress = addressList.find((address) => address.is_default);
+
+  useEffect(() => {
+    setCustomerInfo({
+      customerName: defaultAddress?.recipient ?? '',
+      customerPhone: defaultAddress?.phone ?? '',
+      customerEmail: user_email,
+    });
+  }, []);
+  console.log('customerInfo => ', customerInfo);
 
   return (
     <>
@@ -31,9 +48,9 @@ function CustomerInfo() {
               <p>이메일 주소</p>
             </div>
             <div className='flex flex-col gap-4 text-black-50'>
-              <p>{customerInfo?.customerName}</p>
-              <p>{customerInfo?.customerPhone}</p>
-              <p>{customerInfo?.customerEmail}</p>
+              <p>{customerInfo?.customerName ?? defaultAddress?.recipient}</p>
+              <p>{customerInfo?.customerPhone ?? defaultAddress?.phone}</p>
+              <p>{customerInfo?.customerEmail ?? user_email}</p>
             </div>
           </div>
         </div>
