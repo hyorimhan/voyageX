@@ -2,35 +2,70 @@
 
 import RadioDefaultIcon24px from '@/components/common/icons/24px/RadioDefaultIcon24px';
 import RadioPressedIcon24px from '@/components/common/icons/24px/RadioPressedIcon24px';
+import RadioHoveredIcon24px from '@/components/common/icons/24px/RadioHoveredIcon24px'; // 호버 아이콘 임포트
 import { Address } from '@/types/userAddressType';
 import AddressEditDeleteBtn from './AddressEditDeleteBtn';
+import { useFetchAddresses } from '@/hooks/addressHooks';
+import { useEffect, useState } from 'react';
+import { deleteAddress } from '@/app/api/mypage/address/list/route';
 
 type AddressesListProps = {
-  addresses: Address[];
+  userId: string;
   selectedAddressId: string | null;
   onSelectAddress: (id: string) => void;
   onEditAddress: (address: Address) => void;
-  onDeleteAddress: (id: string) => void;
+  updateAddressesLength: (length: number) => void;
 };
 
 const AddressesList = ({
-  addresses,
+  userId,
   selectedAddressId,
   onSelectAddress,
   onEditAddress,
-  onDeleteAddress,
+  updateAddressesLength,
 }: AddressesListProps) => {
+  const { data: addresses, error, refetch } = useFetchAddresses(userId);
+  const [hoveredAddressId, setHoveredAddressId] = useState<string | null>(null);
+
+  useEffect(() => {
+    refetch();
+  }, [userId, refetch]);
+
+  useEffect(() => {
+    if (addresses) {
+      updateAddressesLength(addresses.length);
+    }
+  }, [addresses, updateAddressesLength]);
+
+  const handleDeleteAddress = async (id: string, refetch: () => void) => {
+    try {
+      await deleteAddress(id);
+      refetch();
+    } catch (error) {
+      console.error('삭제 오류', error);
+    }
+  };
+
+  if (error) return <div>Error: {error.message}</div>;
+
   return (
     <div>
       {addresses?.map((address, index) => (
-        <div key={index}>
+        <div
+          key={index}
+          className='address-item'
+          onMouseEnter={() => setHoveredAddressId(address.id)}
+          onMouseLeave={() => setHoveredAddressId(null)}
+        >
           <div className='flex text-center py-6'>
             <button
               onClick={() => onSelectAddress(address.id)}
-              className='w-[68px] flex justify-center items-center'
+              className='w-[68px] flex justify-center items-center relative'
             >
               {selectedAddressId === address.id ? (
                 <RadioPressedIcon24px />
+              ) : hoveredAddressId === address.id ? (
+                <RadioHoveredIcon24px />
               ) : (
                 <RadioDefaultIcon24px />
               )}
@@ -58,7 +93,7 @@ const AddressesList = ({
               <AddressEditDeleteBtn
                 address={address}
                 onEditAddress={onEditAddress}
-                onDeleteAddress={onDeleteAddress}
+                onDeleteAddress={() => handleDeleteAddress(address.id, refetch)}
               />
             </div>
           </div>

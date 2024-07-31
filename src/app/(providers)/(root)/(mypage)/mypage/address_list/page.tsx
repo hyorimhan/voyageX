@@ -1,16 +1,11 @@
 'use client';
 
-import { deleteAddress } from '@/app/api/mypage/address/list/route';
 import AddressActionsBtn from '@/components/mypage/address_list/AddressActionsBtn';
 import AddressAddModal from '@/components/mypage/address_list/AddressAddModal';
 import AddressesList from '@/components/mypage/address_list/AddressList';
-import { useFetchAddresses } from '@/hooks/addressHooks';
-import { createClient } from '@/supabase/client';
 import { Address } from '@/types/userAddressType';
 import useAuthStore from '@/zustand/store/useAuth';
 import { useState } from 'react';
-
-const supabase = createClient();
 
 const AddressListPage: React.FC = () => {
   const [showAddressAddModal, setShowAddressAddModal] =
@@ -19,13 +14,9 @@ const AddressListPage: React.FC = () => {
   const [selectedAddressId, setSelectedAddressId] = useState<string | null>(
     null,
   );
+  const [addressesLength, setAddressesLength] = useState<number>(0);
 
   const user = useAuthStore((state) => state.user);
-  const {
-    data: addresses,
-    error,
-    refetch,
-  } = useFetchAddresses(user?.id || null);
 
   const handleEditAddressClick = (address: Address) => {
     setEditAddress(address); // 수정 모드로 전환
@@ -34,23 +25,15 @@ const AddressListPage: React.FC = () => {
 
   const handleAddAddress = () => {
     setShowAddressAddModal(false);
-    refetch();
   };
 
-  const handleDeleteAddress = async (id: string) => {
-    try {
-      await deleteAddress(id);
-      refetch();
-    } catch (error) {
-      console.error('삭제 오류', error);
-    }
+  const updateAddressesLength = (length: number) => {
+    setAddressesLength(length);
   };
 
   const handleSelectAddress = (id: string) => {
     setSelectedAddressId((prev) => (prev === id ? null : id));
   };
-
-  if (error) return <div>Error: {error.message}</div>;
 
   return (
     <div>
@@ -60,11 +43,9 @@ const AddressListPage: React.FC = () => {
           <AddressActionsBtn
             userId={user.id}
             selectedAddressId={selectedAddressId}
-            refetch={refetch}
-            onAddAddressClick={() => {}}
-            addressesLength={addresses ? addresses.length : 0} // New prop
-            setShowAddressAddModal={setShowAddressAddModal} // New prop
-            setEditAddress={setEditAddress} // New prop
+            addressesLength={addressesLength}
+            setShowAddressAddModal={setShowAddressAddModal}
+            setEditAddress={setEditAddress}
           />
         )}
       </div>
@@ -75,13 +56,13 @@ const AddressListPage: React.FC = () => {
         <p className='w-[79px]'>관리</p>
       </div>
       <div className='border-b-[1px] border-white mt-3'></div>
-      {user && addresses && (
+      {user && (
         <AddressesList
-          addresses={addresses}
+          userId={user.id}
           selectedAddressId={selectedAddressId}
           onSelectAddress={handleSelectAddress}
           onEditAddress={handleEditAddressClick}
-          onDeleteAddress={handleDeleteAddress}
+          updateAddressesLength={updateAddressesLength}
         />
       )}
       {showAddressAddModal && (

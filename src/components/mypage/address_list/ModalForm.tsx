@@ -1,5 +1,4 @@
 import { ReactNode } from 'react';
-import { TfiClose } from 'react-icons/tfi';
 
 interface ModalProps {
   onClose: () => void;
@@ -13,12 +12,8 @@ const Modal: React.FC<ModalProps> = ({ onClose, children }) => {
         <button
           onClick={onClose}
           className='absolute -top-10 -right-6 p-2 text-lg z-50 text-black-1000'
-        >
-          <TfiClose />
-        </button>
-        <div className='absolute -top-10 ml-8 transform -translate-x-1/2'>
-          <p className='text-black-1000 text-xl font-bold'>주소검색</p>
-        </div>
+        ></button>
+        <div className='absolute -top-10 ml-8 transform -translate-x-1/2'></div>
         {children}
       </div>
     </div>

@@ -9,12 +9,9 @@ import { Address } from '@/types/userAddressType';
 type AddressActionsBtnProps = {
   userId: string;
   selectedAddressId: string | null;
-  refetch: () => void;
-  onAddAddressClick: () => void;
-
-  addressesLength: number; // New prop
-  setShowAddressAddModal: (show: boolean) => void; // New prop
-  setEditAddress: (address: Address | null) => void; // New prop
+  addressesLength: number;
+  setShowAddressAddModal: (show: boolean) => void;
+  setEditAddress: (address: Address | null) => void;
 };
 
 const maxAddresses = 3;
@@ -22,12 +19,9 @@ const maxAddresses = 3;
 const AddressActionsBtn = ({
   userId,
   selectedAddressId,
-  refetch,
-  onAddAddressClick,
-
-  addressesLength, // New prop
-  setShowAddressAddModal, // New prop
-  setEditAddress, // New prop
+  addressesLength,
+  setShowAddressAddModal,
+  setEditAddress,
 }: AddressActionsBtnProps) => {
   const handleSetDefaultAddress = async () => {
     if (!selectedAddressId) {
@@ -40,7 +34,6 @@ const AddressActionsBtn = ({
       await setDefaultAddress(selectedAddressId);
 
       alert('기본배송지 설정완료');
-      refetch();
     } catch (error) {
       console.error('기본 배송지 설정 오류', error);
     }
