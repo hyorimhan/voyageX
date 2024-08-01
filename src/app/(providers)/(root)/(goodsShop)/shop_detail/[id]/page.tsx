@@ -22,7 +22,7 @@ const ShopDetailPage = ({ params }: Params) => {
     <Page>
       <div className='mt-[183px]'>
         <p className='text-xl'>GOODS SHOP</p>
-        <div className='border-b-2 border-solid border-white mt-3 mb-8'></div>
+        <div className='border-b-[1px] border-solid border-white mt-3 mb-8'></div>
         {goods && <GoodsInfo goods={goods} goods_id={params.id} />}
         <GoodsDetailPageTabSelector
           goodsRating={goods?.rating_avg}
