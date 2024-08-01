@@ -6,7 +6,7 @@ import useAuthStore from '@/zustand/store/useAuth';
 import Image from 'next/image';
 import Link from 'next/link';
 import TourHearts from './TourHearts';
-import { useState } from 'react';
+import TourGuideSWiper from './TourGuideSWiper';
 
 function DetailCard({ tour }: { tour: Tour }) {
   const user = useAuthStore((state) => state.user);
@@ -16,25 +16,12 @@ function DetailCard({ tour }: { tour: Tour }) {
       <div className='mt-12 text-2xl'>{tour.planets.name} 여행 패키지 일정</div>
       <div className='mt-6'>{tour.planets.title}</div>
       <div className='mt-6'>{tour.planets.description}</div>
+      <div className='flex flex-col gap-4 '>
+        <TourGuideSWiper />
+      </div>
     </div>
   );
 
-  const [currentSlide, setCurrentSlide] = useState(0);
-
-  const slides = [
-    'https://i.ibb.co/ccph7F5/image.gif',
-    'https://i.ibb.co/1s0pwfV/1.jpg',
-    'https://i.ibb.co/w03crjt/2.jpg',
-    'https://i.ibb.co/68Xxfrs/3.jpg',
-  ];
-
-  const handlePrev = () => {
-    setCurrentSlide((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
-  };
-
-  const handleNext = () => {
-    setCurrentSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
-  };
   return (
     <>
       <div className='  mt-40 flex '>
@@ -68,7 +55,7 @@ function DetailCard({ tour }: { tour: Tour }) {
           <QuantityBtn goodsPrice={tour.price} />
           <div className='flex items-center gap-4'>
             {user && (
-              <div className=' w-[53px] h-[53px] flex p-2 rounded-lg items-center border-2 border-solid border-primary-400 mt-8'>
+              <div className=' w-[53px] h-[53px] flex p-2 rounded-lg items-center border-2 justify-center border-solid border-primary-400 mt-8'>
                 <TourHearts tour_id={tour.id} user_id={user.id} />
               </div>
             )}
@@ -86,65 +73,6 @@ function DetailCard({ tour }: { tour: Tour }) {
           goodsId={tour.id}
           contents={contents}
         />
-      </div>
-
-      {/* <div className='w-[1120px] flex justify-center'>
-        <div className='flex flex-col gap-4 '>
-          <Image
-            src={'https://i.ibb.co/ccph7F5/image.gif'}
-            alt='guide'
-            width={700}
-            height={500}
-          />
-          <Image
-            src={'https://i.ibb.co/1s0pwfV/1.jpg'}
-            alt='guide'
-            width={700}
-            height={500}
-          />
-          <Image
-            src={'https://i.ibb.co/w03crjt/2.jpg'}
-            alt='guide'
-            width={700}
-            height={500}
-          />
-          <Image
-            src={'https://i.ibb.co/68Xxfrs/3.jpg'}
-            alt='guide'
-            width={700}
-            height={500}
-          />
-        </div>
-      </div> */}
-      <div className='relative w-full max-w-[1120px] mx-auto overflow-hidden ml-[10%] '>
-        <div
-          className='flex transition-transform duration-500 '
-          style={{ transform: `translateX(-${currentSlide * 100}%)` }}
-        >
-          {slides.map((slide, index) => (
-            <div key={index} className='w-full flex-shrink-0'>
-              <Image
-                src={slide}
-                alt={`Slide ${index}`}
-                width={900}
-                height={500}
-                className='object-cover'
-              />
-            </div>
-          ))}
-        </div>
-        <button
-          className='absolute top-1/2 transform -translate-y-1/2 left-0 bg-black bg-opacity-50 text-white px-4 py-2'
-          onClick={handlePrev}
-        >
-          ❮
-        </button>
-        <button
-          className='absolute top-1/2 transform -translate-y-1/2 right-0 bg-black bg-opacity-50 text-white px-4 py-2'
-          onClick={handleNext}
-        >
-          ❯
-        </button>
       </div>
     </>
   );

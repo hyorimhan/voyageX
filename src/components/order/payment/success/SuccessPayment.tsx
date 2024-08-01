@@ -11,8 +11,13 @@ import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import Image from 'next/image';
 import Link from 'next/link';
+import useUpdateInfoStore from '@/zustand/store/useUpdateInfo';
+import useQuantityStore from '@/zustand/store/useQuantity';
 
 function SuccessPayment({ tourUrl }: { tourUrl: string }) {
+  const updateInfo = useUpdateInfoStore((state) => state.updateInfo);
+  const totalPrice = useQuantityStore((state) => state.totalPrice);
+  const quantity = useQuantityStore((state) => state.quantity);
   const saveUser = useAuthStore((state) => state.saveUser);
   const setTourId = useTourIdStore((state) => state.setTourId);
   const router = useRouter();
@@ -22,7 +27,6 @@ function SuccessPayment({ tourUrl }: { tourUrl: string }) {
 
   const secretKey = process.env.NEXT_PUBLIC_TOSS_SECRET_KEY!;
   const orderId = searchParams.get('orderId')!;
-  const itemInfo = searchParams.get('itemInfo');
   const paymentKey = searchParams.get('paymentKey')!;
   const amount = searchParams.get('amount')!;
   const authKey = btoa(secretKey + ':')!;
@@ -72,7 +76,15 @@ function SuccessPayment({ tourUrl }: { tourUrl: string }) {
           toast.error('투어 정보가 없습니다.');
         }
 
-        const { error } = await tourPayment(userId!, tourId!);
+        const { error } = await tourPayment({
+          userId: userId!,
+          tourId,
+          customerName: updateInfo?.name as string,
+          customerMobilePhone: updateInfo?.phone as string,
+          customerEmail: updateInfo?.email as string,
+          totalPrice: totalPrice as number,
+          amount: quantity as number,
+        });
         if (error) {
           toast.error(error.message);
           router.replace('/tour');
@@ -95,8 +107,7 @@ function SuccessPayment({ tourUrl }: { tourUrl: string }) {
   }, [tourUrl, orderId, paymentKey, amount, authKey]);
 
   if (!result) return <div>승인 중</div>;
-  console.log(itemInfo);
-  console.log(amount);
+
   return (
     <>
       <div className='flex mt-[137px] mb-11 items-center justify-between'>
@@ -129,12 +140,12 @@ function SuccessPayment({ tourUrl }: { tourUrl: string }) {
         </div>
         <div className='flex items-center'>
           <div className='mr-[18px]'>
-            {/* <Image
+            <Image
               src={tours[0].planets.planet_img}
               alt={tours[0].planets.name!}
               width={104}
               height={104}
-            /> */}
+            />
           </div>
           <div className='w-[818px] mr-[18px]'>
             <div>
@@ -143,7 +154,7 @@ function SuccessPayment({ tourUrl }: { tourUrl: string }) {
             <div>6박 7일 패키지</div>
           </div>
           <div className='border-l border-black-300 h-[104px] px-4 py-[30px] w-[122px]'>
-            {amount.toLocaleString()}원 수량 1개
+            {totalPrice?.toLocaleString()}원 수량 {quantity}개
           </div>
         </div>
       </div>
@@ -156,7 +167,7 @@ function SuccessPayment({ tourUrl }: { tourUrl: string }) {
           <div className='pt-4 flex'>
             <div className='w-[104px]'>총 주문 금액 </div>
             {/* {result.totalAmount}원 */}
-            {amount.toLocaleString()}원
+            {totalPrice?.toLocaleString()}원
           </div>
           <div className=' flex py-5 w-[504px]  border-b-black-700 border-b-[1px]'>
             <div className='w-[104px]'>총 배송비</div>
@@ -165,7 +176,7 @@ function SuccessPayment({ tourUrl }: { tourUrl: string }) {
           <div className=' flex pt-5'>
             <div className='w-[104px]'>총 결제 금액 </div>
             {/* {result.totalAmount}원 */}
-            {amount.toLocaleString()}원
+            {totalPrice?.toLocaleString()}원
           </div>
         </div>
 
