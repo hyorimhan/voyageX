@@ -17,7 +17,7 @@ export const getLikedGoodsByUser = async (user_id: string, table: string) => {
   return response.data;
 };
 
-export const getIsLikeOfGoodsByUser = async (
+export const getIsLikedGoodsByUser = async (
   goods_id: string,
   user_id: string,
 ) => {
@@ -68,6 +68,11 @@ export const adjustQuantity = async (
   const response = await axios.patch(
     `/api/goods/cart/${user_id}?cart_id=${cart_id}&prev=${prev}&task=${task}`,
   );
-  console.log(response);
   return response.data;
+};
+
+// 굿즈 아이템 하나만 가져오기
+export const getGoodsItem = async (id: string) => {
+  const response = await axios.get(`/api/goods/${id}`);
+  return response.data[0];
 };
