@@ -1,5 +1,5 @@
 import TourCard from './TourCard';
-import toast from 'react-hot-toast';
+import {toast} from 'react-hot-toast';
 import { Tour } from '@/types/tourPropsType';
 import { tourList } from '@/services/tour';
 
@@ -7,7 +7,7 @@ async function TourList() {
   const { tours, error } = await tourList();
 
   if (error) {
-    toast(error.message);
+    toast.error(error.message);
   }
 
   return (
