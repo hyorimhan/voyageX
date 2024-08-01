@@ -1,15 +1,27 @@
 import useCustomerInfoStore from '@/zustand/store/customrInfoStore';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 interface CustomerChangeModalProps {
   setIsModalOpen: Dispatch<SetStateAction<boolean>>;
 }
 
 function CustomerChangeModal({ setIsModalOpen }: CustomerChangeModalProps) {
-  const { setCustomerInfo } = useCustomerInfoStore((state) => state);
+  const { customerInfo, setCustomerInfo } = useCustomerInfoStore(
+    (state) => state,
+  );
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
+
+  useEffect(() => {
+    setName(customerInfo?.customerName ?? '');
+    setPhone(customerInfo?.customerPhone ?? '');
+    setEmail(customerInfo?.customerEmail ?? '');
+  }, [
+    customerInfo?.customerName,
+    customerInfo?.customerPhone,
+    customerInfo?.customerEmail,
+  ]);
 
   const handleChangeCustomerInfo = () => {
     setCustomerInfo({
