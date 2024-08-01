@@ -1,51 +1,26 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { customAlphabet } from 'nanoid';
 import toast from 'react-hot-toast';
-import { Address } from '@/types/userAddressType';
-import { tourDetail } from '@/services/tour';
+import useUpdateInfoStore from '@/zustand/store/useUpdateInfo';
+import useQuantityStore from '@/zustand/store/useQuantity';
 
-function TourPayButton({
-  id,
-  defaultAddress,
-}: {
-  id: string;
-  defaultAddress: Address;
-}) {
+function TourPayButton({ id }: { id: string }) {
   const router = useRouter();
   const [isAgree, setIsAgree] = useState(false);
-  const [price, setPrice] = useState<number>();
-
-  useEffect(() => {
-    const fetchTourDetail = async () => {
-      try {
-        const { tours, error } = await tourDetail(id);
-        if (error) {
-          toast.error(error.message);
-          return;
-        }
-
-        if (tours) {
-          const tour = tours[0];
-          setPrice(tour.price);
-        } else {
-          toast.error('투어 정보를 찾을 수 없습니다.');
-          return;
-        }
-      } catch (error) {
-        console.error('Error in fetchTourDetail:', error);
-        toast.error('처리 중 오류가 발생했습니다.');
-      }
-    };
-
-    fetchTourDetail();
-  }, [id]);
+  const updateInfo = useUpdateInfoStore((state) => state.updateInfo);
+  const totalPrice = useQuantityStore((state) => state.totalPrice);
 
   const handleClickPayButton = async () => {
     if (!isAgree) {
       toast.error('약관에 동의하셔야합니다!');
+      return;
+    }
+
+    if (!updateInfo) {
+      toast.error('주문자 정보를 입력해주세요');
       return;
     }
 
@@ -64,24 +39,18 @@ function TourPayButton({
 
     const currentOrder = {
       orderId,
-      orderName: defaultAddress.recipient,
-      customerName: defaultAddress.recipient,
-      customerMobilePhone: defaultAddress.phone?.split('-').join('')!,
-      itemInfo: id,
-      totalPrice: price,
+      orderName: '주문명',
+      customerName: '주문자명',
+      customerMobilePhone: updateInfo.phone,
+      customerEmail: '이메일',
     };
 
     const orderInfo = JSON.stringify(currentOrder);
-    const express = JSON.stringify('배송지정보');
+    // const express = JSON.stringify('배송지정보');
 
-    router.push(
-      `/shop/payment/${orderId}?orderInfo=${orderInfo}&expressInfo=${express}`,
-    );
+    router.push(`/shop/payment/${orderId}?orderInfo=${orderInfo}`);
   };
 
-  const formatPrice = (price: number | undefined) => {
-    return price !== undefined ? price.toLocaleString() : '가격 정보 없음';
-  };
   return (
     <>
       <div className='border-[1px] border-black-300 p-4 rounded-lg mb-4 h-[208px]'>
@@ -91,7 +60,9 @@ function TourPayButton({
         <div className='flex flex-col items-start gap-4'>
           <div className='w-full flex justify-between'>
             <span className='text-black-200'>총 주문 금액</span>
-            <span className='text-black-50'>{formatPrice(price)}원</span>
+            <span className='text-black-50'>
+              {totalPrice?.toLocaleString()}원
+            </span>
           </div>
           <div className='w-full flex justify-between'>
             <span className='text-black-200'>총 배송비</span>
@@ -99,7 +70,9 @@ function TourPayButton({
           </div>
           <div className='border-t-[1px] border-black-200 w-full pt-4 flex justify-between'>
             <span className='text-black-200'>{`총 결제 금액 `}</span>
-            <span className='text-primary-400'>{formatPrice(price)}원</span>
+            <span className='text-primary-400'>
+              {totalPrice?.toLocaleString()}원
+            </span>
           </div>
         </div>
       </div>
@@ -122,7 +95,7 @@ function TourPayButton({
           onClick={handleClickPayButton}
           className='bg-primary-600 rounded-md p-4 w-full h-14 mb-5 text-lg'
         >
-          <span className='text-lg'>{formatPrice(price)}원</span>
+          <span className='text-lg'>{totalPrice?.toLocaleString()}원</span>
           <span className='text-base'> 결제하기</span>
         </button>
       </div>
