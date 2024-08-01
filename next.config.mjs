@@ -57,6 +57,10 @@ const nextConfig = {
       },
     ],
   },
+
+  env: {
+    NEXT_PUBLIC_CRYPTO_KEY: process.env.NEXT_PUBLIC_CRYPTO_KEY,
+  },
 };
 
 export default nextConfig;

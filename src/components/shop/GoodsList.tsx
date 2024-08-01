@@ -25,7 +25,8 @@ function GoodsList() {
   const { data: goods, isError, isPending } = useGetOrderedGoods(sortBy);
 
   const router = useRouter();
-  const handleItemClick = (id) => {
+
+  const handleItemClick = (id: string) => {
     router.push(`/shop_detail/${id}`);
   };
 
@@ -45,12 +46,8 @@ function GoodsList() {
       </div>
       <ul className='text-black-50 mb-4 grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
         {goods.map((item) => (
-          <li
-            key={item.id}
-            className='mx-auto my-4 w-full bg-black-1000'
-            onClick={() => handleItemClick(item.id)}
-          >
-            <div className='relative'>
+          <li key={item.id} className='mx-auto my-4 w-full bg-black-1000'>
+            <div className='relative' onClick={() => handleItemClick(item.id)}>
               <Image
                 src={item.goods_img}
                 alt={item.description}

@@ -2,7 +2,8 @@ import {
   deleteCartItem,
   getCartList,
   getGoods,
-  getIsLikeOfGoodsByUser,
+  getGoodsItem,
+  getIsLikedGoodsByUser,
   getLikedGoodsByUser,
   toggleLikeGoods,
 } from '@/services/goods';
@@ -25,10 +26,10 @@ export const useGetOrderedGoods = (sortBy: string) => {
   });
 };
 
-export const useGetLikedGoodsByUser = (goods_id: string, user_id: string) => {
+export const useGetIsLikedGoodsByUser = (goods_id: string, user_id: string) => {
   return useQuery<boolean>({
     queryKey: ['like', goods_id, user_id],
-    queryFn: () => getIsLikeOfGoodsByUser(goods_id, user_id),
+    queryFn: () => getIsLikedGoodsByUser(goods_id, user_id),
   });
 };
 
@@ -67,7 +68,7 @@ export const useToggleLikeGoods = (
   });
 };
 
-export const useGetAllLIkedGoodsByUser = (user_id: string, table: string) => {
+export const useGetLikedGoodsByUser = (user_id: string, table: string) => {
   return useQuery<LikedGoodsType[]>({
     queryKey: ['likedGoods', user_id, table],
     queryFn: () => getLikedGoodsByUser(user_id, table),
@@ -78,5 +79,13 @@ export const useGetCartList = (user_id: string) => {
   return useQuery<CartListType[]>({
     queryKey: ['cart', user_id],
     queryFn: () => getCartList(user_id),
+  });
+};
+
+//굿즈 아이템 하나만 가져오기
+export const useGetGoodsItem = (id: string) => {
+  return useQuery({
+    queryKey: ['goods', id],
+    queryFn: () => getGoodsItem(id),
   });
 };

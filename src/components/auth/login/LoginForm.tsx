@@ -8,8 +8,7 @@ import toast from 'react-hot-toast';
 import { emailValidate, passwordValidate } from '../authValidate';
 import useAuthStore from '../../../zustand/store/useAuth';
 import Link from 'next/link';
-import KakaoLogin from '../kakao/KakaoLogin';
-import GoogleLogin from '../Google/GoogleLogin';
+import GoogleKakao from './GoogleKakao';
 
 function LoginForm() {
   const router = useRouter();
@@ -101,8 +100,7 @@ function LoginForm() {
         </div>
       </form>
       <div className='flex mt-4 justify-center w-full max-w-[469px]'>
-        <KakaoLogin />
-        <GoogleLogin />
+        <GoogleKakao />
       </div>
     </div>
   );
