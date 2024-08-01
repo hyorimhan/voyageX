@@ -1,9 +1,10 @@
 import { Tables } from '@/types/supabase';
+import { Address } from '@/types/userAddressType';
 import { create } from 'zustand';
 
 type ExpressAddressType = {
-  expressAddress: Tables<'addresses'> | null;
-  setExpressAddress: (expressAddress: Tables<'addresses'> | null) => void;
+  expressAddress: Address | null;
+  setExpressAddress: (expressAddress: Address | null) => void;
 };
 
 const useExpressInfoStore = create<ExpressAddressType>((set) => ({

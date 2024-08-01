@@ -2,18 +2,16 @@
 
 import { useState } from 'react';
 import AddressChangeModal from './AddressChangeModal';
-import { Tables } from '@/types/supabase';
 import useExpressInfoStore from '@/zustand/store/expressInfoStore';
+import { Address } from '@/types/userAddressType';
 
 interface ExpressInfoPropsType {
-  addressList: Tables<'addresses'>[];
+  addressList: Address[];
 }
 
 function ExpressInfo({ addressList }: ExpressInfoPropsType) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { expressAddress, setExpressAddress } = useExpressInfoStore(
-    (state) => state,
-  );
+  const { expressAddress } = useExpressInfoStore((state) => state);
   const defaultAddress = addressList.find((address) => address.is_default);
 
   return (
@@ -55,7 +53,12 @@ function ExpressInfo({ addressList }: ExpressInfoPropsType) {
           </div>
         </div>
       </div>
-      {isModalOpen && <AddressChangeModal setIsModalOpen={setIsModalOpen} />}
+      {isModalOpen && (
+        <AddressChangeModal
+          addressList={addressList}
+          setIsModalOpen={setIsModalOpen}
+        />
+      )}
     </>
   );
 }

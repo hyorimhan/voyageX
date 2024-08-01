@@ -6,7 +6,7 @@ import ItemsInfo from './ItemsInfo';
 import CustomerInfo from './CustomerInfo';
 import { useState } from 'react';
 import { User } from '@supabase/supabase-js';
-import { useGetAddressList } from '@/hooks/addressHooks';
+import { useFetchAddresses } from '@/hooks/addressHooks';
 interface OrderFormPropsType {
   isTour: boolean;
   user: User;
@@ -17,7 +17,7 @@ function OrderForm({ isTour, user }: OrderFormPropsType) {
   const user_email = user.email ?? '이메일을 입력해주세요.';
   const [totalPrice, setTotalPrice] = useState(0);
 
-  const { data: addressList, isError, isPending } = useGetAddressList(user_id);
+  const { data: addressList, isError, isPending } = useFetchAddresses(user_id);
 
   if (isError) return <div>에러</div>;
   if (isPending) return <div>로딩 중..</div>;

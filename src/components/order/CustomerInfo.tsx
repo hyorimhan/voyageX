@@ -3,10 +3,10 @@
 import { useEffect, useState } from 'react';
 import CustomerChangeModal from './CustomerChangeModal';
 import useCustomerInfoStore from '@/zustand/store/customrInfoStore';
-import { Tables } from '@/types/supabase';
+import { Address } from '@/types/userAddressType';
 
 interface CustomerInfo {
-  addressList: Tables<'addresses'>[];
+  addressList: Address[];
   user_email: string;
 }
 
