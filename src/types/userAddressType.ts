@@ -1,4 +1,5 @@
 export type Address = {
+  id: string;
   alias: string | null;
   postcode: string | null;
   address: string | null;
