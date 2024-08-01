@@ -6,6 +6,8 @@ import { customAlphabet } from 'nanoid';
 import toast from 'react-hot-toast';
 import useExpressInfoStore from '@/zustand/store/expressInfoStore';
 import useCustomerInfoStore from '@/zustand/store/customrInfoStore';
+import useItemListStore from '@/zustand/store/itemListStore';
+import useTourIdStore from '@/zustand/store/useTourId';
 
 interface PayButtonPropsType {
   totalPrice: number;
@@ -17,6 +19,8 @@ function PayButton({ totalPrice }: PayButtonPropsType) {
   const { expressAddress } = useExpressInfoStore((state) => state);
   console.log('expressAddress => ', expressAddress);
   const { customerInfo } = useCustomerInfoStore((state) => state);
+  const { itemList } = useItemListStore((state) => state);
+  const { setTourId } = useTourIdStore((state) => state);
 
   const handleClickPayButton = () => {
     if (!isAgree) {
@@ -41,9 +45,11 @@ function PayButton({ totalPrice }: PayButtonPropsType) {
 
     const orderId = yymmdd + randomAlphabet();
 
+    setTourId('');
+
     const currentOrder = {
       orderId,
-      orderName: `${customerInfo?.customerName}님의 주문`,
+      orderName: `${itemList[0].goods.goods_name}외 ${itemList.length - 1}건`,
       customerName: customerInfo?.customerName,
       customerMobilePhone: customerInfo?.customerPhone.split('-').join(''),
       totalPrice,

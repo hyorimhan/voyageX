@@ -7,9 +7,17 @@ type ItemListType = {
   setItemList: (itemList: ItemToBuyType[] | []) => void;
 };
 
-const useItemListStore = create<ItemListType>()((set) => ({
-  itemList: [],
-  setItemList: (itemList) => set({ itemList }),
-}));
+const useItemListStore = create<ItemListType>()(
+  persist(
+    (set) => ({
+      itemList: [],
+      setItemList: (itemList) => set({ itemList }),
+    }),
+    {
+      name: 'itemList',
+      getStorage: () => sessionStorage,
+    },
+  ),
+);
 
 export default useItemListStore;

@@ -172,21 +172,18 @@ export type Database = {
           goods_id: string
           id: string
           order_date: string
-          review_id: string
           user_id: string
         }
         Insert: {
           goods_id?: string
           id: string
           order_date?: string
-          review_id?: string
           user_id: string
         }
         Update: {
           goods_id?: string
           id?: string
           order_date?: string
-          review_id?: string
           user_id?: string
         }
         Relationships: [
@@ -195,13 +192,6 @@ export type Database = {
             columns: ["goods_id"]
             isOneToOne: false
             referencedRelation: "goods"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "goods_orders_review_id_fkey"
-            columns: ["review_id"]
-            isOneToOne: false
-            referencedRelation: "goods_reviews"
             referencedColumns: ["id"]
           },
           {
@@ -430,20 +420,29 @@ export type Database = {
       }
       tour_orders: {
         Row: {
+          customer_email: string
+          customer_phone: string
           id: string
           order_date: string | null
+          order_name: string
           tour_id: string
           user_id: string
         }
         Insert: {
+          customer_email: string
+          customer_phone: string
           id?: string
           order_date?: string | null
+          order_name: string
           tour_id?: string
           user_id: string
         }
         Update: {
+          customer_email?: string
+          customer_phone?: string
           id?: string
           order_date?: string | null
+          order_name?: string
           tour_id?: string
           user_id?: string
         }

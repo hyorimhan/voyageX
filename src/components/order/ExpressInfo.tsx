@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import AddressChangeModal from './AddressChangeModal';
 import useExpressInfoStore from '@/zustand/store/expressInfoStore';
 import { Address } from '@/types/userAddressType';
@@ -11,8 +11,14 @@ interface ExpressInfoPropsType {
 
 function ExpressInfo({ addressList }: ExpressInfoPropsType) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { expressAddress } = useExpressInfoStore((state) => state);
+  const { expressAddress, setExpressAddress } = useExpressInfoStore(
+    (state) => state,
+  );
   const defaultAddress = addressList.find((address) => address.is_default);
+
+  useEffect(() => {
+    setExpressAddress(defaultAddress ?? null);
+  }, []);
 
   return (
     <>

@@ -6,6 +6,7 @@ import { customAlphabet } from 'nanoid';
 import toast from 'react-hot-toast';
 import { Address } from '@/types/userAddressType';
 import { tourDetail } from '@/services/tour';
+import useItemListStore from '@/zustand/store/itemListStore';
 
 function TourPayButton({
   id,
@@ -15,6 +16,7 @@ function TourPayButton({
   defaultAddress: Address;
 }) {
   const router = useRouter();
+  const { setItemList } = useItemListStore((state) => state);
   const [isAgree, setIsAgree] = useState(false);
   const [price, setPrice] = useState<number>();
 
@@ -62,6 +64,8 @@ function TourPayButton({
 
     const orderId = yymmdd + randomAlphabet();
 
+    setItemList([]);
+
     const currentOrder = {
       orderId,
       orderName: defaultAddress.recipient,
@@ -70,13 +74,9 @@ function TourPayButton({
       itemInfo: id,
       totalPrice: price,
     };
-
     const orderInfo = JSON.stringify(currentOrder);
-    const express = JSON.stringify('배송지정보');
 
-    router.push(
-      `/shop/payment/${orderId}?orderInfo=${orderInfo}&expressInfo=${express}`,
-    );
+    router.push(`/shop/payment/${orderId}?orderInfo=${orderInfo}`);
   };
 
   const formatPrice = (price: number | undefined) => {
