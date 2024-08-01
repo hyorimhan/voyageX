@@ -21,7 +21,7 @@ export type Order = {
 
 const PaymentWidget = () => {
   const searchParams = useSearchParams();
-  const totalPrice = useQuantityStore((state) => state.totalPrice);
+  const tourTotalPrice = useQuantityStore((state) => state.totalPrice);
   const user = useAuthStore((state) => state.user);
   const query: string = searchParams.get('orderInfo')!;
   const orderInfo: Order = JSON.parse(query);
@@ -41,11 +41,8 @@ const PaymentWidget = () => {
     try {
       await paymentWidget?.requestPayment({
         orderId: orderInfo.orderId,
-        // orderName: orderInfo.orderName,
-        // customerName: orderInfo.customerName,
-        // customerMobilePhone: orderInfo.customerMobilePhone,
-        orderName: '주문명',
-        customerName: '주문자명',
+        orderName: orderInfo.orderName,
+        customerName: orderInfo.customerName,
         customerMobilePhone: orderInfo.customerMobilePhone,
         successUrl: `${window.location.origin}/shop/payment/success`,
         failUrl: `${window.location.origin}/shop/payment/fail`,
@@ -63,7 +60,7 @@ const PaymentWidget = () => {
       // 결제방법 위젯
       const paymentMethodsWidget = paymentWidget.renderPaymentMethods(
         '#payment-widget',
-        totalPrice!, // 구매 가격
+        tourTotalPrice || orderInfo.totalPrice, // 구매 가격
       );
 
       // 약관동의 위젯

@@ -12,15 +12,22 @@ import toast from 'react-hot-toast';
 import Link from 'next/link';
 import useUpdateInfoStore from '@/zustand/store/useUpdateInfo';
 import useQuantityStore from '@/zustand/store/useQuantity';
+import Image from 'next/image';
+import useItemListStore from '@/zustand/store/itemListStore';
+import useExpressInfoStore from '@/zustand/store/expressInfoStore';
+import useCustomerInfoStore from '@/zustand/store/customrInfoStore';
+import { createClient } from '@/supabase/client';
 
-function SuccessPayment({ tourUrl }: { tourUrl: string }) {
+function SuccessPayment() {
   const updateInfo = useUpdateInfoStore((state) => state.updateInfo);
   const totalPrice = useQuantityStore((state) => state.totalPrice);
   const quantity = useQuantityStore((state) => state.quantity);
   const saveUser = useAuthStore((state) => state.saveUser);
   const { tourUrl, setTourId } = useTourIdStore((state) => state);
   const { itemList, setItemList } = useItemListStore((state) => state);
-  const { setExpressAddress } = useExpressInfoStore((state) => state);
+  const { expressAddress, setExpressAddress } = useExpressInfoStore(
+    (state) => state,
+  );
   const { setCustomerInfo } = useCustomerInfoStore((state) => state);
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -34,7 +41,6 @@ function SuccessPayment({ tourUrl }: { tourUrl: string }) {
   const authKey = btoa(secretKey + ':')!;
 
   useEffect(() => {
-    if (!orderId || !paymentKey || !amount || !authKey) return;
     // 투어 아이디
     console.log('tourUrl => ', tourUrl);
     if (tourUrl) {
@@ -66,22 +72,26 @@ function SuccessPayment({ tourUrl }: { tourUrl: string }) {
               },
             },
           );
-
           setResult(confirm.data);
-
           // 유저 정보
           const res = await userLoginInfo();
           saveUser(res.user);
           const userId = res.user?.id;
-
           if (!userId) {
             toast.error('사용자 정보가 없습니다.');
           }
           if (!tourId) {
             toast.error('투어 정보가 없습니다.');
           }
-
-          const { error } = await tourPayment(userId!, tourId!);
+          const { error } = await tourPayment({
+            userId: userId!,
+            tourId,
+            customerName: updateInfo?.name as string,
+            customerMobilePhone: updateInfo?.phone as string,
+            customerEmail: updateInfo?.email as string,
+            totalPrice: totalPrice as number,
+            amount: quantity as number,
+          });
           if (error) {
             toast.error(error.message);
             router.replace('/tour');
@@ -92,8 +102,15 @@ function SuccessPayment({ tourUrl }: { tourUrl: string }) {
           console.error(err);
         }
       };
+
+      if (!orderId || !paymentKey || !amount || !authKey) {
+        toast('오류가 발생했습니다');
+        router.replace('/tour');
+        return;
+      }
       tourPackage();
       getOrderConfirmData();
+      console.log('tours => ', tours);
     } else if (itemList) {
       console.log('itemList => ', itemList);
       const getOrderConfirmData = async () => {
@@ -112,16 +129,12 @@ function SuccessPayment({ tourUrl }: { tourUrl: string }) {
               },
             },
           );
-
           setResult(confirm.data);
-
           const supabase = createClient();
-
           // 유저 정보
           const res = await userLoginInfo();
           saveUser(res.user);
           const user_id = res.user?.id;
-
           const { data, error } = await supabase.from('goods_orders').insert({
             id: orderId,
             user_id: user_id!,
@@ -135,7 +148,7 @@ function SuccessPayment({ tourUrl }: { tourUrl: string }) {
       };
       getOrderConfirmData();
     }
-  }, [tourUrl, orderId, paymentKey, amount, authKey]);
+  }, [orderId, paymentKey, amount, authKey]);
 
   if (!result) return <div>승인 중</div>;
 
@@ -178,8 +191,16 @@ function SuccessPayment({ tourUrl }: { tourUrl: string }) {
         <div className='flex items-center'>
           <div className='mr-[18px]'>
             <Image
-              src={tours[0].planets.planet_img}
-              alt={tours[0].planets.name!}
+              src={
+                tourUrl.length
+                  ? tours[0].planets.planet_img
+                  : itemList[0].goods.goods_img
+              }
+              alt={
+                tourUrl.length
+                  ? tours[0].planets.name!
+                  : itemList[0].goods.goods_name
+              }
               width={104}
               height={104}
             />
@@ -192,15 +213,48 @@ function SuccessPayment({ tourUrl }: { tourUrl: string }) {
             </div>
             {tourUrl.length ? <div>6박 7일 패키지</div> : null}
           </div>
-          <div className='border-l border-black-300 h-[104px] px-4 py-[30px] w-[122px]'>
-            {amount.toLocaleString()}원 수량{' '}
-            {itemList.length && `${itemList[0].quantity}개`}
+          <div className='flex flex-col border-l border-black-300 h-[104px] px-4 py-[30px] w-[122px]'>
+            <p className='text-white text-base'>{amount.toLocaleString()}원</p>
+            <span className='text-white text-sm'>
+              {itemList.length !== 0 && `수량 ${itemList[0].quantity}개`}
+            </span>
           </div>
         </div>
       </div>
+      <div className='mt-8 mx-auto max-w-[1120px] flex flex-wrap gap-8'>
+        {/* 배송 정보 */}
+        {itemList.length !== 0 && (
+          <div className='border-black-300 border-[1px] rounded-lg p-5 text-sm flex-1 min-w-[300px]'>
+            <div className='text-xl border-b-black-700 border-b-[1px] pb-3'>
+              배송 정보
+            </div>
+            <div className='pt-4 flex'>
+              <div className='w-[104px] text-black-200'>받는 분 </div>
+              {expressAddress?.recipient}
+            </div>
+            <div className='flex py-5'>
+              <div className='w-[104px] text-black-200'>휴대전화 번호</div>
+              {expressAddress?.phone}
+            </div>
+            <div className='flex gap-10'>
+              <div className='w-[104px] text-black-200'>배송지 정보</div>
+              <div>
+                <div>
+                  도로명: {expressAddress?.address}{' '}
+                  {expressAddress?.detailAddress}
+                </div>
+                <div>
+                  지번: {expressAddress?.oldAddress}{' '}
+                  {expressAddress?.detailAddress}
+                </div>
+                <div>{`(${expressAddress?.postcode})`}</div>
+              </div>
+            </div>
+          </div>
+        )}
 
-      <div className='flex mt-8 gap-8'>
-        <div className='border-black-300 w-1/2 border-[1px] rounded-lg p-5 text-sm'>
+        {/* 결제 정보 */}
+        <div className='border-black-300 border-[1px] rounded-lg p-5 text-sm flex-1 min-w-[300px]'>
           <div className='text-xl border-b-black-700 border-b-[1px] pb-3'>
             결제 정보
           </div>
@@ -208,17 +262,18 @@ function SuccessPayment({ tourUrl }: { tourUrl: string }) {
             <div className='w-[104px]'>총 주문 금액 </div>
             {amount.toLocaleString()}원
           </div>
-          <div className=' flex py-5 w-[504px]  border-b-black-700 border-b-[1px]'>
+          <div className='flex py-5 w-full border-b-black-700 border-b-[1px]'>
             <div className='w-[104px]'>총 배송비</div>
             무료
           </div>
-          <div className=' flex pt-5'>
+          <div className='flex pt-5'>
             <div className='w-[104px]'>총 결제 금액 </div>
             {amount.toLocaleString()}원
           </div>
         </div>
 
-        <div className='border-black-300 w-1/2  border-[1px] rounded-lg p-5'>
+        {/* 결제 수단 */}
+        <div className='border-black-300 border-[1px] rounded-lg p-5 flex-1 min-w-[300px]'>
           <div className='text-xl border-b-black-700 border-b-[1px] pb-3'>
             결제 수단
           </div>

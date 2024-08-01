@@ -51,7 +51,6 @@ function TourPayButton({ id }: { id: string }) {
     const orderInfo = JSON.stringify(currentOrder);
 
     router.push(`/shop/payment/${orderId}?orderInfo=${orderInfo}`);
-    router.push(`/shop/payment/${orderId}?orderInfo=${orderInfo}`);
   };
 
   return (

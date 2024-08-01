@@ -1,17 +1,11 @@
-'use client';
-import SuccessPayment from '@/components/order/payment/success/SuccessPayment';
+import SuccessPaymentSection from '@/components/order/payment/success/SuccessPaymentSection';
 import Page from '@/components/pages/Page';
-import { Suspense } from 'react';
 
 const SuccessPage = () => {
   return (
-    <>
-      <Page>
-        <Suspense>
-          <SuccessPayment />
-        </Suspense>
-      </Page>
-    </>
+    <Page>
+      <SuccessPaymentSection />
+    </Page>
   );
 };
 

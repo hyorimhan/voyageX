@@ -8,6 +8,7 @@ import useExpressInfoStore from '@/zustand/store/expressInfoStore';
 import useCustomerInfoStore from '@/zustand/store/customrInfoStore';
 import useItemListStore from '@/zustand/store/itemListStore';
 import useTourIdStore from '@/zustand/store/useTourId';
+import useQuantityStore from '@/zustand/store/useQuantity';
 
 interface PayButtonPropsType {
   totalPrice: number;
@@ -21,6 +22,7 @@ function PayButton({ totalPrice }: PayButtonPropsType) {
   const { customerInfo } = useCustomerInfoStore((state) => state);
   const { itemList } = useItemListStore((state) => state);
   const { setTourId } = useTourIdStore((state) => state);
+  const { setQuantities, setTotalPrice } = useQuantityStore((state) => state);
 
   const handleClickPayButton = () => {
     if (!isAgree) {
@@ -46,6 +48,8 @@ function PayButton({ totalPrice }: PayButtonPropsType) {
     const orderId = yymmdd + randomAlphabet();
 
     setTourId('');
+    setTotalPrice(0);
+    setQuantities(0);
 
     const currentOrder = {
       orderId,

@@ -1,9 +1,10 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import CustomerChangeModal from './CustomerChangeModal';
+
 import useCustomerInfoStore from '@/zustand/store/customrInfoStore';
 import { Address } from '@/types/userAddressType';
+import CustomerChangeModal from './CustomerChangeModal';
 
 interface CustomerInfo {
   addressList: Address[];
