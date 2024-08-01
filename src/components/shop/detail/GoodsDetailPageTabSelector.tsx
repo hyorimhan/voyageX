@@ -5,15 +5,17 @@ import RenderTabGoodsDetail from './RenderTabGoodsDetail';
 import { useState } from 'react';
 
 type GoodsDetailPageTabSelectorProps = {
-  goodsRating: number | undefined;
+  goodsRating?: number | undefined;
   goodsId: string;
+  contents: React.ReactNode;
 };
 
 function GoodsDetailPageTabSelector({
   goodsRating,
   goodsId,
+  contents,
 }: GoodsDetailPageTabSelectorProps) {
-  const [selectedTab, setSelectedTab] = useState('Reviews');
+  const [selectedTab, setSelectedTab] = useState('Details');
 
   return (
     <>
@@ -52,7 +54,7 @@ function GoodsDetailPageTabSelector({
       {selectedTab === 'Reviews' ? (
         <RenderTabReviews goodsRating={goodsRating} goodsId={goodsId} />
       ) : (
-        <RenderTabGoodsDetail />
+        <RenderTabGoodsDetail contents={contents} />
       )}
     </>
   );

@@ -1,6 +1,7 @@
 import { createClient } from '@/supabase/client';
 import { toggleLikeToursParamsType } from '@/types/tour';
 import axios from 'axios';
+import { headers } from 'next/headers';
 
 const supabase = createClient();
 
@@ -47,11 +48,15 @@ export const tourDetail = async (id: string) => {
 
 //투어 결제 (주문자 정보)
 export const userAddress = async (id: string) => {
-  const { data: address, error } = await supabase
-    .from('addresses')
-    .select('*')
-    .eq('user_id', id);
-  return { address, error };
+  const response = await fetch('/api/tours/tourOrderInfo', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ id }),
+  });
+  const responseData = await response.json();
+  return responseData;
 };
 
 export const getLikedToursByUser = async (user_id: string) => {

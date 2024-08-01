@@ -10,6 +10,7 @@ export interface Tour {
     title: string | null;
     english_name: string;
   };
+  rating_avg?: number;
 }
 
 export interface tourProps {
