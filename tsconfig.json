@@ -27,7 +27,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "src/components/auth/signup/tinkerbell.js",
-    "src/app/(providers)/(root)/(auth)/layout.tsx"
+    "src/app/(providers)/(root)/(auth)/layout.tsx",
+    "src/hooks/\buseFetchTopPosts.tsx" 
   ],
   "exclude": ["node_modules"]
 }
