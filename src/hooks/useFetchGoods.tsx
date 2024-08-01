@@ -8,32 +8,29 @@ type Goods = Database['public']['Tables']['goods']['Row'];
 const useFetchGoods = () => {
   const [goods, setGoods] = useState<Goods[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-	const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
-	useEffect(() => {
-		const fetchGoods = async () => {
-			try {
-				const supabase = createClient();
-				const { data, error } = await supabase
-				.from('goods')
-				.select('*');
+  useEffect(() => {
+    const fetchGoods = async () => {
+      try {
+        const supabase = createClient();
+        const { data, error } = await supabase.from('goods').select('*');
 
-				if (error) {
-					throw error;
-				}
-				
-				setGoods(data as Goods[]);
+        if (error) {
+          throw error;
+        }
 
-			} catch (err) {
-				const error = err as PostgrestError; // supabase 내장 오류 타입
-				setError(error.message);
-			} finally {
-				setLoading(false);
-			}
-		};
+        setGoods(data as Goods[]);
+      } catch (err) {
+        const error = err as PostgrestError; // supabase 내장 오류 타입
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-		fetchGoods();
-	}, []);
+    fetchGoods();
+  }, []);
 
   return { goods, loading, error };
 };

@@ -3,9 +3,11 @@ import Image from 'next/image';
 const TourOrdersPage = () => {
   return (
     <div>
-      <p className='text-2xl mb-6'>여행상품 주문/배송조회</p>
-      <div className='mb-10'>
-        <p className='mb-2'>2024. 07. 12. 금</p>
+      <p className='text-2xl mb-14'>여행상품 주문/배송조회</p>
+      <div className='gap-2 flex flex-col'>
+        <p className='p-4 h-[53px] border-b-[1px] border-black-700'>
+          주문일자 2024 .07 .12
+        </p>
         <div className='flex h-56 w-full text-slate-950 font-bold '>
           <div className='bg-primary-200 rounded-2xl flex py-6 px-12 w-full '>
             <div className='flex-grow'>
@@ -24,7 +26,6 @@ const TourOrdersPage = () => {
             </div>
           </div>
           <div className=' border-dashed border-l-2 border-slate-950 bg-white h-52 mt-2'></div>
-
           <div className='bg-white rounded-2xl text-black w-96 p-6 flex flex-col'>
             <p className='mb-3 font-bold text-xl'>Boarding Pass</p>
             <div className='flex justify-between mb-1'>

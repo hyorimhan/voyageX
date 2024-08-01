@@ -2,9 +2,18 @@
 import useAuthStore from '@/zustand/store/useAuth';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
-import { FaUserCircle, FaBars } from 'react-icons/fa';
+import { FaBars } from 'react-icons/fa';
 import LogoutBtn from '@/components/auth/logout/LogoutBtn';
 import { userLoginInfo } from '@/services/auth';
+import MyPageIcon24px from './icons/24px/MyPageIcon24px';
+import ShoppingBagIcon24px from './icons/24px/ShoppingBagIcon24px';
+import HeartDefaultIcon24px from './icons/24px/HeartDefaultIcon24px';
+import { Orbitron } from 'next/font/google';
+
+const orbitron = Orbitron({
+  subsets: ['latin'],
+  weight: ['400'],
+});
 
 const Header = () => {
   const user = useAuthStore((state) => state.user);
@@ -40,18 +49,24 @@ const Header = () => {
         </nav>
         <div className='flex items-center justify-center '>
           <Link href='/'>
-            <span className='font-bold text-2xl '>Voyage X</span>
+            <span className={`${orbitron.className} text-2xl`}>Voyage X</span>
           </Link>
         </div>
-        <div className='flex items-center justify-end space-x-2 w-[260px]'>
+        <div className='flex items-center justify-end w-[260px] gap-4'>
+          <Link href={'/wishlist'}>
+            <HeartDefaultIcon24px />
+          </Link>
+          <Link href={'/mypage/goods_orders'}>
+            <ShoppingBagIcon24px />
+          </Link>
           <Link href='/mypage/tour_orders'>
-            <FaUserCircle className=' w-6 h-6 ' />
+            <MyPageIcon24px />
           </Link>
           {user ? (
             <LogoutBtn />
           ) : (
             <Link href='/login'>
-              <span className=' hover:text-gray-300 '>로그인</span>
+              <span className=' hover:text-gray-300 w-[50px]'>로그인</span>
             </Link>
           )}
           <button onClick={toggleMenu} className='md:hidden '>

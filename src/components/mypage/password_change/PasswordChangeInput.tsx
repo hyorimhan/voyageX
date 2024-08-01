@@ -34,8 +34,8 @@ const PasswordChangeInput = ({
         <input
           className={`text-black rounded-lg h-14 p-7 w-full ${
             error
-              ? 'border-red-500'
-              : 'border-black-400 hover:border-black-600 focus:border-primary-600'
+              ? 'border-error-900 border-2 text-black-1000 focus:outline-error-900'
+              : 'border-black-200 border-2 hover:border-black-500 focus:border-black-500 focus:border-2 focus:text-black-1000 focus:outline-black-500'
           }`}
           placeholder={placeholder}
           type={showPassword ? 'text' : type}
@@ -45,12 +45,12 @@ const PasswordChangeInput = ({
         <button
           type='button'
           onClick={toggleShowPassword}
-          className='absolute right-4 top-1/2 transform -translate-y-1/2 text-black'
+          className='absolute right-6 top-1/2 transform -translate-y-1/2 text-black'
         >
           {showPassword ? <EyeOnIcon24px /> : <EyeOffIcon24px />}
         </button>
       </div>
-      {error && <p className='text-red-500 text-sm'>{error}</p>}
+      {error && <p className='text-red-500 text-sm ml-3'>{error}</p>}
     </div>
   );
 };

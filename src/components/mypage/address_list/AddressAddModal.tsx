@@ -7,6 +7,8 @@ import { createClient } from '@/supabase/client';
 import useAuthStore from '@/zustand/store/useAuth';
 import AddressSearchModal from './AddressSearchModal';
 import addressForm from './addressForm';
+import AddressAddModalInput from './AddressAddModalInput';
+import CloseIcon32px from '@/components/common/icons/32px/CloseIcon32px';
 
 interface AddressAddModalProps {
   onClose: () => void;
@@ -137,82 +139,75 @@ const AddressAddModal: React.FC<AddressAddModalProps> = ({
   return (
     <div className='fixed inset-0 flex items-center justify-center bg-black-1000 bg-opacity-50 z-30'>
       <AddressApiScript />
-      <div className='bg-black-800 p-6 rounded-lg shadow-lg relative w-96'>
-        <div className='flex justify-center items-center mt-3'>
-          <p className='text-lg'>{editMode ? '배송지 수정' : '배송지 추가'}</p>
-          <button className='absolute right-4 top-4' onClick={onClose}>
-            <IoMdClose className='text-3xl' />
-          </button>
+      <div className='bg-black-800 p-8 rounded-lg shadow-lg relative w-[432px]'>
+        <div className='flex justify-center mb-8 flex-col'>
+          <div className='flex justify-end mb-3'>
+            <button onClick={onClose}>
+              <CloseIcon32px />
+            </button>
+          </div>
+          <p className='text-2xl text-center'>
+            {editMode ? '배송지 수정' : '배송지 추가'}
+          </p>
         </div>
-        <div className='space-y-4'>
+        <div className='flex flex-col gap-4'>
+          <AddressAddModalInput
+            label='주소별칭'
+            placeholder='6글자 이내로 입력해주세요.'
+            value={alias}
+            onChange={handleAliasChange}
+            error={aliasError}
+          />
+          <AddressAddModalInput
+            label='받으실분'
+            placeholder='이름을 입력해주세요.'
+            value={recipient}
+            onChange={handleRecipientChange}
+            error={recipientError}
+          />
+          <AddressAddModalInput
+            label='휴대폰 번호'
+            placeholder='-를 제외하고 입력해주세요.'
+            value={phone}
+            onChange={handlePhoneChange}
+            error={phoneError}
+          />
           <div>
-            <label className='block text-black-200 mb-1'>주소별칭</label>
-            <input
-              className='w-full px-3 py-4 border rounded-lg text-black-400'
-              placeholder='6글자 이내로 입력해주세요.'
-              value={alias}
-              onChange={handleAliasChange}
-            />
-            {aliasError && (
-              <p className='text-error-900 text-xs mt-1'>{aliasError}</p>
-            )}
-          </div>
-          <div>
-            <label className='block text-black-200 mb-1'>받으실분</label>
-            <input
-              className='w-full px-3 py-4 border rounded-lg text-black-400'
-              placeholder='이름을 입력해주세요.'
-              value={recipient}
-              onChange={handleRecipientChange}
-            />
-            {recipientError && (
-              <p className='text-error-900 text-xs mt-1'>{recipientError}</p>
-            )}
-          </div>
-          <div>
-            <label className='block text-black-200 mb-1'>휴대폰 번호</label>
-            <input
-              className='w-full px-3 py-4 border rounded-lg text-black-400'
-              placeholder='-를 제외하고 입력해주세요.'
-              value={phone}
-              onChange={handlePhoneChange}
-            />
-            {phoneError && (
-              <p className='text-error-900 text-xs mt-1'>{phoneError}</p>
-            )}
-          </div>
-          <div>
-            <label className='block text-black-200 mb-1'>배송주소</label>
-            <div className='flex gap-2'>
-              <input
-                className='px-3 py-4 border rounded-lg text-black-400 h-14 w-[190px]'
-                placeholder=''
-                value={postcode}
-                readOnly
+            <label className='text-black-200'>배송주소</label>
+            <div className='flex flex-col gap-3'>
+              <div className='flex gap-3 items-center justify-evenly'>
+                <AddressAddModalInput
+                  placeholder={''}
+                  label=''
+                  value={postcode}
+                  onChange={() => {}}
+                  readOnly
+                  onClick={() => setShowAddressSearchModal(true)}
+                />
+                <button
+                  className='px-6 py-5 bg-white text-black-1000 rounded-lg w-[155px] flex items-center h-[59px]'
+                  onClick={() => setShowAddressSearchModal(true)}
+                >
+                  우편번호 찾기
+                </button>
+              </div>
+              <AddressAddModalInput
+                label=''
+                placeholder='주소를 입력해주세요.'
+                value={newAddress}
+                onChange={(e) => setNewAddress(e.target.value)}
               />
-              <button
-                className='px-6 bg-white text-black-1000 rounded-lg w-full'
-                onClick={() => setShowAddressSearchModal(true)}
-              >
-                우편번호 찾기
-              </button>
+              <AddressAddModalInput
+                label=''
+                placeholder='상세주소를 입력해주세요.'
+                value={detailAddress}
+                onChange={(e) => setDetailAddress(e.target.value)}
+              />
             </div>
-            <input
-              className='mt-2 w-full px-3 py-4 border rounded-lg text-black-300'
-              placeholder='주소를 입력해주세요.'
-              value={newAddress}
-              onChange={(e) => setNewAddress(e.target.value)}
-            />
-            <input
-              className='mt-2 w-full px-3 py-4 border rounded-lg text-black-400'
-              placeholder='상세주소를 입력해주세요.'
-              value={detailAddress}
-              onChange={(e) => setDetailAddress(e.target.value)}
-            />
           </div>
         </div>
         <button
-          className='w-full mt-6 px-4 py-4 bg-primary-600 rounded-lg'
+          className='w-full mt-8 px-4 py-4 bg-primary-600 rounded-lg'
           onClick={handleSave}
         >
           저장하기

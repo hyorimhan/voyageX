@@ -8,7 +8,6 @@ export type ParamsType = {
 };
 
 export const GET = async (req: NextRequest, { params }: ParamsType) => {
-  const { searchParams } = new URL(req.url);
   const { goods_id } = params;
 
   if (!goods_id) {
