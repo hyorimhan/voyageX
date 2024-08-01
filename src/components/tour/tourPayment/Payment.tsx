@@ -40,7 +40,7 @@ function Payment({ params }: tourProps) {
         const { address, error } = await userAddress(res.user.id);
 
         const defaulAdr =
-          address?.find((adr) => adr.is_default === true) || null;
+          address?.find((adr: Address) => adr.is_default === true) || null;
         setDefaultAddress(defaulAdr);
 
         if (error) {
