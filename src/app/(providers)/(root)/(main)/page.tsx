@@ -7,6 +7,7 @@ import useFetchGoods from '@/hooks/useFetchGoods';
 import Link from 'next/link';
 import Footer from '@/components/common/Footer';
 import useFetchTourDetail from '@/hooks/useFetchTourDetail';
+import TopPostsSection from '@/components/main/TopPostsSection';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -310,7 +311,8 @@ const MainPage = () => {
       }}
       className='section section-bg h-screen flex items-center justify-center'
     >
-      <h1>4번째 섹션입니다</h1>
+      <TopPostsSection
+      />
     </section>
 
     <section
