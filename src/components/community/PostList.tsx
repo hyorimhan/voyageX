@@ -1,31 +1,17 @@
-'use client';
-
-import React, { useEffect, useState } from 'react';
-import { Tables } from '@/types/supabase';
 import Link from 'next/link';
 import CategoryBadge from './CategoryBadge';
+import { createClient } from '@/supabase/server';
 
-const PostList = () => {
-  const [posts, setPosts] = useState<Tables<'posts'>[]>([]);
+const PostList = async () => {
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from('posts')
+    .select('*')
+    .order('created_at', { ascending: false });
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const response = await fetch('/api/community/list');
-        const result = await response.json();
-
-        if (response.ok) {
-          setPosts(result.data || []);
-        } else {
-          console.error('에러 발생', result.error);
-        }
-      } catch (error) {
-        console.error('에러 발생', error);
-      }
-    };
-
-    fetchPosts();
-  }, []);
+  if (error) {
+    throw new Error(error.message);
+  }
 
   return (
     <div className='overflow-x-auto'>
@@ -50,7 +36,7 @@ const PostList = () => {
             댓글
           </span>
         </div>
-        {posts.map((post, index) => (
+        {data.map((post, index) => (
           <Link href={post.id} key={post.id}>
             <div className='flex py-4 gap-x-4 items-center group'>
               <span className='flex-none w-20 p-2 text-center'>
