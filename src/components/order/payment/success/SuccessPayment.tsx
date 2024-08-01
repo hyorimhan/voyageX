@@ -10,12 +10,13 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import Link from 'next/link';
-import useItemListStore from '@/zustand/store/itemListStore';
-import useExpressInfoStore from '@/zustand/store/expressInfoStore';
-import useCustomerInfoStore from '@/zustand/store/customrInfoStore';
-import { createClient } from '@/supabase/client';
+import useUpdateInfoStore from '@/zustand/store/useUpdateInfo';
+import useQuantityStore from '@/zustand/store/useQuantity';
 
-function SuccessPayment() {
+function SuccessPayment({ tourUrl }: { tourUrl: string }) {
+  const updateInfo = useUpdateInfoStore((state) => state.updateInfo);
+  const totalPrice = useQuantityStore((state) => state.totalPrice);
+  const quantity = useQuantityStore((state) => state.quantity);
   const saveUser = useAuthStore((state) => state.saveUser);
   const { tourUrl, setTourId } = useTourIdStore((state) => state);
   const { itemList, setItemList } = useItemListStore((state) => state);
@@ -137,7 +138,7 @@ function SuccessPayment() {
   }, [tourUrl, orderId, paymentKey, amount, authKey]);
 
   if (!result) return <div>승인 중</div>;
-  console.log(amount);
+
   return (
     <>
       <div className='flex mt-[137px] mb-11 items-center justify-between'>
@@ -176,12 +177,12 @@ function SuccessPayment() {
         </div>
         <div className='flex items-center'>
           <div className='mr-[18px]'>
-            {/* <Image
+            <Image
               src={tours[0].planets.planet_img}
               alt={tours[0].planets.name!}
               width={104}
               height={104}
-            /> */}
+            />
           </div>
           <div className='w-[818px] mr-[18px]'>
             <div>

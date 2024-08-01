@@ -6,12 +6,6 @@ interface tourIdType {
   setTourId: (id: string) => void;
 }
 
-// const useTourIdStore = create<tourIdType>((set) => ({
-//   tourId: '',
-//   setTourId: (id: string) => set({ tourId: id }),
-// }),
-
-// );
 const useTourIdStore = create<tourIdType>()(
   persist(
     (set) => ({
@@ -20,7 +14,7 @@ const useTourIdStore = create<tourIdType>()(
     }),
     {
       name: 'tourId-storage',
-      getStorage: () => localStorage,
+      getStorage: () => sessionStorage,
     },
   ),
 );

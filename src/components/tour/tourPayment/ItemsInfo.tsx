@@ -1,11 +1,15 @@
 'use client';
 import { tourDetail } from '@/services/tour';
 import { Tour } from '@/types/tourPropsType';
+import useQuantityStore from '@/zustand/store/useQuantity';
+
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 
 function ItemsInfo({ id }: { id: string }) {
+  const totalPrice = useQuantityStore((state) => state.totalPrice);
+  const quantity = useQuantityStore((state) => state.quantity);
   const [tours, setTours] = useState<Tour[]>([]);
 
   useEffect(() => {
@@ -23,7 +27,7 @@ function ItemsInfo({ id }: { id: string }) {
     <>
       <div className='border-[1px] border-black-300 rounded-lg '>
         <div className='items-center border-b-[1px] border-b-black-700 flex mt-[23px] mx-auto w-[672px] '>
-          <div className='text-xl pb-3'>상품 정보 ㅣ 총 1개</div>
+          <div className='text-xl pb-3'>상품 정보 ㅣ 총 {quantity}개</div>
         </div>
 
         <div className='w-[672px] mx-auto flex  '>
@@ -50,8 +54,8 @@ function ItemsInfo({ id }: { id: string }) {
                 </div>
 
                 <div className='w-[122px] py-[30px] px-4 border-l h-[104px] flex flex-col items-center'>
-                  <div> {tour.price?.toLocaleString()}원</div>
-                  <div>수량 1개</div>
+                  <div> {totalPrice?.toLocaleString()}원</div>
+                  <div>수량 {quantity}</div>
                 </div>
               </div>
             );

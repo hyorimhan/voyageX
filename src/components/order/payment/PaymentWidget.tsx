@@ -1,6 +1,8 @@
 'use client';
 
 import useAuthStore from '@/zustand/store/useAuth';
+import useQuantityStore from '@/zustand/store/useQuantity';
+import useUpdateInfoStore from '@/zustand/store/useUpdateInfo';
 import {
   loadPaymentWidget,
   PaymentWidgetInstance,
@@ -19,9 +21,12 @@ export type Order = {
 
 const PaymentWidget = () => {
   const searchParams = useSearchParams();
+  const totalPrice = useQuantityStore((state) => state.totalPrice);
   const user = useAuthStore((state) => state.user);
   const query: string = searchParams.get('orderInfo')!;
   const orderInfo: Order = JSON.parse(query);
+  const updateInfo = useUpdateInfoStore((state) => state.updateInfo);
+
   const userId = user?.id;
   const paymentWidgetRef = useRef<PaymentWidgetInstance | null>(null);
   const paymentMethodWidgetRef = useRef<ReturnType<
@@ -36,8 +41,11 @@ const PaymentWidget = () => {
     try {
       await paymentWidget?.requestPayment({
         orderId: orderInfo.orderId,
-        orderName: orderInfo.orderName,
-        customerName: orderInfo.customerName,
+        // orderName: orderInfo.orderName,
+        // customerName: orderInfo.customerName,
+        // customerMobilePhone: orderInfo.customerMobilePhone,
+        orderName: '주문명',
+        customerName: '주문자명',
         customerMobilePhone: orderInfo.customerMobilePhone,
         successUrl: `${window.location.origin}/shop/payment/success`,
         failUrl: `${window.location.origin}/shop/payment/fail`,
@@ -55,7 +63,7 @@ const PaymentWidget = () => {
       // 결제방법 위젯
       const paymentMethodsWidget = paymentWidget.renderPaymentMethods(
         '#payment-widget',
-        orderInfo.totalPrice, // 구매 가격
+        totalPrice!, // 구매 가격
       );
 
       // 약관동의 위젯
@@ -66,6 +74,7 @@ const PaymentWidget = () => {
     };
     loadWidget();
   });
+  console.log(updateInfo);
   return (
     <div className='flex flex-col justify-center items-center mt-10'>
       <div id='payment-widget' className='w-2/3' />
