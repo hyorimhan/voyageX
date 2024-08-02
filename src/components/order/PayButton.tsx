@@ -106,7 +106,7 @@ function PayButton({ totalPrice }: PayButtonPropsType) {
         </div>
         <button
           onClick={handleClickPayButton}
-          className='bg-primary-600 rounded-md p-4 w-full h-14 mb-5 text-lg'
+          className='bg-primary-600 rounded-md p-4 w-full h-14 mb-5 text-lg transition-colors duration-200 hover:bg-primary-400 active:bg-primary-500'
         >
           <span className='text-lg'>{totalPrice.toLocaleString()}원</span>
           <span className='text-base'> 결제하기</span>

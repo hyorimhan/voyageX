@@ -29,6 +29,7 @@ function SuccessPayment() {
     (state) => state,
   );
   const { setCustomerInfo } = useCustomerInfoStore((state) => state);
+  const { setUpdateInfo } = useUpdateInfoStore((state) => state);
   const router = useRouter();
   const searchParams = useSearchParams();
   const [result, setResult] = useState<any>();
@@ -151,7 +152,21 @@ function SuccessPayment() {
     }
   }, [orderId, paymentKey, amount, authKey]);
 
-  if (!result) return <div>승인 중</div>;
+  if (!result)
+    return (
+      <div className='w-full'>
+        <div className='w-1/2 h-[700px] my-auto mx-auto flex flex-col items-center justify-center'>
+          <p>화면이 지속된다면</p>
+          <p>홈 화면으로 돌아가주세요.</p>
+          <button
+            className='border-2 rounded-lg p-2 hover:brightness-150 cursor-pointer transition-colors duration-200 hover:bg-white hover:text-black-1000 hover:font-extrabold'
+            onClick={() => router.replace('/')}
+          >
+            돌아가기
+          </button>
+        </div>
+      </div>
+    );
 
   return (
     <>
@@ -168,14 +183,14 @@ function SuccessPayment() {
                   : `/mypage/goods_orders`
               }
             >
-              <button className='border-[1.5px] border-primary-400 h-[53px] w-[277.5px] rounded-lg'>
+              <button className='border-[1.5px] border-primary-400 h-[53px] w-[277.5px] rounded-lg bg-transparent transition-colors duration-200 hover:bg-primary-200 hover:text-black-1000 active:bg-primary-300'>
                 주문상세 보기
               </button>
             </Link>
           </div>
           <div>
             <Link href={tourUrl.length ? '/tour' : '/shop'}>
-              <button className=' bg-primary-600 h-[53px] w-[277.5px] rounded-lg'>
+              <button className=' bg-primary-600 h-[53px] w-[277.5px] rounded-lg duration-200 hover:bg-primary-400 active:bg-primary-500'>
                 쇼핑 계속하기
               </button>
             </Link>

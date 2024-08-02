@@ -26,7 +26,7 @@ function ExpressInfo({ addressList }: ExpressInfoPropsType) {
         <div className='py-4 mb-4 border-b-2 border-black-700 flex flex-row items-center justify-between'>
           <span className='text-xl text-black-50'>배송정보</span>
           <button
-            className='bg-primary-400 rounded-lg p-2'
+            className='bg-primary-400 rounded-lg p-2 transition-colors duration-200 hover:bg-primary-200 active:bg-primary-300'
             onClick={() => setIsModalOpen(true)}
           >
             배송지 변경

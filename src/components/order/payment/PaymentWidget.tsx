@@ -7,8 +7,9 @@ import {
   loadPaymentWidget,
   PaymentWidgetInstance,
 } from '@tosspayments/payment-widget-sdk';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useRef } from 'react';
+import toast from 'react-hot-toast';
 
 export type Order = {
   orderId: string;
@@ -26,6 +27,7 @@ const PaymentWidget = () => {
   const query: string = searchParams.get('orderInfo')!;
   const orderInfo: Order = JSON.parse(query);
   const updateInfo = useUpdateInfoStore((state) => state.updateInfo);
+  const router = useRouter();
 
   const userId = user?.id;
   const paymentWidgetRef = useRef<PaymentWidgetInstance | null>(null);
@@ -48,7 +50,8 @@ const PaymentWidget = () => {
         failUrl: `${window.location.origin}/shop/payment/fail`,
       });
     } catch (err: any) {
-      alert(err);
+      toast.error(err.message);
+      router.back();
     }
   };
 
@@ -80,7 +83,7 @@ const PaymentWidget = () => {
         <button
           type='button'
           onClick={proceedPayment}
-          className='bg-[#4D367C] rounded-md p-3 my-4 text-lg'
+          className='bg-primary-600 rounded-md p-3 my-4 text-lg transition-colors duration-200 hover:bg-primary-400 active:bg-primary-500'
         >
           결제하기
         </button>

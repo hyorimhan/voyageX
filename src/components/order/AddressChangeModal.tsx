@@ -1,6 +1,6 @@
 'use client';
 
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 import AddressActionsBtn from '../mypage/address_list/AddressActionsBtn';
 import AddressesList from '../mypage/address_list/AddressList';
 import AddressAddModal from '../mypage/address_list/AddressAddModal';
@@ -21,7 +21,7 @@ function AddressChangeModal({
   const { expressAddress, setExpressAddress } = useExpressInfoStore(
     (state) => state,
   );
-
+  const modalBackground = useRef(null);
   const [showAddressAddModal, setShowAddressAddModal] =
     useState<boolean>(false);
   const [editAddress, setEditAddress] = useState<Address | null>(null);
@@ -60,9 +60,13 @@ function AddressChangeModal({
 
   return (
     <section
-      className={`flex w-full h-full fixed top-0 left-0 justify-center bg-black-1000 bg-opacity-50 z-30`}
+      ref={modalBackground}
+      className='flex w-full h-full fixed top-0 left-0 justify-center bg-black-1000 bg-opacity-50 z-30'
+      onClick={(e) => {
+        if (e.target === modalBackground.current) setIsModalOpen(false);
+      }}
     >
-      <div className='relative bg-black-800 rounded-lg p-8 my-20'>
+      <div className='relative bg-black-800 rounded-lg p-8 my-20 h-[700px]'>
         <div>
           <div className='flex flex-col'>
             <div className='flex flex-row justify-between items-start'>
@@ -104,7 +108,14 @@ function AddressChangeModal({
             />
           )}
         </div>
-        <button onClick={handleChangeAddress}>배송지 변경</button>
+        <div className='flex justify-center items-center mt-20'>
+          <button
+            onClick={handleChangeAddress}
+            className='bg-primary-400 p-2 rounded-md text-lg transition-colors duration-200 hover:bg-primary-200 active:bg-primary-300'
+          >
+            배송지 변경
+          </button>
+        </div>
       </div>
     </section>
   );
