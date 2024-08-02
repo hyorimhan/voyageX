@@ -16,6 +16,12 @@ const WritePost = () => {
   const [content, setContent] = useState('');
   const [sortBy, setSortBy] = useState('소통');
   const sortByList = ['소통', '우주여행', '우주정보', '뉴스/기사'];
+  // const sortByList = {
+  //   '소통': 'communcation',
+  //   '우주여행': 'tour',
+  //   '우주정보': 'info',
+  //   '뉴스/기사': 'news',
+  // };
 
   const user = useAuthStore((state) => state.user);
 
