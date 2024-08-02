@@ -1,10 +1,10 @@
 import Page from '@/components/pages/Page';
-import DetailPage from '@/components/community/DetailPage';
+import DetailPage from '@/components/community/read/DetailPage';
 
-const PostDetailPage = () => {
+const PostDetailPage = ({ params }: { params: string }) => {
   return (
     <Page>
-      <DetailPage />
+      <DetailPage params={params} />
     </Page>
   );
 };
