@@ -37,7 +37,7 @@ function GoodsList() {
 
   return (
     <>
-      <div className='flex justify-end'>
+      <div className='flex justify-end mt-14'>
         <DropDownButton
           sortByList={sortByList}
           sortBy={sortBy}
@@ -47,18 +47,24 @@ function GoodsList() {
       <ul className='text-black-50 mb-4 grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
         {goods.map((item) => (
           <li key={item.id} className='mx-auto my-4 w-full bg-black-1000'>
-            <div className='relative' onClick={() => handleItemClick(item.id)}>
+            <div className='relative'>
               <Image
                 src={item.goods_img}
                 alt={item.description}
                 width={268}
                 height={272}
-                className='rounded-lg w-full h-72 object-cover'
+                className='rounded-lg w-full h-72 object-cover cursor-pointer'
                 style={{ objectFit: 'cover' }}
+                onClick={() => handleItemClick(item.id)}
               />
             </div>
             <div className='p-2'>
-              <p className='flex justify-start text-base'>{item.goods_name}</p>
+              <p
+                className='flex justify-start text-base cursor-pointer'
+                onClick={() => handleItemClick(item.id)}
+              >
+                {item.goods_name}
+              </p>
               <div className='flex flex-row'>
                 <p className='text-red-600 text-xl mr-2'>10%</p>
                 <p className='flex justify-center text-xl'>{`${item.goods_price.toLocaleString()}원`}</p>

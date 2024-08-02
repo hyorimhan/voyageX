@@ -1,6 +1,8 @@
 import TourHearts from '@/components/tour/tourDetail/TourHearts';
 import { useGetLikedToursByUser } from '@/hooks/toursHooks';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import Router from 'next/router';
 
 interface LikedPlanetParamsType {
   user_id: string;
@@ -12,6 +14,12 @@ function LikedPlanet({ user_id }: LikedPlanetParamsType) {
     isError,
     isPending,
   } = useGetLikedToursByUser(user_id);
+
+  const router = useRouter();
+
+  const handleGoToItem = (id: string) => {
+    router.push(`/tour/${id}`);
+  };
 
   if (isError) return <div>에러</div>;
   if (isPending) return <div>로딩 중..</div>;
@@ -27,12 +35,16 @@ function LikedPlanet({ user_id }: LikedPlanetParamsType) {
                 alt={item.planet_id}
                 width={268}
                 height={272}
-                className='rounded-lg w-full h-72 object-cover'
+                className='rounded-lg w-full h-72 object-cover cursor-pointer'
                 style={{ objectFit: 'cover' }}
+                onClick={() => handleGoToItem(item.id)}
               />
             </div>
             <div className='p-2'>
-              <p className='flex justify-start text-base'>
+              <p
+                className='flex justify-start text-base cursor-pointer'
+                onClick={() => handleGoToItem(item.id)}
+              >
                 {item.planets.name}
               </p>
               <div className='flex flex-row'>

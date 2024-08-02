@@ -1,41 +1,58 @@
-import useAuthStore from '@/zustand/store/useAuth';
-import { Dispatch, SetStateAction, useState } from 'react';
+'use client';
+
+import useCustomerInfoStore from '@/zustand/store/customrInfoStore';
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
+import toast from 'react-hot-toast';
 
 interface CustomerChangeModalProps {
   setIsModalOpen: Dispatch<SetStateAction<boolean>>;
-  updateCustomerInfo: (info: {
-    name: string;
-    phone: string;
-    email: string;
-  }) => void;
 }
 
-function CustomerChangeModal({
-  setIsModalOpen,
-  updateCustomerInfo,
-}: CustomerChangeModalProps) {
-  const user = useAuthStore((state) => state.user);
+function CustomerChangeModal({ setIsModalOpen }: CustomerChangeModalProps) {
+  const { customerInfo, setCustomerInfo } = useCustomerInfoStore(
+    (state) => state,
+  );
+  const modalBackground = useRef(null);
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
-  const [email, setEmail] = useState(user?.email!);
+  const [email, setEmail] = useState('');
+
+  useEffect(() => {
+    setName(customerInfo?.customerName ?? '');
+    setPhone(customerInfo?.customerPhone ?? '');
+    setEmail(customerInfo?.customerEmail ?? '');
+  }, [
+    customerInfo?.customerName,
+    customerInfo?.customerPhone,
+    customerInfo?.customerEmail,
+  ]);
 
   const handleChangeCustomerInfo = () => {
-    updateCustomerInfo({ name, phone, email });
+    setCustomerInfo({
+      customerName: name,
+      customerPhone: phone,
+      customerEmail: email,
+    });
+    toast.success('주문자 정보가 변경되었습니다!');
     setIsModalOpen(false);
   };
 
   return (
     <>
       <section
-        className={`flex w-full h-full fixed top-0 left-0 justify-center`}
+        ref={modalBackground}
+        className='flex w-full h-full fixed top-0 left-0 justify-center bg-black-1000 bg-opacity-50 z-30'
+        onClick={(e) => {
+          if (e.target === modalBackground.current) setIsModalOpen(false);
+        }}
       >
-        <div className='relative bg-black-800 w-3/5 h-[700px] my-24 mx-auto rounded-lg'>
+        <div className='relative bg-black-800 w-1/3 h-[700px] my-24 mx-auto rounded-lg'>
           <div className='flex justify-end'>
             <button
               className='mr-10 mt-4 text-3xl bg-transparent'
               onClick={() => setIsModalOpen(false)}
             >
-              x
+              X
             </button>
           </div>
           <form
@@ -45,10 +62,10 @@ function CustomerChangeModal({
             }}
           >
             <div className='flex flex-col items-center'>
-              <div className='flex flex-row justify-center w-full p-4'>
+              <div className='flex flex-row justify-center w-full p-2'>
                 <p className='text-xl'>주문자 정보</p>
               </div>
-              <div className='flex flex-col w-1/2 gap-4'>
+              <div className='flex flex-col w-2/4 gap-4'>
                 <label htmlFor='customerName'>이름*</label>
                 <input
                   id='customerName'
@@ -82,7 +99,7 @@ function CustomerChangeModal({
               </div>
               <button
                 type='submit'
-                className='bg-primary-600 p-4 mt-16 w-1/2 rounded-lg'
+                className='bg-primary-600 p-4 mt-16 w-1/2 rounded-lg transition-colors duration-200 hover:bg-primary-400 active:bg-primary-500'
               >
                 주문자 정보 변경
               </button>

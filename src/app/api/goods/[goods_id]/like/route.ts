@@ -17,7 +17,6 @@ export const GET = async (request: Request, { params }: ParamsType) => {
     .select('*')
     .match({ goods_id, user_id });
   if (error) return NextResponse.json({ error });
-  console.log('data => ', !!data);
   return NextResponse.json(!!data.length);
 };
 

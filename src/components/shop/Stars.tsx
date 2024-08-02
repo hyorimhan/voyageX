@@ -8,7 +8,7 @@ function Stars({ ratingAvg }: StarsProps) {
   return (
     <span className='flex flex-row items-center text-xl text-black-50'>
       <HiStar />
-      {ratingAvg}
+      {ratingAvg.toFixed(1)}
     </span>
   );
 }

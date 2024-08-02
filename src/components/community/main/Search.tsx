@@ -2,12 +2,16 @@
 
 import { TbSearch } from 'react-icons/tb';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 function Search() {
-  const [query, setQuery] = useState('');
-  //로직 넣기
+  const [search, setSearch] = useState('');
+
+  const router = useRouter();
+
   const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    router.push(`/community/search?search=${search}`);
   };
 
   return (
@@ -16,8 +20,8 @@ function Search() {
         <form className='relative' onSubmit={handleSearch}>
           <input
             className='w-[336px] h-[48px] rounded-[16px] text-white px-4 py-3 bg-black-800 focus:outline-none'
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
           />
           <button
             type='submit'

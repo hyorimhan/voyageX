@@ -20,6 +20,7 @@ const Header = () => {
   const saveUser = useAuthStore((state) => state.saveUser);
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
+
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
