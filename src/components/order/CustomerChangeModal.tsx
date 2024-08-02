@@ -1,15 +1,26 @@
+import useAuthStore from '@/zustand/store/useAuth';
 import { Dispatch, SetStateAction, useState } from 'react';
 
 interface CustomerChangeModalProps {
   setIsModalOpen: Dispatch<SetStateAction<boolean>>;
+  updateCustomerInfo: (info: {
+    name: string;
+    phone: string;
+    email: string;
+  }) => void;
 }
 
-function CustomerChangeModal({ setIsModalOpen }: CustomerChangeModalProps) {
+function CustomerChangeModal({
+  setIsModalOpen,
+  updateCustomerInfo,
+}: CustomerChangeModalProps) {
+  const user = useAuthStore((state) => state.user);
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState(user?.email!);
 
   const handleChangeCustomerInfo = () => {
+    updateCustomerInfo({ name, phone, email });
     setIsModalOpen(false);
   };
 
@@ -24,7 +35,7 @@ function CustomerChangeModal({ setIsModalOpen }: CustomerChangeModalProps) {
               className='mr-10 mt-4 text-3xl bg-transparent'
               onClick={() => setIsModalOpen(false)}
             >
-              X
+              x
             </button>
           </div>
           <form

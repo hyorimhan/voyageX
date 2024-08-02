@@ -3,12 +3,16 @@
 import { useState } from 'react';
 import MinusIcon20px from '@/components/common/icons/20px/MinusIcon20px';
 import PlusIcon20px from '@/components/common/icons/20px/PlusIcon20px';
+import useQuantityStore from '@/zustand/store/useQuantity';
 
 type QuantityBtnProps = {
   goodsPrice: number;
 };
 
 const QuantityBtn = ({ goodsPrice }: QuantityBtnProps) => {
+  const setTotalPrice = useQuantityStore((state) => state.setTotalPrice);
+  const setQuantities = useQuantityStore((state) => state.setQuantities);
+
   const [quantity, setQuantity] = useState(1);
 
   const handleIncrease = () => {
@@ -20,6 +24,8 @@ const QuantityBtn = ({ goodsPrice }: QuantityBtnProps) => {
   };
 
   const totalPrice = goodsPrice * quantity;
+  setTotalPrice(totalPrice);
+  setQuantities(quantity);
 
   return (
     <div className='flex py-3 px-4 items-center justify-between'>
