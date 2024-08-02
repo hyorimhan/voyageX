@@ -2,10 +2,12 @@ import { createClient } from '@/supabase/client';
 import { useEffect, useState } from 'react';
 
 type Post = {
+  category: string;
+  content: string;
+  created_at: string;
   id: string;
   title: string;
-  content: string;
-  like_count: number;
+  user_id: string;
 };
 
 type FetchTopPostsResult = {
@@ -33,7 +35,7 @@ const useFetchTopPosts = (): FetchTopPostsResult => {
           setError(error.message);
           return;
         }
-        setPosts(data || []);
+        setPosts(data);
       } catch (error) {
         setError((error as Error).message);
       } finally {

@@ -1,9 +1,6 @@
 'use client';
 
-import {
-  resetDefaultAddress,
-  setDefaultAddress,
-} from '@/app/api/mypage/address/list/route';
+import { resetDefaultAddress, setDefaultAddress } from '@/services/address';
 import { Address } from '@/types/userAddressType';
 
 type AddressActionsBtnProps = {
