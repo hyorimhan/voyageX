@@ -1,8 +1,9 @@
 'use client';
-import CustomerChangeModal from '@/components/order/CustomerChangeModal';
+
 import useAuthStore from '@/zustand/store/useAuth';
 import useUpdateInfoStore from '@/zustand/store/useUpdateInfo';
 import { useState } from 'react';
+import CustomerChangeModal from './CustomerChangeModal';
 
 function CustomerInfo() {
   const setUpdateInfo = useUpdateInfoStore((state) => state.setUpdateInfo);

@@ -2,6 +2,7 @@ import Hearts from '@/components/shop/Hearts';
 import Stars from '@/components/shop/Stars';
 import { useGetLikedGoodsByUser } from '@/hooks/goodsHooks';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 interface LikedItemsParamsType {
   user_id: string;
@@ -13,6 +14,11 @@ function LikedItems({ user_id }: LikedItemsParamsType) {
     isError,
     isPending,
   } = useGetLikedGoodsByUser(user_id, 'liked_goods');
+  const router = useRouter();
+
+  const handleGoToItem = (id: string) => {
+    router.push(`/shop_detail/${id}`);
+  };
 
   if (isError) return <div>에러</div>;
   if (isPending) return <div>로딩 중..</div>;
@@ -27,12 +33,16 @@ function LikedItems({ user_id }: LikedItemsParamsType) {
                 alt={item.goods.description}
                 width={268}
                 height={272}
-                className='rounded-lg w-full h-72 object-cover'
+                className='rounded-lg w-full h-72 object-cover cursor-pointer'
                 style={{ objectFit: 'cover' }}
+                onClick={() => handleGoToItem(item.goods_id)}
               />
             </div>
             <div className='p-2'>
-              <p className='flex justify-start text-base'>
+              <p
+                className='flex justify-start text-base cursor-pointer'
+                onClick={() => handleGoToItem(item.goods_id)}
+              >
                 {item.goods.goods_name}
               </p>
               <div className='flex flex-row'>

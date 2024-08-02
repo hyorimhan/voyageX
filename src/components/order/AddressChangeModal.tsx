@@ -1,58 +1,123 @@
 'use client';
-import { Dispatch, SetStateAction } from 'react';
+
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
+import AddressActionsBtn from '../mypage/address_list/AddressActionsBtn';
+import AddressesList from '../mypage/address_list/AddressList';
+import AddressAddModal from '../mypage/address_list/AddressAddModal';
+import { Address } from '@/types/userAddressType';
+import useAuthStore from '@/zustand/store/useAuth';
+import useExpressInfoStore from '@/zustand/store/expressInfoStore';
+import toast from 'react-hot-toast';
 
 interface AddressChangeModalProps {
+  addressList: Address[];
   setIsModalOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-export type Address = {
-  alias: string | null;
-  postcode: string | null;
-  address: string | null;
-  oldAddress: string | null;
-  detailAddress: string | null;
-  recipient: string | null;
-  phone: string | null;
-  is_default: boolean | null;
-};
+function AddressChangeModal({
+  addressList,
+  setIsModalOpen,
+}: AddressChangeModalProps) {
+  const { expressAddress, setExpressAddress } = useExpressInfoStore(
+    (state) => state,
+  );
+  const modalBackground = useRef(null);
+  const [showAddressAddModal, setShowAddressAddModal] =
+    useState<boolean>(false);
+  const [editAddress, setEditAddress] = useState<Address | null>(null);
+  const [selectedAddressId, setSelectedAddressId] = useState<string | null>(
+    null,
+  );
+  const [addressesLength, setAddressesLength] = useState<number>(0);
 
-function AddressChangeModal({ setIsModalOpen }: AddressChangeModalProps) {
-  const handleChangeAddress = () => {
-    setIsModalOpen(false);
+  const user = useAuthStore((state) => state.user);
+
+  const handleEditAddressClick = (address: Address) => {
+    setEditAddress(address); // 수정 모드로 전환
+    setShowAddressAddModal(true);
   };
 
-  const addressList: Address[] = [
-    {
-      alias: '집',
-      postcode: '03045',
-      address: '서울 종로구 효자로 12 국립고궁박물관',
-      oldAddress: '세종로 1-57',
-      detailAddress: '테스트1',
-      recipient: '세종대왕',
-      phone: '010-1234-5678',
-      is_default: true,
-    },
-    {
-      alias: '회사',
-      postcode: '03045',
-      address: '경기도 수원시 영통구 삼성로 129 삼성전자공업단지',
-      oldAddress: '경기도 수원시 영통구 매탄3동 416',
-      detailAddress: '테스트2',
-      recipient: '이재용',
-      phone: '010-8765-4321',
-      is_default: false,
-    },
-  ];
+  const handleAddAddress = () => {
+    setShowAddressAddModal(false);
+  };
+
+  const updateAddressesLength = (length: number) => {
+    setAddressesLength(length);
+  };
+
+  const handleSelectAddress = (id: string) => {
+    setSelectedAddressId((prev) => (prev === id ? null : id));
+  };
+
+  const handleChangeAddress = () => {
+    setExpressAddress(
+      addressList.find((address) => address.id === selectedAddressId) ?? null,
+    );
+    console.log('expressAddress => ', expressAddress);
+    setIsModalOpen(false);
+    toast.success('배송지가 변경되었습니다!');
+  };
 
   return (
-    <>
-      <section
-        className={`flex w-full h-full fixed top-0 left-0 justify-center`}
-        onClick={handleChangeAddress}
-      >
-        <div className='relative bg-black-800 w-3/5 h-[700px] my-24 mx-auto rounded-lg'></div>
-      </section>
-    </>
+    <section
+      ref={modalBackground}
+      className='flex w-full h-full fixed top-0 left-0 justify-center bg-black-1000 bg-opacity-50 z-30'
+      onClick={(e) => {
+        if (e.target === modalBackground.current) setIsModalOpen(false);
+      }}
+    >
+      <div className='relative bg-black-800 rounded-lg p-8 my-20 h-[700px]'>
+        <div>
+          <div className='flex flex-col'>
+            <div className='flex flex-row justify-between items-start'>
+              <p className='text-2xl mb-9'>배송지 관리</p>
+              <button onClick={() => setIsModalOpen(false)}>X</button>
+            </div>
+            {user && (
+              <AddressActionsBtn
+                userId={user.id}
+                selectedAddressId={selectedAddressId}
+                addressesLength={addressesLength}
+                setShowAddressAddModal={setShowAddressAddModal}
+                setEditAddress={setEditAddress}
+              />
+            )}
+          </div>
+          <div className='flex gap-4 w-full text-center mt-6 justify-end'>
+            <p className='w-[78px]'>주소별칭</p>
+            <p className='w-[363px]'>배송주소</p>
+            <p className='w-[173px]'>받는 분 / 연락처</p>
+            <p className='w-[79px]'>관리</p>
+          </div>
+          <div className='border-b-[1px] border-white mt-3'></div>
+          {user && (
+            <AddressesList
+              userId={user.id}
+              selectedAddressId={selectedAddressId}
+              onSelectAddress={handleSelectAddress}
+              onEditAddress={handleEditAddressClick}
+              updateAddressesLength={updateAddressesLength}
+            />
+          )}
+          {showAddressAddModal && (
+            <AddressAddModal
+              onClose={() => setShowAddressAddModal(false)}
+              onAddAddress={handleAddAddress}
+              editMode={!!editAddress}
+              initialData={editAddress}
+            />
+          )}
+        </div>
+        <div className='flex justify-center items-center mt-20'>
+          <button
+            onClick={handleChangeAddress}
+            className='bg-primary-400 p-2 rounded-md text-lg transition-colors duration-200 hover:bg-primary-200 active:bg-primary-300'
+          >
+            배송지 변경
+          </button>
+        </div>
+      </div>
+    </section>
   );
 }
 
