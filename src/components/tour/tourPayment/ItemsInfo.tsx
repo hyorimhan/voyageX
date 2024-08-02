@@ -1,27 +1,28 @@
 'use client';
+import Loading from '@/components/common/Loading';
 import { tourDetail } from '@/services/tour';
 import { Tour } from '@/types/tourPropsType';
 import useQuantityStore from '@/zustand/store/useQuantity';
-
+import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
 
 function ItemsInfo({ id }: { id: string }) {
   const totalPrice = useQuantityStore((state) => state.totalPrice);
   const quantity = useQuantityStore((state) => state.quantity);
-  const [tours, setTours] = useState<Tour[]>([]);
 
-  useEffect(() => {
-    const tourPackage = async () => {
+  const { data: tourList, isLoading } = useQuery<Tour[]>({
+    queryKey: ['tours', id],
+    queryFn: async () => {
       const { tours, error } = await tourDetail(id);
-      setTours(tours as Tour[]);
       if (error) {
-        toast(error.message);
+        console.log(error);
       }
-    };
-    tourPackage();
-  }, [id]);
+      return tours ?? [];
+    },
+  });
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <>
@@ -29,14 +30,13 @@ function ItemsInfo({ id }: { id: string }) {
         <div className='items-center border-b-[1px] border-b-black-700 flex mt-[23px] mx-auto w-[672px] '>
           <div className='text-xl pb-3'>상품 정보 ㅣ 총 {quantity}개</div>
         </div>
-
-        <div className='w-[672px] mx-auto flex  '>
-          {tours?.map((tour) => {
+        <div className='w-[672px] mx-auto flex'>
+          {tourList?.map((tour) => {
             return (
               <div key={tour.id} className='flex items-center'>
                 <div>
                   <Image
-                    src={tour.planets.planet_img}
+                    src={tour.planets?.planet_img!}
                     alt={'tour.planets.name'}
                     width={104}
                     height={104}
@@ -45,8 +45,8 @@ function ItemsInfo({ id }: { id: string }) {
                 </div>
                 <div className='w-[410px] mx-[18px] mr-[18px]'>
                   <div className='flex'>
-                    <div className='mr-1'>{tour.planets.name}</div>
-                    <div>{tour.planets.english_name}</div>
+                    <div className='mr-1'>{tour.planets?.name}</div>
+                    <div>{tour.planets?.english_name!}</div>
                   </div>
                   <div>
                     <div>6박 7일 패키지</div>

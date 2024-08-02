@@ -7,10 +7,10 @@ import Image from 'next/image';
 
 function TourGuideSWiper() {
   const images = [
-    'https://i.ibb.co/fNx9nfZ/1.gif',
-    'https://i.ibb.co/jLbPMHR/2.jpg',
-    'https://i.ibb.co/P5qzKpV/3.jpg',
-    'https://i.ibb.co/GJXFyCx/4.jpg',
+    'https://i.ibb.co/VjYCQkc/1.gif',
+    'https://i.ibb.co/TYj8mTz/2.jpg',
+    'https://i.ibb.co/ZXD4Kwh/3.jpg',
+    'https://i.ibb.co/m0t7FCV/4.jpg',
   ];
   return (
     <div className='w-[1120px]'>
@@ -26,7 +26,7 @@ function TourGuideSWiper() {
             <div className='flex justify-center items-center w-full h-full'>
               <Image
                 src={img}
-                alt='guide'
+                alt='spaceTourGuide'
                 priority
                 loading='eager'
                 width={800}

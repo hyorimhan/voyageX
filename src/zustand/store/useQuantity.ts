@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { createJSONStorage, persist } from 'zustand/middleware';
 
 type quantityType = {
   totalPrice: number | null;
@@ -18,7 +18,7 @@ const useQuantityStore = create<quantityType>()(
     }),
     {
       name: 'quantity',
-      getStorage: () => sessionStorage,
+      storage: createJSONStorage(() => sessionStorage),
     },
   ),
 );

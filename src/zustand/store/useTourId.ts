@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { createJSONStorage, persist } from 'zustand/middleware';
 
 interface tourIdType {
   tourUrl: string;
@@ -14,7 +14,7 @@ const useTourIdStore = create<tourIdType>()(
     }),
     {
       name: 'tourId-storage',
-      getStorage: () => sessionStorage,
+      storage: createJSONStorage(() => sessionStorage),
     },
   ),
 );

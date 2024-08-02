@@ -18,7 +18,8 @@ const orbitron = Orbitron({
 const Header = () => {
   const user = useAuthStore((state) => state.user);
   const saveUser = useAuthStore((state) => state.saveUser);
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
