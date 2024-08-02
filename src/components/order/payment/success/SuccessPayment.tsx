@@ -130,6 +130,7 @@ function SuccessPayment() {
             },
           );
           setResult(confirm.data);
+          console.log('result =. ', result);
           const supabase = createClient();
           // 유저 정보
           const res = await userLoginInfo();
@@ -214,7 +215,12 @@ function SuccessPayment() {
             {tourUrl.length ? <div>6박 7일 패키지</div> : null}
           </div>
           <div className='flex flex-col border-l border-black-300 h-[104px] px-4 py-[30px] w-[122px]'>
-            <p className='text-white text-base'>{amount.toLocaleString()}원</p>
+            <p className='text-white text-base'>
+              {tourUrl.length
+                ? tours[0].price.toLocaleString()
+                : itemList[0].goods.goods_price.toLocaleString()}
+              원
+            </p>
             <span className='text-white text-sm'>
               {itemList.length !== 0 && `수량 ${itemList[0].quantity}개`}
             </span>
@@ -260,7 +266,7 @@ function SuccessPayment() {
           </div>
           <div className='pt-4 flex'>
             <div className='w-[104px]'>총 주문 금액 </div>
-            {amount.toLocaleString()}원
+            {(+amount).toLocaleString()}원
           </div>
           <div className='flex py-5 w-full border-b-black-700 border-b-[1px]'>
             <div className='w-[104px]'>총 배송비</div>
@@ -268,7 +274,7 @@ function SuccessPayment() {
           </div>
           <div className='flex pt-5'>
             <div className='w-[104px]'>총 결제 금액 </div>
-            {amount.toLocaleString()}원
+            {(+amount).toLocaleString()}원
           </div>
         </div>
 
@@ -280,12 +286,14 @@ function SuccessPayment() {
           <div className='text-sm'>
             <div className='pt-4 flex'>
               <div className='w-[104px]'>결제 방법</div>
-              {result.easyPay && `${result.easyPay.provider} ${result.method}`}
+              {result.easyPay
+                ? `${result.easyPay.provider} ${result.method}`
+                : result.method}
             </div>
             <div className='py-5 flex'>
-              <div className='w-[104px]'>결제 수단</div>
+              <div className='w-[104px]'>분할 납부</div>
               {result.card &&
-                ` ${result.method} ${
+                `${
                   result.card.installmentPlanMonths
                     ? `${result.card.installmentPlanMonths}개월 할부`
                     : '일시불'
