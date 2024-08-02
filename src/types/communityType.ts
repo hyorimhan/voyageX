@@ -1,15 +1,10 @@
-export type Posts<IsDetail extends boolean = false> = {
-  category: string;
-  content: string;
-  created_at: string;
-  id: string;
-  like_count: number;
-  title: string;
-  user_id: string;
-} & (IsDetail extends true
-  ? {
-      writer: {
-        profileIMG: string;
-      };
-    }
-  : {});
+import { Tables } from './supabase';
+
+export type Post = Tables<'posts'>;
+
+export type TWritePost = Pick<
+  Post,
+  'title' | 'content' | 'category' | 'user_id'
+>;
+
+export type TEditPost = Omit<Post, 'created_at'>;

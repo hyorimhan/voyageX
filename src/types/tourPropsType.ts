@@ -1,15 +1,15 @@
 export interface Tour {
   id: string;
   price: number;
-  tag: string | null;
+  tag: string;
   amount: number | null;
   planets: {
-    name: string | null;
+    name: string;
     planet_img: string;
-    description: string | null;
+    description: string;
     title: string | null;
-    english_name: string;
-  };
+    english_name: string | null;
+  } | null;
   rating_avg?: number;
 }
 

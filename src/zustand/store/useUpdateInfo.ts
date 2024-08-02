@@ -1,6 +1,6 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
-import CryptoJS from 'crypto-js';
+import { createJSONStorage, persist, StateStorage } from 'zustand/middleware';
+import CryptoJS, { enc } from 'crypto-js';
 
 type userInfo = {
   updateInfo: {
@@ -21,6 +21,19 @@ const decrypt = (ciphertext: string) => {
   const bytes = CryptoJS.AES.decrypt(ciphertext, secretKey);
   return bytes.toString(CryptoJS.enc.Utf8);
 };
+
+const customStorage = createJSONStorage<userInfo>(() => ({
+  getItem: (name) => {
+    const item = sessionStorage.getItem(name);
+    if (!item) return null;
+    const decryptedItem = decrypt(item);
+    return JSON.parse(decryptedItem);
+  },
+  setItem: (name, value) =>
+    sessionStorage.setItem(name, encrypt(JSON.stringify(value))),
+  removeItem: (name) => sessionStorage.removeItem(name),
+}));
+
 const useUpdateInfoStore = create<userInfo>()(
   persist(
     (set) => ({
@@ -29,9 +42,7 @@ const useUpdateInfoStore = create<userInfo>()(
     }),
     {
       name: 'user_info',
-      getStorage: () => sessionStorage,
-      serialize: (state) => encrypt(JSON.stringify(state)),
-      deserialize: (state) => JSON.parse(decrypt(state)),
+      storage: customStorage,
     },
   ),
 );

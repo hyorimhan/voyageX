@@ -37,7 +37,7 @@ function GoodsList() {
 
   return (
     <>
-      <div className='flex justify-end'>
+      <div className='flex justify-end mt-14'>
         <DropDownButton
           sortByList={sortByList}
           sortBy={sortBy}

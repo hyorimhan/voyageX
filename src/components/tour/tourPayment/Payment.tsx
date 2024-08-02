@@ -15,7 +15,6 @@ function Payment({ params }: tourProps) {
   const router = useRouter();
   const saveUser = useAuthStore((state) => state.saveUser);
   const setTourId = useTourIdStore((state) => state.setTourId);
-  // const [defaultAddress, setDefaultAddress] = useState<Address | null>(null);
   const { id } = params;
   setTourId(id);
 
