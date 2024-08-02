@@ -14,7 +14,7 @@ function DetailCard({ tour }: { tour: Tour }) {
   const contents = (
     <div>
       <div className='mt-12 text-2xl'>
-        {tour.planets?.name} 여행 패키지 일정
+        {tour.planets?.name} 여행 패키지 일정ㅁ
       </div>
       <div className='mt-6'>{tour.planets?.title}</div>
       <div className='mt-6'>{tour.planets?.description}</div>
