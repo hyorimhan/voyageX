@@ -1,5 +1,11 @@
+import WritePost from '@/components/community/write/WritePost';
+
 const WritePage = () => {
-  return <div>page</div>;
+  return (
+    <div className='font-pretendard'>
+      <WritePost />
+    </div>
+  );
 };
 
 export default WritePage;

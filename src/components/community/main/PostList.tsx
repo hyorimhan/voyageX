@@ -1,31 +1,29 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
-import { Tables } from '@/types/supabase';
 import Link from 'next/link';
-import CategoryBadge from './CategoryBadge';
+import { useQuery } from '@tanstack/react-query';
+import { getPostAll, getPostByCategory } from '@/services/community';
+import { Post } from '@/types/communityType';
+import { useCategory } from '@/zustand/store/useCategory';
+import CategoryBadge from '../common/CategoryBadge';
 
 const PostList = () => {
-  const [posts, setPosts] = useState<Tables<'posts'>[]>([]);
+  const selectedCategory = useCategory((state) => state.selectedCategory);
+  const {
+    data: posts,
+    isPending,
+    isError,
+  } = useQuery<Post[]>({
+    queryKey: ['post', selectedCategory],
+    queryFn:
+      selectedCategory === 'All'
+        ? getPostAll
+        : () => getPostByCategory(selectedCategory),
+  });
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const response = await fetch('/api/community/list');
-        const result = await response.json();
+  if (isPending) return <div>loading</div>;
 
-        if (response.ok) {
-          setPosts(result.data || []);
-        } else {
-          console.error('에러 발생', result.error);
-        }
-      } catch (error) {
-        console.error('에러 발생', error);
-      }
-    };
-
-    fetchPosts();
-  }, []);
+  if (isError) return <div>error</div>;
 
   return (
     <div className='overflow-x-auto'>
@@ -52,14 +50,14 @@ const PostList = () => {
         </div>
         {posts.map((post, index) => (
           <Link href={post.id} key={post.id}>
-            <div className='flex py-4 gap-x-4 items-center hover:bg-black-800 rounded-[8px]'>
+            <div className='flex py-4 gap-x-4 items-center group'>
               <span className='flex-none w-20 p-2 text-center'>
                 {String(index + 1)}
               </span>
               <span className='flex-none w-32 p-2 text-center'>
                 <CategoryBadge category={post.category} />
               </span>
-              <span className='flex-grow p-2 mx-7 overflow-hidden whitespace-nowrap text-ellipsis'>
+              <span className='flex-grow p-2 mx-7 overflow-hidden whitespace-nowrap text-ellipsis group-hover:font-bold group-hover:underline'>
                 {post.title}
               </span>
               <span className='flex-none w-32 p-2 text-center'>
