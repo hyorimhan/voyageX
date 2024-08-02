@@ -1,10 +1,31 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+
+import useCustomerInfoStore from '@/zustand/store/customrInfoStore';
+import { Address } from '@/types/userAddressType';
 import CustomerChangeModal from './CustomerChangeModal';
 
-function CustomerInfo() {
+interface CustomerInfo {
+  addressList: Address[];
+  user_email: string;
+}
+
+function CustomerInfo({ addressList, user_email }: CustomerInfo) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { customerInfo, setCustomerInfo } = useCustomerInfoStore(
+    (state) => state,
+  );
+  const defaultAddress = addressList.find((address) => address.is_default);
+
+  useEffect(() => {
+    setCustomerInfo({
+      customerName: defaultAddress?.recipient ?? '',
+      customerPhone: defaultAddress?.phone ?? '',
+      customerEmail: user_email,
+    });
+  }, []);
+  console.log('customerInfo => ', customerInfo);
 
   return (
     <>
@@ -14,7 +35,7 @@ function CustomerInfo() {
           <div>
             <button
               onClick={() => setIsModalOpen(true)}
-              className='bg-primary-400 rounded-lg p-2'
+              className='bg-primary-400 rounded-lg p-2 transition-colors duration-200 hover:bg-primary-200 active:bg-primary-300'
             >
               주문자정보 변경
             </button>
@@ -28,9 +49,9 @@ function CustomerInfo() {
               <p>이메일 주소</p>
             </div>
             <div className='flex flex-col gap-4 text-black-50'>
-              <p>세종대왕</p>
-              <p>010-1234-5678</p>
-              <p>gusdnr@test.com</p>
+              <p>{customerInfo?.customerName ?? defaultAddress?.recipient}</p>
+              <p>{customerInfo?.customerPhone ?? defaultAddress?.phone}</p>
+              <p>{customerInfo?.customerEmail ?? user_email}</p>
             </div>
           </div>
         </div>

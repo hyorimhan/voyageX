@@ -28,7 +28,7 @@ const AddressAddModalInput = ({
       <label className='text-black-200 mb-1'>{label}</label>
       <div>
         <input
-          className={`text-black rounded-lg h-[59px] py-5 px-6 w-full ${
+          className={`text-black-1000 rounded-lg h-[59px] py-5 px-6 w-full ${
             error
               ? 'border-error-900 border-2 text-black-1000 focus:outline-error-900'
               : 'border-black-200 border-2 hover:border-black-500 focus:border-black-500 focus:border-2 focus:text-black-1000 focus:outline-black-500'

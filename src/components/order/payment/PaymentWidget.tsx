@@ -7,8 +7,9 @@ import {
   loadPaymentWidget,
   PaymentWidgetInstance,
 } from '@tosspayments/payment-widget-sdk';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useRef } from 'react';
+import toast from 'react-hot-toast';
 
 export type Order = {
   orderId: string;
@@ -21,11 +22,12 @@ export type Order = {
 
 const PaymentWidget = () => {
   const searchParams = useSearchParams();
-  const totalPrice = useQuantityStore((state) => state.totalPrice);
+  const tourTotalPrice = useQuantityStore((state) => state.totalPrice);
   const user = useAuthStore((state) => state.user);
   const query: string = searchParams.get('orderInfo')!;
   const orderInfo: Order = JSON.parse(query);
   const updateInfo = useUpdateInfoStore((state) => state.updateInfo);
+  const router = useRouter();
 
   const userId = user?.id;
   const paymentWidgetRef = useRef<PaymentWidgetInstance | null>(null);
@@ -41,17 +43,15 @@ const PaymentWidget = () => {
     try {
       await paymentWidget?.requestPayment({
         orderId: orderInfo.orderId,
-        // orderName: orderInfo.orderName,
-        // customerName: orderInfo.customerName,
-        // customerMobilePhone: orderInfo.customerMobilePhone,
-        orderName: '주문명',
-        customerName: '주문자명',
+        orderName: orderInfo.orderName,
+        customerName: orderInfo.customerName,
         customerMobilePhone: orderInfo.customerMobilePhone,
         successUrl: `${window.location.origin}/shop/payment/success`,
         failUrl: `${window.location.origin}/shop/payment/fail`,
       });
     } catch (err: any) {
-      alert(err);
+      toast.error(err.message);
+      router.back();
     }
   };
 
@@ -63,7 +63,7 @@ const PaymentWidget = () => {
       // 결제방법 위젯
       const paymentMethodsWidget = paymentWidget.renderPaymentMethods(
         '#payment-widget',
-        totalPrice!, // 구매 가격
+        tourTotalPrice || orderInfo.totalPrice, // 구매 가격
       );
 
       // 약관동의 위젯
@@ -83,7 +83,7 @@ const PaymentWidget = () => {
         <button
           type='button'
           onClick={proceedPayment}
-          className='bg-[#4D367C] rounded-md p-3 my-4 text-lg'
+          className='bg-primary-600 rounded-md p-3 my-4 text-lg transition-colors duration-200 hover:bg-primary-400 active:bg-primary-500'
         >
           결제하기
         </button>

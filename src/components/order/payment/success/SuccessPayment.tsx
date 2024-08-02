@@ -9,17 +9,27 @@ import axios from 'axios';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import Image from 'next/image';
 import Link from 'next/link';
 import useUpdateInfoStore from '@/zustand/store/useUpdateInfo';
 import useQuantityStore from '@/zustand/store/useQuantity';
+import Image from 'next/image';
+import useItemListStore from '@/zustand/store/itemListStore';
+import useExpressInfoStore from '@/zustand/store/expressInfoStore';
+import useCustomerInfoStore from '@/zustand/store/customrInfoStore';
+import { createClient } from '@/supabase/client';
 
-function SuccessPayment({ tourUrl }: { tourUrl: string }) {
+function SuccessPayment() {
   const updateInfo = useUpdateInfoStore((state) => state.updateInfo);
   const totalPrice = useQuantityStore((state) => state.totalPrice);
   const quantity = useQuantityStore((state) => state.quantity);
   const saveUser = useAuthStore((state) => state.saveUser);
-  const setTourId = useTourIdStore((state) => state.setTourId);
+  const { tourUrl, setTourId } = useTourIdStore((state) => state);
+  const { itemList, setItemList } = useItemListStore((state) => state);
+  const { expressAddress, setExpressAddress } = useExpressInfoStore(
+    (state) => state,
+  );
+  const { setCustomerInfo } = useCustomerInfoStore((state) => state);
+  const { setUpdateInfo } = useUpdateInfoStore((state) => state);
   const router = useRouter();
   const searchParams = useSearchParams();
   const [result, setResult] = useState<any>();
@@ -33,80 +43,130 @@ function SuccessPayment({ tourUrl }: { tourUrl: string }) {
 
   useEffect(() => {
     // 투어 아이디
-    setTourId(tourUrl);
+    console.log('tourUrl => ', tourUrl);
+    if (tourUrl) {
+      setTourId(tourUrl);
 
-    const tourId = tourUrl;
+      const tourId = tourUrl;
 
-    const tourPackage = async () => {
-      const { tours, error } = await tourDetail(tourId);
-      setTours(tours as Tour[]);
-      if (error) {
-        toast(error.message);
-      }
-    };
-
-    const getOrderConfirmData = async () => {
-      try {
-        const confirm = await axios.post(
-          'https://api.tosspayments.com/v1/payments/confirm',
-          {
-            paymentKey,
-            amount,
-            orderId,
-          },
-          {
-            headers: {
-              'Authorization': `Basic ${authKey}`,
-              'Content-Type': 'application/json',
-            },
-          },
-        );
-
-        setResult(confirm.data);
-
-        // 유저 정보
-        const res = await userLoginInfo();
-        saveUser(res.user);
-        const userId = res.user?.id;
-
-        if (!userId) {
-          toast.error('사용자 정보가 없습니다.');
-        }
-        if (!tourId) {
-          toast.error('투어 정보가 없습니다.');
-        }
-
-        const { error } = await tourPayment({
-          userId: userId!,
-          tourId,
-          customerName: updateInfo?.name as string,
-          customerMobilePhone: updateInfo?.phone as string,
-          customerEmail: updateInfo?.email as string,
-          totalPrice: totalPrice as number,
-          amount: quantity as number,
-        });
+      const tourPackage = async () => {
+        const { tours, error } = await tourDetail(tourId);
+        setTours(tours as Tour[]);
         if (error) {
-          toast.error(error.message);
-          router.replace('/tour');
-        } else {
-          toast.success('결제 되었습니다');
+          toast(error.message);
         }
-      } catch (err) {
-        console.error(err);
+      };
+
+      const getOrderConfirmData = async () => {
+        try {
+          const confirm = await axios.post(
+            'https://api.tosspayments.com/v1/payments/confirm',
+            {
+              paymentKey,
+              amount,
+              orderId,
+            },
+            {
+              headers: {
+                'Authorization': `Basic ${authKey}`,
+                'Content-Type': 'application/json',
+              },
+            },
+          );
+          setResult(confirm.data);
+          // 유저 정보
+          const res = await userLoginInfo();
+          saveUser(res.user);
+          const userId = res.user?.id;
+          if (!userId) {
+            toast.error('사용자 정보가 없습니다.');
+          }
+          if (!tourId) {
+            toast.error('투어 정보가 없습니다.');
+          }
+          const { error } = await tourPayment({
+            userId: userId!,
+            tourId,
+            customerName: updateInfo?.name as string,
+            customerMobilePhone: updateInfo?.phone as string,
+            customerEmail: updateInfo?.email as string,
+            totalPrice: totalPrice as number,
+            amount: quantity as number,
+          });
+          if (error) {
+            toast.error(error.message);
+            router.replace('/tour');
+          } else {
+            toast.success('결제 되었습니다');
+          }
+        } catch (err) {
+          console.error(err);
+        }
+      };
+
+      if (!orderId || !paymentKey || !amount || !authKey) {
+        toast('오류가 발생했습니다');
+        router.replace('/tour');
+        return;
       }
-    };
-
-    if (!orderId || !paymentKey || !amount || !authKey) {
-      toast('오류가 발생했습니다');
-      router.replace('/tour');
-      return;
+      tourPackage();
+      getOrderConfirmData();
+      console.log('tours => ', tours);
+    } else if (itemList) {
+      console.log('itemList => ', itemList);
+      const getOrderConfirmData = async () => {
+        try {
+          const confirm = await axios.post(
+            'https://api.tosspayments.com/v1/payments/confirm',
+            {
+              paymentKey,
+              amount,
+              orderId,
+            },
+            {
+              headers: {
+                'Authorization': `Basic ${authKey}`,
+                'Content-Type': 'application/json',
+              },
+            },
+          );
+          setResult(confirm.data);
+          console.log('result =. ', result);
+          const supabase = createClient();
+          // 유저 정보
+          const res = await userLoginInfo();
+          saveUser(res.user);
+          const user_id = res.user?.id;
+          const { data, error } = await supabase.from('goods_orders').insert({
+            id: orderId,
+            user_id: user_id!,
+            goods_id: itemList[0].goods.id,
+          });
+          if (error) console.error('error => ', error);
+          console.log('data => ', data);
+        } catch (error) {
+          console.error(error);
+        }
+      };
+      getOrderConfirmData();
     }
+  }, [orderId, paymentKey, amount, authKey]);
 
-    tourPackage();
-    getOrderConfirmData();
-  }, [tourUrl, orderId, paymentKey, amount, authKey]);
-
-  if (!result) return <div>승인 중</div>;
+  if (!result)
+    return (
+      <div className='w-full'>
+        <div className='w-1/2 h-[700px] my-auto mx-auto flex flex-col items-center justify-center'>
+          <p>화면이 지속된다면</p>
+          <p>홈 화면으로 돌아가주세요.</p>
+          <button
+            className='border-2 rounded-lg p-2 hover:brightness-150 cursor-pointer transition-colors duration-200 hover:bg-white hover:text-black-1000 hover:font-extrabold'
+            onClick={() => router.replace('/')}
+          >
+            돌아가기
+          </button>
+        </div>
+      </div>
+    );
 
   return (
     <>
@@ -116,15 +176,21 @@ function SuccessPayment({ tourUrl }: { tourUrl: string }) {
         </div>
         <div className='flex gap-4 w-[571px] '>
           <div>
-            <Link href={`/mypage/tour_orders/detail/${orderId}`}>
-              <button className='border-[1.5px] border-primary-400 h-[53px] w-[277.5px] rounded-lg'>
+            <Link
+              href={
+                tourUrl.length
+                  ? `/mypage/tour_orders/detail/${orderId}`
+                  : `/mypage/goods_orders`
+              }
+            >
+              <button className='border-[1.5px] border-primary-400 h-[53px] w-[277.5px] rounded-lg bg-transparent transition-colors duration-200 hover:bg-primary-200 hover:text-black-1000 active:bg-primary-300'>
                 주문상세 보기
               </button>
             </Link>
           </div>
           <div>
-            <Link href={'/tour'}>
-              <button className=' bg-primary-600 h-[53px] w-[277.5px] rounded-lg'>
+            <Link href={tourUrl.length ? '/tour' : '/shop'}>
+              <button className=' bg-primary-600 h-[53px] w-[277.5px] rounded-lg duration-200 hover:bg-primary-400 active:bg-primary-500'>
                 쇼핑 계속하기
               </button>
             </Link>
@@ -141,58 +207,108 @@ function SuccessPayment({ tourUrl }: { tourUrl: string }) {
         <div className='flex items-center'>
           <div className='mr-[18px]'>
             <Image
-              src={tours[0].planets.planet_img}
-              alt={tours[0].planets.name!}
+              src={
+                tourUrl.length
+                  ? tours[0].planets.planet_img
+                  : itemList[0].goods.goods_img
+              }
+              alt={
+                tourUrl.length
+                  ? tours[0].planets.name!
+                  : itemList[0].goods.goods_name
+              }
               width={104}
               height={104}
             />
           </div>
           <div className='w-[818px] mr-[18px]'>
             <div>
-              {tours[0].planets.name} {tours[0].planets.english_name}
+              {tourUrl.length
+                ? `${tours[0].planets.name} ${tours[0].planets.english_name}`
+                : `${itemList[0].goods.goods_name}`}
             </div>
-            <div>6박 7일 패키지</div>
+            {tourUrl.length ? <div>6박 7일 패키지</div> : null}
           </div>
-          <div className='border-l border-black-300 h-[104px] px-4 py-[30px] w-[122px]'>
-            {totalPrice?.toLocaleString()}원 수량 {quantity}개
+          <div className='flex flex-col border-l border-black-300 h-[104px] px-4 py-[30px] w-[122px]'>
+            <p className='text-white text-base'>
+              {tourUrl.length
+                ? tours[0].price.toLocaleString()
+                : itemList[0].goods.goods_price.toLocaleString()}
+              원
+            </p>
+            <span className='text-white text-sm'>
+              {itemList.length !== 0 && `수량 ${itemList[0].quantity}개`}
+            </span>
           </div>
         </div>
       </div>
+      <div className='mt-8 mx-auto max-w-[1120px] flex flex-wrap gap-8'>
+        {/* 배송 정보 */}
+        {itemList.length !== 0 && (
+          <div className='border-black-300 border-[1px] rounded-lg p-5 text-sm flex-1 min-w-[300px]'>
+            <div className='text-xl border-b-black-700 border-b-[1px] pb-3'>
+              배송 정보
+            </div>
+            <div className='pt-4 flex'>
+              <div className='w-[104px] text-black-200'>받는 분 </div>
+              {expressAddress?.recipient}
+            </div>
+            <div className='flex py-5'>
+              <div className='w-[104px] text-black-200'>휴대전화 번호</div>
+              {expressAddress?.phone}
+            </div>
+            <div className='flex gap-10'>
+              <div className='w-[104px] text-black-200'>배송지 정보</div>
+              <div>
+                <div>
+                  도로명: {expressAddress?.address}{' '}
+                  {expressAddress?.detailAddress}
+                </div>
+                <div>
+                  지번: {expressAddress?.oldAddress}{' '}
+                  {expressAddress?.detailAddress}
+                </div>
+                <div>{`(${expressAddress?.postcode})`}</div>
+              </div>
+            </div>
+          </div>
+        )}
 
-      <div className='flex mt-8 gap-8'>
-        <div className='border-black-300 w-1/2 border-[1px] rounded-lg p-5 text-sm'>
+        {/* 결제 정보 */}
+        <div className='border-black-300 border-[1px] rounded-lg p-5 text-sm flex-1 min-w-[300px]'>
           <div className='text-xl border-b-black-700 border-b-[1px] pb-3'>
             결제 정보
           </div>
           <div className='pt-4 flex'>
             <div className='w-[104px]'>총 주문 금액 </div>
-            {/* {result.totalAmount}원 */}
-            {totalPrice?.toLocaleString()}원
+            {(+amount).toLocaleString()}원
           </div>
-          <div className=' flex py-5 w-[504px]  border-b-black-700 border-b-[1px]'>
+          <div className='flex py-5 w-full border-b-black-700 border-b-[1px]'>
             <div className='w-[104px]'>총 배송비</div>
             무료
           </div>
-          <div className=' flex pt-5'>
+          <div className='flex pt-5'>
             <div className='w-[104px]'>총 결제 금액 </div>
-            {/* {result.totalAmount}원 */}
-            {totalPrice?.toLocaleString()}원
+            {(+amount).toLocaleString()}원
           </div>
         </div>
 
-        <div className='border-black-300 w-1/2  border-[1px] rounded-lg p-5'>
+        {/* 결제 수단 */}
+        <div className='border-black-300 border-[1px] rounded-lg p-5 flex-1 min-w-[300px]'>
           <div className='text-xl border-b-black-700 border-b-[1px] pb-3'>
             결제 수단
           </div>
           <div className='text-sm'>
             <div className='pt-4 flex'>
               <div className='w-[104px]'>결제 방법</div>
-              {result.easyPay && `${result.easyPay.provider} ${result.method}`}
+              {result.easyPay
+                ? `${result.easyPay.provider} ${result.method}`
+                : result.method}
             </div>
             <div className='py-5 flex'>
-              <div className='w-[104px]'>결제 수단</div>
+              <div className='w-[104px]'>분할 납부</div>
               {result.card &&
-                ` ${result.method} ${
+                `${
                   result.card.installmentPlanMonths
                     ? `${result.card.installmentPlanMonths}개월 할부`
                     : '일시불'
