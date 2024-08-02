@@ -1,17 +1,29 @@
+'use client';
+
 import Link from 'next/link';
-import CategoryBadge from './CategoryBadge';
-import { createClient } from '@/supabase/server';
+import { useQuery } from '@tanstack/react-query';
+import { getPostAll, getPostByCategory } from '@/services/community';
+import { Post } from '@/types/communityType';
+import { useCategory } from '@/zustand/store/useCategory';
+import CategoryBadge from '../common/CategoryBadge';
 
-const PostList = async () => {
-  const supabase = createClient();
-  const { data, error } = await supabase
-    .from('posts')
-    .select('*')
-    .order('created_at', { ascending: false });
+const PostList = () => {
+  const selectedCategory = useCategory((state) => state.selectedCategory);
+  const {
+    data: posts,
+    isPending,
+    isError,
+  } = useQuery<Post[]>({
+    queryKey: ['post', selectedCategory],
+    queryFn:
+      selectedCategory === 'All'
+        ? getPostAll
+        : () => getPostByCategory(selectedCategory),
+  });
 
-  if (error) {
-    throw new Error(error.message);
-  }
+  if (isPending) return <div>loading</div>;
+
+  if (isError) return <div>error</div>;
 
   return (
     <div className='overflow-x-auto'>
@@ -36,7 +48,7 @@ const PostList = async () => {
             댓글
           </span>
         </div>
-        {data.map((post, index) => (
+        {posts.map((post, index) => (
           <Link href={post.id} key={post.id}>
             <div className='flex py-4 gap-x-4 items-center group'>
               <span className='flex-none w-20 p-2 text-center'>
