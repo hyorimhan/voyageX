@@ -1,15 +1,26 @@
+'use client';
 import { Tour, tourProps } from '@/types/tourPropsType';
-// import toast from 'react-hot-toast';
 import DetailCard from './DetailCard';
 import { tourDetail } from '../../../services/tour';
+import { useQuery } from '@tanstack/react-query';
+import Loading from '@/components/common/Loading';
 
-async function TourDetail({ params }: tourProps) {
+function TourDetail({ params }: tourProps) {
   const { id } = params;
-  const { tours, error } = await tourDetail(id);
+  const { data: tours, isLoading } = useQuery({
+    queryKey: ['tours', id],
+    queryFn: async () => {
+      const { tours, error } = await tourDetail(id);
+      if (error) {
+        console.log(error);
+      }
+      return tours ?? [];
+    },
+  });
 
-  // if (error) {
-  //   toast.error(error.message);
-  // }
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <>

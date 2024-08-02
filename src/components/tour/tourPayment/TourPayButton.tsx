@@ -46,7 +46,6 @@ function TourPayButton({ id }: { id: string }) {
     };
 
     const orderInfo = JSON.stringify(currentOrder);
-    // const express = JSON.stringify('배송지정보');
 
     router.push(`/shop/payment/${orderId}?orderInfo=${orderInfo}`);
   };

@@ -13,9 +13,11 @@ function DetailCard({ tour }: { tour: Tour }) {
 
   const contents = (
     <div>
-      <div className='mt-12 text-2xl'>{tour.planets.name} 여행 패키지 일정</div>
-      <div className='mt-6'>{tour.planets.title}</div>
-      <div className='mt-6'>{tour.planets.description}</div>
+      <div className='mt-12 text-2xl'>
+        {tour.planets?.name} 여행 패키지 일정
+      </div>
+      <div className='mt-6'>{tour.planets?.title}</div>
+      <div className='mt-6'>{tour.planets?.description}</div>
       <div className='flex flex-col gap-4 '>
         <TourGuideSWiper />
       </div>
@@ -27,8 +29,8 @@ function DetailCard({ tour }: { tour: Tour }) {
       <div className='  mt-40 flex '>
         <div className='flex w-[500px] h-[500px]'>
           <Image
-            src={tour.planets.planet_img}
-            alt={tour.planets.name!}
+            src={tour.planets?.planet_img!}
+            alt={tour.planets?.name!}
             width={500}
             height={500}
             className='m-6 '
@@ -36,7 +38,7 @@ function DetailCard({ tour }: { tour: Tour }) {
         </div>
         <div className='w-[556px] h-[552px] ml-16'>
           <div className='text-2xl mb-4'>
-            {tour.planets.name} {tour.planets.english_name}
+            {tour.planets?.name} {tour.planets?.english_name}
           </div>
           <div></div>
           <div className='text-sm mb-8'>{tour.tag}</div>
@@ -50,9 +52,9 @@ function DetailCard({ tour }: { tour: Tour }) {
               여행기간 2025.10.10 ~2025.10.20
             </div>
             <div className=' border-b my-3  pb-3 '>우주선 명 스타라이저</div>
-            <div className=' border-b my-3  pb-3'>티켓 배송비 3000원</div>
+            <div className=' border-b my-3  pb-3'>수량 1개 (1인 1개 한정)</div>
           </div>
-          <QuantityBtn goodsPrice={tour.price} />
+          <QuantityBtn tourPrice={tour.price} />
           <div className='flex items-center gap-4'>
             {user && (
               <div className=' w-[53px] h-[53px] flex p-2 rounded-lg items-center border-2 justify-center border-solid border-primary-400 mt-8'>

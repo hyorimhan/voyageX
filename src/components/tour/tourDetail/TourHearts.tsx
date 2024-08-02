@@ -21,8 +21,6 @@ function TourHearts({ tour_id, user_id }: TourHeartsProps) {
     isPending,
   } = useGetIsLikedTourByUser(tour_id, user_id);
 
-  console.log(isLiked);
-
   const { mutate: likeMutate } = useToggleLikeTours(tour_id, user_id, isLiked!);
 
   const handleToggleLike = () => {
