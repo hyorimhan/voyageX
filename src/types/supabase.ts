@@ -1,6 +1,3 @@
-Need to install the following packages:
-supabase@1.187.8
-Ok to proceed? (y) 
 export type Json =
   | string
   | number

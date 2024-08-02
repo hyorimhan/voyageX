@@ -142,8 +142,12 @@ function SuccessPayment() {
             user_id: user_id!,
             goods_id: itemList[0].goods.id,
           });
-          if (error) console.error('error => ', error);
-          console.log('data => ', data);
+          if (error) {
+            toast.error(error.message);
+            router.replace('/shop');
+          } else {
+            toast.success('결제 되었습니다.');
+          }
         } catch (error) {
           console.error(error);
         }

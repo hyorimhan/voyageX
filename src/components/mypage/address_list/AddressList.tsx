@@ -7,7 +7,7 @@ import { Address } from '@/types/userAddressType';
 import AddressEditDeleteBtn from './AddressEditDeleteBtn';
 import { useFetchAddresses } from '@/hooks/addressHooks';
 import { useEffect, useState } from 'react';
-import { deleteAddress } from '@/app/api/mypage/address/list/route';
+import { deleteAddress } from '@/services/address';
 
 type AddressesListProps = {
   userId: string;
