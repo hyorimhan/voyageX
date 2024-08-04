@@ -7,14 +7,9 @@ import { userLoginInfo } from '@/services/auth';
 import MyPageIcon24px from './icons/24px/MyPageIcon24px';
 import ShoppingBagIcon24px from './icons/24px/ShoppingBagIcon24px';
 import HeartDefaultIcon24px from './icons/24px/HeartDefaultIcon24px';
-import { Orbitron } from 'next/font/google';
 import { useRouter } from 'next/navigation';
 import Loading from './Loading';
-
-const orbitron = Orbitron({
-  subsets: ['latin'],
-  weight: ['400'],
-});
+import { orbitron } from '../../../public/fonts/orbitron';
 
 const Header = () => {
   const user = useAuthStore((state) => state.user);
@@ -70,7 +65,9 @@ const Header = () => {
               뉴스
             </button>
           </nav>
-          <div className='flex items-center justify-center'>
+          <div
+            className={`flex items-center justify-center ${orbitron.className}`}
+          >
             <button className='text-2xl' onClick={() => handleLinkClick('/')}>
               Voyage X
             </button>
