@@ -1,6 +1,7 @@
 'use client';
 
-import { useGetLikedGoodsByUser, useToggleLikeGoods } from '@/hooks/goodsHooks';
+import Loading from '@/components/common/Loading';
+// import { useGetLikedGoodsByUser, useToggleLikeGoods } from '@/hooks/goodsHooks';
 import {
   useGetIsLikedTourByUser,
   useToggleLikeTours,
@@ -34,7 +35,7 @@ function TourHearts({ tour_id, user_id }: TourHeartsProps) {
   };
 
   if (isError) return <div>에러</div>;
-  if (isPending) return <div>로딩 중..</div>;
+  if (isPending) return <Loading />;
 
   return (
     <>
