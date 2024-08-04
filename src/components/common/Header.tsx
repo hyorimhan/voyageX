@@ -1,6 +1,5 @@
 'use client';
 import useAuthStore from '@/zustand/store/useAuth';
-import Link from 'next/link';
 import React, { useEffect, useState, useTransition } from 'react';
 import { FaBars } from 'react-icons/fa';
 import LogoutBtn from '@/components/auth/logout/LogoutBtn';

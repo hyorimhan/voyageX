@@ -20,7 +20,11 @@ const MainPage = () => {
   const [currentSlide, setCurrentSlide] = useState<number>(0);
 
   const { goods, loading, error } = useFetchGoods();
-  const { planets, loading: planetsLoading, error: planetsError } = useFetchTourDetail();
+  const {
+    planets,
+    loading: planetsLoading,
+    error: planetsError,
+  } = useFetchTourDetail();
 
   const visiblePlanetsCount = 3; // 처음에 보일 행성 수
 
@@ -103,11 +107,13 @@ const MainPage = () => {
           const zPos = radius * Math.cos(angle); // z 좌표
           const isVisible =
             (index >= currentSlide &&
-              index < currentSlide + visiblePlanetsCount) ||  // visiblePlanetsCount 개수만큼 행성이 보이도록 조건식
+              index < currentSlide + visiblePlanetsCount) || // visiblePlanetsCount 개수만큼 행성이 보이도록 조건식
             (index < currentSlide &&
               index + planets.length < currentSlide + visiblePlanetsCount);
           const isActive =
-            index === (currentSlide + Math.floor(visiblePlanetsCount / 2)) % planets.length;
+            index ===
+            (currentSlide + Math.floor(visiblePlanetsCount / 2)) %
+              planets.length;
           const scale = isActive ? 2 : 1;
           const zIndex = isActive ? 10 : 0;
           const opacity = isVisible ? (isActive ? 1 : 0.5) : 0;
@@ -189,6 +195,7 @@ const MainPage = () => {
         >
           Let's Find Popular Planets!
         </div>
+        '
         <div className='scroll-container h-full w-full relative flex items-center justify-center'>
           <button
             onClick={handlePrevSlide}
@@ -229,110 +236,111 @@ const MainPage = () => {
                       150 *
                       Math.sin(
                         ((adjustedIndex - currentSlide) * (2 * Math.PI)) /
-                        planets.length,
-                    )
-                  }px, 0, ${
-                    150 *
-                    Math.cos(
-                      ((adjustedIndex - currentSlide) * (2 * Math.PI)) /
-                        planets.length,
-                    )
-                  }px) scale(${isActive ? 1.5 : 1})`,
-                  zIndex: isActive ? 10 : 0,
-                  opacity: isVisible ? (isActive ? 1 : 0.5) : 0,
-                }}
-              >
+                          planets.length,
+                      )
+                    }px, 0, ${
+                      150 *
+                      Math.cos(
+                        ((adjustedIndex - currentSlide) * (2 * Math.PI)) /
+                          planets.length,
+                      )
+                    }px) scale(${isActive ? 1.5 : 1})`,
+                    zIndex: isActive ? 10 : 0,
+                    opacity: isVisible ? (isActive ? 1 : 0.5) : 0,
+                  }}
+                >
+                  <Image
+                    src={planet.planet_img}
+                    alt={`Planet ${index + 1}`}
+                    layout='fill'
+                    objectFit='contain'
+                  />
+                  {isActive && (
+                    <div className='text-center absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-full w-max'>
+                      <p>{planet.name}</p>
+                      <p>
+                        {planet.price
+                          ? `₩${planet.price.toLocaleString()}`
+                          : 'Price Does Not Exist'}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+          <button
+            onClick={handleNextSlide}
+            className='absolute right-2 sm:right-4 z-10 p-2 bg-white rounded-full'
+          >
+            →
+          </button>
+        </div>
+      </section>
+
+      <section
+        ref={(el) => {
+          sectionsRef.current[2] = el as HTMLDivElement;
+        }}
+        className='section section-bg h-screen flex flex-col items-center justify-center'
+      >
+        <h1 className='text-4xl font-bold mb-8 absolute top-44 left-12'>
+          Goods Item
+        </h1>
+        <Link href='/shop'>
+          <p className='absolute top-44 right-24 underline'>More+</p>
+        </Link>
+        {error && <p className='text-red-500'>{error}</p>}
+        {loading ? (
+          <p>Loading...</p>
+        ) : (
+          <div className='grid grid-cols-3 gap-4'>
+            {goods.map((item) => (
+              <div key={item.id} className='p-4 rounded shadow'>
                 <Image
-                  src={planet.planet_img}
-                  alt={`Planet ${index + 1}`}
-                  layout='fill'
-                  objectFit='contain'
+                  src={item.goods_img}
+                  alt={item.goods_name}
+                  width={300}
+                  height={300}
+                  className='object-cover bg-white-600'
                 />
-                {isActive && (
-                  <div
-                    className='text-center absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-full w-max'
-                  >
-                    <p>{planet.name}</p>
-                    <p>{planet.price ? `₩${planet.price.toLocaleString()}` : 'Price Does Not Exist'}</p>
-                  </div>
-                )}
+                <h2 className='text-xl font-semibold mt-4'>
+                  {item.goods_name}
+                </h2>
+                <p className='text-sm'>{item.goods_price}원</p>
               </div>
-            );
-          })}
-        </div>
-        <button
-          onClick={handleNextSlide}
-          className='absolute right-2 sm:right-4 z-10 p-2 bg-white rounded-full'
-        >
-          →
-        </button>
-      </div>
-    </section>
+            ))}
+          </div>
+        )}
+      </section>
 
-    <section
-      ref={(el) => {
-        sectionsRef.current[2] = el as HTMLDivElement;
-      }}
-      className='section section-bg h-screen flex flex-col items-center justify-center'
-    >
-      <h1 className='text-4xl font-bold mb-8 absolute top-44 left-12'>
-        Goods Item
-      </h1>
-      <Link href='/shop'>
-        <p className='absolute top-44 right-24 underline'>More+</p>
-      </Link>
-      {error && <p className='text-red-500'>{error}</p>}
-      {loading ? (
-        <p>Loading...</p>
-      ) : (
-        <div className='grid grid-cols-3 gap-4'>
-          {goods.map((item) => (
-            <div key={item.id} className='p-4 rounded shadow'>
-              <Image
-                src={item.goods_img}
-                alt={item.goods_name}
-                width={300}
-                height={300}
-                className='object-cover bg-white-600'
-              />
-              <h2 className='text-xl font-semibold mt-4'>
-                {item.goods_name}
-              </h2>
-              <p className='text-sm'>{item.goods_price}원</p>
-            </div>
-          ))}
-        </div>
-      )}
-    </section>
+      <section
+        ref={(el) => {
+          sectionsRef.current[3] = el as HTMLDivElement;
+        }}
+        className='section section-bg h-screen flex items-center justify-center'
+      >
+        <TopPostsSection />
+      </section>
 
-    <section
-      ref={(el) => {
-        sectionsRef.current[3] = el as HTMLDivElement;
-      }}
-      className='section section-bg h-screen flex items-center justify-center'
-    >
-      <TopPostsSection
-      />
-    </section>
-
-    <section
-      ref={(el) => {
-        sectionsRef.current[4] = el as HTMLDivElement;
-      }}
-      className='section h-screen flex items-center justify-center'
-      style={{
-        backgroundImage: "url('/images/section5-bg.png')",
-        backgroundSize: 'cover',
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'center',
-        backgroundAttachment: 'fixed',
-      }}
-    >
-      <h1>5번째 섹션입니다</h1>
-    </section>
-    <Footer />
-  </div>
-);
+      <section
+        ref={(el) => {
+          sectionsRef.current[4] = el as HTMLDivElement;
+        }}
+        className='section h-screen flex items-center justify-center'
+        style={{
+          backgroundImage: "url('/images/section5-bg.png')",
+          backgroundSize: 'cover',
+          backgroundRepeat: 'no-repeat',
+          backgroundPosition: 'center',
+          backgroundAttachment: 'fixed',
+        }}
+      >
+        <h1>5번째 섹션입니다</h1>
+      </section>
+      <Footer />
+    </div>
+  );
 };
 
 export default MainPage;

@@ -1,5 +1,5 @@
 import Search from '@/components/community/main/Search';
-import SearchResult from '@/components/community/SearchResult';
+import SearchResult from '@/components/community/search/SearchResult';
 import Page from '@/components/pages/Page';
 import React from 'react';
 
