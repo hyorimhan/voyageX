@@ -1,5 +1,6 @@
 'use client';
 
+import Loading from '@/components/common/Loading';
 import HeartDefaultIcon32px from '@/components/common/icons/32px/HeartDefaultIcon32px';
 import HeartPressedIcon32px from '@/components/common/icons/32px/HeartPressedIcon32px';
 import { useGetLikedGoodsByUser, useToggleLikeGoods } from '@/hooks/goodsHooks';
@@ -42,7 +43,7 @@ function TourHearts({ tour_id, user_id }: TourHeartsProps) {
   };
 
   if (isError) return <div>에러</div>;
-  if (isPending) return <HeartDefaultIcon32px />;
+  if (isPending) return <Loading />;
 
   return (
     <>

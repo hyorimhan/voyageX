@@ -6,7 +6,7 @@ import {
   emailValidate,
   passwordConfirmValidate,
   passwordValidate,
-} from '@/components/auth/authValidate';
+} from '@/components/auth/AuthValidate';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 import SignupCheckbox from './SignupCheckbox';
