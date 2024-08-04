@@ -56,11 +56,9 @@ function DetailCard({ tour }: { tour: Tour }) {
           </div>
           <QuantityBtn tourPrice={tour.price} />
           <div className='flex items-center gap-4'>
-            {user && (
-              <div className=' w-[53px] h-[53px] flex p-2 rounded-lg items-center border-2 justify-center border-solid border-primary-400 mt-8'>
-                <TourHearts tour_id={tour.id} user_id={user.id} />
-              </div>
-            )}
+            <div className=' w-[53px] h-[53px] flex p-2 rounded-lg items-center border-2 justify-center border-solid border-primary-400 mt-8'>
+              <TourHearts tour_id={tour.id} user_id={user?.id} />
+            </div>
             <Link href={`/tour/payment/${tour.id}`}>
               <div className='h-[60px] w-[487px] bg-primary-600 rounded-lg justify-center flex items-center mt-8'>
                 구매하기
