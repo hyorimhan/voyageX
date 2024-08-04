@@ -1,18 +1,21 @@
 'use client';
 
 import Loading from '@/components/common/Loading';
-// import { useGetLikedGoodsByUser, useToggleLikeGoods } from '@/hooks/goodsHooks';
+import HeartDefaultIcon32px from '@/components/common/icons/32px/HeartDefaultIcon32px';
+import HeartPressedIcon32px from '@/components/common/icons/32px/HeartPressedIcon32px';
+import { useGetLikedGoodsByUser, useToggleLikeGoods } from '@/hooks/goodsHooks';
 import {
   useGetIsLikedTourByUser,
   useToggleLikeTours,
 } from '@/hooks/toursHooks';
 import { toggleLikeToursParamsType } from '@/types/tour';
+import toast from 'react-hot-toast';
 import { IoHeart } from 'react-icons/io5';
 import { IoHeartOutline } from 'react-icons/io5';
 
 interface TourHeartsProps {
   tour_id: string;
-  user_id: string;
+  user_id?: string;
 }
 
 function TourHearts({ tour_id, user_id }: TourHeartsProps) {
@@ -20,11 +23,16 @@ function TourHearts({ tour_id, user_id }: TourHeartsProps) {
     data: isLiked,
     isError,
     isPending,
-  } = useGetIsLikedTourByUser(tour_id, user_id);
+  } = useGetIsLikedTourByUser(tour_id, user_id!);
 
-  const { mutate: likeMutate } = useToggleLikeTours(tour_id, user_id, isLiked!);
+  const { mutate: likeMutate } = useToggleLikeTours(
+    tour_id,
+    user_id!,
+    isLiked!,
+  );
 
   const handleToggleLike = () => {
+    if (!user_id) return toast.error('로그인 해주세요!');
     if (isLiked === undefined) return;
     const toggleParams: toggleLikeToursParamsType = {
       tour_id,
@@ -45,7 +53,15 @@ function TourHearts({ tour_id, user_id }: TourHeartsProps) {
         }`}
         onClick={handleToggleLike}
       >
-        {isLiked ? <IoHeart /> : <IoHeartOutline />}
+        {user_id ? (
+          isLiked ? (
+            <HeartPressedIcon32px />
+          ) : (
+            <HeartDefaultIcon32px />
+          )
+        ) : (
+          <HeartDefaultIcon32px />
+        )}
       </span>
     </>
   );

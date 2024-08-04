@@ -69,11 +69,9 @@ const GoodsInfo = ({ goods, goods_id }: GoodsInfoProps) => {
           <QuantityBtn goodsPrice={goods.goods_price} />
         </div>
         <div className='gap-4 flex mt-5 w-full'>
-          {user && (
-            <div className='flex p-2 rounded-lg items-center border-2 border-solid border-primary-400'>
-              <Hearts goods_id={goods_id} user_id={user.id} />
-            </div>
-          )}
+          <div className='flex p-2 rounded-lg items-center border-2 border-solid border-primary-400'>
+            <Hearts goods_id={goods_id} user_id={user?.id} />
+          </div>
           <div className='flex flex-grow gap-4 text-base h-[53px]'>
             <button className='border-solid border-2 w-full border-primary-400 rounded-lg'>
               장바구니
