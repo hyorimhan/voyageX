@@ -14,6 +14,7 @@ type Params = {
 
 const ShopDetailPage = ({ params }: Params) => {
   const { data: goods, isLoading, isError } = useGetGoodsItem(params.id);
+  const contents = '콘텐츠';
 
   if (isLoading) return <div>로딩 중..</div>;
   if (isError) return <div>에러 발생</div>;
@@ -27,6 +28,7 @@ const ShopDetailPage = ({ params }: Params) => {
         <GoodsDetailPageTabSelector
           goodsRating={goods?.rating_avg}
           goodsId={params.id}
+          contents={contents}
         />
         <FAQ />
       </div>

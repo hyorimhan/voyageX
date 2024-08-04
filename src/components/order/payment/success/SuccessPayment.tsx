@@ -52,6 +52,7 @@ function SuccessPayment() {
       const tourPackage = async () => {
         const { tours, error } = await tourDetail(tourId);
         setTours(tours as Tour[]);
+        console.log(tours);
         if (error) {
           toast(error.message);
         }
@@ -207,16 +208,16 @@ function SuccessPayment() {
         <div className='flex items-center'>
           <div className='mr-[18px]'>
             <Image
-              src={
+              src={`${
                 tourUrl.length
-                  ? tours[0].planets.planet_img
+                  ? tours[0].planets?.planet_img
                   : itemList[0].goods.goods_img
-              }
-              alt={
+              }`}
+              alt={`${
                 tourUrl.length
-                  ? tours[0].planets.name!
+                  ? tours[0].planets?.planet_img
                   : itemList[0].goods.goods_name
-              }
+              }`}
               width={104}
               height={104}
             />
@@ -224,7 +225,7 @@ function SuccessPayment() {
           <div className='w-[818px] mr-[18px]'>
             <div>
               {tourUrl.length
-                ? `${tours[0].planets.name} ${tours[0].planets.english_name}`
+                ? `${tours[0].planets?.name} ${tours[0].planets?.english_name}`
                 : `${itemList[0].goods.goods_name}`}
             </div>
             {tourUrl.length ? <div>6박 7일 패키지</div> : null}

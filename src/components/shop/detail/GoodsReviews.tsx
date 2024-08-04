@@ -11,7 +11,7 @@ type Review = {
   rating: number;
   review: string;
   created_at: string;
-  user: { email: string } | null;
+  user: { email: string };
 };
 
 const GoodsReviews = ({ goodsId }: { goodsId: string }) => {
@@ -32,7 +32,7 @@ const GoodsReviews = ({ goodsId }: { goodsId: string }) => {
           setIsError(true);
           console.error('Error fetching reviews:', error.message);
         } else {
-          setReviews(data);
+          setReviews(data as Review[]);
         }
       } catch (error) {
         setIsError(true);
