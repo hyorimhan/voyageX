@@ -12,7 +12,7 @@ import { IoHeartOutline } from 'react-icons/io5';
 
 interface TourHeartsProps {
   tour_id: string;
-  user_id?: string;
+  user_id: string;
 }
 
 function TourHearts({ tour_id, user_id }: TourHeartsProps) {
