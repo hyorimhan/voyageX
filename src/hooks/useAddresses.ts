@@ -18,18 +18,12 @@ export const useFetchAddresses = (userId: string | null) => {
 };
 
 // 주소를 추가하는 hook
-export const useAddAddress = () => {
+export const useAddAddress = (user_id: string) => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: ({
-      user_id,
-      address,
-    }: {
-      user_id: string;
-      address: Partial<Address>;
-    }) => addAddress(user_id, address),
+    mutationFn: addAddress,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['addresses'] });
+      queryClient.invalidateQueries({ queryKey: ['addresses', user_id] });
     },
   });
 };
