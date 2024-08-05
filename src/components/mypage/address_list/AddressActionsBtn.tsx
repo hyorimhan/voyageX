@@ -1,6 +1,9 @@
 'use client';
 
-import { resetDefaultAddress, setDefaultAddress } from '@/services/address';
+import {
+  useResetDefaultAddress,
+  useSetDefaultAddress,
+} from '@/hooks/useAddresses';
 import { Address } from '@/types/userAddressType';
 
 type AddressActionsBtnProps = {
@@ -20,6 +23,9 @@ const AddressActionsBtn = ({
   setShowAddressAddModal,
   setEditAddress,
 }: AddressActionsBtnProps) => {
+  const setDefaultAddressMutation = useSetDefaultAddress();
+  const resetDefaultAddressMutation = useResetDefaultAddress();
+
   const handleSetDefaultAddress = async () => {
     if (!selectedAddressId) {
       alert('기본 배송지를 설정할 주소를 선택해주세요.');
@@ -27,9 +33,8 @@ const AddressActionsBtn = ({
     }
 
     try {
-      await resetDefaultAddress(userId);
-      await setDefaultAddress(selectedAddressId);
-
+      await resetDefaultAddressMutation.mutateAsync(userId);
+      await setDefaultAddressMutation.mutateAsync(selectedAddressId);
       alert('기본배송지 설정완료');
     } catch (error) {
       console.error('기본 배송지 설정 오류', error);

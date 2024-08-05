@@ -3,6 +3,7 @@
 import AddressActionsBtn from '@/components/mypage/address_list/AddressActionsBtn';
 import AddressAddModal from '@/components/mypage/address_list/AddressAddModal';
 import AddressesList from '@/components/mypage/address_list/AddressList';
+import { useAddAddress } from '@/hooks/useAddresses';
 import { Address } from '@/types/userAddressType';
 import useAuthStore from '@/zustand/store/useAuth';
 import { useState } from 'react';
@@ -14,6 +15,7 @@ const AddressListPage: React.FC = () => {
   const [selectedAddressId, setSelectedAddressId] = useState<string | null>(
     null,
   );
+
   const [addressesLength, setAddressesLength] = useState<number>(0);
 
   const user = useAuthStore((state) => state.user);

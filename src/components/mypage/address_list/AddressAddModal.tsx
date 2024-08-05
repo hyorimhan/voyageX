@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { IoMdClose } from 'react-icons/io';
 import AddressApiScript from './AddressApiScript';
 import { createClient } from '@/supabase/client';
 import useAuthStore from '@/zustand/store/useAuth';
@@ -9,6 +8,7 @@ import AddressSearchModal from './AddressSearchModal';
 import addressForm from './addressForm';
 import AddressAddModalInput from './AddressAddModalInput';
 import CloseIcon32px from '@/components/common/icons/32px/CloseIcon32px';
+import { useAddAddress, useUpdateAddress } from '@/hooks/useAddresses';
 
 interface AddressAddModalProps {
   onClose: () => void;
@@ -45,6 +45,9 @@ const AddressAddModal: React.FC<AddressAddModalProps> = ({
 
   const [showAddressSearchModal, setShowAddressSearchModal] =
     useState<boolean>(false);
+
+  const addAddressMutation = useAddAddress();
+  const updateAddressMutation = useUpdateAddress();
 
   const supabase = createClient();
   const user = useAuthStore((state) => state.user);
@@ -126,6 +129,18 @@ const AddressAddModal: React.FC<AddressAddModalProps> = ({
 
         if (error) throw error;
       }
+
+      // if (editMode && initialData) {
+      //   await updateAddressMutation.mutateAsync({
+      //     addressId: initialData.id,
+      //     address: newAddressData,
+      //   });
+      // } else {
+      //   await addAddressMutation.mutateAsync({
+      //     user_id: user.id,
+      //     address: newAddressData,
+      //   });
+      // }
 
       onAddAddress(newAddressData);
       alert('주소가 저장되었습니다.');
