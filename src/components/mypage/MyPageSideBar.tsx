@@ -1,31 +1,50 @@
 'use client';
 
-import useAuthStore from '@/zustand/store/useAuth';
-import Link from 'next/link';
-import { IoMdHeart } from 'react-icons/io';
+import { useTransition } from 'react';
+import Loading from '../common/Loading';
+import { useRouter } from 'next/navigation';
+import MyPageSideBarUserInfo from './MyPageSideBarUserInfo';
 
 const MyPageSideBar = () => {
-  const user = useAuthStore((state) => state.user);
-  const emailId = user?.email ? user.email.split('@')[0] : '비회원';
+  const [isPending, startTransition] = useTransition();
+  const router = useRouter();
+
+  const handleLinkClick = (href: string) => {
+    startTransition(() => {
+      router.push(href);
+    });
+  };
 
   return (
-    <div className='w-fit sticky top-0 mt-36'>
-      <div className='mb-12'>
-        <p className='text-2xl'>{emailId}</p>
-        <p className='flex flex-row items-center'>
-          작성글 수 5 |<IoMdHeart className='ml-1' /> 35
-        </p>
+    <>
+      {isPending && <Loading />}
+      <div className='w-fit sticky top-0 mt-[139px]'>
+        <MyPageSideBarUserInfo />
+        <div className='gap-3 flex flex-col items-start h-[283px] w-[190px] justify-center text-sm'>
+          <button onClick={() => handleLinkClick('/mypage/tour_orders')}>
+            여행상품 주문/배송조회
+          </button>
+          <button onClick={() => handleLinkClick('/mypage/goods_orders')}>
+            굿즈샵 주문/배송조회
+          </button>
+          <button onClick={() => handleLinkClick('/mypage/password_change')}>
+            비밀번호 변경
+          </button>
+          <button onClick={() => handleLinkClick('/mypage/address_list')}>
+            배송지 관리
+          </button>
+          <button onClick={() => handleLinkClick('/mypage/my_posts')}>
+            커뮤니티 작성 글 목록
+          </button>
+          <button onClick={() => handleLinkClick('/wishlist')}>
+            찜 & 장바구니
+          </button>
+          <button onClick={() => handleLinkClick('/mypage/delete_account')}>
+            회원탈퇴
+          </button>
+        </div>{' '}
       </div>
-      <div className='gap-3 flex flex-col'>
-        <Link href={'/mypage/tour_orders'}>여행상품 주문/배송조회</Link>
-        <Link href={'/mypage/goods_orders'}>굿즈샵 주문/배송조회</Link>
-        <Link href={'/mypage/password_change'}>비밀번호 변경</Link>
-        <Link href={'/mypage/address_list'}>배송지 관리</Link>
-        <Link href={'/mypage/my_posts'}>커뮤니티 작성 글 목록</Link>
-        <Link href={'/wishlist'}>찜 & 장바구니</Link>
-        <Link href={'/mypage/delete_account'}>회원탈퇴</Link>
-      </div>
-    </div>
+    </>
   );
 };
 

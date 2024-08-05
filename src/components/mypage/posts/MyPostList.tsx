@@ -1,44 +1,47 @@
+'use client';
+
+import { formatDate } from '@/components/common/formatDate';
 import { getMyPosts } from '@/services/community';
+import { MyPost } from '@/types/communityType';
 import useAuthStore from '@/zustand/store/useAuth';
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
 
 const MyPostList = () => {
   const { user } = useAuthStore();
+  const user_id = user?.id;
 
-  const {
-    data: posts,
-    error,
-    isLoading,
-  } = useQuery(['myPosts', user.id], () => getMyPosts(user.id));
+  const { data: posts } = useQuery<MyPost[]>({
+    queryKey: ['posts', user_id],
+    queryFn: () => getMyPosts(user_id),
+  });
 
-  if (isLoading) {
-    return <p>로딩 중...</p>;
-  }
-
-  if (error) {
-    return <p>오류 발생: {error.message}</p>;
-  }
   return (
     <>
-      {posts?.map((post) => (
-        <div key={post.id} className='px-10'>
-          <div className='gap-3 flex flex-col'>
-            <p className='font-bold line-clamp-1 text-lg'>{post.title}</p>
-            <div>
-              <p className='line-clamp-4'>{post.content}</p>
+      {posts?.map((post) => {
+        const formattedDate = formatDate(post.created_at);
+        return (
+          <div key={post.id}>
+            <div className='gap-2 flex flex-col p-6'>
+              <div className='text-xs flex justify-between h-6'>
+                <p>{formattedDate}</p>
+                <div className='flex gap-2'>
+                  <p className='bg-primary-100 text-primary-500 px-3 rounded-2xl text-[10px] font-bold flex items-center justify-center w-16'>
+                    좋아요 10
+                  </p>
+                  <p className='bg-primary-100 text-primary-500 px-3 rounded-2xl text-[10px] font-bold flex items-center justify-center w-16'>
+                    댓글수 {post.comments}
+                  </p>
+                </div>
+              </div>
+              <p className='font-bold line-clamp-1'>{post.title}</p>
+              <div>
+                <p className='line-clamp-4 text-sm'>{post.content}</p>
+              </div>
             </div>
+            <div className='border-b-[1px] border-solid border-black-700'></div>
           </div>
-          <div className='text-xs flex justify-between mt-7'>
-            <p>{post.date}</p>
-            <div className='flex gap-5'>
-              <p>좋아요 수 {post.likes}</p>
-              <p>댓글 수 {post.comments}</p>
-            </div>
-          </div>
-          <div className='border-b-2 border-solid border-black-700 mt-7'></div>
-        </div>
-      ))}
+        );
+      })}
     </>
   );
 };

@@ -1,4 +1,6 @@
 import {
+  MyPost,
+  Post,
   TEditComment,
   TEditPost,
   TWriteComment,
@@ -83,7 +85,9 @@ export async function updateComment(editComment: TEditComment) {
   return data;
 }
 
-export async function getMyPosts(user_id: string) {
+export async function getMyPosts(
+  user_id: string | undefined,
+): Promise<MyPost[]> {
   const response = await fetch(`/api/mypage/my_posts/${user_id}`);
   const data = await response.json();
   return data;
