@@ -11,7 +11,7 @@ export const GET = async (req: NextRequest, { params }: ParamsType) => {
   const { goods_id } = params;
 
   if (!goods_id) {
-    return NextResponse.json({ error: 'Invalid ID' });
+    return NextResponse.json({ error: '유저 ID를 찾을 수 없습니다.' });
   }
 
   const { data, error } = await supabase
@@ -20,7 +20,7 @@ export const GET = async (req: NextRequest, { params }: ParamsType) => {
     .eq('id', goods_id);
 
   if (error) {
-    return NextResponse.json({ error: 'Item not found' });
+    return NextResponse.json({ error: '굿즈 아이템을 찾을 수 없습니다.' });
   }
 
   return NextResponse.json(data);
