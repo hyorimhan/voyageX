@@ -28,7 +28,6 @@ const useFetchTopPosts = (): FetchTopPostsResult => {
         const { data, error } = await supabase
           .from('posts')
           .select('*')
-          .order('like_count', { ascending: false })
           .limit(4);
 
         if (error) {

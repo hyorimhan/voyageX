@@ -134,6 +134,8 @@ const MainPage = () => {
     if (videoLoaded && planets.length > 0) {
       animatePlanets();
     }
+
+    ScrollTrigger.refresh(); 
   }, [currentSlide, videoLoaded, planets]);
 
   console.log('Planets:', planets);
