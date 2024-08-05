@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import DropDownButton from './DropDownButton';
 import Hearts from './Hearts';
 import Stars from './Stars';
@@ -8,20 +8,20 @@ import Image from 'next/image';
 import { useGetOrderedGoods } from '@/hooks/goodsHooks';
 import useAuthStore from '@/zustand/store/useAuth';
 import { useRouter } from 'next/navigation';
+import Loading from '../common/Loading';
 
 function GoodsList() {
   const user = useAuthStore((state) => state.user);
   console.log(user?.id);
-  const [sortBy, setSortBy] = useState('인기순');
   const categories = {
-    popularity: '인기순',
-    newest: '최신순',
-    high_price: '가격 높은 순',
-    low_price: '가격 낮은 순',
-    high_rating: '별점 높은 순',
-    low_rating: '별점 낮은 순',
+    'like_count': '인기순',
+    'created_at': '최신순',
+    'goods_price': '가격 높은 순',
+    '-goods_price': '가격 낮은 순',
+    'rating_avg': '별점 높은 순',
+    '-rating_avg': '별점 낮은 순',
   };
-
+  const [sortBy, setSortBy] = useState('like_count');
   const { data: goods, isError, isPending } = useGetOrderedGoods(sortBy);
 
   const router = useRouter();
@@ -33,7 +33,7 @@ function GoodsList() {
   console.log(goods);
 
   if (isError) return <div>에러</div>;
-  if (isPending) return <div>로딩 중..</div>;
+  if (isPending) return <Loading />;
 
   return (
     <>
@@ -45,7 +45,7 @@ function GoodsList() {
         />
       </div>
       <ul className='text-black-50 mb-4 grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
-        {goods.map((item) => (
+        {goods?.map((item) => (
           <li key={item.id} className='mx-auto my-4 w-full bg-black-1000'>
             <div className='relative'>
               <Image

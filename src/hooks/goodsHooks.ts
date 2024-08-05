@@ -13,16 +13,9 @@ import { Tables } from '@/types/supabase';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 export const useGetOrderedGoods = (sortBy: string) => {
-  let order = 'like_count';
-  if (sortBy === '인기순') order = 'like_count';
-  else if (sortBy === '최신순') order = 'created_at';
-  else if (sortBy === '가격 높은 순') order = 'goods_price';
-  else if (sortBy === '가격 낮은 순') order = '-goods_price';
-  else if (sortBy === '별점 높은 순') order = 'rating_avg';
-  else if (sortBy === '별점 낮은 순') order = '-rating_avg';
   return useQuery<Tables<'goods'>[]>({
-    queryKey: ['goods', { order }],
-    queryFn: () => getGoods(order),
+    queryKey: ['goods', { sortBy }],
+    queryFn: () => getGoods(sortBy),
   });
 };
 
