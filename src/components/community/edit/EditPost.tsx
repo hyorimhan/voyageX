@@ -11,11 +11,17 @@ import { Post, TEditPost } from '@/types/communityType';
 import useAuthStore from '@/zustand/store/useAuth';
 import { useRouter } from 'next/navigation';
 
+const categories = {
+  communication: '소통',
+  tour: '우주여행',
+  info: '우주정보',
+  news: '뉴스/기사',
+};
+
 const EditPost = ({ postId }: { postId: string }) => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  const [sortBy, setSortBy] = useState('소통');
-  const sortByList = ['소통', '우주여행', '우주정보', '뉴스/기사'];
+  const [sortBy, setSortBy] = useState('communication');
 
   const user = useAuthStore((state) => state.user);
 
@@ -76,16 +82,16 @@ const EditPost = ({ postId }: { postId: string }) => {
               </button> */}
             <button
               type='submit'
-              className='rounded-lg bg-primary-600 px-4 py-3 flex justify-center items-center gap-1'
+              className='rounded-lg bg-primary-600 px-3 py-1 flex justify-center items-center gap-1'
             >
               <PenIcon24px />
-              등록
+              수정
             </button>
           </div>
         </div>
         <div className='flex'>
           <DropDownButton
-            sortByList={sortByList}
+            categories={categories}
             sortBy={sortBy}
             setSortBy={setSortBy}
           />

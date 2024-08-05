@@ -135,7 +135,7 @@ function MyCart({ user_id }: WishListPropsType) {
           </button>
         </div>
         <ul className='flex flex-col gap-4'>
-          {cartList.map((item) => (
+          {cartList?.map((item) => (
             <li
               key={item.id}
               className='border-2 border-black-50 p-4 rounded-lg grid grid-cols-[minmax(0,0.2fr)_minmax(0,0.5fr)_minmax(0,1.2fr)_minmax(0,1fr)_minmax(0,0.5fr)]'

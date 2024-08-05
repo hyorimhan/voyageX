@@ -5,9 +5,10 @@ import {
   UseFormSetValue,
   useWatch,
 } from 'react-hook-form';
-import { checkboxValidate } from '../authValidate';
+
 import TermsOfServiceModal from './modal/TermsOfServiceModal';
 import privacyPolicyAndConsentModal from './modal/privacyPolicyAndConsentModal';
+import { checkboxValidate } from '../AuthValidate';
 
 interface formProps {
   control: Control<formType>;

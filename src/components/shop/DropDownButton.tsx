@@ -1,13 +1,13 @@
 import { Dispatch, SetStateAction, useState } from 'react';
 
 interface DropDownButtonProps {
-  sortByList: string[];
+  categories: { [key: string]: string };
   sortBy: string;
   setSortBy: Dispatch<SetStateAction<string>>;
 }
 
 function DropDownButton(props: DropDownButtonProps) {
-  const { sortByList, sortBy, setSortBy } = props;
+  const { categories, sortBy, setSortBy } = props;
   const [isActive, setIsActive] = useState(false);
 
   return (
@@ -15,26 +15,34 @@ function DropDownButton(props: DropDownButtonProps) {
       <div className='relative inline-block'>
         <button
           type='button'
-          className='text-black-50 text-lg cursor-pointer relative w-32 flex flex-row'
+          className='text-black-50 text-lg cursor-pointer relative w-32 flex flex-row justify-center mt-3'
           onClick={() => setIsActive((prev) => !prev)}
         >
-          {sortBy}
-          {isActive ? '▲' : '▼'}
+          {categories[sortBy]}
+          {isActive ? 'ㅤ▲' : 'ㅤ▼'}
         </button>
         <ul
-          className={`text-white cursor-pointer w-40 h-72 absolute border border-black-200 shadow-lg transition-all duration-300 ease-out overflow-hidden rounded ${
-            isActive ? 'max-h-60 opacity-100' : 'max-h-0 opacity-0'
-          }`}
-          style={{ zIndex: 1000 }}
+          className={`text-white cursor-pointer w-40 absolute border border-black-200 shadow-lg transition-all duration-300 ease-out overflow-hidden rounded`}
+          style={{
+            zIndex: 1000,
+            maxHeight: isActive
+              ? `${Object.keys(categories).length * 3}rem`
+              : '0',
+            opacity: isActive ? 1 : 0,
+          }}
         >
           {isActive &&
-            sortByList.map((item) => (
+            Object.entries(categories).map(([key, value]) => (
               <li
-                key={item}
-                className='cursor-pointer text-sm h-1/6 text-black-1000 bg-black-50 border border-black-100 hover:bg-black-200 flex items-center'
-                onClick={() => setSortBy(item)}
+                key={key}
+                className='cursor-pointer text-sm text-black-1000 bg-black-50 border border-black-100 hover:bg-black-200 flex items-center'
+                style={{ height: '3rem' }}
+                onClick={() => {
+                  setSortBy(key);
+                  setIsActive(false);
+                }}
               >
-                {item}
+                {value}
               </li>
             ))}
         </ul>

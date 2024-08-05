@@ -11,17 +11,17 @@ import { TWritePost } from '@/types/communityType';
 import useAuthStore from '@/zustand/store/useAuth';
 import { useRouter } from 'next/navigation';
 
+const categories = {
+  communication: '소통',
+  tour: '우주여행',
+  info: '우주정보',
+  news: '뉴스/기사',
+};
+
 const WritePost = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  const [sortBy, setSortBy] = useState('소통');
-  const sortByList = ['소통', '우주여행', '우주정보', '뉴스/기사'];
-  // const sortByList = {
-  //   '소통': 'communcation',
-  //   '우주여행': 'tour',
-  //   '우주정보': 'info',
-  //   '뉴스/기사': 'news',
-  // };
+  const [sortBy, setSortBy] = useState('communication');
 
   const user = useAuthStore((state) => state.user);
 
@@ -57,10 +57,10 @@ const WritePost = () => {
             <div>ㅤ{'>'}ㅤ글쓰기</div>
           </div>
           <div className='flex gap-2 text-sm'>
-            {/* <button className='rounded-lg border-[1.5px] border-primary-400 px-4 py-3'>
-                임시등록
-              </button> */}
-            <button className='rounded-lg bg-primary-600 px-4 py-3 flex justify-center items-center gap-1'>
+            <button
+              type='submit'
+              className='rounded-lg bg-primary-600 px-3 py-1 flex justify-center items-center gap-1'
+            >
               <PenIcon24px />
               등록
             </button>
@@ -68,7 +68,7 @@ const WritePost = () => {
         </div>
         <div className='flex'>
           <DropDownButton
-            sortByList={sortByList}
+            categories={categories}
             sortBy={sortBy}
             setSortBy={setSortBy}
           />
