@@ -82,3 +82,9 @@ export async function updateComment(editComment: TEditComment) {
   const data = await response.json();
   return data;
 }
+
+export async function getMyPosts(user_id: string) {
+  const response = await fetch(`/api/mypage/my_posts/${user_id}`);
+  const data = await response.json();
+  return data;
+}
