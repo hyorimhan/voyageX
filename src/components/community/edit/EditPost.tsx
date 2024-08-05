@@ -76,10 +76,10 @@ const EditPost = ({ postId }: { postId: string }) => {
               </button> */}
             <button
               type='submit'
-              className='rounded-lg bg-primary-600 px-4 py-3 flex justify-center items-center gap-1'
+              className='rounded-lg bg-primary-600 px-3 py-1 flex justify-center items-center gap-1'
             >
               <PenIcon24px />
-              등록
+              수정
             </button>
           </div>
         </div>
