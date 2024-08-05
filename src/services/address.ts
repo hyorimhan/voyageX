@@ -6,24 +6,33 @@ export const fetchAddresses = async (userId: string): Promise<Address[]> => {
   return response.data;
 };
 
-export const addAddress = async (
-  userId: string,
-  address: Partial<Address>,
-): Promise<Address[]> => {
+export const addAddress = async ({
+  userId,
+  address,
+}: {
+  userId: string;
+  address: Partial<Address>;
+}): Promise<Address[]> => {
+  console.log('address => ', address);
   const response = await axios.post(`/api/mypage/addresses/user/${userId}`, {
     userId,
-    ...address,
+    address,
   });
   return response.data;
 };
 
-export const updateAddress = async (
-  addressId: string,
-  address: Partial<Address>,
-): Promise<Address[]> => {
-  const response = await axios.put(
+export const updateAddress = async ({
+  addressId,
+  address,
+}: {
+  addressId: string;
+  address: Partial<Address>;
+}): Promise<Address[]> => {
+  const response = await axios.patch(
     `/api/mypage/addresses/address/${addressId}`,
-    address,
+    {
+      address,
+    },
   );
   return response.data;
 };
