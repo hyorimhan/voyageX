@@ -5,14 +5,12 @@ import React from 'react';
 
 function SearchPage({ searchParams }: { searchParams: { search: string } }) {
   return (
-    <Page>
-      <div className='font-pretendard'>
-        <div className='flex justify-end items-center mb-11'>
-          <Search />
-        </div>
-        <SearchResult searchValue={searchParams.search} />
+    <>
+      <div className='flex justify-end items-center mb-11'>
+        <Search />
       </div>
-    </Page>
+      <SearchResult searchValue={searchParams.search} />
+    </>
   );
 }
 

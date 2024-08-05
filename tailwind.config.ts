@@ -25,7 +25,7 @@ const config: Config = {
         '10%': '10%',
       },
       fontFamily: {
-        pretendard: ['Pretendard-Regular'],
+        pretendard: ['var(--font-pretendard)'],
         yangpyeong: ["'Yangpyeong'", 'sans-serif'],
       },
 

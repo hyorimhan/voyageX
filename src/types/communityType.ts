@@ -8,3 +8,9 @@ export type TWritePost = Pick<
 >;
 
 export type TEditPost = Omit<Post, 'created_at'>;
+
+export type Comment = Tables<'comments'>;
+
+export type TWriteComment = Omit<Comment, 'created_at' | 'id'>;
+
+export type TEditComment = Omit<Comment, 'created_at'>;
