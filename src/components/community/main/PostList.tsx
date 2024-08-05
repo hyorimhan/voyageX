@@ -6,6 +6,7 @@ import { getPostAll, getPostByCategory } from '@/services/community';
 import { Post } from '@/types/communityType';
 import { useCategory } from '@/zustand/store/useCategory';
 import CategoryBadge from '../common/CategoryBadge';
+import { comment } from 'postcss';
 
 const PostList = () => {
   const selectedCategory = useCategory((state) => state.selectedCategory);
@@ -63,8 +64,8 @@ const PostList = () => {
               <span className='flex-none w-32 p-2 text-center'>
                 {new Date(post.created_at).toLocaleDateString()}
               </span>
-              <span className='flex-none w-20 p-2 text-center'>0</span>
-              <span className='flex-none w-20 p-2 text-center'>0</span>
+              <span className='flex-none w-20 p-2 text-center'>-</span>
+              <span className='flex-none w-20 p-2 text-center'>-</span>
             </div>
           </Link>
         ))}

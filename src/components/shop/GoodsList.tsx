@@ -76,7 +76,7 @@ function GoodsList() {
                     무료배송
                   </div>
                 </div>
-                {user && <Hearts goods_id={item.id} user_id={user.id} />}
+                <Hearts goods_id={item.id} user_id={user?.id} />
               </div>
             </div>
           </li>

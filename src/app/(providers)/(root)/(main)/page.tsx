@@ -152,10 +152,18 @@ const MainPage = () => {
         }}
         className='section h-screen flex items-center justify-center relative'
       >
-        <video
+        {/* <video
           ref={videoRef}
           className='absolute top-0 left-0 w-full h-full object-cover z-0'
           src='/videos/우주.mp4'
+          autoPlay
+          loop
+          muted
+        /> */}
+        <video
+          ref={videoRef}
+          className='absolute top-0 left-0 w-full h-full object-cover z-0'
+          src='/videos/main.mp4'
           autoPlay
           loop
           muted
@@ -284,11 +292,11 @@ const MainPage = () => {
         className='section section-bg h-screen flex flex-col items-center justify-center'
       >
         <h1 className='text-4xl font-bold mb-8 absolute top-44 left-12'>
-          Goods Item
+          {/* Goods Item */}
         </h1>
-        <Link href='/shop'>
+        {/* <Link href='/shop'>
           <p className='absolute top-44 right-24 underline'>More+</p>
-        </Link>
+        </Link> */}
         {error && <p className='text-red-500'>{error}</p>}
         {loading ? (
           <p>Loading...</p>
