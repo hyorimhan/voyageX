@@ -17,11 +17,15 @@ const CommentsWrite = ({ postId }: { postId: string }) => {
 
   const handleSubmitComment = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!user) return alert('로그인 후 이용하실 수 있습니다');
     const newComment = {
       post_id: postId,
       user_id: user?.id as string,
       content: content,
     };
+    if (!content) {
+      return alert('빈칸을 채워주세요.');
+    }
     addComment(newComment);
     setContent('');
   };

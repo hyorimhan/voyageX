@@ -13,14 +13,14 @@ function GoodsList() {
   const user = useAuthStore((state) => state.user);
   console.log(user?.id);
   const [sortBy, setSortBy] = useState('인기순');
-  const sortByList = [
-    '인기순',
-    '최신순',
-    '가격 높은 순',
-    '가격 낮은 순',
-    '별점 높은 순',
-    '별점 낮은 순',
-  ];
+  const categories = {
+    popularity: '인기순',
+    newest: '최신순',
+    high_price: '가격 높은 순',
+    low_price: '가격 낮은 순',
+    high_rating: '별점 높은 순',
+    low_rating: '별점 낮은 순',
+  };
 
   const { data: goods, isError, isPending } = useGetOrderedGoods(sortBy);
 
@@ -39,7 +39,7 @@ function GoodsList() {
     <>
       <div className='flex justify-end mt-14'>
         <DropDownButton
-          sortByList={sortByList}
+          categories={categories}
           sortBy={sortBy}
           setSortBy={setSortBy}
         />
