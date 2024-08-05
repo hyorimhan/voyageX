@@ -1,9 +1,8 @@
-import { createClient } from '@/supabase/client';
+import { createClient } from '@/supabase/server';
 import { NextResponse } from 'next/server';
 
-const supabase = createClient();
-
 export const GET = async (request: Request) => {
+  const supabase = createClient();
   const { searchParams } = new URL(request.url);
   const order = searchParams.get('order') || 'like_count';
   const { data, error } = await supabase

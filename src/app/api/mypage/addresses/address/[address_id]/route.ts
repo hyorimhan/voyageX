@@ -1,7 +1,7 @@
 import { createClient } from '@/supabase/server';
 import { NextRequest, NextResponse } from 'next/server';
 
-export async function PUT(
+export async function PATCH(
   req: NextRequest,
   { params }: { params: { address_id: string } },
 ) {
@@ -15,12 +15,20 @@ export async function PUT(
 
   const { data, error } = await supabase
     .from('addresses')
-    .update(address)
+    .update({
+      address: address.address,
+      alias: address.alias,
+      detailAddress: address.detailAddress,
+      phone: address.phone,
+      postcode: address.postcode,
+      recipient: address.recipient,
+      oldAddress: address.oldAddress,
+    })
     .eq('id', address_id);
 
   if (error) {
     return NextResponse.json({
-      error: '주소를 업데이트하는 중 오류가 발생했습니다.',
+      error: error + '주소를 업데이트하는 중 오류가 발생했습니다.',
     });
   }
 
