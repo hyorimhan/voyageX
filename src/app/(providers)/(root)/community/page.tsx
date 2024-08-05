@@ -6,18 +6,13 @@ import WriteButton from '@/components/community/main/WriteButton';
 
 const CommunityPage = () => {
   return (
-    <Page>
-      <div className='font-pretendard'>
-        <div className='flex justify-between items-center mb-11'>
-          <Filter />
-          <Search />
-        </div>
-        <PostList />
+    <div>
+      <div className='flex justify-between items-center mb-11'>
+        <Filter />
+        <Search />
       </div>
-      <div className='fixed bottom-10 right-10'>
-        <WriteButton />
-      </div>
-    </Page>
+      <PostList />
+    </div>
   );
 };
 

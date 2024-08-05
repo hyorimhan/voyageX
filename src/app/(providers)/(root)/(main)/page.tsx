@@ -152,10 +152,18 @@ const MainPage = () => {
         }}
         className='section h-screen flex items-center justify-center relative'
       >
-        <video
+        {/* <video
           ref={videoRef}
           className='absolute top-0 left-0 w-full h-full object-cover z-0'
           src='/videos/우주.mp4'
+          autoPlay
+          loop
+          muted
+        /> */}
+        <video
+          ref={videoRef}
+          className='absolute top-0 left-0 w-full h-full object-cover z-0'
+          src='/videos/main.mp4'
           autoPlay
           loop
           muted
@@ -193,9 +201,8 @@ const MainPage = () => {
           }}
           className='absolute top-32 left-4 sm:top-44 sm:left-16 text-white font-yangpyeong text-2xl sm:text-4xl font-bold fade-text'
         >
-          Let's Find Popular Planets!
+          Let&apos;s Find Popular Planets!
         </div>
-        '
         <div className='scroll-container h-full w-full relative flex items-center justify-center'>
           <button
             onClick={handlePrevSlide}
@@ -284,10 +291,10 @@ const MainPage = () => {
         }}
         className='section section-bg h-screen flex flex-col items-center justify-center'
       >
-        {/* <h1 className='text-4xl font-bold mb-8 absolute top-44 left-12'>
-          Goods Item
+        <h1 className='text-4xl font-bold mb-8 absolute top-44 left-12'>
+          {/* Goods Item */}
         </h1>
-        <Link href='/shop'>
+        {/* <Link href='/shop'>
           <p className='absolute top-44 right-24 underline'>More+</p>
         </Link> */}
         {error && <p className='text-red-500'>{error}</p>}
