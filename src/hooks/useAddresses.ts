@@ -17,34 +17,6 @@ export const useFetchAddresses = (userId: string | null) => {
   });
 };
 
-// 주소를 추가하는 hook
-export const useAddAddress = (user_id: string) => {
-  const queryClient = useQueryClient();
-  return useMutation({
-    mutationFn: addAddress,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['addresses', user_id] });
-    },
-  });
-};
-
-// 주소를 업데이트하는 hook
-export const useUpdateAddress = () => {
-  const queryClient = useQueryClient();
-  return useMutation({
-    mutationFn: ({
-      addressId,
-      address,
-    }: {
-      addressId: string;
-      address: Partial<Address>;
-    }) => updateAddress(addressId, address),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['addresses'] });
-    },
-  });
-};
-
 // // 주소를 삭제하는 hook
 export const useDeleteAddress = () => {
   const queryClient = useQueryClient();
