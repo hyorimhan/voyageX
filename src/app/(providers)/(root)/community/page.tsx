@@ -12,6 +12,9 @@ const CommunityPage = () => {
         <Search />
       </div>
       <PostList />
+      <div className='fixed right-48 bottom-10'>
+        <WriteButton />
+      </div>
     </div>
   );
 };
