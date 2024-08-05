@@ -193,9 +193,8 @@ const MainPage = () => {
           }}
           className='absolute top-32 left-4 sm:top-44 sm:left-16 text-white font-yangpyeong text-2xl sm:text-4xl font-bold fade-text'
         >
-          Let's Find Popular Planets!
+          Let&apos;s Find Popular Planets!
         </div>
-        '
         <div className='scroll-container h-full w-full relative flex items-center justify-center'>
           <button
             onClick={handlePrevSlide}
