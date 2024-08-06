@@ -36,7 +36,7 @@ const addressForm = (initialData: any) => {
     setPhone(formattedValue);
 
     if (!/^(\d{3}-\d{4}-\d{4})$/.test(formattedValue)) {
-      setPhoneError('올바른 형식으로 입력해주세요 (000-0000-0000)');
+      setPhoneError('숫자만 사용하여 주세요.');
     } else {
       setPhoneError('');
     }
@@ -47,7 +47,7 @@ const addressForm = (initialData: any) => {
     setAlias(value);
 
     if (value.length > 6) {
-      setAliasError('주소별칭은 6자 이내로 입력해주세요');
+      setAliasError('6글자 이내로 입력해주세요.');
     } else {
       setAliasError('');
     }
@@ -58,7 +58,7 @@ const addressForm = (initialData: any) => {
     setRecipient(value);
 
     if (/[^a-zA-Z가-힣\s]/.test(value)) {
-      setRecipientError('받으실분에는 특수기호, 숫자를 사용할 수 없습니다.');
+      setRecipientError('특수기호나 숫자를 사용할 수 없습니다.');
     } else {
       setRecipientError('');
     }

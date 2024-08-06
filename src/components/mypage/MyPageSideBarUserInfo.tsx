@@ -4,30 +4,21 @@ import useAuthStore from '@/zustand/store/useAuth';
 import { useQuery } from '@tanstack/react-query';
 import { getMyPosts } from '@/services/community';
 import { MyPost } from '@/types/communityType';
-import { IoMdHeart } from 'react-icons/io';
 import React from 'react';
+import HeartWhiteIcon16px from '../common/icons/16px/HeartWhiteIcon16px';
 
 const MyPageSideBarUserInfo = () => {
   const user = useAuthStore((state) => state.user);
   const emailId = user?.email ? user.email.split('@')[0] : '비회원';
 
-  // 사용자가 작성한 게시물 가져오기
-  const {
-    data: posts,
-    isLoading,
-    error,
-  } = useQuery<MyPost[]>({
+  const { data: posts, isLoading } = useQuery<MyPost[]>({
     queryKey: ['myPosts', user?.id],
     queryFn: () => getMyPosts(user?.id),
-    enabled: !!user?.id, // user.id가 있을 때만 실행
+    enabled: !!user?.id,
   });
 
   if (isLoading) {
-    return <p>로딩 중...</p>;
-  }
-
-  if (error) {
-    return <p>오류 발생: {error.message}</p>;
+    return <p>탑승중...</p>;
   }
 
   const postCount = posts?.length || 0;
@@ -39,7 +30,7 @@ const MyPageSideBarUserInfo = () => {
         <p>작성글 수</p>
         <p>{postCount}</p>
         <p>|</p>
-        <IoMdHeart className='ml-1' />
+        <HeartWhiteIcon16px />
         <p>35</p>
       </div>
     </div>
