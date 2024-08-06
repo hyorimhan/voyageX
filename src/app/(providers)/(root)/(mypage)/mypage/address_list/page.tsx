@@ -24,10 +24,6 @@ const AddressListPage: React.FC = () => {
     setShowAddressAddModal(true);
   };
 
-  const handleAddAddress = () => {
-    setShowAddressAddModal(false);
-  };
-
   const updateAddressesLength = (length: number) => {
     setAddressesLength(length);
   };
@@ -69,7 +65,6 @@ const AddressListPage: React.FC = () => {
       {showAddressAddModal && (
         <AddressAddModal
           onClose={() => setShowAddressAddModal(false)}
-          onAddAddress={handleAddAddress}
           editMode={!!editAddress}
           initialData={editAddress}
         />
