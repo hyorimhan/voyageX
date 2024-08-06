@@ -100,7 +100,7 @@ const EditPost = ({ postId }: { postId: string }) => {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder='제목을 입력해주세요.'
-            maxLength={30}
+            maxLength={60}
           />
         </div>
         <div>
