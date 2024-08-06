@@ -4,7 +4,13 @@ import useAuthStore from '@/zustand/store/useAuth';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { FormEvent, useState } from 'react';
 
-const CommentsWrite = ({ postId }: { postId: string }) => {
+const CommentsWrite = ({
+  postId,
+  userId,
+}: {
+  postId: string;
+  userId: string;
+}) => {
   const [content, setContent] = useState('');
   const user = useAuthStore((state) => state.user);
   const queryClient = useQueryClient();
@@ -38,7 +44,7 @@ const CommentsWrite = ({ postId }: { postId: string }) => {
             htmlFor='comment'
             className='absolute top-3 left-2 text-sm text-gray-200 ml-5'
           >
-            외계인
+            {userId === user?.id ? '우주인' : '외계인'}
           </label>
           <textarea
             id='comment'

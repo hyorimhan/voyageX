@@ -1,9 +1,8 @@
 'use client';
 
-import PenIcon24px from '@/components/common/icons/24px/PenIcon24px';
 import { deletePost } from '@/services/community';
 import useAuthStore from '@/zustand/store/useAuth';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React from 'react';
@@ -11,11 +10,6 @@ import React from 'react';
 function PostButtons({ postId, userId }: { postId: string; userId: string }) {
   const user = useAuthStore((state) => state.user);
   const route = useRouter();
-
-  const handleClickWrite = () => {
-    if (!user) return alert('로그인 후 이용하실 수 있습니다');
-    route.push('/community/write');
-  };
 
   const { mutate: removePost } = useMutation({
     mutationFn: (postId: string) => deletePost(postId),
@@ -29,13 +23,6 @@ function PostButtons({ postId, userId }: { postId: string; userId: string }) {
 
   return (
     <div className='flex gap-3 pb-10'>
-      <button
-        className='rounded-lg bg-primary-600 px-3 py-2 flex justify-center items-center gap-1'
-        onClick={handleClickWrite}
-      >
-        <PenIcon24px />
-        글쓰기
-      </button>
       {user?.id === userId && (
         <>
           <Link
