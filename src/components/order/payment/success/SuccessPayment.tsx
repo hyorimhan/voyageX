@@ -83,7 +83,7 @@ function SuccessPayment() {
     postReceipt();
   }, [result]);
 
-  if (!result)
+  if (!result || !goodsOrderInfo)
     return (
       <div className='w-full'>
         <div className='w-1/2 h-[700px] my-auto mx-auto flex flex-col items-center justify-center'>
