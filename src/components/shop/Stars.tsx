@@ -1,13 +1,13 @@
-import { HiStar } from 'react-icons/hi2';
+import StarTrueIcon24px from '../common/icons/24px/StarTrueIcon24px';
 
-interface StarsProps {
+interface StarsPropsType {
   ratingAvg: number;
 }
 
-function Stars({ ratingAvg }: StarsProps) {
+function Stars({ ratingAvg }: StarsPropsType) {
   return (
     <span className='flex flex-row items-center text-xl text-black-50'>
-      <HiStar />
+      <StarTrueIcon24px />
       {ratingAvg.toFixed(1)}
     </span>
   );

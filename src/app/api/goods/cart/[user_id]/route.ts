@@ -1,13 +1,12 @@
-import { createClient } from '@/supabase/client';
+import { createClient } from '@/supabase/server';
 import { NextResponse } from 'next/server';
 
-const supabase = createClient();
-
-export type ParamsType = {
+type ParamsType = {
   params: { user_id: string };
 };
 
 export const GET = async (request: Request, { params }: ParamsType) => {
+  const supabase = createClient();
   const { user_id } = params;
   const { data, error } = await supabase
     .from('cart')
@@ -26,6 +25,7 @@ export const GET = async (request: Request, { params }: ParamsType) => {
 };
 
 export const DELETE = async (request: Request, { params }: ParamsType) => {
+  const supabase = createClient();
   const { user_id } = params;
   const { searchParams } = new URL(request.url);
   const idList = searchParams.get('idList');
@@ -41,6 +41,7 @@ export const DELETE = async (request: Request, { params }: ParamsType) => {
 };
 
 export const PATCH = async (request: Request, { params }: ParamsType) => {
+  const supabase = createClient();
   const { user_id } = params;
   const { searchParams } = new URL(request.url);
   const cart_id = searchParams.get('cart_id');

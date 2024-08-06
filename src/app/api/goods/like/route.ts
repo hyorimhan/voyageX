@@ -1,9 +1,8 @@
-import { createClient } from '@/supabase/client';
+import { createClient } from '@/supabase/server';
 import { NextResponse } from 'next/server';
 
-const supabase = createClient();
-
 export const GET = async (request: Request) => {
+  const supabase = createClient();
   const { searchParams } = new URL(request.url);
   const user_id = searchParams.get('user_id');
   const table = searchParams.get('table');

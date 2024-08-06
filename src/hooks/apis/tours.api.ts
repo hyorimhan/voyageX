@@ -20,11 +20,7 @@ export const useGetIsLikedTourByUser = (tour_id: string, user_id: string) => {
   });
 };
 
-export const useToggleLikeTours = (
-  tour_id: string,
-  user_id: string,
-  isLiked: boolean,
-) => {
+export const useToggleLikeTours = (tour_id: string, user_id: string) => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: toggleLikeTours,

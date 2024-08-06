@@ -1,13 +1,12 @@
-import { createClient } from '@/supabase/client';
+import { createClient } from '@/supabase/server';
 import { NextResponse } from 'next/server';
 
-const supabase = createClient();
-
-export type ParamsType = {
+type ParamsType = {
   params: { goods_id: string };
 };
 
 export const GET = async (request: Request, { params }: ParamsType) => {
+  const supabase = createClient();
   const { goods_id } = params;
   const { searchParams } = new URL(request.url);
   const user_id = searchParams.get('user_id');
@@ -21,6 +20,7 @@ export const GET = async (request: Request, { params }: ParamsType) => {
 };
 
 export const POST = async (request: Request, { params }: ParamsType) => {
+  const supabase = createClient();
   const { goods_id } = params;
   const { searchParams } = new URL(request.url);
   const user_id = searchParams.get('user_id');
@@ -35,6 +35,7 @@ export const POST = async (request: Request, { params }: ParamsType) => {
 };
 
 export const DELETE = async (request: Request, { params }: ParamsType) => {
+  const supabase = createClient();
   const { goods_id } = params;
   const { searchParams } = new URL(request.url);
   const user_id = searchParams.get('user_id');
