@@ -1,31 +1,27 @@
 'use client';
 
-import {
-  useGetIsLikedGoodsByUser,
-  useToggleLikeGoods,
-} from '@/hooks/goodsHooks';
 import { toggleLikeGoodsParamsType } from '@/types/goods';
 import HeartDefaultIcon32px from '../common/icons/32px/HeartDefaultIcon32px';
 import HeartPressedIcon32px from '../common/icons/32px/HeartPressedIcon32px';
 import toast from 'react-hot-toast';
+import {
+  useGetIsLikedGoodsByUser,
+  useToggleLikeGoods,
+} from '@/hooks/apis/goods.api';
 
 interface HeartsProps {
   goods_id: string;
   user_id?: string;
 }
 
-function Hearts({ goods_id, user_id }: HeartsProps) {
+function GoodsHearts({ goods_id, user_id }: HeartsProps) {
   const {
     data: isLiked,
     isError,
     isPending,
   } = useGetIsLikedGoodsByUser(goods_id, user_id!);
 
-  const { mutate: likeMutate } = useToggleLikeGoods(
-    goods_id,
-    user_id!,
-    isLiked!,
-  );
+  const { mutate: likeMutate } = useToggleLikeGoods(goods_id, user_id!);
 
   const handleToggleLike = () => {
     if (!user_id) return toast.error('로그인 해주세요!');
@@ -42,25 +38,23 @@ function Hearts({ goods_id, user_id }: HeartsProps) {
   if (isPending) return <HeartDefaultIcon32px />;
 
   return (
-    <>
-      <span
-        className={`cursor-pointer ${
-          isLiked ? 'text-primary-400' : 'text-black-50'
-        }`}
-        onClick={handleToggleLike}
-      >
-        {user_id ? (
-          isLiked ? (
-            <HeartPressedIcon32px />
-          ) : (
-            <HeartDefaultIcon32px />
-          )
+    <span
+      className={`cursor-pointer ${
+        isLiked ? 'text-primary-400' : 'text-black-50'
+      }`}
+      onClick={handleToggleLike}
+    >
+      {user_id ? (
+        isLiked ? (
+          <HeartPressedIcon32px />
         ) : (
           <HeartDefaultIcon32px />
-        )}
-      </span>
-    </>
+        )
+      ) : (
+        <HeartDefaultIcon32px />
+      )}
+    </span>
   );
 }
 
-export default Hearts;
+export default GoodsHearts;

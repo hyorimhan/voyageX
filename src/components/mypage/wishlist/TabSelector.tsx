@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 import LikedGoods from './LikedGoods';
-import MyCart from './MyCart';
 import useAuthStore from '@/zustand/store/useAuth';
+import MyCart from './my_cart/MyCart';
 
 function TabSelector() {
   const [selectedTab, setSelectedTab] = useState('LikedGoods');
