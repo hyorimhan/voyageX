@@ -169,7 +169,7 @@ export type Database = {
       }
       goods_orders: {
         Row: {
-          address: string
+          address_id: string
           express_cost: number
           goods_id: string
           id: string
@@ -184,7 +184,7 @@ export type Database = {
           user_id: string
         }
         Insert: {
-          address: string
+          address_id?: string
           express_cost?: number
           goods_id?: string
           id: string
@@ -199,7 +199,7 @@ export type Database = {
           user_id: string
         }
         Update: {
-          address?: string
+          address_id?: string
           express_cost?: number
           goods_id?: string
           id?: string
@@ -214,6 +214,13 @@ export type Database = {
           user_id?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "goods_orders_address_id_fkey"
+            columns: ["address_id"]
+            isOneToOne: false
+            referencedRelation: "addresses"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "goods_orders_goods_id_fkey"
             columns: ["goods_id"]
@@ -438,6 +445,69 @@ export type Database = {
             columns: ["user_id"]
             isOneToOne: false
             referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      tour_activities: {
+        Row: {
+          days: number | null
+          id: string
+          schedule1: string | null
+          schedule2: string | null
+          tour_img: string | null
+        }
+        Insert: {
+          days?: number | null
+          id?: string
+          schedule1?: string | null
+          schedule2?: string | null
+          tour_img?: string | null
+        }
+        Update: {
+          days?: number | null
+          id?: string
+          schedule1?: string | null
+          schedule2?: string | null
+          tour_img?: string | null
+        }
+        Relationships: []
+      }
+      tour_days: {
+        Row: {
+          activitiy_id: string | null
+          day: string | null
+          description: string | null
+          id: string
+          tour_id: string
+        }
+        Insert: {
+          activitiy_id?: string | null
+          day?: string | null
+          description?: string | null
+          id?: string
+          tour_id?: string
+        }
+        Update: {
+          activitiy_id?: string | null
+          day?: string | null
+          description?: string | null
+          id?: string
+          tour_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tour_days_activitiy_id_fkey"
+            columns: ["activitiy_id"]
+            isOneToOne: false
+            referencedRelation: "tour_activities"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tourDays_tour_id_fkey"
+            columns: ["tour_id"]
+            isOneToOne: false
+            referencedRelation: "tours"
             referencedColumns: ["id"]
           },
         ]
