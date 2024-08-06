@@ -21,9 +21,7 @@ const MainPage = () => {
 
   const { goods, loading, error } = useFetchGoods();
   const {
-    planets,
-    loading: planetsLoading,
-    error: planetsError,
+    planets
   } = useFetchTourDetail();
 
   const visiblePlanetsCount = 3; // 처음에 보일 행성 수
@@ -49,46 +47,23 @@ const MainPage = () => {
     }
   }, []);
 
-  // 비디오 로드 후 섹션에 ScrollTrigger로 설정
-  useEffect(() => {
-    if (videoLoaded) {
-      sectionsRef.current.forEach((section, index) => {
-        if (section) {
-          ScrollTrigger.create({
-            trigger: section,
-            start: 'top top',
-            pin: true,
-            pinSpacing: false,
-            scrub: true,
-          });
-
-          // 각 섹션의 텍스트가 점점 투명해지는 애니메이션
-          if (textRefs.current[index]) {
-            gsap.fromTo(
-              textRefs.current[index],
-              { opacity: 1, y: 0 },
-              {
-                opacity: 0,
-                y: -50,
-                scrollTrigger: {
-                  trigger: section,
-                  start: 'top+=100% center', // 텍스트가 사라지기 시작하는 지점 조정
-                  end: 'bottom top', // 텍스트가 완전히 사라지는 지점 조정
-                  scrub: true,
-                  onUpdate: (self) => {
-                    if (self.progress < 0.1) {
-                      gsap.to(textRefs.current[index], { opacity: 1, y: 0 });
-                    }
-                  },
-                },
-              },
-            );
-          }
-        }
-      });
-      ScrollTrigger.refresh();
-    }
-  }, [videoLoaded]);
+// 비디오 로드 후 섹션에 ScrollTrigger로 설정
+useEffect(() => {
+  if (videoLoaded) {
+    sectionsRef.current.forEach((section) => {
+      if (section) {
+        ScrollTrigger.create({
+          trigger: section,
+          start: 'top top',
+          pin: true,
+          pinSpacing: false,
+          scrub: true,
+        });
+      }
+    });
+    ScrollTrigger.refresh();
+  }
+}, [videoLoaded]);
 
   // 슬라이드 행성 애니메이션
   useEffect(() => {
