@@ -5,6 +5,7 @@ import { Post } from '@/types/communityType';
 import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 import CategoryBadge from '../common/CategoryBadge';
+import Loading from '@/components/common/Loading';
 
 const SearchResult = ({ searchValue }: { searchValue: string }) => {
   const {
@@ -20,7 +21,12 @@ const SearchResult = ({ searchValue }: { searchValue: string }) => {
     post.title.includes(searchValue),
   );
 
-  if (isPending) return <div>loading</div>;
+  if (isPending)
+    return (
+      <div>
+        <Loading />
+      </div>
+    );
 
   if (isError) return <div>error</div>;
 

@@ -7,6 +7,7 @@ import { Post } from '@/types/communityType';
 import { useCategory } from '@/zustand/store/useCategory';
 import CategoryBadge from '../common/CategoryBadge';
 import { comment } from 'postcss';
+import Loading from '@/components/common/Loading';
 
 const PostList = () => {
   const selectedCategory = useCategory((state) => state.selectedCategory);
@@ -22,7 +23,12 @@ const PostList = () => {
         : () => getPostByCategory(selectedCategory),
   });
 
-  if (isPending) return <div>loading</div>;
+  if (isPending)
+    return (
+      <div>
+        <Loading />
+      </div>
+    );
 
   if (isError) return <div>error</div>;
 
