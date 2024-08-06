@@ -25,11 +25,7 @@ export const useGetIsLikedGoodsByUser = (goods_id: string, user_id: string) => {
   });
 };
 
-export const useToggleLikeGoods = (
-  goods_id: string,
-  user_id: string,
-  isLiked: boolean,
-) => {
+export const useToggleLikeGoods = (goods_id: string, user_id: string) => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: toggleLikeGoods,
