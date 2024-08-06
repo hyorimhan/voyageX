@@ -6,8 +6,8 @@ import AddressesList from '../mypage/address_list/AddressList';
 import AddressAddModal from '../mypage/address_list/AddressAddModal';
 import { Address } from '@/types/userAddressType';
 import useAuthStore from '@/zustand/store/useAuth';
-import useExpressInfoStore from '@/zustand/store/expressInfoStore';
 import toast from 'react-hot-toast';
+import useExpressInfoStore from '@/zustand/store/useExpressInfoStore';
 
 interface AddressChangeModalProps {
   addressList: Address[];
@@ -66,7 +66,7 @@ function AddressChangeModal({
         if (e.target === modalBackground.current) setIsModalOpen(false);
       }}
     >
-      <div className='relative bg-black-800 rounded-lg p-8 my-20 h-[700px]'>
+      <div className='relative bg-black-800 rounded-lg p-8 my-20 h-[650px]'>
         <div>
           <div className='flex flex-col'>
             <div className='flex flex-row justify-between items-start'>
@@ -108,7 +108,7 @@ function AddressChangeModal({
             />
           )}
         </div>
-        <div className='flex justify-center items-center mt-20'>
+        <div className='flex justify-center items-center mt-8'>
           <button
             onClick={handleChangeAddress}
             className='bg-primary-400 p-2 rounded-md text-lg transition-colors duration-200 hover:bg-primary-200 active:bg-primary-300'

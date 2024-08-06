@@ -1,8 +1,7 @@
 'use client';
 
 import useAuthStore from '@/zustand/store/useAuth';
-import useQuantityStore from '@/zustand/store/useQuantity';
-import useUpdateInfoStore from '@/zustand/store/useUpdateInfo';
+import useGoodsOrderStore from '@/zustand/store/useGoodsOrderInfo';
 import {
   loadPaymentWidget,
   PaymentWidgetInstance,
@@ -11,23 +10,18 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useRef } from 'react';
 import toast from 'react-hot-toast';
 
-export type Order = {
+type Order = {
   orderId: string;
   orderName: string;
-  customerName: string;
-  customerMobilePhone: string;
-  totalPrice: number;
-  itemInfo: string;
 };
 
-const PaymentWidget = () => {
+const GoodsPaymentWidget = () => {
+  const router = useRouter();
   const searchParams = useSearchParams();
-  const tourTotalPrice = useQuantityStore((state) => state.totalPrice);
   const user = useAuthStore((state) => state.user);
+  const { goodsOrderInfo } = useGoodsOrderStore((state) => state);
   const query: string = searchParams.get('orderInfo')!;
   const orderInfo: Order = JSON.parse(query);
-  const updateInfo = useUpdateInfoStore((state) => state.updateInfo);
-  const router = useRouter();
 
   const userId = user?.id;
   const paymentWidgetRef = useRef<PaymentWidgetInstance | null>(null);
@@ -44,8 +38,6 @@ const PaymentWidget = () => {
       await paymentWidget?.requestPayment({
         orderId: orderInfo.orderId,
         orderName: orderInfo.orderName,
-        customerName: orderInfo.customerName,
-        customerMobilePhone: orderInfo.customerMobilePhone,
         successUrl: `${window.location.origin}/shop/payment/success`,
         failUrl: `${window.location.origin}/shop/payment/fail`,
       });
@@ -56,6 +48,12 @@ const PaymentWidget = () => {
   };
 
   useEffect(() => {
+    // 총 결제금액 계산
+    const totalPrice = goodsOrderInfo?.reduce((total, item) => {
+      const price = item.goods.goods_price;
+      const quantity = item.quantity;
+      return total + price * quantity;
+    }, 0);
     // 결제창 로드
     const loadWidget = async () => {
       const paymentWidget = await loadPaymentWidget(clientKey, userId!);
@@ -63,7 +61,7 @@ const PaymentWidget = () => {
       // 결제방법 위젯
       const paymentMethodsWidget = paymentWidget.renderPaymentMethods(
         '#payment-widget',
-        tourTotalPrice || orderInfo.totalPrice, // 구매 가격
+        totalPrice!, // 구매 가격
       );
 
       // 약관동의 위젯
@@ -74,7 +72,6 @@ const PaymentWidget = () => {
     };
     loadWidget();
   });
-  console.log(updateInfo);
   return (
     <div className='flex flex-col justify-center items-center mt-10'>
       <div id='payment-widget' className='w-2/3' />
@@ -92,4 +89,4 @@ const PaymentWidget = () => {
   );
 };
 
-export default PaymentWidget;
+export default GoodsPaymentWidget;
