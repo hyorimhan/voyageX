@@ -3,15 +3,12 @@
 import Loading from '@/components/common/Loading';
 import HeartDefaultIcon32px from '@/components/common/icons/32px/HeartDefaultIcon32px';
 import HeartPressedIcon32px from '@/components/common/icons/32px/HeartPressedIcon32px';
-import { useGetLikedGoodsByUser, useToggleLikeGoods } from '@/hooks/goodsHooks';
 import {
   useGetIsLikedTourByUser,
   useToggleLikeTours,
 } from '@/hooks/toursHooks';
 import { toggleLikeToursParamsType } from '@/types/tour';
 import toast from 'react-hot-toast';
-import { IoHeart } from 'react-icons/io5';
-import { IoHeartOutline } from 'react-icons/io5';
 
 interface TourHeartsProps {
   tour_id: string;

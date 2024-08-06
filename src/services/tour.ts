@@ -1,7 +1,6 @@
 import { createClient } from '@/supabase/client';
 import { toggleLikeToursParamsType } from '@/types/tour';
 import axios from 'axios';
-import { headers } from 'next/headers';
 
 const supabase = createClient();
 
@@ -38,7 +37,16 @@ export const tourDetail = async (id: string) => {
     planet_img,
     title,
     english_name
+  ),
+  tour_days(
+    day,
+    description,
+    tour_activities(
+      schedule1,
+      schedule2
   )
+  )
+
   `,
     )
     .eq('id', id);

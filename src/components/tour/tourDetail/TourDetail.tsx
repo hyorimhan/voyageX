@@ -7,7 +7,7 @@ import Loading from '@/components/common/Loading';
 
 function TourDetail({ params }: tourProps) {
   const { id } = params;
-  const { data: tours, isLoading } = useQuery({
+  const { data: tours, isLoading } = useQuery<Tour[]>({
     queryKey: ['tours', id],
     queryFn: async () => {
       const { tours, error } = await tourDetail(id);
@@ -25,7 +25,7 @@ function TourDetail({ params }: tourProps) {
   return (
     <>
       {tours?.map((tour) => (
-        <DetailCard key={tour.id} tour={tour as Tour} />
+        <DetailCard key={tour.id} tour={tour} />
       ))}
     </>
   );
