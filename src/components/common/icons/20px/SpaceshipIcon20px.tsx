@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-const ArrowDownBlackIcon20px = () => {
+const SpaceshipIcon20px = () => {
   return (
     <Image
       src='/icons/20px/spaceship.svg'
@@ -11,4 +11,4 @@ const ArrowDownBlackIcon20px = () => {
   );
 };
 
-export default ArrowDownBlackIcon20px;
+export default SpaceshipIcon20px;
