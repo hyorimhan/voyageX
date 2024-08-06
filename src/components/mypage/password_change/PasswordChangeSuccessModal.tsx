@@ -1,7 +1,5 @@
 'use client';
 
-import CloseIcon32px from '@/components/common/icons/32px/CloseIcon32px';
-
 type ModalProps = {
   isOpen: boolean;
   onClose: () => void;

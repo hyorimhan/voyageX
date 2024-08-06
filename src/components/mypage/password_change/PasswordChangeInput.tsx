@@ -50,7 +50,7 @@ const PasswordChangeInput = ({
           {showPassword ? <EyeOnIcon24px /> : <EyeOffIcon24px />}
         </button>
       </div>
-      {error && <p className='text-red-500 text-sm ml-3'>{error}</p>}
+      {error && <p className='text-error-900 text-sm ml-2'>{error}</p>}
     </div>
   );
 };
