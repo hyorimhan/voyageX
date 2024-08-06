@@ -102,7 +102,6 @@ function AddressChangeModal({
           {showAddressAddModal && (
             <AddressAddModal
               onClose={() => setShowAddressAddModal(false)}
-              onAddAddress={handleAddAddress}
               editMode={!!editAddress}
               initialData={editAddress}
             />

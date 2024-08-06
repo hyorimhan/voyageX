@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import AddressApiScript from './AddressApiScript';
-import { createClient } from '@/supabase/client';
 import useAuthStore from '@/zustand/store/useAuth';
 import AddressSearchModal from './AddressSearchModal';
 import addressForm from './addressForm';
@@ -11,16 +10,14 @@ import CloseIcon32px from '@/components/common/icons/32px/CloseIcon32px';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { addAddress, updateAddress } from '@/services/address';
 
-interface AddressAddModalProps {
+type AddressAddModalProps = {
   onClose: () => void;
-  onAddAddress: (address: any) => void;
   editMode: boolean;
   initialData?: any;
-}
+};
 
 const AddressAddModal: React.FC<AddressAddModalProps> = ({
   onClose,
-  onAddAddress,
   editMode,
   initialData,
 }) => {
@@ -65,8 +62,6 @@ const AddressAddModal: React.FC<AddressAddModalProps> = ({
       onClose();
     },
   });
-
-  const supabase = createClient();
 
   useEffect(() => {
     if (editMode && initialData) {
@@ -129,8 +124,6 @@ const AddressAddModal: React.FC<AddressAddModalProps> = ({
       phone,
     };
 
-    console.log('newAddressData => ', newAddressData);
-
     try {
       if (editMode && initialData) {
         updateAddressMutate({
@@ -140,31 +133,29 @@ const AddressAddModal: React.FC<AddressAddModalProps> = ({
       } else {
         addAddressMutate({ userId: user.id, address: newAddressData });
       }
-
-      // if (editMode && initialData) {
-      //   await updateAddressMutation.mutateAsync({
-      //     addressId: initialData.id,
-      //     address: newAddressData,
-      //   });
-      // } else {
-      //   await addAddressMutation.mutateAsync({
-      //     user_id: user.id,
-      //     address: newAddressData,
-      //   });
-      // }
-
-      // onAddAddress(newAddressData);
     } catch (error) {
       alert('주소 저장에 실패했습니다.');
       console.log(error);
     }
   };
 
+  const isSaveDisabled = !!(
+    aliasError ||
+    recipientError ||
+    phoneError ||
+    !alias ||
+    !recipient ||
+    !phone ||
+    !postcode ||
+    !newAddress ||
+    !oldAddress
+  );
+
   return (
     <div className='fixed inset-0 flex items-center justify-center bg-black-1000 bg-opacity-50 z-30'>
       <AddressApiScript />
       <div className='bg-black-800 p-8 rounded-lg shadow-lg relative w-[432px]'>
-        <div className='flex justify-center mb-8 flex-col'>
+        <div className='flex justify-center mb-5 flex-col'>
           <div className='flex justify-end mb-3'>
             <button onClick={onClose}>
               <CloseIcon32px />
@@ -176,40 +167,39 @@ const AddressAddModal: React.FC<AddressAddModalProps> = ({
         </div>
         <div className='flex flex-col gap-4'>
           <AddressAddModalInput
-            label='주소별칭'
+            label='주소별칭*'
             placeholder='6글자 이내로 입력해주세요.'
             value={alias}
             onChange={handleAliasChange}
             error={aliasError}
           />
           <AddressAddModalInput
-            label='받으실분'
+            label='받으실분*'
             placeholder='이름을 입력해주세요.'
             value={recipient}
             onChange={handleRecipientChange}
             error={recipientError}
           />
           <AddressAddModalInput
-            label='휴대폰 번호'
+            label='휴대폰 번호*'
             placeholder='-를 제외하고 입력해주세요.'
             value={phone}
             onChange={handlePhoneChange}
             error={phoneError}
           />
           <div>
-            <label className='text-black-200'>배송주소</label>
-            <div className='flex flex-col gap-3'>
+            <label className='text-black-200 text-sm'>배송주소*</label>
+            <div className='flex flex-col gap-2'>
               <div className='flex gap-3 items-center justify-evenly'>
                 <AddressAddModalInput
                   placeholder={''}
                   label=''
                   value={postcode}
-                  onChange={() => {}}
                   readOnly
-                  onClick={() => setShowAddressSearchModal(true)}
+                  disabled
                 />
                 <button
-                  className='px-6 py-5 bg-white text-black-1000 rounded-lg w-[155px] flex items-center h-[59px]'
+                  className='bg-white text-black-1000 rounded-lg w-[125px] flex h-[48px] text-sm justify-center items-center'
                   onClick={() => setShowAddressSearchModal(true)}
                 >
                   우편번호 찾기
@@ -219,7 +209,7 @@ const AddressAddModal: React.FC<AddressAddModalProps> = ({
                 label=''
                 placeholder='주소를 입력해주세요.'
                 value={newAddress}
-                onChange={(e) => setNewAddress(e.target.value)}
+                disabled
               />
               <AddressAddModalInput
                 label=''
@@ -231,8 +221,13 @@ const AddressAddModal: React.FC<AddressAddModalProps> = ({
           </div>
         </div>
         <button
-          className='w-full mt-8 px-4 py-4 bg-primary-600 rounded-lg'
+          className={`w-full mt-5 px-4 py-4 rounded-lg ${
+            isSaveDisabled
+              ? 'bg-black-400 cursor-not-allowed text-black-200'
+              : 'bg-primary-600 hover:bg-primary-400 active:bg-primary-500 text-black-50'
+          }`}
           onClick={handleSave}
+          disabled={isSaveDisabled}
         >
           저장하기
         </button>

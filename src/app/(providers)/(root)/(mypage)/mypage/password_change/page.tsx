@@ -26,13 +26,22 @@ const PasswordChangePage = () => {
     );
   };
 
+  const isSaveDisabled = !!(
+    currentPasswordError ||
+    newPasswordError ||
+    confirmNewPasswordError ||
+    !currentPassword ||
+    !newPassword ||
+    !confirmNewPassword
+  );
+
   return (
     <div>
-      <p className='text-2xl mb-9'>비밀번호 변경</p>
-      <div className='flex flex-col pr-[268px] text-black-400 gap-4'>
+      <p className='text-2xl mb-[49px]'>비밀번호 변경</p>
+      <div className='flex flex-col w-[568px] text-black-400 gap-4'>
         <PasswordChangeInput
           label='현재 비밀번호'
-          placeholder='현재 비밀번호를 입력해주세요'
+          placeholder='비밀번호를 입력해주세요.'
           type='password'
           value={currentPassword}
           onChange={(e) => setCurrentPassword(e.target.value)}
@@ -40,7 +49,7 @@ const PasswordChangePage = () => {
         />
         <PasswordChangeInput
           label='신규 비밀번호'
-          placeholder='신규 비밀번호를 입력해주세요'
+          placeholder='신규 비밀번호를 입력해주세요.'
           type='password'
           value={newPassword}
           onChange={(e) => setNewPassword(e.target.value)}
@@ -48,7 +57,7 @@ const PasswordChangePage = () => {
         />
         <PasswordChangeInput
           label='신규 비밀번호 확인'
-          placeholder='신규 비밀번호를 다시 한 번 입력해주세요'
+          placeholder='신규 비밀번호를 다시 입력해주세요.'
           type='password'
           value={confirmNewPassword}
           onChange={(e) => setConfirmNewPassword(e.target.value)}
@@ -59,7 +68,12 @@ const PasswordChangePage = () => {
           onClose={closeModal}
         />
         <button
-          className='bg-primary-600 h-14 rounded-lg text-white mt-8'
+          className={`h-14 rounded-lg text-white mt-4 ${
+            isSaveDisabled
+              ? 'bg-black-400 cursor-not-allowed text-black-200'
+              : 'bg-primary-600 hover:bg-primary-400 active:bg-primary-500 text-black-50'
+          }`}
+          disabled={isSaveDisabled}
           onClick={onSubmit}
         >
           비밀번호 변경

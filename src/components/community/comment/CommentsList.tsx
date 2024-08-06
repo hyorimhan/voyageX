@@ -10,8 +10,16 @@ import React, { useState } from 'react';
 import CommentsWrite from './CommentsWrite';
 import useAuthStore from '@/zustand/store/useAuth';
 import CommentWriterIcon from '../ProfileImages/CommentWriter';
+import Loading from '@/components/common/Loading';
+import PostWriterIcon from '../ProfileImages/PostWriter';
 
-const CommentList = ({ postId }: { postId: string }) => {
+const CommentList = ({
+  postId,
+  userId,
+}: {
+  postId: string;
+  userId: string;
+}) => {
   const queryClient = useQueryClient();
   const user = useAuthStore((state) => state.user);
 
@@ -57,7 +65,12 @@ const CommentList = ({ postId }: { postId: string }) => {
     console.log('Saving comment with id:', id, 'and new content:', newContent);
   };
 
-  if (isPending) return <div>Loading</div>;
+  if (isPending)
+    return (
+      <div>
+        <Loading />
+      </div>
+    );
 
   if (isError) return <div>Error</div>;
 
@@ -79,6 +92,9 @@ const CommentList = ({ postId }: { postId: string }) => {
                 maxLength={200}
                 className='w-full h-28 bg-transparent border-black-700 border-[3px] rounded-lg pt-8 pl-6 pr-28 focus:outline-none focus:border-gray-300 transition-colors duration-200 ease-in-out resize-none'
               />
+              <div className='absolute top-10 right-2 text-gray-400 text-sm'>
+                {newContent.length}/200
+              </div>
               <div className='flex text-sm text-black-400'>
                 <button
                   onClick={() => handleSaveEdit(comment.id)}
@@ -112,10 +128,20 @@ const CommentList = ({ postId }: { postId: string }) => {
             </form>
           ) : (
             <div className='flex flex-col gap-4 border-t-[1px] border-black-700 justify-center'>
-              <div className='flex gap-2 pt-8'>
-                <CommentWriterIcon />
-                외계인
-              </div>
+              {userId === comment.user_id ? (
+                <div className='flex gap-2 pt-8 items-center'>
+                  <PostWriterIcon />
+                  우주인
+                  <div className='flex px-2 py-1 bg-black-50 rounded-3xl font-bold text-black-1000 text-xs items-center justify-center'>
+                    작성자
+                  </div>
+                </div>
+              ) : (
+                <div className='flex gap-2 pt-8'>
+                  <CommentWriterIcon />
+                  외계인
+                </div>
+              )}
               <div>{comment.content}</div>
               <div className='flex gap-2 mb-2 text-sm text-black-400'>
                 <p>{new Date(comment.created_at).toLocaleDateString()}</p>
@@ -135,7 +161,7 @@ const CommentList = ({ postId }: { postId: string }) => {
           )}
         </div>
       ))}
-      <CommentsWrite postId={postId} />
+      <CommentsWrite postId={postId} userId={userId} />
     </div>
   );
 };
