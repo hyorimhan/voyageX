@@ -15,7 +15,6 @@ const MainPage = () => {
   const sectionsRef = useRef<(HTMLDivElement | null)[]>([]);
   const planetsRef = useRef<(HTMLDivElement | null)[]>([]);
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  const textRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [videoLoaded, setVideoLoaded] = useState<boolean>(false);
   const [currentSlide, setCurrentSlide] = useState<number>(0);
 
@@ -146,9 +145,6 @@ useEffect(() => {
           muted
         />
         <div
-          ref={(el) => {
-            textRefs.current[0] = el as HTMLDivElement;
-          }}
           className='absolute z-10 text-center top-48 sm:w-auto sm:text-left sm:left-48 md:left-40 lg:left-52 xl:left-64'
         >
           <h1 className='text-gradient text-6xl font-bold font-yangpyeong'>
@@ -173,9 +169,6 @@ useEffect(() => {
         style={{ backgroundImage: 'url(/images/section2.png)' }}
       >
         <div
-          ref={(el) => {
-            textRefs.current[1] = el;
-          }}
           className='absolute top-32 left-4 sm:top-44 sm:left-16 text-white font-yangpyeong text-2xl sm:text-4xl font-bold fade-text'
         >
           Let&apos;s Find Popular Planets!
