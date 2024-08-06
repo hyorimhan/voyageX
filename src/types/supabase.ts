@@ -11,39 +11,39 @@ export type Database = {
     Tables: {
       addresses: {
         Row: {
-          address: string | null
-          alias: string | null
-          detailAddress: string | null
+          address: string
+          alias: string
+          detailAddress: string
           id: string
-          is_default: boolean | null
-          oldAddress: string | null
-          phone: string | null
-          postcode: string | null
-          recipient: string | null
+          is_default: boolean
+          oldAddress: string
+          phone: string
+          postcode: string
+          recipient: string
           user_id: string
         }
         Insert: {
-          address?: string | null
-          alias?: string | null
-          detailAddress?: string | null
+          address: string
+          alias: string
+          detailAddress: string
           id?: string
-          is_default?: boolean | null
-          oldAddress?: string | null
-          phone?: string | null
-          postcode?: string | null
-          recipient?: string | null
+          is_default?: boolean
+          oldAddress: string
+          phone: string
+          postcode: string
+          recipient: string
           user_id: string
         }
         Update: {
-          address?: string | null
-          alias?: string | null
-          detailAddress?: string | null
+          address?: string
+          alias?: string
+          detailAddress?: string
           id?: string
-          is_default?: boolean | null
-          oldAddress?: string | null
-          phone?: string | null
-          postcode?: string | null
-          recipient?: string | null
+          is_default?: boolean
+          oldAddress?: string
+          phone?: string
+          postcode?: string
+          recipient?: string
           user_id?: string
         }
         Relationships: [
@@ -169,21 +169,48 @@ export type Database = {
       }
       goods_orders: {
         Row: {
+          address: string
+          express_cost: number
           goods_id: string
           id: string
-          order_date: string
+          installment: number
+          pay_at: string
+          pay_method: string
+          phone: string
+          quantity: number
+          recipient: string
+          state: string
+          total_price: number
           user_id: string
         }
         Insert: {
+          address: string
+          express_cost?: number
           goods_id?: string
           id: string
-          order_date?: string
+          installment?: number
+          pay_at?: string
+          pay_method: string
+          phone: string
+          quantity: number
+          recipient: string
+          state: string
+          total_price: number
           user_id: string
         }
         Update: {
+          address?: string
+          express_cost?: number
           goods_id?: string
           id?: string
-          order_date?: string
+          installment?: number
+          pay_at?: string
+          pay_method?: string
+          phone?: string
+          quantity?: number
+          recipient?: string
+          state?: string
+          total_price?: number
           user_id?: string
         }
         Relationships: [
@@ -417,35 +444,56 @@ export type Database = {
       }
       tour_orders: {
         Row: {
-          amount: number
-          customer_email: string
-          customer_name: string
-          customer_phone: string
+          arrive_date: string
+          arrive_place: string
+          depart_date: string
+          depart_place: string
+          flight_type: string
           id: string
-          order_date: string | null
-          total_price: number
+          passenger: string
+          passenger_email: string
+          pay_at: string
+          phone: string
+          qr_code: string
+          seat_code: string
+          spaceship_code: string
+          spaceship_name: string
           tour_id: string
           user_id: string
         }
         Insert: {
-          amount: number
-          customer_email: string
-          customer_name: string
-          customer_phone: string
+          arrive_date: string
+          arrive_place: string
+          depart_date: string
+          depart_place: string
+          flight_type: string
           id?: string
-          order_date?: string | null
-          total_price: number
+          passenger: string
+          passenger_email: string
+          pay_at?: string
+          phone: string
+          qr_code: string
+          seat_code: string
+          spaceship_code: string
+          spaceship_name: string
           tour_id?: string
           user_id: string
         }
         Update: {
-          amount?: number
-          customer_email?: string
-          customer_name?: string
-          customer_phone?: string
+          arrive_date?: string
+          arrive_place?: string
+          depart_date?: string
+          depart_place?: string
+          flight_type?: string
           id?: string
-          order_date?: string | null
-          total_price?: number
+          passenger?: string
+          passenger_email?: string
+          pay_at?: string
+          phone?: string
+          qr_code?: string
+          seat_code?: string
+          spaceship_code?: string
+          spaceship_name?: string
           tour_id?: string
           user_id?: string
         }
