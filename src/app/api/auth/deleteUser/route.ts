@@ -11,7 +11,7 @@ export async function POST(req: NextRequest) {
     const { userId } = await req.json();
     console.log(userId);
     if (!userId) {
-      return NextResponse.json({ error: 'User ID is required' });
+      return NextResponse.json({ error: '유저 ID를 찾을 수 없습니다.' });
     }
 
     const { error } = await supabase.auth.admin.deleteUser(userId);
@@ -20,8 +20,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: error.message });
     }
 
-    return NextResponse.json({ message: 'User deleted successfully' });
+    return NextResponse.json({ message: '회원탈퇴가 완료되었습니다.' });
   } catch (error) {
-    return NextResponse.json({ error: 'Network error occurred' });
+    return NextResponse.json({ error: '네트워크 에러 발생' });
   }
 }

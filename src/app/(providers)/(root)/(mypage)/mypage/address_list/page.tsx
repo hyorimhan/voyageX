@@ -14,6 +14,7 @@ const AddressListPage: React.FC = () => {
   const [selectedAddressId, setSelectedAddressId] = useState<string | null>(
     null,
   );
+
   const [addressesLength, setAddressesLength] = useState<number>(0);
 
   const user = useAuthStore((state) => state.user);

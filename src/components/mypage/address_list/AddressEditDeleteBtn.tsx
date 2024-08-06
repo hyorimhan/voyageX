@@ -1,18 +1,27 @@
 'use client';
 
+import { useDeleteAddress } from '@/hooks/useAddresses';
 import { Address } from '@/types/userAddressType';
 
 type AddressEditDeleteBtnProps = {
   address: Address;
   onEditAddress: (address: Address) => void;
-  onDeleteAddress: (id: string) => void;
 };
 
 const AddressEditDeleteBtn = ({
   address,
   onEditAddress,
-  onDeleteAddress,
 }: AddressEditDeleteBtnProps) => {
+  const deleteAddressMutation = useDeleteAddress();
+
+  const handleDeleteAddress = async (id: string) => {
+    try {
+      await deleteAddressMutation.mutateAsync(id);
+    } catch (error) {
+      console.error('삭제 오류', error);
+    }
+  };
+
   return (
     <div className='gap-2 flex text-xs w-[79px] justify-center items-center text-black-50'>
       <button
@@ -24,7 +33,7 @@ const AddressEditDeleteBtn = ({
       {!address.is_default && (
         <button
           className='bg-black-600 p-1 rounded-md border-[1px] border-black-600 transition-colors duration-200 hover:bg-black-400 active:bg-black-500'
-          onClick={() => onDeleteAddress(address.id)}
+          onClick={() => handleDeleteAddress(address.id)}
         >
           삭제
         </button>
