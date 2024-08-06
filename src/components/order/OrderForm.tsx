@@ -6,7 +6,8 @@ import ItemsInfo from './ItemsInfo';
 import CustomerInfo from './CustomerInfo';
 import { useState } from 'react';
 import { User } from '@supabase/supabase-js';
-import { useFetchAddresses } from '@/hooks/addressHooks';
+import { useFetchAddresses } from '@/hooks/useAddresses';
+
 interface OrderFormPropsType {
   isTour: boolean;
   user: User;

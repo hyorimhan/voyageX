@@ -5,10 +5,10 @@ import { formType } from '@/types/authFormType';
 import { useRouter } from 'next/navigation';
 import { FieldErrors, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import { emailValidate, passwordValidate } from '../authValidate';
 import useAuthStore from '../../../zustand/store/useAuth';
 import Link from 'next/link';
 import GoogleKakao from './GoogleKakao';
+import { emailValidate, passwordValidate } from '../AuthValidate';
 
 function LoginForm() {
   const router = useRouter();
@@ -62,7 +62,9 @@ function LoginForm() {
             id='email'
             placeholder='예) voyageX@gmail.com'
             {...register('email', emailValidate())}
-            className='text-black-900 w-[469px] h-[60px] rounded-lg p-2 '
+            className={`text-black-900 w-[469px] h-[60px] rounded-lg p-2 border-2 ${
+              errors.email ? 'border-red-500' : 'border-r-gray-300'
+            }  `}
             autoFocus
           />
         </div>
@@ -76,7 +78,9 @@ function LoginForm() {
             id='password'
             placeholder='영문, 숫자, 특수문자 조합 8-16자'
             {...register('password', passwordValidate())}
-            className='text-black-900 w-[469px] h-[60px]   rounded-lg p-2 '
+            className={`text-black-900 w-[469px] h-[60px]   rounded-lg p-2 ${
+              errors.email ? 'border-red-500' : 'border-r-gray-300'
+            }`}
           />
         </div>
         <div className='flex flex-col'>

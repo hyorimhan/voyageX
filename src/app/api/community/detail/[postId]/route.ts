@@ -13,10 +13,8 @@ export async function GET(
     .eq('id', postId)
     .single();
 
-  if (error) {
-    throw new Error(error.message);
-  }
-
+  if (error)
+    return NextResponse.json({ error: error.message }, { status: 500 });
   return NextResponse.json(data);
 }
 
@@ -31,7 +29,8 @@ export async function PUT(
     .from('posts')
     .update(newPost)
     .eq('id', postId);
-  if (error) return NextResponse.json(error);
+  if (error)
+    return NextResponse.json({ error: error.message }, { status: 500 });
   return NextResponse.json(data);
 }
 
@@ -46,9 +45,8 @@ export async function DELETE(
     .delete()
     .eq('id', postId);
 
-  if (error) {
-    throw new Error(error.message);
-  }
+  if (error)
+    return NextResponse.json({ error: error.message }, { status: 500 });
 
   return NextResponse.json(data);
 }

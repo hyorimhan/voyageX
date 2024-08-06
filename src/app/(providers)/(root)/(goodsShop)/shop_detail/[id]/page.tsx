@@ -3,8 +3,8 @@
 import Page from '@/components/pages/Page';
 import FAQ from '@/components/shop/detail/FAQ';
 import GoodsDetailPageTabSelector from '@/components/shop/detail/GoodsDetailPageTabSelector';
-import { useGetGoodsItem } from '@/hooks/goodsHooks';
 import GoodsInfo from '@/components/shop/detail/GoodsInfo';
+import { useGetGoodsItem } from '@/hooks/apis/goods.api';
 
 type Params = {
   params: {

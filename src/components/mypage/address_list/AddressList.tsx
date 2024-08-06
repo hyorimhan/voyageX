@@ -2,12 +2,11 @@
 
 import RadioDefaultIcon24px from '@/components/common/icons/24px/RadioDefaultIcon24px';
 import RadioPressedIcon24px from '@/components/common/icons/24px/RadioPressedIcon24px';
-import RadioHoveredIcon24px from '@/components/common/icons/24px/RadioHoveredIcon24px'; // 호버 아이콘 임포트
-import { Address } from '@/types/userAddressType';
+import RadioHoveredIcon24px from '@/components/common/icons/24px/RadioHoveredIcon24px';
 import AddressEditDeleteBtn from './AddressEditDeleteBtn';
-import { useFetchAddresses } from '@/hooks/addressHooks';
 import { useEffect, useState } from 'react';
-import { deleteAddress } from '@/services/address';
+import { useFetchAddresses } from '@/hooks/useAddresses';
+import { Address } from '@/types/userAddressType';
 
 type AddressesListProps = {
   userId: string;
@@ -24,27 +23,14 @@ const AddressesList = ({
   onEditAddress,
   updateAddressesLength,
 }: AddressesListProps) => {
-  const { data: addresses, error, refetch } = useFetchAddresses(userId);
+  const { data: addresses, error } = useFetchAddresses(userId);
   const [hoveredAddressId, setHoveredAddressId] = useState<string | null>(null);
-
-  useEffect(() => {
-    refetch();
-  }, [userId, refetch]);
 
   useEffect(() => {
     if (addresses) {
       updateAddressesLength(addresses.length);
     }
   }, [addresses, updateAddressesLength]);
-
-  const handleDeleteAddress = async (id: string, refetch: () => void) => {
-    try {
-      await deleteAddress(id);
-      refetch();
-    } catch (error) {
-      console.error('삭제 오류', error);
-    }
-  };
 
   if (error) return <div>Error: {error.message}</div>;
 
@@ -93,7 +79,6 @@ const AddressesList = ({
               <AddressEditDeleteBtn
                 address={address}
                 onEditAddress={onEditAddress}
-                onDeleteAddress={() => handleDeleteAddress(address.id, refetch)}
               />
             </div>
           </div>

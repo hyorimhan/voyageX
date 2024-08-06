@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { IoMdClose } from 'react-icons/io';
 import AddressApiScript from './AddressApiScript';
 import { createClient } from '@/supabase/client';
 import useAuthStore from '@/zustand/store/useAuth';
@@ -9,6 +8,8 @@ import AddressSearchModal from './AddressSearchModal';
 import addressForm from './addressForm';
 import AddressAddModalInput from './AddressAddModalInput';
 import CloseIcon32px from '@/components/common/icons/32px/CloseIcon32px';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { addAddress, updateAddress } from '@/services/address';
 
 interface AddressAddModalProps {
   onClose: () => void;
@@ -46,8 +47,26 @@ const AddressAddModal: React.FC<AddressAddModalProps> = ({
   const [showAddressSearchModal, setShowAddressSearchModal] =
     useState<boolean>(false);
 
-  const supabase = createClient();
   const user = useAuthStore((state) => state.user);
+  const queryClient = useQueryClient();
+  const { mutate: addAddressMutate } = useMutation({
+    mutationFn: addAddress,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['addresses', user!.id] });
+      alert('주소가 저장되었습니다.');
+      onClose();
+    },
+  });
+  const { mutate: updateAddressMutate } = useMutation({
+    mutationFn: updateAddress,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['addresses', user!.id] });
+      alert('주소가 저장되었습니다.');
+      onClose();
+    },
+  });
+
+  const supabase = createClient();
 
   useEffect(() => {
     if (editMode && initialData) {
@@ -108,28 +127,33 @@ const AddressAddModal: React.FC<AddressAddModalProps> = ({
       detailAddress,
       recipient,
       phone,
-      user_id: user.id,
     };
+
+    console.log('newAddressData => ', newAddressData);
 
     try {
       if (editMode && initialData) {
-        const { error } = await supabase
-          .from('addresses')
-          .update(newAddressData)
-          .eq('id', initialData.id);
-
-        if (error) throw error;
+        updateAddressMutate({
+          addressId: initialData.id,
+          address: newAddressData,
+        });
       } else {
-        const { error } = await supabase
-          .from('addresses')
-          .insert([newAddressData]);
-
-        if (error) throw error;
+        addAddressMutate({ userId: user.id, address: newAddressData });
       }
 
-      onAddAddress(newAddressData);
-      alert('주소가 저장되었습니다.');
-      onClose();
+      // if (editMode && initialData) {
+      //   await updateAddressMutation.mutateAsync({
+      //     addressId: initialData.id,
+      //     address: newAddressData,
+      //   });
+      // } else {
+      //   await addAddressMutation.mutateAsync({
+      //     user_id: user.id,
+      //     address: newAddressData,
+      //   });
+      // }
+
+      // onAddAddress(newAddressData);
     } catch (error) {
       alert('주소 저장에 실패했습니다.');
       console.log(error);
