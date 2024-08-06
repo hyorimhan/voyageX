@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import AddressChangeModal from './AddressChangeModal';
-import useExpressInfoStore from '@/zustand/store/expressInfoStore';
 import { Address } from '@/types/userAddressType';
+import useExpressInfoStore from '@/zustand/store/useExpressInfoStore';
 
 interface ExpressInfoPropsType {
   addressList: Address[];

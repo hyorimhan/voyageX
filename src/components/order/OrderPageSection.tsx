@@ -14,7 +14,7 @@ function OrderPageSection() {
       >
         GOODS SHOP
       </h1>
-      {user && <OrderForm user={user} isTour={false} />}
+      {user && <OrderForm user={user} />}
     </>
   );
 }

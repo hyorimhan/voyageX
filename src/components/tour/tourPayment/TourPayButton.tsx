@@ -6,11 +6,9 @@ import { customAlphabet } from 'nanoid';
 import toast from 'react-hot-toast';
 import useUpdateInfoStore from '@/zustand/store/useUpdateInfo';
 import useQuantityStore from '@/zustand/store/useQuantity';
-import useItemListStore from '@/zustand/store/itemListStore';
 
 function TourPayButton({ id }: { id: string }) {
   const router = useRouter();
-  const { setItemList } = useItemListStore((state) => state);
   const [isAgree, setIsAgree] = useState(false);
   const updateInfo = useUpdateInfoStore((state) => state.updateInfo);
   const totalPrice = useQuantityStore((state) => state.totalPrice);
@@ -38,8 +36,6 @@ function TourPayButton({ id }: { id: string }) {
     );
 
     const orderId = yymmdd + randomAlphabet();
-
-    setItemList([]);
 
     const currentOrder = {
       orderId,
