@@ -9,13 +9,7 @@ function TourDetail({ params }: tourProps) {
   const { id } = params;
   const { data: tours, isLoading } = useQuery<Tour[]>({
     queryKey: ['tours', id],
-    queryFn: async () => {
-      const { tours, error } = await tourDetail(id);
-      if (error) {
-        console.log(error);
-      }
-      return tours ?? [];
-    },
+    queryFn: () => tourDetail(id),
   });
 
   if (isLoading) {

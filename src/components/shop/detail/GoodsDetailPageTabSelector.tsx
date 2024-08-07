@@ -3,13 +3,13 @@
 import RenderTabReviews from './RenderTabReviews';
 import RenderTabGoodsDetail from './RenderTabGoodsDetail';
 import { useState } from 'react';
-import RenderTourGuid from '@/components/tour/tourDetail/tourTab/RenderTourGuid';
+import RenderTourGuid from '@/components/tour/tourDetail/tourTab/guideContents/RenderTourGuid';
 
 type GoodsDetailPageTabSelectorProps = {
   goodsRating?: number | undefined;
   goodsId: string;
   contents: React.ReactNode;
-  guideContents: React.ReactNode;
+  guideContents?: React.ReactNode;
   showTourGuideTab?: boolean;
 };
 

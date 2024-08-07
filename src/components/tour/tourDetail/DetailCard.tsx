@@ -7,12 +7,11 @@ import Link from 'next/link';
 import TourHearts from './TourHearts';
 import { orbitron } from '../../../../public/fonts/orbitron';
 import { Tour } from '@/types/tourPropsType';
-import Contents from './tourTab/TourContents';
+import TourContents from './tourTab/tourContents/TourContents';
+import GuideContents from './tourTab/guideContents/GuideContents';
 
 function DetailCard({ tour }: { tour: Tour }) {
   const user = useAuthStore((state) => state.user);
-
-  const guideContents = <div>ㅎㅇ</div>;
 
   return (
     <>
@@ -67,9 +66,9 @@ function DetailCard({ tour }: { tour: Tour }) {
         <GoodsDetailPageTabSelector
           goodsRating={tour?.rating_avg}
           goodsId={tour.id}
-          contents={<Contents tour={tour} />}
+          contents={<TourContents tour={tour} />}
           showTourGuideTab={true}
-          guideContents={guideContents}
+          guideContents={<GuideContents />}
         />
       </div>
     </>

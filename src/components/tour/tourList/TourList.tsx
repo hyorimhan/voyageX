@@ -9,13 +9,7 @@ import { orbitron } from '@/../public/fonts/orbitron';
 function TourList() {
   const { data: tours, isLoading } = useQuery({
     queryKey: ['tours'],
-    queryFn: async () => {
-      const { tours, error } = await tourList();
-      if (error) {
-        console.log(error);
-      }
-      return tours ?? [];
-    },
+    queryFn: () => tourList(),
   });
   if (isLoading) {
     return <Loading />;

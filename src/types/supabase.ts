@@ -451,56 +451,64 @@ export type Database = {
       }
       tour_activities: {
         Row: {
-          day_id: string | null
+          days: number | null
           id: string
+          meal: string | null
           schedule1: string | null
           schedule2: string | null
           tour_img: string | null
         }
         Insert: {
-          day_id?: string | null
+          days?: number | null
           id?: string
+          meal?: string | null
           schedule1?: string | null
           schedule2?: string | null
           tour_img?: string | null
         }
         Update: {
-          day_id?: string | null
+          days?: number | null
           id?: string
+          meal?: string | null
           schedule1?: string | null
           schedule2?: string | null
           tour_img?: string | null
         }
-        Relationships: [
-          {
-            foreignKeyName: "tour_Activities_day_id_fkey"
-            columns: ["day_id"]
-            isOneToOne: false
-            referencedRelation: "tour_days"
-            referencedColumns: ["id"]
-          },
-        ]
+        Relationships: []
       }
       tour_days: {
         Row: {
+          activitiy_id: string | null
+          date: string | null
           day: string | null
           description: string | null
           id: string
           tour_id: string
         }
         Insert: {
+          activitiy_id?: string | null
+          date?: string | null
           day?: string | null
           description?: string | null
           id?: string
           tour_id?: string
         }
         Update: {
+          activitiy_id?: string | null
+          date?: string | null
           day?: string | null
           description?: string | null
           id?: string
           tour_id?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "tour_days_activitiy_id_fkey"
+            columns: ["activitiy_id"]
+            isOneToOne: false
+            referencedRelation: "tour_activities"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "tourDays_tour_id_fkey"
             columns: ["tour_id"]
