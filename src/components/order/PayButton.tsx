@@ -5,25 +5,41 @@ import { useRouter } from 'next/navigation';
 import { customAlphabet } from 'nanoid';
 import toast from 'react-hot-toast';
 import useGoodsOrderStore from '@/zustand/store/useGoodsOrderInfo';
-
+import useTourOrderInfoStore from '@/zustand/store/useTourOrderInfoStore';
 interface PayButtonPropsType {
   totalPrice: number;
+  isTour: boolean;
 }
 
-function PayButton({ totalPrice }: PayButtonPropsType) {
+function PayButton({ totalPrice, isTour }: PayButtonPropsType) {
   const router = useRouter();
   const [isAgree, setIsAgree] = useState(false);
   const { goodsOrderInfo } = useGoodsOrderStore((state) => state);
+  const { tourOrder } = useTourOrderInfoStore((state) => state);
 
   const handleClickPayButton = () => {
+    console.log('totalPrice => ', totalPrice, 'tourOrder => ', tourOrder);
     if (!isAgree) {
       toast.error('약관에 동의하셔야합니다!');
       return;
     }
-    if (!totalPrice || !goodsOrderInfo) {
-      toast.error('결제할 상품을 다시 선택해주세요!');
-      return;
+    let orderName: string = '';
+    if (isTour) {
+      if (!totalPrice || !tourOrder) {
+        toast.error('상품을 다시 선택해주세요!');
+        return;
+      } else {
+        orderName = `${tourOrder?.planet_name!} 티켓`;
+      }
+    } else {
+      if (!totalPrice || !goodsOrderInfo) {
+        toast.error('상품을 다시 선택해주세요!');
+        return;
+      } else {
+        orderName = `${goodsOrderInfo[0].goods.goods_name} 등 총 ${goodsOrderInfo.length}건`;
+      }
     }
+
     const today = new Date();
     const year = today.getFullYear().toString().slice(-2);
     const month = (today.getMonth() + 1).toString().padStart(2, '0');
@@ -39,14 +55,14 @@ function PayButton({ totalPrice }: PayButtonPropsType) {
 
     const currentOrder = {
       orderId,
-      orderName: `${goodsOrderInfo[0].goods.goods_name}외 ${
-        goodsOrderInfo.length - 1
-      }건`,
+      orderName,
     };
 
     const orderInfo = JSON.stringify(currentOrder);
     console.log(orderInfo);
-    router.push(`/shop/payment/${orderId}?orderInfo=${orderInfo}`);
+    router.push(
+      `/shop/payment/${orderId}?orderInfo=${orderInfo}&isTour=${isTour}`,
+    );
   };
 
   return (

@@ -1,21 +1,19 @@
 'use client';
 
 import useAuthStore from '@/zustand/store/useAuth';
-import useExpressInfoStore from '@/zustand/store/useExpressInfoStore';
 import useCustomerInfoStore from '@/zustand/store/useCustomrInfoStore';
-import useGoodsOrderStore from '@/zustand/store/useGoodsOrderInfo';
 import { useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import toast from 'react-hot-toast';
 import axios from 'axios';
-import OrderedGoodsList from './OrderedGoodsList';
-import AddressInfo from './AddressInfo';
-import PriceInfo from './PriceInfo';
-import PayMethodInfo from './PayMethodInfo';
+import useTourOrderInfoStore from '@/zustand/store/useTourOrderInfoStore';
+import OrderedTourInfo from './OrderedTourInfo';
+import PriceInfo from '@/components/order/payment/success/PriceInfo';
 import AfterPayButtons from './AfterPayButtons';
-import { createOrderReceipt } from '@/services/pay';
+import PayMethodInfo from '@/components/order/payment/success/PayMethodInfo';
+import { createTourReceipt } from '@/services/pay';
 
-function SuccessPayment() {
+function TourPaymentSuccess() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [result, setResult] = useState<any>();
@@ -27,11 +25,8 @@ function SuccessPayment() {
   const authKey = btoa(secretKey + ':')!;
 
   const { user } = useAuthStore((state) => state);
-  const { expressAddress } = useExpressInfoStore((state) => state);
   const { customerInfo } = useCustomerInfoStore((state) => state);
-  const { goodsOrderInfo, setGoodsOrderInfo } = useGoodsOrderStore(
-    (state) => state,
-  );
+  const { tourOrder, setTourOrder } = useTourOrderInfoStore((state) => state);
 
   useEffect(() => {
     if (!orderId || !paymentKey || !amount || !authKey) {
@@ -74,12 +69,15 @@ function SuccessPayment() {
         pay_method = `${result.easyPay.provider} ${result.method}`;
       }
 
-      const response = await createOrderReceipt({
+      const response = await createTourReceipt({
         user_id: user.id,
         order_id: orderId,
-        goodsList: goodsOrderInfo!,
+        tour_id: tourOrder?.tour_id!,
         customer: customerInfo!,
-        address_id: expressAddress!.id,
+        depart_date: tourOrder?.depart_date!,
+        arrive_date: tourOrder?.arrive_date!,
+        gate: tourOrder?.gate!,
+        qr_code: tourOrder?.qr_code!,
         pay_method,
         installment,
       });
@@ -87,11 +85,11 @@ function SuccessPayment() {
     };
     postReceipt();
     return () => {
-      setGoodsOrderInfo(null);
+      setTourOrder(null);
     };
   }, [result]);
 
-  if (!result || !goodsOrderInfo)
+  if (!result || !tourOrder)
     return (
       <div className='w-full'>
         <div className='w-1/2 h-[700px] my-auto mx-auto flex flex-col items-center justify-center'>
@@ -116,9 +114,8 @@ function SuccessPayment() {
         <AfterPayButtons />
       </div>
       <div className='mb-8'>주문상품 번호 {result.orderId}</div>
-      <OrderedGoodsList goodsOrderInfo={goodsOrderInfo} />
+      <OrderedTourInfo tourOrder={tourOrder} />
       <div className='mt-8 mx-auto max-w-[1120px] flex flex-wrap gap-8 mb-10'>
-        <AddressInfo expressAddress={expressAddress} />
         <PriceInfo amount={+amount} />
         <PayMethodInfo result={result} />
       </div>
@@ -126,4 +123,4 @@ function SuccessPayment() {
   );
 }
 
-export default SuccessPayment;
+export default TourPaymentSuccess;

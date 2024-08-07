@@ -4,13 +4,34 @@ import QuantityBtn from '@/components/shop/detail/QuantityBtn';
 import { Tour } from '@/types/tourPropsType';
 import useAuthStore from '@/zustand/store/useAuth';
 import Image from 'next/image';
-import Link from 'next/link';
 import TourHearts from './TourHearts';
 import TourGuideSWiper from './TourGuideSWiper';
 import { orbitron } from '../../../../public/fonts/orbitron';
+import { useRouter } from 'next/navigation';
+import useTourOrderInfoStore, {
+  tourInfoType,
+} from '@/zustand/store/useTourOrderInfoStore';
 
 function DetailCard({ tour }: { tour: Tour }) {
   const user = useAuthStore((state) => state.user);
+  const { setTourOrder } = useTourOrderInfoStore((state) => state);
+  const router = useRouter();
+
+  const handleGoToPayPage = () => {
+    const tourOrder: tourInfoType = {
+      tour_id: tour.id,
+      planet_name: tour.planets?.name!,
+      eng_name: tour.planets?.english_name!,
+      planet_img: tour.planets?.planet_img!,
+      price: tour.price,
+      depart_date: '2024-08-07',
+      arrive_date: '2024-08-14',
+      gate: 'A3',
+      qr_code: 'QR코드',
+    };
+    setTourOrder(tourOrder);
+    router.push(`/tour/payment/`);
+  };
 
   const contents = (
     <div>
@@ -162,11 +183,12 @@ function DetailCard({ tour }: { tour: Tour }) {
             <div className=' w-[53px] h-[53px] flex p-2 rounded-lg items-center border-2 justify-center border-solid border-primary-400 mt-8'>
               <TourHearts tour_id={tour.id} user_id={user?.id} />
             </div>
-            <Link href={`/tour/payment/${tour.id}`}>
-              <div className='h-[60px] w-[487px] bg-primary-600 rounded-lg justify-center flex items-center mt-8 font-semibold'>
-                구매하기
-              </div>
-            </Link>
+            <button
+              onClick={handleGoToPayPage}
+              className='h-[60px] w-[487px] bg-primary-600 rounded-lg justify-center flex items-center mt-8 font-semibold'
+            >
+              구매하기
+            </button>
           </div>
         </div>
       </div>

@@ -2,6 +2,7 @@
 
 import useAuthStore from '@/zustand/store/useAuth';
 import useGoodsOrderStore from '@/zustand/store/useGoodsOrderInfo';
+import useTourOrderInfoStore from '@/zustand/store/useTourOrderInfoStore';
 import {
   loadPaymentWidget,
   PaymentWidgetInstance,
@@ -20,8 +21,11 @@ const GoodsPaymentWidget = () => {
   const searchParams = useSearchParams();
   const user = useAuthStore((state) => state.user);
   const { goodsOrderInfo } = useGoodsOrderStore((state) => state);
+  const { tourOrder } = useTourOrderInfoStore((state) => state);
   const query: string = searchParams.get('orderInfo')!;
   const orderInfo: Order = JSON.parse(query);
+  const isTourQuery = searchParams.get('isTour')!;
+  const isTour: boolean = JSON.parse(isTourQuery);
 
   const userId = user?.id;
   const paymentWidgetRef = useRef<PaymentWidgetInstance | null>(null);
@@ -38,8 +42,12 @@ const GoodsPaymentWidget = () => {
       await paymentWidget?.requestPayment({
         orderId: orderInfo.orderId,
         orderName: orderInfo.orderName,
-        successUrl: `${window.location.origin}/shop/payment/success`,
-        failUrl: `${window.location.origin}/shop/payment/fail`,
+        successUrl: isTour
+          ? `${window.location.origin}/tour/payment/success`
+          : `${window.location.origin}/shop/payment/success`,
+        failUrl: isTour
+          ? `${window.location.origin}/tour/payment/fail`
+          : `${window.location.origin}/shop/payment/fail`,
       });
     } catch (err: any) {
       toast.error(err.message);
@@ -49,11 +57,17 @@ const GoodsPaymentWidget = () => {
 
   useEffect(() => {
     // 총 결제금액 계산
-    const totalPrice = goodsOrderInfo?.reduce((total, item) => {
-      const price = item.goods.goods_price;
-      const quantity = item.quantity;
-      return total + price * quantity;
-    }, 0);
+    let totalPrice: number = 0;
+    if (isTour) {
+      totalPrice = tourOrder?.price!;
+    } else {
+      totalPrice = goodsOrderInfo?.reduce((total, item) => {
+        const price = item.goods.goods_price;
+        const quantity = item.quantity;
+        return total + price * quantity;
+      }, 0)!;
+    }
+
     // 결제창 로드
     const loadWidget = async () => {
       const paymentWidget = await loadPaymentWidget(clientKey, userId!);
@@ -61,7 +75,7 @@ const GoodsPaymentWidget = () => {
       // 결제방법 위젯
       const paymentMethodsWidget = paymentWidget.renderPaymentMethods(
         '#payment-widget',
-        totalPrice!, // 구매 가격
+        totalPrice, // 구매 가격
       );
 
       // 약관동의 위젯
