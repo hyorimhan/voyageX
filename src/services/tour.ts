@@ -124,33 +124,33 @@ export const toggleLikeTours = async (
 };
 
 // 투어 결제 (테이블에 넣기)
-export const tourPayment = async ({
-  userId,
-  tourId,
-  customerName,
-  customerMobilePhone,
-  customerEmail,
-  totalPrice,
-  amount,
-}: {
-  userId: string;
-  tourId: string;
-  customerName: string;
-  customerMobilePhone: string;
-  customerEmail: string;
-  totalPrice: number;
-  amount: number;
-}) => {
-  const { error } = await supabase.from('tour_orders').insert([
-    {
-      user_id: userId,
-      tour_id: tourId,
-      customer_name: customerName,
-      customer_phone: customerMobilePhone,
-      customer_email: customerEmail,
-      total_price: totalPrice,
-      amount: amount,
-    },
-  ]);
-  return { error };
-};
+// export const tourPayment = async ({
+//   userId,
+//   tourId,
+//   customerName,
+//   customerMobilePhone,
+//   customerEmail,
+//   totalPrice,
+//   amount,
+// }: {
+//   userId: string;
+//   tourId: string;
+//   customerName: string;
+//   customerMobilePhone: string;
+//   customerEmail: string;
+//   totalPrice: number;
+//   amount: number;
+// }) => {
+//   const { error } = await supabase.from('tour_orders').insert([
+//     {
+//       user_id: userId,
+//       tour_id: tourId,
+//       customer_name: customerName,
+//       customer_phone: customerMobilePhone,
+//       customer_email: customerEmail,
+//       total_price: totalPrice,
+//       amount: amount,
+//     },
+//   ]);
+//   return { error };
+// };

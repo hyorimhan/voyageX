@@ -108,7 +108,7 @@ export const updatePassword = async ({
       return {
         error: {
           field: 'currentPassword',
-          message: '현재 비밀번호가 일치하지 않습니다',
+          message: '현재 비밀번호가 일치하지 않습니다.',
         },
       };
     }

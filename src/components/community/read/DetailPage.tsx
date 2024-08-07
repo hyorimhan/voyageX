@@ -12,6 +12,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getDetailPost } from '@/services/community';
 import PostButtons from './PostButtons';
 import CommentList from '../comment/CommentsList';
+import Loading from '@/components/common/Loading';
 
 const DetailPage = ({ params }: { params: { postId: string } }) => {
   const { postId } = params;
@@ -25,7 +26,12 @@ const DetailPage = ({ params }: { params: { postId: string } }) => {
     queryFn: () => getDetailPost(postId),
   });
 
-  if (isPending) return <div>loading</div>;
+  if (isPending)
+    return (
+      <div>
+        <Loading />
+      </div>
+    );
 
   if (isError) return <div>error</div>;
 
@@ -71,7 +77,7 @@ const DetailPage = ({ params }: { params: { postId: string } }) => {
           댓글 5
         </div>
       </div>
-      <CommentList postId={postId} />
+      <CommentList postId={postId} userId={post.user_id} />
       <PostButtons postId={post.id} userId={post.user_id} />
     </div>
   );

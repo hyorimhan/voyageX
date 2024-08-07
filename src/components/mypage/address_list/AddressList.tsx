@@ -46,7 +46,7 @@ const AddressesList = ({
           <div className='flex text-center py-6'>
             <button
               onClick={() => onSelectAddress(address.id)}
-              className='w-[68px] flex justify-center items-center relative'
+              className='w-[68px] flex justify-center items-center relative mr-[27px]'
             >
               {selectedAddressId === address.id ? (
                 <RadioPressedIcon24px />

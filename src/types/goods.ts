@@ -1,8 +1,8 @@
 import { Tables } from './supabase';
 
 export type ItemToBuyType = {
-  quantity: number;
   goods: Tables<'goods'>;
+  quantity: number;
 };
 
 export type toggleLikeGoodsParamsType = {
