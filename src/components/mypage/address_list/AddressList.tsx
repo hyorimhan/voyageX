@@ -34,9 +34,18 @@ const AddressesList = ({
 
   if (error) return <div>Error: {error.message}</div>;
 
+  if (!addresses || addresses.length === 0) {
+    return (
+      <div className='flex items-center flex-col gap-[7px] mt-[61px]'>
+        <p className='text-xl'>배송지가 없습니다.</p>
+        <p className='text-sm'>새로운 배송지를 추가해보세요.</p>
+      </div>
+    );
+  }
+
   return (
     <div>
-      {addresses?.map((address, index) => (
+      {addresses.map((address, index) => (
         <div
           key={index}
           className='address-item'

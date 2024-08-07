@@ -9,7 +9,7 @@ const TourOrdersList = () => {
   return (
     <>
       <div className='gap-2 flex flex-col'>
-        <p className='p-4 h-[53px] border-b-[1px] border-black-700'>
+        <p className='border-b-[1px] border-black-700 py-4'>
           주문일자 2024 .07 .12
         </p>
         <div className='flex w-full text-white'>
@@ -50,11 +50,11 @@ const TourOrdersList = () => {
                 </div>
               </div>
               <div className='flex mt-[11px]'>
-                <div className='flex-col gap-2 mr-[124px]'>
+                <div className='flex-col gap-2 flex mr-[124px]'>
                   <p className='text-sm'>2037. 11. 12 (목)</p>
                   <p className='text-sm'>12:30 PM</p>
                 </div>
-                <div className='flex-col gap-2'>
+                <div className='flex-col flex gap-2'>
                   <p className='text-sm'>2037. 11. 18 (화)</p>
                   <p className='text-sm'>19:30 PM</p>
                 </div>
