@@ -34,7 +34,6 @@ export const tourDetail = async (id: string) => {
   price,
   tag,
   id,
-  amount,
   spaceship,
   planets (
     name,

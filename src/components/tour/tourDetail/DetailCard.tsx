@@ -1,6 +1,5 @@
 'use client';
 import GoodsDetailPageTabSelector from '@/components/shop/detail/GoodsDetailPageTabSelector';
-import QuantityBtn from '@/components/shop/detail/QuantityBtn';
 import useAuthStore from '@/zustand/store/useAuth';
 import Image from 'next/image';
 import TourHearts from './TourHearts';
@@ -12,7 +11,6 @@ import { useRouter } from 'next/navigation';
 import useTourOrderInfoStore, {
   tourInfoType,
 } from '@/zustand/store/useTourOrderInfoStore';
-import Link from 'next/link';
 
 function DetailCard({ tour }: { tour: Tour }) {
   const user = useAuthStore((state) => state.user);
@@ -74,7 +72,6 @@ function DetailCard({ tour }: { tour: Tour }) {
             </div>
             <div className=' border-b my-3  pb-3'>수량 1개 (1인 1개 한정)</div>
           </div>
-          <QuantityBtn tourPrice={tour.price} />
 
           <div className='flex items-center gap-4'>
             <div className=' w-[53px] h-[53px] flex p-2 rounded-lg items-center border-2 justify-center border-solid border-primary-400 mt-8'>
