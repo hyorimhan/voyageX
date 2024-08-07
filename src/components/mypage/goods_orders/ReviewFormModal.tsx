@@ -64,7 +64,7 @@ const ReviewFormModal: React.FC<ReviewFormModallProps> = ({
           <p className='text-xl flex justify-center'>리뷰 작성</p>
         </div>
         <div>
-          <p className='text-black-400'>별점 ({rating}/5)</p>
+          <p className='text-black-400'>별점 ({rating}.0/5.0)</p>
           <div className='flex items-center justify-center'>
             {[...Array(5)].map((_, index) => (
               <button key={index} onClick={() => handleRating(index)}>
