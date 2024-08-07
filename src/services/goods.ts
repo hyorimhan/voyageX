@@ -1,5 +1,6 @@
 import { GoodsOrdersType, toggleLikeGoodsParamsType } from '@/types/goods';
 import {
+  addCartItemParamsType,
   adjustQuantityParamsType,
   DeleteCartItemParamsType,
 } from '@/types/mypageType';
@@ -48,6 +49,18 @@ export const toggleLikeGoods = async (
 
 export const getCartList = async (user_id: string) => {
   const response = await axios.get(`/api/goods/cart/${user_id}`);
+  return response.data;
+};
+
+export const addCartItem = async ({
+  user_id,
+  goods_id,
+  quantity,
+}: addCartItemParamsType) => {
+  const response = await axios.post(`/api/goods/cart/${user_id}`, {
+    goods_id,
+    quantity,
+  });
   return response.data;
 };
 

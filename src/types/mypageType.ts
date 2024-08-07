@@ -12,6 +12,12 @@ export type CartListType = {
   goods: Tables<'goods'>;
 };
 
+export type addCartItemParamsType = {
+  user_id: string;
+  goods_id: string;
+  quantity: number;
+};
+
 export type DeleteCartItemParamsType = {
   user_id: string;
   idList: string;

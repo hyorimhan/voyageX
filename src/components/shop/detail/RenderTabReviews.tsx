@@ -27,7 +27,7 @@ const RenderTabReviews: React.FC<RenderTabReviewsProps> = ({
           ))}
         </div>
         <div className='flex items-end gap-1'>
-          <p className='text-4xl font-bold'>{goodsRating}</p>
+          <p className='text-4xl font-bold'>{goodsRating?.toFixed(1)}</p>
           <p className='text-2xl text-black-400 ml-1 font-bold'>/5.0</p>
         </div>
       </div>
