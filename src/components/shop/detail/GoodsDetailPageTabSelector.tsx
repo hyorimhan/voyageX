@@ -3,17 +3,22 @@
 import RenderTabReviews from './RenderTabReviews';
 import RenderTabGoodsDetail from './RenderTabGoodsDetail';
 import { useState } from 'react';
+import RenderTourGuid from '@/components/tour/tourDetail/tourTab/guideContents/RenderTourGuid';
 
 type GoodsDetailPageTabSelectorProps = {
   goodsRating?: number | undefined;
   goodsId: string;
   contents: React.ReactNode;
+  guideContents?: React.ReactNode;
+  showTourGuideTab?: boolean;
 };
 
 function GoodsDetailPageTabSelector({
   goodsRating,
   goodsId,
   contents,
+  guideContents,
+  showTourGuideTab = false,
 }: GoodsDetailPageTabSelectorProps) {
   const [selectedTab, setSelectedTab] = useState('Details');
 
@@ -27,6 +32,14 @@ function GoodsDetailPageTabSelector({
           >
             상세정보
           </button>
+          {showTourGuideTab && (
+            <button
+              onClick={() => setSelectedTab('TourGuide')}
+              className='text-lg w-full'
+            >
+              안내사항
+            </button>
+          )}
           <button
             onClick={() => setSelectedTab('Reviews')}
             className='text-lg w-full'
@@ -36,14 +49,23 @@ function GoodsDetailPageTabSelector({
         </div>
         <div className='flex w-full mt-[9px]'>
           <div
-            className={`flex w-1/2  ${
+            className={`flex ${showTourGuideTab ? 'w-1/3' : 'w-1/2'}  ${
               selectedTab === 'Details'
                 ? 'border-b-2 border-white'
                 : 'border-b-[1px]'
             }`}
           ></div>
+          {showTourGuideTab && (
+            <div
+              className={`flex w-1/3  ${
+                selectedTab === 'TourGuide'
+                  ? 'border-b-2 border-white'
+                  : 'border-b-[1px]'
+              }`}
+            ></div>
+          )}
           <div
-            className={` flex w-1/2 ${
+            className={` flex ${showTourGuideTab ? 'w-1/3' : 'w-1/2'} ${
               selectedTab === 'Reviews'
                 ? 'border-b-2 border-white'
                 : 'border-b-[1px]'
@@ -53,6 +75,8 @@ function GoodsDetailPageTabSelector({
       </div>
       {selectedTab === 'Reviews' ? (
         <RenderTabReviews goodsRating={goodsRating} goodsId={goodsId} />
+      ) : selectedTab === 'TourGuide' && showTourGuideTab ? (
+        <RenderTourGuid contents={guideContents} />
       ) : (
         <RenderTabGoodsDetail contents={contents} />
       )}

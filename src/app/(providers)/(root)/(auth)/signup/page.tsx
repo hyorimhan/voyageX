@@ -5,11 +5,11 @@ import Page from '@/components/pages/Page';
 const SignUpPage = () => {
   return (
     <Page>
-      <div className='flex items-center'>
-        <div className='w-1/2'>
+      <div className='grid lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1'>
+        <div className='my-auto lg:block  md:hidden sm:hidden'>
           <AuthImg />
         </div>
-        <div className='w-1/2'>
+        <div className='lg:mx-0 md:mx-0 sm:mx-auto'>
           <SignupForm />
         </div>
       </div>

@@ -453,6 +453,7 @@ export type Database = {
         Row: {
           days: number | null
           id: string
+          meal: string | null
           schedule1: string | null
           schedule2: string | null
           tour_img: string | null
@@ -460,6 +461,7 @@ export type Database = {
         Insert: {
           days?: number | null
           id?: string
+          meal?: string | null
           schedule1?: string | null
           schedule2?: string | null
           tour_img?: string | null
@@ -467,6 +469,7 @@ export type Database = {
         Update: {
           days?: number | null
           id?: string
+          meal?: string | null
           schedule1?: string | null
           schedule2?: string | null
           tour_img?: string | null
@@ -476,6 +479,7 @@ export type Database = {
       tour_days: {
         Row: {
           activitiy_id: string | null
+          date: string | null
           day: string | null
           description: string | null
           id: string
@@ -483,6 +487,7 @@ export type Database = {
         }
         Insert: {
           activitiy_id?: string | null
+          date?: string | null
           day?: string | null
           description?: string | null
           id?: string
@@ -490,6 +495,7 @@ export type Database = {
         }
         Update: {
           activitiy_id?: string | null
+          date?: string | null
           day?: string | null
           description?: string | null
           id?: string
@@ -515,9 +521,10 @@ export type Database = {
       tour_orders: {
         Row: {
           arrive_date: string
-          arrive_place: string
+          arrive_time: string
           depart_date: string
           depart_place: string
+          depart_time: string
           flight_type: string
           id: string
           passenger: string
@@ -533,9 +540,10 @@ export type Database = {
         }
         Insert: {
           arrive_date: string
-          arrive_place: string
+          arrive_time?: string
           depart_date: string
-          depart_place: string
+          depart_place?: string
+          depart_time?: string
           flight_type: string
           id?: string
           passenger: string
@@ -544,16 +552,17 @@ export type Database = {
           phone: string
           qr_code: string
           seat_code: string
-          spaceship_code: string
-          spaceship_name: string
+          spaceship_code?: string
+          spaceship_name?: string
           tour_id?: string
           user_id: string
         }
         Update: {
           arrive_date?: string
-          arrive_place?: string
+          arrive_time?: string
           depart_date?: string
           depart_place?: string
+          depart_time?: string
           flight_type?: string
           id?: string
           passenger?: string
@@ -590,6 +599,7 @@ export type Database = {
           id: string
           planet_id: string
           price: number
+          spaceship: string | null
           tag: string
         }
         Insert: {
@@ -597,6 +607,7 @@ export type Database = {
           id?: string
           planet_id?: string
           price: number
+          spaceship?: string | null
           tag: string
         }
         Update: {
@@ -604,6 +615,7 @@ export type Database = {
           id?: string
           planet_id?: string
           price?: number
+          spaceship?: string | null
           tag?: string
         }
         Relationships: [
