@@ -6,21 +6,25 @@ gsap.registerPlugin(ScrollTrigger);
 
 const useScrollTrigger = (
   videoLoaded: boolean,
-  sectionRef: React.MutableRefObject<(HTMLDivElement | null)[]>
+  sectionsRef: React.MutableRefObject<(HTMLDivElement | null)[]>
 ) => {
   useEffect(() => {
-    if (videoLoaded && sectionRef.current) {
-      ScrollTrigger.create({
-        trigger: sectionRef.current,
-        start: 'top top',
-        pin: true,
-        pinSpacing: false,
-        scrub: true,
+    if (videoLoaded && sectionsRef.current.length > 0) {
+      sectionsRef.current.forEach((section) => {
+        if (section) {
+          ScrollTrigger.create({
+            trigger: section,
+            start: 'top top',
+            pin: true,
+            pinSpacing: false,
+            scrub: true,
+          });
+        }
       });
 
       ScrollTrigger.refresh();
     }
-  }, [videoLoaded, sectionRef]);
+  }, [videoLoaded, sectionsRef]);
 };
 
 export default useScrollTrigger;

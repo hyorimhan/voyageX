@@ -4,7 +4,7 @@ type VideoSectionProps = {
   videoSrc: string;
   heading: string;
   subHeading: string;
-  sectionRef: React.RefObject<(HTMLDivElement | null)[]>;
+  sectionRef: React.RefObject<HTMLDivElement>;
   setVideoLoaded: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
@@ -24,11 +24,7 @@ const VideoSection: React.FC<VideoSectionProps> = ({ videoSrc, heading, subHeadi
   }, [setVideoLoaded]);
 
   return (
-    <section ref={(el) => {
-      if (sectionRef.current && el) {
-        sectionRef.current[0] = el as HTMLDivElement;
-      }
-    }} className='section h-screen flex items-center justify-center relative'>
+    <section ref={sectionRef} className='section h-screen flex items-center justify-center relative'>
       <video
         ref={videoRef}
         className='absolute top-0 left-0 w-full h-full object-cover z-0'

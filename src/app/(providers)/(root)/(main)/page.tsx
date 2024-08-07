@@ -1,23 +1,25 @@
 'use client';
 import React, { useRef, useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import useFetchGoods from '@/hooks/useFetchGoods';
 import Footer from '@/components/common/Footer';
 import useFetchTourDetail from '@/hooks/useFetchTourDetail';
 import TopPostsSection from '@/components/main/TopPostsSection';
 import useScrollTrigger from '@/hooks/useScrollTrigger';
 import useSlideAnimation from '@/hooks/useSlideAnimation';
+import VideoSection from '@/components/main/VideoSection';
 
 const MainPage = () => {
   const sectionsRef = useRef<(HTMLDivElement | null)[]>([]);
   const planetsRef = useRef<(HTMLDivElement | null)[]>([]);
-  const videoRef = useRef<HTMLVideoElement | null>(null);
   const [videoLoaded, setVideoLoaded] = useState<boolean>(false);
   const [currentSlide, setCurrentSlide] = useState<number>(0);
 
-  const { goods, loading, error } = useFetchGoods();
-  const { planets } = useFetchTourDetail();
+  const { data: goods, isLoading: goodsLoading,  error: goodsError } = useFetchGoods();
+  const { data: tourDetail, isLoading: tourLoading, error: tourError} = useFetchTourDetail();
 
+  const planets = tourDetail?.planets || [];
   const visiblePlanetsCount = 3; // 처음에 보일 행성 수
 
   const handleNextSlide = () => {
@@ -36,37 +38,13 @@ const MainPage = () => {
 
   return (
     <div className='w-full'>
-      <section
-        ref={(el) => {
-          sectionsRef.current[0] = el as HTMLDivElement;
-        }}
-        className='section h-screen flex items-center justify-center relative'
-      >
-        <video
-          ref={videoRef}
-          className='absolute top-0 left-0 w-full h-full object-cover z-0'
-          src='/videos/main.mp4'
-          autoPlay
-          loop
-          muted
-          onLoadedData={() => setVideoLoaded(true)}
-        />
-        <div
-          className='absolute z-10 text-center top-48 sm:w-auto sm:text-left sm:left-48 md:left-40 lg:left-52 xl:left-64'
-        >
-          <h1 className='text-gradient text-6xl font-bold font-yangpyeong'>
-            Voyage X
-          </h1>
-          <p className='text-white p-4 text-3xl'>
-            상상을 현실로, 우주에서의 만남
-          </p>
-          <p className='text-white p-4'>
-            우주 여행의 문을 여는 창구, Voyage X입니다.
-            <br />
-            상상으로 꿈꾸던 우주 여행을 현실로 만들어 드립니다.
-          </p>
-        </div>
-      </section>
+      <VideoSection
+        videoSrc='/videos/main.mp4'
+        heading='Voyage X'
+        subHeading='상상을 현실로, 우주에서의 만남'
+        sectionRef={{ current: sectionsRef.current[0] }} // sectionRef 타입 맞추기 위해 명시적 지정
+        setVideoLoaded={setVideoLoaded}
+      />
 
       <section
         ref={(el) => {
@@ -75,9 +53,7 @@ const MainPage = () => {
         className='section h-screen flex flex-col items-center justify-center relative bg-center bg-cover bg-no-repeat'
         style={{ backgroundImage: 'url(/images/section2.png)' }}
       >
-        <div
-          className='absolute top-32 left-4 sm:top-44 sm:left-16 text-white font-yangpyeong text-2xl sm:text-4xl font-bold fade-text'
-        >
+        <div className='absolute top-32 left-4 sm:top-44 sm:left-16 text-white font-yangpyeong text-2xl sm:text-4xl font-bold fade-text'>
           Let&apos;s Find Popular Planets!
         </div>
         <div className='scroll-container h-full w-full relative flex items-center justify-center'>
@@ -169,17 +145,17 @@ const MainPage = () => {
         className='section section-bg h-screen flex flex-col items-center justify-center'
       >
         <h1 className='text-4xl font-bold mb-8 absolute top-44 left-12'>
-          {/* Goods Item */}
+          Goods Item
         </h1>
-        {/* <Link href='/shop'>
+        <Link href='/shop'>
           <p className='absolute top-44 right-24 underline'>More+</p>
-        </Link> */}
-        {error && <p className='text-red-500'>{error}</p>}
-        {loading ? (
+        </Link>
+        {goodsError && <p className='text-red-500'>{goodsError.message}</p>}
+        {goodsLoading ? (
           <p>Loading...</p>
         ) : (
           <div className='grid grid-cols-3 gap-4'>
-            {goods.map((item) => (
+            {goods?.map((item) => (
               <div key={item.id} className='p-4 rounded shadow'>
                 <Image
                   src={item.goods_img}
