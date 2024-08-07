@@ -12,7 +12,6 @@ import { useRouter } from 'next/navigation';
 import useTourOrderInfoStore, {
   tourInfoType,
 } from '@/zustand/store/useTourOrderInfoStore';
-import Link from 'next/link';
 
 function DetailCard({ tour }: { tour: Tour }) {
   const user = useAuthStore((state) => state.user);
