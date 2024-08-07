@@ -28,6 +28,11 @@ const config: Config = {
         pretendard: ['var(--font-pretendard)'],
         yangpyeong: ["'Yangpyeong'", 'sans-serif'],
       },
+      screens: {
+        sm: { min: '375px', max: '639px' },
+        md: { min: '640px', max: '1119px' },
+        lg: { min: '1120px' },
+      },
 
       colors: {
         primary: {
@@ -57,6 +62,7 @@ const config: Config = {
           800: '#333333',
           900: '#1A1A1A',
           1000: '#000000',
+          back: '#EAEAEA',
         },
         error: {
           900: '#EE4700',

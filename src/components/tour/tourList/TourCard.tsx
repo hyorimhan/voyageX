@@ -8,7 +8,7 @@ import { orbitron } from '../../../../public/fonts/orbitron';
 function TourCard({ tour }: { tour: Tour }) {
   return (
     <Link href={`/tour/${tour.id}`}>
-      <div className='relative w-88 h-[491px] group overflow-hidden border rounded-lg shadow-md hover:scale-105'>
+      <div className='relative w-88 h-[491px] group overflow-hidden border-2 border-black-500 rounded-lg shadow-md hover:scale-105'>
         <Image
           src={tour.planets?.planet_img!}
           alt={tour.planets?.name!}
@@ -24,7 +24,7 @@ function TourCard({ tour }: { tour: Tour }) {
             {tour.planets?.english_name}
           </div>
         </div>
-        <div className='absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 bg-black-600 transition-opacity'>
+        <div className='absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 bg-black-400 transition-opacity'>
           <div className='absolute w-9 h-9 top-11 right-8'>
             <BsArrowRightCircle size={39} />
           </div>
@@ -36,7 +36,7 @@ function TourCard({ tour }: { tour: Tour }) {
               {tour.price?.toLocaleString()}원 ~
             </div>
             <div className='text-sm'>{tour.tag}</div>
-            <div className='text-base mt-2'>우주선 명 스타라이저</div>
+            <div className='text-base mt-2'>우주선 명 {tour.spaceship}</div>
           </div>
         </div>
       </div>

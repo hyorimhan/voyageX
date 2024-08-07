@@ -21,7 +21,7 @@ function Terms() {
           <AccordionImg isEnter={isEnter} />
         </div>
       )}
-      className='mt-14'
+      className='mt-14 mb-52'
     >
       <div className='mt-6 mb-52'>
         <ul
@@ -83,7 +83,7 @@ function Terms() {
               </ul>
               <ul>
                 <li>3.3 환불 정책</li>
-                <li className='text-red-500'>
+                <li className='text-error-900'>
                   고객이 여행을 취소할 경우, 환불은 불가합니다. 결제 시 충분히
                   고려 후 결제해야 합니다.
                 </li>
@@ -258,8 +258,22 @@ function Terms() {
             </ul>
           </ul>
         </ul>
-        <button onClick={clickToggle}>
-          {readMore ? '약관 접기' : '약관 더보기'}
+        <button onClick={clickToggle} className='mt-8 w-full text-lg mx-auto'>
+          {readMore ? (
+            <>
+              <div className='flex'>
+                <div>{'접기'}</div>
+                <AccordionImg isEnter={readMore} />
+              </div>
+            </>
+          ) : (
+            <>
+              <div className='flex'>
+                <div>{'더보기'}</div>
+                <AccordionImg isEnter={readMore} />
+              </div>
+            </>
+          )}
         </button>
       </div>
     </AccordionItem>

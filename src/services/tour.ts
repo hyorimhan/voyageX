@@ -10,6 +10,7 @@ export const tourList = async () => {
     id,
     price, 
     tag,
+    spaceship,
     planets (
       name, 
       planet_img,
@@ -34,6 +35,7 @@ export const tourDetail = async (id: string) => {
   tag,
   id,
   amount,
+  spaceship,
   planets (
     name,
     description,

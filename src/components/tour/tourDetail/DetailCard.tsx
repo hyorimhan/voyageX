@@ -16,21 +16,22 @@ function DetailCard({ tour }: { tour: Tour }) {
   return (
     <>
       <div
-        className={` mb-14 mt-[132px] ${orbitron.className} font-semibold text-[28px]`}
+        className={` mb-14 mt-[132px] sm:ml-5 md:ml-5 ${orbitron.className} font-semibold text-[28px]`}
       >
         Travel Package
       </div>
-      <div className='flex'>
-        <div className='flex w-[500px] h-[500px]'>
+      <div className='grid grid-cols-2 md:grid-cols-1 sm:grid-cols-1'>
+        <div className='sm:mx-[47.5px]'>
           <Image
             src={tour.planets?.planet_img!}
             alt={tour.planets?.name!}
             width={500}
             height={500}
-            className='m-6 '
+            className='md:mx-auto sm:mx-auto
+            '
           />
         </div>
-        <div className='w-[556px] h-[552px] ml-16'>
+        <div className='sm:mx-5 md:mx-5'>
           <div className='text-2xl mb-4 font-semibold'>
             <span className='mr-3'>{tour.planets?.name}</span>
             <span className='text-black-700'>{tour.planets?.english_name}</span>
@@ -46,23 +47,26 @@ function DetailCard({ tour }: { tour: Tour }) {
             <div className=' border-b my-3  pb-3'>
               여행기간 2025.10.10 ~2025.10.20
             </div>
-            <div className=' border-b my-3  pb-3 '>우주선 명 스타라이저</div>
+            <div className=' border-b my-3  pb-3 '>
+              우주선 명 {tour.spaceship}
+            </div>
             <div className=' border-b my-3  pb-3'>수량 1개 (1인 1개 한정)</div>
           </div>
           <QuantityBtn tourPrice={tour.price} />
+
           <div className='flex items-center gap-4'>
             <div className=' w-[53px] h-[53px] flex p-2 rounded-lg items-center border-2 justify-center border-solid border-primary-400 mt-8'>
               <TourHearts tour_id={tour.id} user_id={user?.id} />
             </div>
-            <Link href={`/tour/payment/${tour.id}`}>
-              <div className='h-[60px] w-[487px] bg-primary-600 rounded-lg justify-center flex items-center mt-8 font-semibold'>
+            <Link href={`/tour/payment/${tour.id}`} className='flex-grow'>
+              <div className='h-[60px]  bg-primary-600 rounded-lg justify-center flex items-center mt-8 font-semibold'>
                 구매하기
               </div>
             </Link>
           </div>
         </div>
       </div>
-      <div>
+      <div className='md:mx-5 sm:mx-5'>
         <GoodsDetailPageTabSelector
           goodsRating={tour?.rating_avg}
           goodsId={tour.id}
