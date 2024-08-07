@@ -9,25 +9,27 @@ export const POST = async (request: Request, { params }: ParamsType) => {
   const { user_id } = params;
   const {
     order_id,
-    goods_id,
-    quantity,
-    total_price,
+    tour_id,
     customer,
-    address_id,
+    depart_date,
+    arrive_date,
+    gate,
+    qr_code,
     pay_method,
     installment,
   } = await request.json();
   const supabase = createClient();
-  const { data, error } = await supabase.from('goods_orders').insert({
+  const { data, error } = await supabase.from('tour_orders').insert({
     id: order_id,
     user_id,
-    goods_id,
-    quantity,
-    state: '구매확정',
-    total_price,
-    recipient: customer.customerName,
+    tour_id,
+    passenger: customer.customerName,
     phone: customer.customerPhone,
-    address_id,
+    passenger_email: customer.customerEmail,
+    depart_date,
+    arrive_date,
+    gate,
+    qr_code,
     pay_method,
     installment,
   });

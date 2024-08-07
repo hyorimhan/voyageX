@@ -2,17 +2,15 @@ import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 import CryptoJS, { enc } from 'crypto-js';
 
-type tourInfoType = {
+export type tourInfoType = {
   tour_id: string;
-  user_id: string;
-  depart_place: string;
+  price: number;
+  planet_name: string;
+  eng_name: string;
+  planet_img: string;
   depart_date: string;
-  arrive_place: string;
   arrive_date: string;
-  spaceship_name: string;
-  spaceship_code: string;
-  flight_type: string;
-  seat_code: string;
+  gate: string;
   qr_code: string;
 } | null;
 
@@ -44,7 +42,7 @@ const customStorage = createJSONStorage<tourOrderInfoType>(() => ({
   removeItem: (name) => sessionStorage.removeItem(name),
 }));
 
-const useTourOrderInfo = create<tourOrderInfoType>()(
+const useTourOrderInfoStore = create<tourOrderInfoType>()(
   persist(
     (set) => ({
       tourOrder: null,
@@ -57,4 +55,4 @@ const useTourOrderInfo = create<tourOrderInfoType>()(
   ),
 );
 
-export default useTourOrderInfo;
+export default useTourOrderInfoStore;

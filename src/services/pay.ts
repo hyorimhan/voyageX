@@ -2,7 +2,7 @@ import { ItemToBuyType } from '@/types/goods';
 import { Customer } from '@/types/userAddressType';
 import axios from 'axios';
 
-type createReceiptParamsType = {
+type createOrderReceiptParamsType = {
   user_id: string;
   order_id: string;
   goodsList: ItemToBuyType[];
@@ -12,7 +12,7 @@ type createReceiptParamsType = {
   installment?: number;
 };
 
-export const createReceipt = async ({
+export const createOrderReceipt = async ({
   user_id,
   order_id,
   goodsList,
@@ -20,7 +20,7 @@ export const createReceipt = async ({
   address_id,
   pay_method,
   installment,
-}: createReceiptParamsType) => {
+}: createOrderReceiptParamsType) => {
   for (const goods of goodsList) {
     const response = await axios.post(`/api/goods/pay/${user_id}`, {
       order_id,
@@ -32,6 +32,44 @@ export const createReceipt = async ({
       pay_method,
       installment,
     });
-    console.log(`response of ${goods} => `, response);
   }
+};
+
+type createTourReceiptParamsType = {
+  user_id: string;
+  order_id: string;
+  tour_id: string;
+  customer: Customer;
+  depart_date: string;
+  arrive_date: string;
+  gate: string;
+  qr_code: string;
+  pay_method: string;
+  installment?: number;
+};
+
+export const createTourReceipt = async ({
+  user_id,
+  order_id,
+  tour_id,
+  customer,
+  depart_date,
+  arrive_date,
+  gate,
+  qr_code,
+  pay_method,
+  installment,
+}: createTourReceiptParamsType) => {
+  const response = await axios.post(`/api/tours/pay/${user_id}`, {
+    order_id,
+    tour_id,
+    depart_date,
+    customer,
+    arrive_date,
+    gate,
+    qr_code,
+    pay_method,
+    installment,
+  });
+  return response;
 };
