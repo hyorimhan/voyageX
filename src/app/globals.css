@@ -60,3 +60,17 @@ body {
   background-repeat: no-repeat;
   background-position: center;
 }
+
+.swiper-pagination-bullet {
+  @apply border-black-200 border w-3 h-3 opacity-100 rounded-full !important;
+}
+
+.swiper-pagination-bullet-active {
+  @apply bg-black-500 w-3 h-3 !important;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  @apply text-black-300  p-3 shadow-lg !important;
+  @apply hover:scale-110 !important;
+}

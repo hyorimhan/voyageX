@@ -62,14 +62,14 @@ function LoginForm() {
             id='email'
             placeholder='예) voyageX@gmail.com'
             {...register('email', emailValidate())}
-            className={`text-black-900 w-[469px] h-[60px] rounded-lg p-2 border-2 ${
-              errors.email ? 'border-red-500' : 'border-r-gray-300'
+            className={`text-black-900  w-[473px] h-[58px]  sm:w-[335px] rounded-lg p-2 border-2  ${
+              errors.email ? 'border-red-500' : ''
             }  `}
             autoFocus
           />
         </div>
 
-        <div className='flex flex-col mt-4'>
+        <div className='flex flex-col mt-4 '>
           <label htmlFor='password' className='mb-1 text-black-200'>
             비밀번호 *
           </label>
@@ -78,21 +78,21 @@ function LoginForm() {
             id='password'
             placeholder='영문, 숫자, 특수문자 조합 8-16자'
             {...register('password', passwordValidate())}
-            className={`text-black-900 w-[469px] h-[60px]   rounded-lg p-2 ${
-              errors.email ? 'border-red-500' : 'border-r-gray-300'
+            className={`text-black-900  w-[473px] h-[58px] sm:w-[335px]   rounded-lg p-2 ${
+              errors.password ? 'border-red-500' : ''
             }`}
           />
         </div>
         <div className='flex flex-col'>
           <button
             type='submit'
-            className='bg-primary-600 w-[469px] h-[60px]  rounded-lg p-2 mt-5 '
+            className='bg-primary-600  w-[473px] h-[58px] sm:w-[335px]  rounded-lg p-2 mt-5 '
           >
             로그인
           </button>
           <Link
             href={'/signup'}
-            className='bg-primary-100 w-[469px] h-[60px] rounded-lg p-2 mt-3 flex justify-center items-center text-primary-600'
+            className='bg-primary-100  w-[473px] h-[58px]   sm:w-[335px] rounded-lg p-2 mt-3 flex justify-center items-center text-primary-600'
           >
             이메일로 회원가입
           </Link>
@@ -103,7 +103,7 @@ function LoginForm() {
           <div className='flex-1 border-b border-white' />
         </div>
       </form>
-      <div className='flex mt-4 justify-center w-full max-w-[469px]'>
+      <div className='flex mt-4 justify-center w-full max-w-[473px]'>
         <GoogleKakao />
       </div>
     </div>

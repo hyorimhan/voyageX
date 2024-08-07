@@ -39,7 +39,7 @@ const Header = () => {
       {isPending && <Loading />}
       <header className='bg-header-default bg-opacity-60 h-16 flex fixed z-20 top-0 items-center justify-between px-4 w-full mx-auto'>
         <div className='max-w-[1120px] mx-auto flex justify-between items-center w-full'>
-          <nav className='hidden md:flex items-center space-x-5 w-[260px]'>
+          <nav className='hidden lg:flex items-center space-x-5 w-[260px]'>
             <button
               className='hover:text-gray-300'
               onClick={() => handleLinkClick('/tour')}
@@ -104,7 +104,7 @@ const Header = () => {
                 <span className=' hover:text-gray-300 w-[50px]'>로그인</span>
               </button>
             )}
-            <button onClick={toggleMenu} className='md:hidden '>
+            <button onClick={toggleMenu} className='lg:hidden '>
               <FaBars className='w-6 h-6' />
             </button>
           </div>

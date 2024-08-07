@@ -68,7 +68,6 @@ export const signInWithGoogle = async () => {
     options: {
       queryParams: {
         access_type: 'offline',
-        prompt: 'consent',
       },
     },
   });

@@ -13,6 +13,8 @@
     "@channel.io/channel-web-sdk-loader": "^1.1.7",
     "@supabase/ssr": "^0.4.0",
     "@supabase/supabase-js": "^2.44.4",
+    "@szhsin/react-accordion": "^1.2.4",
+    "@tailwindcss/line-clamp": "^0.4.4",
     "@tailwindcss/typography": "^0.5.13",
     "@tanstack/react-query": "^5.51.1",
     "@tanstack/react-query-devtools": "^5.51.1",
