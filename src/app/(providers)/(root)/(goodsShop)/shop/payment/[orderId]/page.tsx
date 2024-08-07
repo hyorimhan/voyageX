@@ -1,4 +1,4 @@
-import PaymentWidget from '@/components/order/payment/PaymentWidget';
+import GoodsPaymentWidget from '@/components/order/payment/GoodsPaymentWidget';
 import { orbitron } from '../../../../../../../../public/fonts/orbitron';
 
 const PaymentPage = () => {
@@ -9,7 +9,7 @@ const PaymentPage = () => {
       >
         결제하기
       </h1>
-      <PaymentWidget />
+      <GoodsPaymentWidget />
     </>
   );
 };
