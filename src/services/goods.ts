@@ -88,7 +88,7 @@ export const getGoodsOrderList = async (
 
 export const getGoodsOrderDetail = async (
   order_id: string,
-): Promise<GoodsOrdersType> => {
+): Promise<GoodsOrdersType[]> => {
   const response = await axios.get(
     `/api/mypage/my_goods_order/goods/${order_id}`,
   );

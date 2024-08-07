@@ -26,6 +26,7 @@ export async function GET(
   }
 
   const goodsIds = goodsOrder.map((order) => order.goods_id);
+  const addressIds = goodsOrder.map((order) => order.address_id);
 
   const { data: goods, error: goodsError } = await supabase
     .from('goods')
@@ -36,10 +37,20 @@ export async function GET(
     return NextResponse.json({ error: goodsError });
   }
 
+  const { data: addresses, error: addressError } = await supabase
+    .from('addresses')
+    .select('*')
+    .in('id', addressIds);
+
+  if (addressError) {
+    return NextResponse.json({ error: '주소 정보를 불러올 수 없습니다.' });
+  }
+
   const orderWithGoods = goodsOrder.map((order) => {
     return {
       order,
       goods: goods.find((goods) => goods.id === order.goods_id),
+      address: addresses.find((address) => address.id === order.address_id),
     };
   });
   return NextResponse.json(orderWithGoods);
