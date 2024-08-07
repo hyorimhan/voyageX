@@ -1,7 +1,22 @@
 import { useEffect } from 'react';
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-const useSlideAnimation = (videoLoaded: boolean, planets: any[], currentSlide: number, visiblePlanetsCount: number, planetsRef: React.RefObject<(HTMLDivElement | null)[]>) => {
+gsap.registerPlugin(ScrollTrigger);
+
+type Planet = {
+  id: string;
+  planet_img: string;
+  price?: number;
+};
+
+const useSlideAnimation = (
+  videoLoaded: boolean,
+  planets: Planet[],
+  currentSlide: number,
+  visiblePlanetsCount: number,
+  planetsRef: React.RefObject<(HTMLDivElement | null)[]>
+) => {
   useEffect(() => {
     const animatePlanets = () => {
       const radius = 500; // 고리 반경

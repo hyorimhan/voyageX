@@ -1,15 +1,12 @@
 'use client';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import Image from 'next/image';
 import useFetchGoods from '@/hooks/useFetchGoods';
-import Link from 'next/link';
 import Footer from '@/components/common/Footer';
 import useFetchTourDetail from '@/hooks/useFetchTourDetail';
 import TopPostsSection from '@/components/main/TopPostsSection';
-
-gsap.registerPlugin(ScrollTrigger);
+import useScrollTrigger from '@/hooks/useScrollTrigger';
+import useSlideAnimation from '@/hooks/useSlideAnimation';
 
 const MainPage = () => {
   const sectionsRef = useRef<(HTMLDivElement | null)[]>([]);
@@ -19,9 +16,7 @@ const MainPage = () => {
   const [currentSlide, setCurrentSlide] = useState<number>(0);
 
   const { goods, loading, error } = useFetchGoods();
-  const {
-    planets
-  } = useFetchTourDetail();
+  const { planets } = useFetchTourDetail();
 
   const visiblePlanetsCount = 3; // 처음에 보일 행성 수
 
@@ -34,91 +29,10 @@ const MainPage = () => {
   };
 
   // 비디오 로드 확인
-  useEffect(() => {
-    if (videoRef.current) {
-      const videoElement = videoRef.current;
-      const checkVideoLoaded = () => {
-        if (videoElement.readyState >= 3) {
-          setVideoLoaded(true);
-        }
-      };
-      checkVideoLoaded();
-    }
-  }, []);
-
-// 비디오 로드 후 섹션에 ScrollTrigger로 설정
-useEffect(() => {
-  if (videoLoaded) {
-    sectionsRef.current.forEach((section) => {
-      if (section) {
-        ScrollTrigger.create({
-          trigger: section,
-          start: 'top top',
-          pin: true,
-          pinSpacing: false,
-          scrub: true,
-        });
-      }
-    });
-    ScrollTrigger.refresh();
-  }
-}, [videoLoaded]);
+  useScrollTrigger(videoLoaded, sectionsRef);
 
   // 슬라이드 행성 애니메이션
-  useEffect(() => {
-    const animatePlanets = () => {
-      const radius = 500; // 고리 반경
-      const angleStep = (2 * Math.PI) / planets.length; // 각 행성 사이의 각도
-
-      planetsRef.current.forEach((planetElement, index) => {
-        if (planetElement) {
-          const adjustedIndex =
-            (index + (planets.length - Math.floor(visiblePlanetsCount / 2))) %
-            planets.length;
-          const angle = (adjustedIndex - currentSlide) * angleStep; // 각 행성의 위치 계산
-          const xPos = radius * Math.sin(angle); // x 좌표
-          const yPos = 0; // y 좌표
-          const zPos = radius * Math.cos(angle); // z 좌표
-          const isVisible =
-            (index >= currentSlide &&
-              index < currentSlide + visiblePlanetsCount) || // visiblePlanetsCount 개수만큼 행성이 보이도록 조건식
-            (index < currentSlide &&
-              index + planets.length < currentSlide + visiblePlanetsCount);
-          const isActive =
-            index ===
-            (currentSlide + Math.floor(visiblePlanetsCount / 2)) %
-              planets.length;
-          const scale = isActive ? 2 : 1;
-          const zIndex = isActive ? 10 : 0;
-          const opacity = isVisible ? (isActive ? 1 : 0.5) : 0;
-
-          gsap.to(planetElement, {
-            x: xPos,
-            y: yPos,
-            z: zPos,
-            scale: scale,
-            zIndex: zIndex,
-            opacity: opacity,
-            duration: 1,
-            ease: 'power2.inOut',
-          });
-
-          // 디버깅을 위한 로그 추가
-          const planet = planets[index]; // planets 배열의 요소 가져오기
-          const tourPrice: number | undefined = planet.price;
-          console.log(`Planet ${planet.id} - Price: ${tourPrice}`);
-        }
-      });
-    };
-
-    if (videoLoaded && planets.length > 0) {
-      animatePlanets();
-    }
-
-    ScrollTrigger.refresh(); 
-  }, [currentSlide, videoLoaded, planets]);
-
-  console.log('Planets:', planets);
+  useSlideAnimation(videoLoaded, planets, currentSlide, visiblePlanetsCount, planetsRef);
 
   return (
     <div className='w-full'>
@@ -128,14 +42,6 @@ useEffect(() => {
         }}
         className='section h-screen flex items-center justify-center relative'
       >
-        {/* <video
-          ref={videoRef}
-          className='absolute top-0 left-0 w-full h-full object-cover z-0'
-          src='/videos/우주.mp4'
-          autoPlay
-          loop
-          muted
-        /> */}
         <video
           ref={videoRef}
           className='absolute top-0 left-0 w-full h-full object-cover z-0'
@@ -143,6 +49,7 @@ useEffect(() => {
           autoPlay
           loop
           muted
+          onLoadedData={() => setVideoLoaded(true)}
         />
         <div
           className='absolute z-10 text-center top-48 sm:w-auto sm:text-left sm:left-48 md:left-40 lg:left-52 xl:left-64'

@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react"
 
-
 const useVideoLoaded = () => {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [videoLoaded, setVideoLoaded] = useState<boolean>(false);
