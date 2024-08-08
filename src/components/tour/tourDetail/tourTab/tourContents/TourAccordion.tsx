@@ -17,7 +17,7 @@ function TourAccordion({ tour }: { tour: Tour }) {
   }
 
   return (
-    <Accordion allowMultiple className='mt-6 mb-60'>
+    <Accordion allowMultiple className='mt-6 mb-60 md:mx-5'>
       {schedule?.map((sche) => (
         <div className='flex mt-[50px]' key={sche.id}>
           <div className=' flex-none  flex justify-center items-center border rounded-full w-[74px] h-[74px] mr-4 bg-black-600 '>
@@ -27,8 +27,12 @@ function TourAccordion({ tour }: { tour: Tour }) {
           <AccordionItem
             header={({ state: { isEnter } }) => (
               <div className='flex '>
-                <div className='w-[975px] text-left'>{sche.date}</div>
-                <AccordionImg isEnter={isEnter} />
+                <div className='w-full sm:w-[200px] md:w-[600px] lg:w-[990px] mx-auto text-left'>
+                  {sche.date}
+                </div>
+                <div>
+                  <AccordionImg isEnter={isEnter} />
+                </div>
               </div>
             )}
             key={sche.id}

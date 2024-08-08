@@ -1,7 +1,8 @@
 'use client';
 
+import GenericModal from '@/components/common/GenericModal';
 import PasswordChangeInput from '@/components/mypage/password_change/PasswordChangeInput';
-import PasswordChangeSuccessModal from '@/components/mypage/password_change/PasswordChangeSuccessModal';
+
 import useChangePassword from '@/hooks/useChangePassword';
 import { useState } from 'react';
 
@@ -63,9 +64,18 @@ const PasswordChangePage = () => {
           onChange={(e) => setConfirmNewPassword(e.target.value)}
           error={confirmNewPasswordError}
         />
-        <PasswordChangeSuccessModal
+        <GenericModal
           isOpen={isSuccessModalOpen}
-          onClose={closeModal}
+          title='비밀번호 변경완료'
+          content={
+            <>
+              비밀번호가 재설정 되었습니다.
+              <br />
+              안전한 거래를 위해 재로그인 해주시기 바랍니다.
+            </>
+          }
+          buttonText='확인'
+          buttonAction={closeModal}
         />
         <button
           className={`h-14 rounded-lg text-white mt-4 ${

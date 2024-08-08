@@ -1,38 +1,23 @@
-import { createClient } from '@/supabase/client';
-import { Database } from '@/types/supabase';
-import { PostgrestError } from '@supabase/supabase-js';
-import { useEffect, useState } from 'react';
+import { useQuery, UseQueryResult } from '@tanstack/react-query';
+import axios from 'axios';
 
-type Goods = Database['public']['Tables']['goods']['Row'];
+interface Goods {
+  id: number;
+  goods_img: string;
+  goods_name: string;
+  goods_price: number;
+}
 
-const useFetchGoods = () => {
-  const [goods, setGoods] = useState<Goods[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+const fetchGoods = async (): Promise<Goods[]> => {
+  const { data } = await axios.get('/api/goods');
+  return data;
+};
 
-  useEffect(() => {
-    const fetchGoods = async () => {
-      try {
-        const supabase = createClient();
-        const { data, error } = await supabase.from('goods').select('*');
-
-        if (error) {
-          throw error;
-        }
-
-        setGoods(data as Goods[]);
-      } catch (err) {
-        const error = err as PostgrestError; // supabase 내장 오류 타입
-        setError(error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchGoods();
-  }, []);
-
-  return { goods, loading, error };
+const useFetchGoods = (): UseQueryResult<Goods[], Error> => {
+  return useQuery<Goods[], Error>({
+    queryKey: ['goods'],
+    queryFn: fetchGoods,
+  });
 };
 
 export default useFetchGoods;

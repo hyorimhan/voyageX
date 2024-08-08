@@ -4,7 +4,7 @@ interface OrderSummaryPropsType {
 
 function OrderSummary({ totalPrice }: OrderSummaryPropsType) {
   return (
-    <div className='border-2 border-black-300 p-4 rounded-lg mt-4'>
+    <div className='border-2 border-black-300 p-4 rounded-lg mt-4 mb-8'>
       <div className='py-2 mb-4 border-b-2 border-black-700'>
         <span className='text-xl'>주문요약</span>
       </div>
@@ -17,7 +17,7 @@ function OrderSummary({ totalPrice }: OrderSummaryPropsType) {
           <span className='text-black-200'>총 배송비</span>
           <span className='text-black-50'>0원</span>
         </div>
-        <div className='border-t-2 border-black-200 w-full pt-4 flex justify-between'>
+        <div className='border-t-2 border-black-200 w-full pt-4 flex justify-between pb-[10px]'>
           <span className='text-black-200'>{`총 결제 금액 `}</span>
           <span className='text-primary-400'>
             {totalPrice.toLocaleString()}원

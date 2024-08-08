@@ -525,14 +525,15 @@ export type Database = {
           depart_date: string
           depart_place: string
           depart_time: string
-          flight_type: string
+          gate: string
           id: string
+          installment: number
           passenger: string
           passenger_email: string
           pay_at: string
+          pay_method: string
           phone: string
           qr_code: string
-          seat_code: string
           spaceship_code: string
           spaceship_name: string
           tour_id: string
@@ -544,14 +545,15 @@ export type Database = {
           depart_date: string
           depart_place?: string
           depart_time?: string
-          flight_type: string
-          id?: string
+          gate: string
+          id: string
+          installment?: number
           passenger: string
           passenger_email: string
           pay_at?: string
+          pay_method: string
           phone: string
           qr_code: string
-          seat_code: string
           spaceship_code?: string
           spaceship_name?: string
           tour_id?: string
@@ -563,14 +565,15 @@ export type Database = {
           depart_date?: string
           depart_place?: string
           depart_time?: string
-          flight_type?: string
+          gate?: string
           id?: string
+          installment?: number
           passenger?: string
           passenger_email?: string
           pay_at?: string
+          pay_method?: string
           phone?: string
           qr_code?: string
-          seat_code?: string
           spaceship_code?: string
           spaceship_name?: string
           tour_id?: string
@@ -595,7 +598,6 @@ export type Database = {
       }
       tours: {
         Row: {
-          amount: number | null
           id: string
           planet_id: string
           price: number
@@ -603,7 +605,6 @@ export type Database = {
           tag: string
         }
         Insert: {
-          amount?: number | null
           id?: string
           planet_id?: string
           price: number
@@ -611,7 +612,6 @@ export type Database = {
           tag: string
         }
         Update: {
-          amount?: number | null
           id?: string
           planet_id?: string
           price?: number
