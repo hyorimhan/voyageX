@@ -58,6 +58,7 @@ export const tourDetail = async (id: string): Promise<Tour | null> => {
       tag,
       id,
       spaceship,
+      ship_code,
       planets (
         name,
         description,

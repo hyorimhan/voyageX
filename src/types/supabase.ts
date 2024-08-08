@@ -394,6 +394,7 @@ export type Database = {
           id: string
           name: string
           planet_img: string
+          tiket_web_img: string | null
           title: string | null
         }
         Insert: {
@@ -402,6 +403,7 @@ export type Database = {
           id?: string
           name: string
           planet_img: string
+          tiket_web_img?: string | null
           title?: string | null
         }
         Update: {
@@ -410,6 +412,7 @@ export type Database = {
           id?: string
           name?: string
           planet_img?: string
+          tiket_web_img?: string | null
           title?: string | null
         }
         Relationships: []
@@ -473,6 +476,24 @@ export type Database = {
           schedule1?: string | null
           schedule2?: string | null
           tour_img?: string | null
+        }
+        Relationships: []
+      }
+      tour_date_list: {
+        Row: {
+          arrive_date: string | null
+          depart_date: string
+          id: string
+        }
+        Insert: {
+          arrive_date?: string | null
+          depart_date: string
+          id?: string
+        }
+        Update: {
+          arrive_date?: string | null
+          depart_date?: string
+          id?: string
         }
         Relationships: []
       }
@@ -601,6 +622,7 @@ export type Database = {
           id: string
           planet_id: string
           price: number
+          ship_code: string | null
           spaceship: string | null
           tag: string
         }
@@ -608,6 +630,7 @@ export type Database = {
           id?: string
           planet_id?: string
           price: number
+          ship_code?: string | null
           spaceship?: string | null
           tag: string
         }
@@ -615,6 +638,7 @@ export type Database = {
           id?: string
           planet_id?: string
           price?: number
+          ship_code?: string | null
           spaceship?: string | null
           tag?: string
         }
