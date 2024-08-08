@@ -476,6 +476,24 @@ export type Database = {
         }
         Relationships: []
       }
+      tour_date_list: {
+        Row: {
+          arrive_date: string | null
+          depart_date: string
+          id: string
+        }
+        Insert: {
+          arrive_date?: string | null
+          depart_date: string
+          id?: string
+        }
+        Update: {
+          arrive_date?: string | null
+          depart_date?: string
+          id?: string
+        }
+        Relationships: []
+      }
       tour_days: {
         Row: {
           activitiy_id: string | null
@@ -601,6 +619,7 @@ export type Database = {
           id: string
           planet_id: string
           price: number
+          ship_code: string | null
           spaceship: string | null
           tag: string
         }
@@ -608,6 +627,7 @@ export type Database = {
           id?: string
           planet_id?: string
           price: number
+          ship_code?: string | null
           spaceship?: string | null
           tag: string
         }
@@ -615,6 +635,7 @@ export type Database = {
           id?: string
           planet_id?: string
           price?: number
+          ship_code?: string | null
           spaceship?: string | null
           tag?: string
         }

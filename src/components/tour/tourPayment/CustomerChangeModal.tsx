@@ -1,5 +1,5 @@
 import useAuthStore from '@/zustand/store/useAuth';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 
 interface CustomerChangeModalProps {
   setIsModalOpen: Dispatch<SetStateAction<boolean>>;
@@ -30,11 +30,9 @@ function CustomerChangeModal({
 
   return (
     <>
-      <section
-        className={`flex w-full h-full fixed top-0 left-0 justify-center`}
-      >
-        <div className='relative bg-black-800 w-3/5 h-[700px] my-24 mx-auto rounded-lg'>
-          <div className='flex justify-end'>
+      <section className={`h-full fixed top-0 left-0 justify-center`}>
+        <div className=' bg-black-800 h-[700px]  my-24 mx-auto rounded-lg'>
+          <div className='justify-end'>
             <button
               className='mr-10 mt-4 text-3xl bg-transparent'
               onClick={() => setIsModalOpen(false)}
@@ -49,10 +47,10 @@ function CustomerChangeModal({
             }}
           >
             <div className='flex flex-col items-center'>
-              <div className='flex flex-row justify-center w-full p-4'>
+              <div className='flex flex-row justify-center p-4'>
                 <p className='text-xl'>주문자 정보</p>
               </div>
-              <div className='flex flex-col w-1/2 gap-4'>
+              <div className='flex flex-col gap-4'>
                 <label htmlFor='customerName'>이름*</label>
                 <input
                   id='customerName'
@@ -86,9 +84,9 @@ function CustomerChangeModal({
               </div>
               <button
                 type='submit'
-                className='bg-primary-600 p-4 mt-16 w-1/2 rounded-lg'
+                className='bg-primary-600 p-4 mt-16 rounded-lg'
               >
-                주문자 정보 변경
+                주문자 정보 입력
               </button>
             </div>
           </form>
