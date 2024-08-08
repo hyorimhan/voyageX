@@ -37,3 +37,10 @@ export type PlanetType = {
 export type TourType = {
   price: number;
 };
+
+export type dateType = {
+  departDate: string | null;
+  arriveDate: string | null;
+  setDepartDate: (depart: string) => void | string;
+  setArriveDate: (arrive: string) => void | string;
+};

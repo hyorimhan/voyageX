@@ -10,12 +10,9 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Autoplay, Pagination } from 'swiper/modules';
-import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 import TourRouter from '../tourDetail/TourRouter';
 
 function TourList() {
-  const router = useRouter();
   const { data: tours, isLoading } = useQuery<Tour[]>({
     queryKey: ['tours'],
     queryFn: () => tourList(),

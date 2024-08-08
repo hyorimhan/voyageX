@@ -15,6 +15,7 @@ function CustomerInfo() {
     customerPhone: updateInfo?.customerPhone || '전화번호를 입력해주세요',
     customerEmail: user?.email || updateInfo?.customerEmail,
   });
+
   const updateCustomerInfo = (updateInfo: {
     customerName: string;
     customerPhone: string;
@@ -33,7 +34,7 @@ function CustomerInfo() {
               className='bg-primary-400 rounded-lg p-2 h-[30px] text-xs mb-3'
               onClick={() => setIsModalOpen(true)}
             >
-              주문자 정보 변경
+              주문자 정보 입력
             </button>
           </div>
         </div>
