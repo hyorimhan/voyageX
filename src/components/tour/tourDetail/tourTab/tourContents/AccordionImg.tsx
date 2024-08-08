@@ -5,7 +5,7 @@ function AccordionImg({ isEnter }: { isEnter: boolean }) {
   return (
     <>
       <Image
-        className={`  transition-transform duration-200 ease-out ${
+        className={`  transition-transform duration-200 ease-out cursor-pointer ${
           isEnter && 'rotate-180'
         }`}
         src='/icons/24px/detail_arrow_up.svg'

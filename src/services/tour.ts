@@ -1,3 +1,4 @@
+import SuccessPage from '@/app/(providers)/(root)/(goodsShop)/shop/payment/success/page';
 import { createClient } from '@/supabase/client';
 import { toggleLikeToursParamsType, TourOrderType } from '@/types/tour';
 import axios from 'axios';
@@ -35,6 +36,7 @@ export const tourDetail = async (id: string) => {
   tag,
   id,
   spaceship,
+  ship_code,
   planets (
     name,
     description,
@@ -162,4 +164,14 @@ export const getTourOrderDetail = async (
 ): Promise<TourOrderType[]> => {
   const response = await axios.get(`/api/mypage/tour_order/${user_id}`);
   return response.data;
+};
+
+export const getTourDateList = async () => {
+  const { data: dateList, error } = await supabase
+    .from('tour_date_list')
+    .select(`depart_date, arrive_date, id`);
+  if (error) {
+    throw error;
+  }
+  return dateList ?? [];
 };

@@ -1,8 +1,11 @@
+import { ReactNode } from 'react';
+
 export interface Tour {
   id: string;
   price: number;
   tag: string;
   spaceship?: string | null;
+  ship_code?: string | null;
   planets: {
     name: string;
     planet_img: string;
@@ -31,3 +34,17 @@ export interface tourProps {
     id: string;
   };
 }
+
+export interface propsText {
+  title?: string;
+  description?: string | ReactNode;
+  borderTop?: string;
+  contents?: string | React.ReactNode;
+  containerStyle?: string;
+}
+
+export type TourDateList = {
+  depart_date: string | null;
+  arrive_date: string | null;
+  id: string;
+};
