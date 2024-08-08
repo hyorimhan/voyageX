@@ -19,10 +19,10 @@ import toast from 'react-hot-toast';
 
 function DetailCard({ tour }: { tour: Tour }) {
   const user = useAuthStore((state) => state.user);
-  const departDate = useTourDate((state) => state.departDate);
-  const arriveDate = useTourDate((state) => state.arriveDate);
-
+  const TourDate = useTourDate((state) => state.tourDate);
+  const setTourDateReset = useTourDate((state) => state.setTourDateReset);
   const { setTourOrder } = useTourOrderInfoStore((state) => state);
+
   const router = useRouter();
 
   const handleGoToPayPage = () => {
@@ -32,13 +32,13 @@ function DetailCard({ tour }: { tour: Tour }) {
       eng_name: tour.planets?.english_name!,
       planet_img: tour.planets?.planet_img!,
       price: tour.price,
-      depart_date: departDate!,
-      arrive_date: arriveDate!,
+      depart_date: TourDate.departDate!,
+      arrive_date: TourDate.arriveDate!,
       gate: tour.ship_code!,
       qr_code: 'QR코드',
     };
 
-    if (!departDate || !arriveDate) {
+    if (!TourDate.departDate || !TourDate.arriveDate) {
       toast.error('여행 기간을 선택해주세요');
       return;
     }
@@ -82,10 +82,30 @@ function DetailCard({ tour }: { tour: Tour }) {
           <DetailInfo title={'출발지'} description={'대전, 한국'} />
           <DetailInfo title={'우주선 명'} description={`${tour.spaceship}`} />
           <DetailInfo title={'우주선 코드'} description={`${tour.ship_code}`} />
-          <DetailInfo title={'수량 1개'} description={`(1인 1개 한정)`} />
 
-          {departDate && (
-            <div className='bg-black-800 text-center'>{`${departDate} ~ ${arriveDate}`}</div>
+          {TourDate.departDate && (
+            <div className='h-[82px] mt-10 grid-cols-2  border-b border-b-white'>
+              <div className='flex'>
+                <div>
+                  <div className='mb-2'>
+                    {tour.planets?.name} 6박 7일 패키지 ㅣ 1매
+                    <span className='text-black-300 text-sm'>
+                      (수량 1인 1매 한정*)
+                    </span>
+                  </div>
+                  <div>
+                    {`${TourDate.departDate} ~
+                  ${TourDate.arriveDate}`}
+                  </div>
+                </div>
+                <button
+                  className='ml-auto mr-5'
+                  onClick={() => setTourDateReset()}
+                >
+                  x
+                </button>
+              </div>
+            </div>
           )}
 
           <div className='flex md:justify-center items-center gap-4 sm:justify-center'>
