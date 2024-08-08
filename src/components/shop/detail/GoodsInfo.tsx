@@ -6,6 +6,10 @@ import QuantityBtn from './QuantityBtn';
 import useAuthStore from '@/zustand/store/useAuth';
 import { Tables } from '@/types/supabase';
 import GoodsHearts from '../GoodsHearts';
+import { useState } from 'react';
+import useGoodsOrderStore from '@/zustand/store/useGoodsOrderInfo';
+import { useRouter } from 'next/navigation';
+import { addCartItem } from '@/services/goods';
 
 type GoodsInfoProps = {
   goods: Tables<'goods'>;
@@ -13,9 +17,32 @@ type GoodsInfoProps = {
 };
 
 const GoodsInfo = ({ goods, goods_id }: GoodsInfoProps) => {
+  const router = useRouter();
   const user = useAuthStore((state) => state.user);
+  const { setGoodsOrderInfo } = useGoodsOrderStore((state) => state);
+  const [totalPrice, setTotalPrice] = useState(goods.goods_price);
+  const [quantity, setQuantity] = useState(1);
   const goodsPrice = goods?.goods_price || 0;
   const formattedPrice = goodsPrice.toLocaleString();
+
+  const handleAddCartItem = async () => {
+    const response = await addCartItem({
+      user_id: user?.id!,
+      goods_id: goods.id,
+      quantity,
+    });
+    console.log(response);
+  };
+
+  const handleGoToOrderPage = () => {
+    setGoodsOrderInfo([
+      {
+        goods,
+        quantity: quantity,
+      },
+    ]);
+    router.push('/shop/order');
+  };
 
   return (
     <div className='flex'>
@@ -66,18 +93,30 @@ const GoodsInfo = ({ goods, goods_id }: GoodsInfoProps) => {
             <p>RED</p>
           </div>
           <div className='border-t-[1px] border-black-700'></div>
-          <QuantityBtn goodsPrice={goods.goods_price} />
+          <QuantityBtn
+            goodsPrice={goodsPrice}
+            totalPrice={totalPrice}
+            setTotalPrice={setTotalPrice}
+            quantity={quantity}
+            setQuantity={setQuantity}
+          />
         </div>
         <div className='gap-4 flex mt-5 w-full'>
           <div className='flex p-2 rounded-lg items-center border-2 border-solid border-primary-400'>
             <GoodsHearts goods_id={goods_id} user_id={user?.id} />
           </div>
           <div className='flex flex-grow gap-4 text-base h-[53px]'>
-            <button className='border-solid border-2 w-full border-primary-400 rounded-lg'>
+            <button
+              onClick={handleAddCartItem}
+              className='border-solid border-2 w-full border-primary-400 rounded-lg'
+            >
               장바구니
             </button>
-            <button className='bg-primary-600 w-full rounded-lg'>
-              쇼핑 계속하기
+            <button
+              onClick={handleGoToOrderPage}
+              className='bg-primary-600 w-full rounded-lg'
+            >
+              구매하기
             </button>
           </div>
         </div>

@@ -1,7 +1,6 @@
 import { createClient } from '@/supabase/client';
 import { toggleLikeToursParamsType } from '@/types/tour';
 import axios from 'axios';
-import { headers } from 'next/headers';
 
 const supabase = createClient();
 
@@ -11,6 +10,7 @@ export const tourList = async () => {
     id,
     price, 
     tag,
+    spaceship,
     planets (
       name, 
       planet_img,
@@ -19,7 +19,10 @@ export const tourList = async () => {
       english_name
     )
   `);
-  return { tours, error };
+  if (error) {
+    console.log(error);
+  }
+  return tours ?? [];
 };
 
 // 투어 상세
@@ -31,7 +34,7 @@ export const tourDetail = async (id: string) => {
   price,
   tag,
   id,
-  amount,
+  spaceship,
   planets (
     name,
     description,
@@ -42,8 +45,39 @@ export const tourDetail = async (id: string) => {
   `,
     )
     .eq('id', id);
+  if (error) {
+    throw error;
+  }
 
-  return { tours, error };
+  return tours ?? [];
+};
+
+// 투어 일정, 날짜
+export const tourSchedule = async (id: string) => {
+  const { data: schedule, error } = await supabase
+    .from('tour_days')
+    .select(
+      `
+    id,
+    tour_id,
+    day,
+    date,
+    description,
+    tour_activities (
+    schedule1,
+    schedule2,
+    meal
+    )
+    `,
+    )
+    .eq('tour_id', id)
+    .order('day', { ascending: true });
+
+  if (error) {
+    throw error;
+  }
+
+  return schedule ?? [];
 };
 
 //투어 결제 (주문자 정보)
@@ -91,33 +125,33 @@ export const toggleLikeTours = async (
 };
 
 // 투어 결제 (테이블에 넣기)
-export const tourPayment = async ({
-  userId,
-  tourId,
-  customerName,
-  customerMobilePhone,
-  customerEmail,
-  totalPrice,
-  amount,
-}: {
-  userId: string;
-  tourId: string;
-  customerName: string;
-  customerMobilePhone: string;
-  customerEmail: string;
-  totalPrice: number;
-  amount: number;
-}) => {
-  const { error } = await supabase.from('tour_orders').insert([
-    {
-      user_id: userId,
-      tour_id: tourId,
-      customer_name: customerName,
-      customer_phone: customerMobilePhone,
-      customer_email: customerEmail,
-      total_price: totalPrice,
-      amount: amount,
-    },
-  ]);
-  return { error };
-};
+// export const tourPayment = async ({
+//   userId,
+//   tourId,
+//   customerName,
+//   customerMobilePhone,
+//   customerEmail,
+//   totalPrice,
+//   amount,
+// }: {
+//   userId: string;
+//   tourId: string;
+//   customerName: string;
+//   customerMobilePhone: string;
+//   customerEmail: string;
+//   totalPrice: number;
+//   amount: number;
+// }) => {
+//   const { error } = await supabase.from('tour_orders').insert([
+//     {
+//       user_id: userId,
+//       tour_id: tourId,
+//       customer_name: customerName,
+//       customer_phone: customerMobilePhone,
+//       customer_email: customerEmail,
+//       total_price: totalPrice,
+//       amount: amount,
+//     },
+//   ]);
+//   return { error };
+// };

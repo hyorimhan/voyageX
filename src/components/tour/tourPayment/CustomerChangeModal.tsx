@@ -1,5 +1,4 @@
 import useAuthStore from '@/zustand/store/useAuth';
-import useCustomerInfoStore from '@/zustand/store/customrInfoStore';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 interface CustomerChangeModalProps {

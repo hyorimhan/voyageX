@@ -24,6 +24,19 @@ export const GET = async (request: Request, { params }: ParamsType) => {
   return NextResponse.json(data);
 };
 
+export const POST = async (request: Request, { params }: ParamsType) => {
+  const supabase = createClient();
+  const { user_id } = params;
+  const { goods_id, quantity } = await request.json();
+  const { data, error } = await supabase.from('cart').insert({
+    user_id,
+    goods_id,
+    quantity,
+  });
+  if (error) return NextResponse.json({ error });
+  return NextResponse.json(data);
+};
+
 export const DELETE = async (request: Request, { params }: ParamsType) => {
   const supabase = createClient();
   const { user_id } = params;

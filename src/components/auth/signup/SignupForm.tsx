@@ -10,6 +10,7 @@ import {
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 import SignupCheckbox from './SignupCheckbox';
+import { orbitron } from '../../../../public/fonts/orbitron';
 
 function SignupForm() {
   const router = useRouter();
@@ -61,7 +62,9 @@ function SignupForm() {
     <>
       <div className='flex flex-col items-end justify-center h-screen'>
         <form onSubmit={handleSubmit(joinForm, handleError)}>
-          <div className='text-center text-2xl my-4 '>회원가입</div>
+          <div className={`text-center text-2xl my-4 ${orbitron.className}`}>
+            sign up
+          </div>
           <div className='flex flex-col'>
             <label htmlFor='email' className='mb-1 text-black-200'>
               이메일 *
@@ -71,7 +74,7 @@ function SignupForm() {
               type='email'
               placeholder='예) voyageX@gmail.com'
               {...register('email', emailValidate())}
-              className='text-black-900 w-[469px] h-[60px]   rounded-lg p-2 '
+              className='text-black-900 w-[473px] h-[58px]  sm:w-[335px] rounded-lg p-2 '
               autoFocus
             />
           </div>
@@ -84,7 +87,7 @@ function SignupForm() {
               type='password'
               placeholder='영문, 숫자, 특수문자 조합 8-16자'
               {...register('password', passwordValidate())}
-              className='text-black-900 w-[469px] h-[60px]  rounded-lg p-2'
+              className='text-black-900 w-[473px] h-[58px]  sm:w-[335px]  rounded-lg p-2'
             />
           </div>
           <div className='flex flex-col my-3'>
@@ -97,7 +100,7 @@ function SignupForm() {
                 'passwordConfirm',
                 passwordConfirmValidate(password),
               )}
-              className='text-black-900 w-[469px] h-[60px]  rounded-lg p-2'
+              className='text-black-900 w-[473px] h-[58px]  sm:w-[335px]  rounded-lg p-2'
             />
           </div>
           <div className='flex flex-col'>
@@ -109,7 +112,7 @@ function SignupForm() {
           </div>
           <button
             type='submit'
-            className='bg-primary-600 w-[469px] h-[60px]  rounded-lg p-2 mt-5'
+            className='bg-primary-600 w-[473px] h-[58px]  sm:w-[335px] rounded-lg p-2 mt-5'
           >
             가입하기
           </button>

@@ -7,10 +7,11 @@ type AddressAddModalInputProps = {
   placeholder: string;
   type?: string;
   value: string;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   error?: string;
   readOnly?: boolean;
   onClick?: () => void;
+  disabled?: boolean;
 };
 
 const AddressAddModalInput = ({
@@ -22,15 +23,18 @@ const AddressAddModalInput = ({
   error,
   readOnly,
   onClick,
+  disabled,
 }: AddressAddModalInputProps) => {
   return (
     <div className='flex flex-col'>
-      <label className='text-black-200 mb-1'>{label}</label>
+      <label className='text-black-200 mb-1 text-sm'>{label}</label>
       <div>
         <input
-          className={`text-black-1000 rounded-lg h-[59px] py-5 px-6 w-full ${
+          className={`text-black-1000 rounded-lg h-[48px] py-5 px-6 w-full text-sm ${
             error
               ? 'border-error-900 border-2 text-black-1000 focus:outline-error-900'
+              : disabled
+              ? 'border-none bg-black-100'
               : 'border-black-200 border-2 hover:border-black-500 focus:border-black-500 focus:border-2 focus:text-black-1000 focus:outline-black-500'
           }`}
           placeholder={placeholder}
@@ -39,9 +43,10 @@ const AddressAddModalInput = ({
           onChange={onChange}
           readOnly={readOnly}
           onClick={onClick}
+          disabled={disabled}
         />
       </div>
-      {error && <p className='text-red-500 text-sm ml-3'>{error}</p>}
+      {error && <p className='text-red-500 text-sm ml-2'>{error}</p>}
     </div>
   );
 };

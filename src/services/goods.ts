@@ -1,5 +1,6 @@
-import { toggleLikeGoodsParamsType } from '@/types/goods';
+import { GoodsOrdersType, toggleLikeGoodsParamsType } from '@/types/goods';
 import {
+  addCartItemParamsType,
   adjustQuantityParamsType,
   DeleteCartItemParamsType,
 } from '@/types/mypageType';
@@ -51,6 +52,18 @@ export const getCartList = async (user_id: string) => {
   return response.data;
 };
 
+export const addCartItem = async ({
+  user_id,
+  goods_id,
+  quantity,
+}: addCartItemParamsType) => {
+  const response = await axios.post(`/api/goods/cart/${user_id}`, {
+    goods_id,
+    quantity,
+  });
+  return response.data;
+};
+
 export const deleteCartItem = async (
   deleteCartItemParams: DeleteCartItemParamsType,
 ) => {
@@ -75,4 +88,22 @@ export const adjustQuantity = async (
 export const getGoodsItem = async (id: string) => {
   const response = await axios.get(`/api/goods/${id}`);
   return response.data[0];
+};
+
+export const getGoodsOrderList = async (
+  user_id: string | undefined,
+): Promise<GoodsOrdersType[]> => {
+  const response = await axios.get(
+    `/api/mypage/my_goods_order/user/${user_id}`,
+  );
+  return response.data;
+};
+
+export const getGoodsOrderDetail = async (
+  order_id: string,
+): Promise<GoodsOrdersType> => {
+  const response = await axios.get(
+    `/api/mypage/my_goods_order/goods/${order_id}`,
+  );
+  return response.data;
 };
