@@ -112,7 +112,8 @@ const MainPage = () => {
                   <Image
                     src={planet.planet_img}
                     alt={`Planet ${index + 1}`}
-                    layout='fill'
+                    fill
+                    sizes='100vw'
                     objectFit='contain'
                   />
                   {isActive && (

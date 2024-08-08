@@ -4,7 +4,6 @@ import useAuthStore from '@/zustand/store/useAuth';
 import { useQuery } from '@tanstack/react-query';
 import { getMyPosts } from '@/services/community';
 import { MyPost } from '@/types/communityType';
-import React from 'react';
 import HeartWhiteIcon16px from '../common/icons/16px/HeartWhiteIcon16px';
 
 const MyPageSideBarUserInfo = () => {
