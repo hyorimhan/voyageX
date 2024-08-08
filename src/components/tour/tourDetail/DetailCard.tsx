@@ -21,8 +21,8 @@ function DetailCard({ tour }: { tour: Tour }) {
   const user = useAuthStore((state) => state.user);
   const departDate = useTourDate((state) => state.departDate);
   const arriveDate = useTourDate((state) => state.arriveDate);
-
   const { setTourOrder } = useTourOrderInfoStore((state) => state);
+
   const router = useRouter();
 
   const handleGoToPayPage = () => {
@@ -82,10 +82,25 @@ function DetailCard({ tour }: { tour: Tour }) {
           <DetailInfo title={'출발지'} description={'대전, 한국'} />
           <DetailInfo title={'우주선 명'} description={`${tour.spaceship}`} />
           <DetailInfo title={'우주선 코드'} description={`${tour.ship_code}`} />
-          <DetailInfo title={'수량 1개'} description={`(1인 1개 한정)`} />
 
           {departDate && (
-            <div className='bg-black-800 text-center'>{`${departDate} ~ ${arriveDate}`}</div>
+            <div className='h-[82px] mt-10 grid-cols-2  border-b border-b-white'>
+              <div className='flex'>
+                <div>
+                  <div className='mb-2'>
+                    {tour.planets?.name} 6박 7일 패키지 ㅣ 1매
+                    <span className='text-black-300 text-sm'>
+                      (수량 1인 1매 한정*)
+                    </span>
+                  </div>
+                  <div>
+                    {`${departDate} ~
+                  ${arriveDate}`}
+                  </div>
+                </div>
+                <button className='ml-auto mr-5'>x</button>
+              </div>
+            </div>
           )}
 
           <div className='flex md:justify-center items-center gap-4 sm:justify-center'>

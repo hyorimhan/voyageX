@@ -11,7 +11,6 @@ function DetailDate() {
   const [view, setView] = useState(false);
   const setDepartDate = useTourDate((state) => state.setDepartDate);
   const setArriveDate = useTourDate((state) => state.setArriveDate);
-
   const [selectDepart, setSelectDepart] = useState('날짜 선택');
 
   const { data: dateList, isLoading } = useQuery<TourDateList[]>({

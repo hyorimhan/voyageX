@@ -1,4 +1,3 @@
-import SuccessPage from '@/app/(providers)/(root)/(goodsShop)/shop/payment/success/page';
 import { createClient } from '@/supabase/client';
 import { toggleLikeToursParamsType, TourOrderType } from '@/types/tour';
 import axios from 'axios';
