@@ -8,10 +8,6 @@ export async function GET(
   const { user_id } = params;
   const supabase = createClient();
 
-  if (!user_id) {
-    return NextResponse.json({ error: '유저 ID를 찾을 수 없습니다' });
-  }
-
   const { data: tourOrders, error: tourOrderError } = await supabase
     .from('tour_orders')
     .select('*')
@@ -23,18 +19,19 @@ export async function GET(
     });
   }
 
-  // if (!tourOrders || tourOrders.length === 0) {
-  //   return NextResponse.json({ error: '주문목록이 없습니다.' });
-  // }
-
   const tourIds = tourOrders.map((tour_order) => tour_order.tour_id);
 
   const { data: tours, error: tourError } = await supabase
-    .from('tour')
+    .from('tours')
     .select('*')
     .in('id', tourIds);
 
   if (tourError) {
+    return NextResponse.json({ error: '여행 상품 정보를 불러올 수 없습니다.' });
+  }
+
+  if (!tours || tours.length === 0) {
+    console.log('No tours found');
     return NextResponse.json({ error: '여행 상품 정보를 불러올 수 없습니다.' });
   }
 
@@ -46,6 +43,11 @@ export async function GET(
     .in('id', planetIds);
 
   if (planetsError) {
+    return NextResponse.json({ error: '행성 정보를 불러올 수 없습니다.' });
+  }
+
+  if (!planets || planets.length === 0) {
+    console.log('No planets found');
     return NextResponse.json({ error: '행성 정보를 불러올 수 없습니다.' });
   }
 
