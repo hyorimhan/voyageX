@@ -394,6 +394,7 @@ export type Database = {
           id: string
           name: string
           planet_img: string
+          tiket_web_img: string | null
           title: string | null
         }
         Insert: {
@@ -402,6 +403,7 @@ export type Database = {
           id?: string
           name: string
           planet_img: string
+          tiket_web_img?: string | null
           title?: string | null
         }
         Update: {
@@ -410,6 +412,7 @@ export type Database = {
           id?: string
           name?: string
           planet_img?: string
+          tiket_web_img?: string | null
           title?: string | null
         }
         Relationships: []
