@@ -10,11 +10,13 @@ import CartItem from './CartItem';
 import CartTotalPrice from './CartTotalPrice';
 import CartButtonContainer from './CartButtonContainer';
 import CartItemSelector from './CartItemSelector';
+import GenericModal from '@/components/common/GenericModal';
 
 function MyCart({ user_id }: WishListPropsType) {
   const [totalPrice, setTotalPrice] = useState(0);
   const [selectItems, setSelectItems] = useState<CartListType[]>([]);
   const { data: cartList, isError, isPending } = useGetCartList(user_id);
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 
   const handleSelectAllItems = () => {
     if (cartList && selectItems.length < cartList.length)
@@ -94,7 +96,7 @@ function MyCart({ user_id }: WishListPropsType) {
         selectItems={selectItems}
         listLength={cartList.length}
         handleSelectAllItems={handleSelectAllItems}
-        handleDeleteItem={handleDeleteItem}
+        setIsDeleteOpen={setIsDeleteOpen}
       />
       <ul className='flex flex-col gap-4'>
         {cartList.length
@@ -111,6 +113,18 @@ function MyCart({ user_id }: WishListPropsType) {
       </ul>
       <CartTotalPrice totalPrice={totalPrice} />
       <CartButtonContainer selectItems={selectItems} />
+      <GenericModal
+        isOpen={isDeleteOpen}
+        title='장바구니 상품 삭제'
+        content='선택한 상품을 삭제하시겠습니까?'
+        buttonText='삭제'
+        buttonAction={() => {
+          handleDeleteItem();
+          setIsDeleteOpen(false);
+        }}
+        cancelText='취소'
+        cancelAction={() => setIsDeleteOpen(false)}
+      />
     </div>
   );
 }

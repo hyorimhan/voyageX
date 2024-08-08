@@ -1,5 +1,7 @@
+'use client';
+
 import { CartListType } from '@/types/mypageType';
-import useGoodsOrderStore from '@/zustand/store/useGoodsOrderInfo';
+import useGoodsOrderStore from '@/zustand/store/useGoodsOrderInfoStore';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 

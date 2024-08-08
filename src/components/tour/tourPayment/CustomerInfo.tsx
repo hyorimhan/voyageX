@@ -11,15 +11,15 @@ function CustomerInfo() {
   const updateInfo = useUpdateInfoStore((state) => state.updateInfo);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [customerInfo, setCustomerInfo] = useState({
-    name: updateInfo?.name || '주문자 정보를 입력해주세요',
-    phone: updateInfo?.phone || '전화번호를 입력해주세요',
-    email: user?.email || updateInfo?.email,
+    customerName: updateInfo?.customerName || '주문자 정보를 입력해주세요',
+    customerPhone: updateInfo?.customerPhone || '전화번호를 입력해주세요',
+    customerEmail: user?.email || updateInfo?.customerEmail,
   });
 
   const updateCustomerInfo = (updateInfo: {
-    name: string;
-    phone: string;
-    email: string;
+    customerName: string;
+    customerPhone: string;
+    customerEmail: string;
   }) => {
     setCustomerInfo(updateInfo);
     setUpdateInfo(updateInfo);
@@ -42,15 +42,15 @@ function CustomerInfo() {
         <div className='mx-auto w-[672px] text-sm'>
           <div className='flex'>
             <div className='w-[104px] mr-[18px]'>받는 분</div>
-            <div>{customerInfo.name}</div>
+            <div>{customerInfo.customerName}</div>
           </div>
           <div className='flex'>
             <div className='w-[104px] mr-[18px] my-5'>휴대전화 번호</div>
-            <div className='my-5'>{customerInfo.phone}</div>
+            <div className='my-5'>{customerInfo.customerPhone}</div>
           </div>
           <div className='flex'>
             <div className='w-[104px] mr-[18px] mb-5'>이메일 주소</div>
-            <div className='mb-5'>{customerInfo.email}</div>
+            <div className='mb-5'>{customerInfo.customerEmail}</div>
           </div>
         </div>
       </div>

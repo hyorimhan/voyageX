@@ -6,9 +6,17 @@ import toast from 'react-hot-toast';
 
 interface CustomerChangeModalProps {
   setIsModalOpen: Dispatch<SetStateAction<boolean>>;
+  updateCustomerInfo: (updateInfo: {
+    customerName: string;
+    customerPhone: string;
+    customerEmail: string;
+  }) => void;
 }
 
-function CustomerChangeModal({ setIsModalOpen }: CustomerChangeModalProps) {
+function CustomerChangeModal({
+  setIsModalOpen,
+  updateCustomerInfo,
+}: CustomerChangeModalProps) {
   const { customerInfo, setCustomerInfo } = useCustomerInfoStore(
     (state) => state,
   );
@@ -28,7 +36,10 @@ function CustomerChangeModal({ setIsModalOpen }: CustomerChangeModalProps) {
   ]);
 
   const handleChangeCustomerInfo = () => {
-    setCustomerInfo({
+    if (!name.trim()) return toast.error('성함을 입력해주세요!');
+    if (!phone.trim()) return toast.error('휴대전화 번호를 입력해주세요!');
+    if (!email.trim()) return toast.error('이메일 주소를 입력해주세요!');
+    updateCustomerInfo({
       customerName: name,
       customerPhone: phone,
       customerEmail: email,
@@ -73,7 +84,6 @@ function CustomerChangeModal({ setIsModalOpen }: CustomerChangeModalProps) {
                 placeholder=' 성함'
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                required
                 className='rounded h-16 text-black-1000 p-1'
               />
               <label htmlFor='customerPhone'>휴대폰 번호*</label>
@@ -83,7 +93,6 @@ function CustomerChangeModal({ setIsModalOpen }: CustomerChangeModalProps) {
                 placeholder=' 휴대폰 번호'
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
-                required
                 className='rounded h-16 text-black-1000 p-1'
               />
               <label htmlFor='customerEmail'>이메일*</label>

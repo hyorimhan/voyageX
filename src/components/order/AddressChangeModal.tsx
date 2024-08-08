@@ -1,6 +1,6 @@
 'use client';
 
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
+import { Dispatch, SetStateAction, useRef, useState } from 'react';
 import AddressActionsBtn from '../mypage/address_list/AddressActionsBtn';
 import AddressesList from '../mypage/address_list/AddressList';
 import AddressAddModal from '../mypage/address_list/AddressAddModal';
@@ -37,10 +37,6 @@ function AddressChangeModal({
     setShowAddressAddModal(true);
   };
 
-  const handleAddAddress = () => {
-    setShowAddressAddModal(false);
-  };
-
   const updateAddressesLength = (length: number) => {
     setAddressesLength(length);
   };
@@ -50,10 +46,10 @@ function AddressChangeModal({
   };
 
   const handleChangeAddress = () => {
+    if (!selectedAddressId) return toast.error('배송지를 선택해주세요!');
     setExpressAddress(
       addressList.find((address) => address.id === selectedAddressId) ?? null,
     );
-    console.log('expressAddress => ', expressAddress);
     setIsModalOpen(false);
     toast.success('배송지가 변경되었습니다!');
   };

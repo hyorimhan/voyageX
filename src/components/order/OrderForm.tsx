@@ -37,7 +37,11 @@ function OrderForm({ user, isTour }: OrderFormPropsType) {
           </div>
           <div className='mt-4 w-full'>
             {addressList && (
-              <CustomerInfo user_email={user_email} addressList={addressList} />
+              <CustomerInfo
+                isTour={isTour}
+                user_email={user_email}
+                addressList={addressList}
+              />
             )}
           </div>
           <div className='mt-4 w-full'>

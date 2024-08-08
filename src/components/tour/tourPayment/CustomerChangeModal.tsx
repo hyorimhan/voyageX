@@ -4,9 +4,9 @@ import { Dispatch, SetStateAction, useState } from 'react';
 interface CustomerChangeModalProps {
   setIsModalOpen: Dispatch<SetStateAction<boolean>>;
   updateCustomerInfo: (info: {
-    name: string;
-    phone: string;
-    email: string;
+    customerName: string;
+    customerPhone: string;
+    customerEmail: string;
   }) => void;
 }
 
@@ -20,7 +20,11 @@ function CustomerChangeModal({
   const [email, setEmail] = useState(user?.email!);
 
   const handleChangeCustomerInfo = () => {
-    updateCustomerInfo({ name, phone, email });
+    updateCustomerInfo({
+      customerName: name,
+      customerPhone: phone,
+      customerEmail: email,
+    });
     setIsModalOpen(false);
   };
 
