@@ -108,3 +108,17 @@ export const getGoodsOrderDetail = async (
   );
   return response.data;
 };
+
+export const deleteCartItemByGoodsId = async ({
+  user_id,
+  ids,
+}: {
+  user_id: string;
+  ids: string[];
+}) => {
+  const idList = JSON.stringify(ids);
+  const response = await axios.delete(
+    `/api/goods/cart?user_id=${user_id}&idList=${idList}`,
+  );
+  return response.data;
+};

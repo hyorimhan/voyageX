@@ -41,9 +41,16 @@ function CustomerInfo({ addressList, user_email, isTour }: CustomerInfo) {
     } else {
       setCustomerInfo({
         customerName:
-          expressAddress?.recipient ?? defaultAddress?.recipient ?? '',
-        customerPhone: expressAddress?.phone ?? defaultAddress?.phone ?? '',
-        customerEmail: user_email,
+          updateInfo?.customerName ??
+          expressAddress?.recipient ??
+          defaultAddress?.recipient ??
+          '',
+        customerPhone:
+          updateInfo?.customerPhone ??
+          expressAddress?.phone ??
+          defaultAddress?.phone ??
+          '',
+        customerEmail: updateInfo?.customerEmail ?? user_email,
       });
     }
   }, [

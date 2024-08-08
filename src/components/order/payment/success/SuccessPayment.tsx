@@ -14,6 +14,7 @@ import PayMethodInfo from './PayMethodInfo';
 import AfterPayButtons from './AfterPayButtons';
 import { createOrderReceipt } from '@/services/pay';
 import useGoodsOrderStore from '@/zustand/store/useGoodsOrderInfoStore';
+import { deleteCartItemByGoodsId } from '@/services/goods';
 
 function SuccessPayment() {
   const router = useRouter();
@@ -87,6 +88,9 @@ function SuccessPayment() {
     };
     postReceipt();
     return () => {
+      const ids = goodsOrderInfo?.map((item) => item.goods.id);
+      const response = deleteCartItemByGoodsId({ user_id: user.id, ids: ids! });
+      console.log('deleteCartItemByGoodsId response => ', response);
       setGoodsOrderInfo(null);
     };
   }, [
