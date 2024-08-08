@@ -1,11 +1,25 @@
+'use client';
+
 import SpaceshipIcon16px from '@/components/common/icons/16px/SpaceshipIcon16px';
 import TourEndIcon from '@/components/common/icons/TourEndIcon';
 import TourStartIcon from '@/components/common/icons/TourStartIcon';
 import Image from 'next/image';
 import { orbitron } from '../../../../public/fonts/orbitron';
 import SpaceshipIcon20px from '@/components/common/icons/20px/SpaceshipIcon20px';
+import { useQuery } from '@tanstack/react-query';
+import { getTourOrderDetail } from '@/services/tour';
+import useAuthStore from '@/zustand/store/useAuth';
+import { TourOrderType } from '@/types/tour';
 
 const TourOrdersList = () => {
+  const user = useAuthStore((state) => state.user);
+  const user_id = user?.id;
+
+  const { data: tourOrders } = useQuery<TourOrderType[]>({
+    queryKey: ['tourOrders', user_id],
+    queryFn: () => getTourOrderDetail(user_id),
+  });
+  console.log(tourOrders);
   return (
     <>
       <div className='gap-2 flex flex-col'>
