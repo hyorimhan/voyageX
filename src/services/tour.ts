@@ -1,11 +1,29 @@
 import { createClient } from '@/supabase/client';
-import { toggleLikeToursParamsType, TourOrderType } from '@/types/tour';
 import axios from 'axios';
+import { toggleLikeToursParamsType, TourOrderType } from '@/types/tour';
 
 const supabase = createClient();
 
+export interface Planet {
+  id: string;
+  name: string;
+  description: string;
+  planet_img: string;
+  title: string | null;
+  english_name: string | null;
+  price?: number;
+}
+
+export interface Tour {
+  price: number;
+  tag: string;
+  id: string;
+  spaceship: string | null;
+  planets: Planet[];
+}
+
 // 투어 리스트
-export const tourList = async () => {
+export const tourList = async (): Promise<Tour[]> => {
   const { data: tours, error } = await supabase.from('tours').select(`
     id,
     price, 
@@ -20,36 +38,51 @@ export const tourList = async () => {
     )
   `);
   if (error) {
-    console.log(error);
+    throw error;
   }
-  return tours ?? [];
+
+  // planets가 null인 경우 빈 배열로 처리
+  return tours.map((tour) => ({
+    ...tour,
+    planets: tour.planets ? [tour.planets] : [],
+  })) as Tour[];
 };
 
 // 투어 상세
-export const tourDetail = async (id: string) => {
-  const { data: tours, error } = await supabase
+export const tourDetail = async (id: string): Promise<Tour | null> => {
+  const { data: tour, error } = await supabase
     .from('tours')
     .select(
       `
-  price,
-  tag,
-  id,
-  spaceship,
-  planets (
-    name,
-    description,
-    planet_img,
-    title,
-    english_name
-  )
-  `,
+      price,
+      tag,
+      id,
+      spaceship,
+      planets (
+        name,
+        description,
+        planet_img,
+        title,
+        english_name
+      )
+    `,
     )
-    .eq('id', id);
+    .eq('id', id)
+    .single();
+
   if (error) {
     throw error;
   }
 
-  return tours ?? [];
+  // planets가 null인 경우 빈 배열로 처리
+  const normalizedTour = tour
+    ? {
+        ...tour,
+        planets: tour.planets ? [tour.planets] : [],
+      }
+    : null;
+
+  return normalizedTour as Tour | null;
 };
 
 // 투어 일정, 날짜
@@ -78,19 +111,6 @@ export const tourSchedule = async (id: string) => {
   }
 
   return schedule ?? [];
-};
-
-//투어 결제 (주문자 정보)
-export const userAddress = async (id: string) => {
-  const response = await fetch('/api/tours/tourOrderInfo', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ id }),
-  });
-  const responseData = await response.json();
-  return responseData;
 };
 
 export const getLikedToursByUser = async (user_id: string) => {
@@ -124,42 +144,17 @@ export const toggleLikeTours = async (
   }
 };
 
-// 투어 결제 (테이블에 넣기)
-// export const tourPayment = async ({
-//   userId,
-//   tourId,
-//   customerName,
-//   customerMobilePhone,
-//   customerEmail,
-//   totalPrice,
-//   amount,
-// }: {
-//   userId: string;
-//   tourId: string;
-//   customerName: string;
-//   customerMobilePhone: string;
-//   customerEmail: string;
-//   totalPrice: number;
-//   amount: number;
-// }) => {
-//   const { error } = await supabase.from('tour_orders').insert([
-//     {
-//       user_id: userId,
-//       tour_id: tourId,
-//       customer_name: customerName,
-//       customer_phone: customerMobilePhone,
-//       customer_email: customerEmail,
-//       total_price: totalPrice,
-//       amount: amount,
-//     },
-//   ]);
-//   return { error };
-// };
-
 //투어 주문목록 불러오기
-export const getTourOrderDetail = async (
+export const getTourOrder = async (
   user_id: string | undefined,
 ): Promise<TourOrderType[]> => {
-  const response = await axios.get(`/api/mypage/tour_order/${user_id}`);
+  const response = await axios.get(`/api/mypage/tour_order/user/${user_id}`);
+  return response.data;
+};
+
+export const getTourOrderDetail = async (
+  order_id: string | undefined,
+): Promise<TourOrderType> => {
+  const response = await axios.get(`/api/mypage/tour_order/tour/${order_id}`);
   return response.data;
 };
