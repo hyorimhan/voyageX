@@ -36,7 +36,7 @@ const AddressesList = ({
 
   if (!addresses || addresses.length === 0) {
     return (
-      <div className='flex items-center flex-col gap-[7px] mt-[61px]'>
+      <div className='flex items-center flex-col gap-[7px] mt-[56px]'>
         <p className='text-xl'>배송지가 없습니다.</p>
         <p className='text-sm'>새로운 배송지를 추가해보세요.</p>
       </div>

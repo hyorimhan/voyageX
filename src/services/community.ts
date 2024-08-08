@@ -7,7 +7,7 @@ import {
   TWritePost,
 } from '@/types/communityType';
 
-export async function getPostAll() {
+export async function getPostAll(): Promise<MyPost[]> {
   const response = await fetch('/api/community');
   const data = await response.json();
   return data;
@@ -89,6 +89,24 @@ export async function getMyPosts(
   user_id: string | undefined,
 ): Promise<MyPost[]> {
   const response = await fetch(`/api/mypage/my_posts/${user_id}`);
+  const data = await response.json();
+  return data;
+}
+
+export async function likePost(postId: string, userId: string) {
+  const response = await fetch(`/api/community/likes/${postId}`, {
+    method: 'POST',
+    body: JSON.stringify({ userId }),
+  });
+  const data = await response.json();
+  return data;
+}
+
+export async function unlikePost(postId: string, userId: string) {
+  const response = await fetch(`/api/community/likes/${postId}`, {
+    method: 'DELETE',
+    body: JSON.stringify({ userId }),
+  });
   const data = await response.json();
   return data;
 }

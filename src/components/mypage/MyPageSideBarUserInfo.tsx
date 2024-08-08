@@ -5,22 +5,30 @@ import { useQuery } from '@tanstack/react-query';
 import { getMyPosts } from '@/services/community';
 import { MyPost } from '@/types/communityType';
 import HeartWhiteIcon16px from '../common/icons/16px/HeartWhiteIcon16px';
+import { useEffect, useState } from 'react';
+import { userLoginInfo } from '@/services/auth';
 
 const MyPageSideBarUserInfo = () => {
   const user = useAuthStore((state) => state.user);
-  const emailId = user?.email ? user.email.split('@')[0] : '비회원';
+  const saveUser = useAuthStore((state) => state.saveUser);
+
+  useEffect(() => {
+    userLoginInfo().then((res) => {
+      saveUser(res.user);
+    });
+  }, []);
 
   const { data: posts, isLoading } = useQuery<MyPost[]>({
     queryKey: ['myPosts', user?.id],
     queryFn: () => getMyPosts(user?.id),
-    enabled: !!user?.id,
   });
 
   if (isLoading) {
-    return <p>탑승중...</p>;
+    return <p>우주선에 탑승중...</p>;
   }
 
   const postCount = posts?.length || 0;
+  const emailId = user?.email ? user.email.split('@')[0] : '비회원';
 
   return (
     <div className='h-[60px] py-2 gap-1 flex flex-col'>

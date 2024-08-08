@@ -158,10 +158,17 @@ export const toggleLikeTours = async (
 // };
 
 //투어 주문목록 불러오기
-export const getTourOrderDetail = async (
+export const getTourOrder = async (
   user_id: string | undefined,
 ): Promise<TourOrderType[]> => {
-  const response = await axios.get(`/api/mypage/tour_order/${user_id}`);
+  const response = await axios.get(`/api/mypage/tour_order/user/${user_id}`);
+  return response.data;
+};
+
+export const getTourOrderDetail = async (
+  order_id: string,
+): Promise<TourOrderType> => {
+  const response = await axios.get(`/api/mypage/tour_order/tour/${order_id}`);
   return response.data;
 };
 

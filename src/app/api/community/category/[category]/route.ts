@@ -7,7 +7,7 @@ export async function GET(
 ) {
   const { category } = params;
   const supabase = createClient();
-  const { data, error } = await supabase
+  const { data: posts, error } = await supabase
     .from('posts')
     .select('*')
     .eq('category', category)
@@ -17,5 +17,20 @@ export async function GET(
     throw new Error(error.message);
   }
 
-  return NextResponse.json(data);
+  const postsWithComments = await Promise.all(
+    posts.map(async (post) => {
+      const { count, error: commentError } = await supabase
+        .from('comments')
+        .select('*', { count: 'exact', head: true })
+        .eq('post_id', post.id);
+
+      if (commentError) {
+        return { ...post, comments: 0 };
+      }
+
+      return { ...post, comments: count };
+    }),
+  );
+
+  return NextResponse.json(postsWithComments);
 }
