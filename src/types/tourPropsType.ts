@@ -14,7 +14,6 @@ export interface Tour {
     english_name: string | null;
   } | null;
   rating_avg?: number;
-  ship_code?: string | null;
 }
 
 export type TourSchedule = {
