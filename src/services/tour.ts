@@ -41,15 +41,18 @@ export const tourList = async (): Promise<Tour[]> => {
     throw error;
   }
 
-  // planets가 null인 경우 빈 배열로 처리
-  return tours.map(tour => ({
+  // 데이터가 예상 타입과 다를 경우를 대비한 처리
+  return (tours ?? []).map(tour => ({
     ...tour,
-    planets: tour.planets ? [tour.planets] : []
+    planets: Array.isArray(tour.planets) ? tour.planets.map((planet: any) => ({
+      ...planet,
+      price: tour.price,
+    })) : []
   })) as Tour[];
 };
 
 // 투어 상세
-export const tourDetail = async (id: string): Promise<Tour | null> => {
+export const tourDetail = async (id: string): Promise<Tour[]> => {
   const { data: tour, error } = await supabase
     .from('tours')
     .select(
@@ -77,10 +80,10 @@ export const tourDetail = async (id: string): Promise<Tour | null> => {
   // planets가 null인 경우 빈 배열로 처리
   const normalizedTour = tour ? {
     ...tour,
-    planets: tour.planets ? [tour.planets] : []
+    planets: Array.isArray(tour.planets) ? tour.planets.map(planet => ({ ...planet, price: tour.price })) : []
   } : null;
 
-  return normalizedTour as Tour | null;
+  return normalizedTour ? [normalizedTour] : [];
 };
 
 // 투어 일정, 날짜
