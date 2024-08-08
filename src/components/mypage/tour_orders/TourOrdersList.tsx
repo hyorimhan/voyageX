@@ -30,7 +30,6 @@ const formatDate = (dateString: string, withDay: boolean = false) => {
     });
   }
 
-  // Remove the trailing dot if present
   if (formattedDate.endsWith('.')) {
     formattedDate = formattedDate.slice(0, -1);
   }
@@ -55,14 +54,53 @@ const TourOrdersList = () => {
   const user = useAuthStore((state) => state.user);
   const user_id = user?.id;
 
-  const { data: tourOrders } = useQuery<TourOrderType[]>({
+  const {
+    data: tourOrders,
+    isLoading,
+    isError,
+  } = useQuery<TourOrderType[]>({
     queryKey: ['tourOrders', user_id],
     queryFn: () => getTourOrder(user_id),
   });
 
+  if (isLoading) {
+    return <div>로딩 중...</div>;
+  }
+
+  if (
+    isError ||
+    !tourOrders ||
+    !Array.isArray(tourOrders) ||
+    tourOrders.length === 0
+  ) {
+    console.error('Error fetching tour orders or no orders found:', tourOrders);
+    return (
+      <div className='flex flex-col justify-center items-center gap-9 mt-16'>
+        <Image
+          src='/images/arcticons_spacenow.svg'
+          alt='spacenow'
+          width={80}
+          height={80}
+        />
+        <div>
+          <p className='text-xl'>주문한 상품이 없습니다.</p>
+          <p className='text-sm mt-[7px]'>
+            새로운 우주 여행상품으로 채워보세요.
+          </p>
+        </div>
+        <Link
+          href={'/tour'}
+          className='h-[43px] w-[230px] bg-primary-600 rounded-md text-black-50 justify-center items-center flex hover:bg-primary-400 active:bg-primary-500'
+        >
+          TRAVEL PACKAGE 바로가기
+        </Link>
+      </div>
+    );
+  }
+
   return (
     <>
-      {tourOrders?.map((order) => (
+      {tourOrders.map((order) => (
         <div key={order.id} className='gap-2 flex flex-col'>
           <div className='border-b-[1px] border-black-700 flex py-4 justify-between items-center'>
             <p className='text-lg'>주문일자 {formatDate(order.pay_at)}</p>
@@ -163,7 +201,6 @@ const TourOrdersList = () => {
                 </div>
               </div>
             </div>
-
             <div className='bg-black-800 rounded-2xl text-black w-[292px] pl-[15px] py-4 flex flex-col'>
               <div className='flex gap-2 h-5 mt-1 ml-[7px] items-center'>
                 <SpaceshipIcon20px />

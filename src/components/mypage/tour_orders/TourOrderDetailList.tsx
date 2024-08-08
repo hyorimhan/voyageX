@@ -111,22 +111,7 @@ const TourOrderDetailList = ({ order_id }: TourOrderDetailListProps) => {
           </div>
         </div>
         <div className='flex gap-8'>
-          <div className='flex p-5 w-full flex-col border-[1px] rounded-md'>
-            <p className='h-9 border-b-[1px] border-black-700 text-xl'>
-              배송 정보
-            </p>
-            <div className='flex gap-4 mt-4 text-sm'>
-              <div className='flex flex-col gap-4 w-[77px]'>
-                <p>받는분</p>
-                <p>휴대전화 번호</p>
-              </div>
-              <div className='flex flex-col gap-4 w-[277px]'>
-                <p>{order.passenger}</p>
-                <p>{order.phone}</p>
-              </div>
-            </div>
-          </div>
-          <div className='flex p-5 w-full flex-col border-[1px] rounded-md'>
+          <div className='flex p-5 w-full flex-col border-[1px] rounded-lg'>
             <p className='h-9 border-b-[1px] border-black-700 text-xl'>
               결제 수단
             </p>

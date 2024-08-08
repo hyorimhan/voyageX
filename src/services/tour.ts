@@ -149,7 +149,7 @@ export const getTourOrder = async (
   user_id: string | undefined,
 ): Promise<TourOrderType[]> => {
   const response = await axios.get(`/api/mypage/tour_order/user/${user_id}`);
-  return response.data;
+  return response.data || [];
 };
 
 export const getTourOrderDetail = async (
