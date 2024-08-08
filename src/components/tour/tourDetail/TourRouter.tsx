@@ -11,7 +11,7 @@ function TourRouter({ url }: { url: string }) {
         router.replace(`${url}`);
       }}
     >
-      <div className='-rotate-90'>
+      <div className='-rotate-90 lg:hidden'>
         <Image
           src={'/icons/24px/left_arrow.svg'}
           alt='arrow'

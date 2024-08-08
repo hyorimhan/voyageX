@@ -1,15 +1,8 @@
 import { AccordionItem } from '@szhsin/react-accordion';
 import AccordionImg from '../../tourContents/AccordionImg';
+import { propsText } from '@/types/tourPropsType';
 
-function AccordionItems({
-  contents,
-  title,
-  containerStyle,
-}: {
-  contents: React.ReactNode;
-  title: string;
-  containerStyle?: string;
-}) {
+function AccordionItems({ contents, title, containerStyle }: propsText) {
   return (
     <AccordionItem
       header={({ state: { isEnter } }) => (

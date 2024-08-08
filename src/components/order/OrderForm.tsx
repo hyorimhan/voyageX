@@ -17,6 +17,7 @@ interface OrderFormPropsType {
 }
 
 function OrderForm({ user, isTour }: OrderFormPropsType) {
+  console.log(user);
   const user_id = user.id;
   const user_email = user.email ?? '이메일을 입력해주세요.';
   const [totalPrice, setTotalPrice] = useState(0);
