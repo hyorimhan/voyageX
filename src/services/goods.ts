@@ -61,6 +61,7 @@ export const addCartItem = async ({
     goods_id,
     quantity,
   });
+  console.log('addCartItem response => ', response);
   return response.data;
 };
 

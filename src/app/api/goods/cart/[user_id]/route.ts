@@ -28,13 +28,25 @@ export const POST = async (request: Request, { params }: ParamsType) => {
   const supabase = createClient();
   const { user_id } = params;
   const { goods_id, quantity } = await request.json();
-  const { data, error } = await supabase.from('cart').insert({
-    user_id,
-    goods_id,
-    quantity,
-  });
-  if (error) return NextResponse.json({ error });
-  return NextResponse.json(data);
+  const { data: prevCartItemId, error: prevCartItemError } = await supabase
+    .from('cart')
+    .select('id')
+    .match({ goods_id, user_id });
+  if (prevCartItemError) {
+    return NextResponse.json({ error: '장바구니 불러오기 실패' });
+  }
+  console.log('prevCartItemId => ', prevCartItemId);
+  if (prevCartItemId.length) {
+    return NextResponse.json({ error: '이미 장바구니에 존재하는 상품입니다' });
+  } else if (!prevCartItemId.length) {
+    const { error } = await supabase.from('cart').insert({
+      user_id,
+      goods_id,
+      quantity,
+    });
+    if (error) return NextResponse.json({ error });
+    return NextResponse.json({ message: '장바구니 담기 성공!' });
+  }
 };
 
 export const DELETE = async (request: Request, { params }: ParamsType) => {

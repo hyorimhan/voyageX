@@ -26,7 +26,8 @@ const GoodsInfo = ({ goods, goods_id }: GoodsInfoProps) => {
   const [quantity, setQuantity] = useState(1);
   const goodsPrice = goods?.goods_price || 0;
   const formattedPrice = goodsPrice.toLocaleString();
-  const [isOpen, setIsOpen] = useState(false);
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+  const [isErrorOpen, setIsErrorOpen] = useState(false);
 
   const handleAddCartItem = async () => {
     if (!user?.id) return toast.error('로그인 해주세요!');
@@ -35,8 +36,11 @@ const GoodsInfo = ({ goods, goods_id }: GoodsInfoProps) => {
       goods_id: goods.id,
       quantity,
     });
-    console.log(response);
-    setIsOpen(true);
+    if (response.error) {
+      setIsErrorOpen(true);
+      return;
+    }
+    setIsConfirmOpen(true);
   };
 
   const handleGoToOrderPage = () => {
@@ -53,13 +57,20 @@ const GoodsInfo = ({ goods, goods_id }: GoodsInfoProps) => {
   return (
     <div className='flex'>
       <GenericModal
-        isOpen={isOpen}
+        isOpen={isConfirmOpen}
         title='장바구니에 담기 성공'
-        content='확인하러갈까'
+        content='장바구니를 확인해볼까요?'
         buttonText='보러가기'
         buttonAction={() => router.push('/wishlist')}
         cancelText='취소'
-        cancelAction={() => setIsOpen(false)}
+        cancelAction={() => setIsConfirmOpen(false)}
+      />
+      <GenericModal
+        isOpen={isErrorOpen}
+        title='장바구니에 담기 실패'
+        content='이미 담은 상품입니다.'
+        buttonText='확인'
+        buttonAction={() => setIsErrorOpen(false)}
       />
       <div>
         <Image
