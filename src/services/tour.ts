@@ -29,6 +29,7 @@ export const tourList = async (): Promise<Tour[]> => {
     price, 
     tag,
     spaceship,
+    
     planets (
       name, 
       planet_img,
