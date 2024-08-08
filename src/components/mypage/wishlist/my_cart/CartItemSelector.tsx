@@ -1,17 +1,19 @@
 import { CartListType } from '@/types/mypageType';
+import { Dispatch, SetStateAction } from 'react';
+import toast from 'react-hot-toast';
 
 interface CartItemSelectorPropsType {
   selectItems: CartListType[];
   listLength: number;
   handleSelectAllItems: () => void;
-  handleDeleteItem: () => void;
+  setIsDeleteOpen: Dispatch<SetStateAction<boolean>>;
 }
 
 function CartItemSelector({
   selectItems,
   listLength,
   handleSelectAllItems,
-  handleDeleteItem,
+  setIsDeleteOpen,
 }: CartItemSelectorPropsType) {
   return (
     <div className='flex flex-row justify-between items-center mb-4'>
@@ -36,7 +38,12 @@ function CartItemSelector({
         </span>
       </div>
       <button
-        onClick={handleDeleteItem}
+        onClick={() => {
+          if (!selectItems.length) {
+            return toast.error('상품을 선택해주세요');
+          }
+          setIsDeleteOpen(true);
+        }}
         className='bg-primary-400 text-xs rounded p-1 transition-colors duration-200 hover:bg-primary-200 active:bg-primary-300'
       >
         선택 삭제

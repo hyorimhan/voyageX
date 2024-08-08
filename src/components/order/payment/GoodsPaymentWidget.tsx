@@ -1,7 +1,7 @@
 'use client';
 
 import useAuthStore from '@/zustand/store/useAuth';
-import useGoodsOrderStore from '@/zustand/store/useGoodsOrderInfo';
+import useGoodsOrderStore from '@/zustand/store/useGoodsOrderInfoStore';
 import useTourOrderInfoStore from '@/zustand/store/useTourOrderInfoStore';
 import {
   loadPaymentWidget,
@@ -45,9 +45,7 @@ const GoodsPaymentWidget = () => {
         successUrl: isTour
           ? `${window.location.origin}/tour/payment/success`
           : `${window.location.origin}/shop/payment/success`,
-        failUrl: isTour
-          ? `${window.location.origin}/tour/payment/fail`
-          : `${window.location.origin}/shop/payment/fail`,
+        failUrl: `${window.location.origin}/shop/payment/fail`,
       });
     } catch (err: any) {
       toast.error(err.message);

@@ -101,7 +101,8 @@ export async function updateSession(request: NextRequest) {
     !user &&
     (request.nextUrl.pathname.startsWith('/mypage/tour_orders') ||
       request.nextUrl.pathname.startsWith('/tour/payment') ||
-      request.nextUrl.pathname.startsWith('/community/write'))
+      request.nextUrl.pathname.startsWith('/community/write') ||
+      request.nextUrl.pathname.startsWith('/shop/order'))
   ) {
     // 사용자 정보가 없으면 로그인 페이지로 리다이렉트
     const url = request.nextUrl.clone();

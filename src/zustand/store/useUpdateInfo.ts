@@ -1,14 +1,18 @@
 import { create } from 'zustand';
-import { createJSONStorage, persist, StateStorage } from 'zustand/middleware';
-import CryptoJS, { enc } from 'crypto-js';
+import { createJSONStorage, persist } from 'zustand/middleware';
+import CryptoJS from 'crypto-js';
 
 type userInfo = {
   updateInfo: {
-    name: string;
-    phone: string;
-    email: string;
+    customerName: string;
+    customerPhone: string;
+    customerEmail: string;
   } | null;
-  setUpdateInfo: (info: { name: string; phone: string; email: string }) => void;
+  setUpdateInfo: (info: {
+    customerName: string;
+    customerPhone: string;
+    customerEmail: string;
+  }) => void;
 };
 
 const secretKey = process.env.NEXT_PUBLIC_CRYPTO_KEY!;

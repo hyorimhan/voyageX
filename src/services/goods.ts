@@ -61,6 +61,7 @@ export const addCartItem = async ({
     goods_id,
     quantity,
   });
+  console.log('addCartItem response => ', response);
   return response.data;
 };
 
@@ -104,6 +105,20 @@ export const getGoodsOrderDetail = async (
 ): Promise<GoodsOrdersType[]> => {
   const response = await axios.get(
     `/api/mypage/my_goods_order/goods/${order_id}`,
+  );
+  return response.data;
+};
+
+export const deleteCartItemByGoodsId = async ({
+  user_id,
+  ids,
+}: {
+  user_id: string;
+  ids: string[];
+}) => {
+  const idList = JSON.stringify(ids);
+  const response = await axios.delete(
+    `/api/goods/cart?user_id=${user_id}&idList=${idList}`,
   );
   return response.data;
 };

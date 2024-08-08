@@ -7,7 +7,7 @@ import { userLoginInfo } from '@/services/auth';
 import MyPageIcon24px from './icons/24px/MyPageIcon24px';
 import ShoppingBagIcon24px from './icons/24px/ShoppingBagIcon24px';
 import HeartDefaultIcon24px from './icons/24px/HeartDefaultIcon24px';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import Loading from './Loading';
 import { orbitron } from '../../../public/fonts/orbitron';
 
@@ -17,6 +17,7 @@ const Header = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
+  const pathname = usePathname();
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -26,7 +27,7 @@ const Header = () => {
     userLoginInfo().then((res) => {
       saveUser(res.user);
     });
-  }, []);
+  }, [pathname]);
 
   const handleLinkClick = (href: string) => {
     startTransition(() => {
