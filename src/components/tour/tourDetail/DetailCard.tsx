@@ -1,6 +1,5 @@
 'use client';
 import GoodsDetailPageTabSelector from '@/components/shop/detail/GoodsDetailPageTabSelector';
-import QuantityBtn from '@/components/shop/detail/QuantityBtn';
 import useAuthStore from '@/zustand/store/useAuth';
 import Image from 'next/image';
 import TourHearts from './TourHearts';
@@ -74,7 +73,6 @@ function DetailCard({ tour }: { tour: Tour }) {
             </div>
             <div className=' border-b my-3  pb-3'>수량 1개 (1인 1개 한정)</div>
           </div>
-          <QuantityBtn tourPrice={tour.price} />
 
           <div className='flex md:justify-center items-center gap-4 sm:justify-center'>
             <div className=' w-[53px] h-[53px] flex p-2 rounded-lg items-center border-2 justify-center border-solid border-primary-400 mt-8'>
