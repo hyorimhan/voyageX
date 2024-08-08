@@ -15,6 +15,7 @@ interface MainPageProps {
   tourId: string;
 }
 
+// TODO localhost:3000   페이지에서 tourID 를 받아올 방법이 없어요.
 const MainPage = ({ tourId }: MainPageProps) => {
   const sectionsRef = useRef<(HTMLDivElement | null)[]>([]);
   const planetsRef = useRef<(HTMLDivElement | null)[]>([]);
@@ -22,6 +23,8 @@ const MainPage = ({ tourId }: MainPageProps) => {
   const [currentSlide, setCurrentSlide] = useState<number>(0);
 
   const { data: goods, isLoading: goodsLoading, error: goodsError } = useFetchGoods();
+
+  // TODO 굳이 tourID 를 통해 행성 정보를 다 가지고 오려고 하지 마시고! tourList 를 그냥 가지고 올 수 있는 api 를 이용해 주세요!
   const { data: tourDetail, isLoading: tourLoading, error: tourError } = useFetchTourDetail(tourId);
 
   const planets = tourDetail?.planets || [];

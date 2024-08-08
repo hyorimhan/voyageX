@@ -7,6 +7,7 @@ const TourDetailPage = ({ params }: tourProps) => {
   return (
     <Page>
       <TourDetail params={params} />
+      {/* TODO 메인페이지를 다른 곳에서 export 해서 쓰시면 안됩니다  */}
       <MainPage tourId={params.id} />
     </Page>
   );
