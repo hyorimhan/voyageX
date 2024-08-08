@@ -9,8 +9,7 @@ import { useTourDate } from '@/zustand/store/useTourDate';
 
 function DetailDate() {
   const [view, setView] = useState(false);
-  const setDepartDate = useTourDate((state) => state.setDepartDate);
-  const setArriveDate = useTourDate((state) => state.setArriveDate);
+  const setTourDate = useTourDate((state) => state.setTourDate);
   const [selectDepart, setSelectDepart] = useState('날짜 선택');
 
   const { data: dateList, isLoading } = useQuery<TourDateList[]>({
@@ -22,8 +21,7 @@ function DetailDate() {
   }
   const selectDate = (depart_date: string, arrive_date: string) => {
     setSelectDepart(depart_date);
-    setDepartDate(depart_date);
-    setArriveDate(arrive_date);
+    setTourDate(depart_date, arrive_date);
   };
 
   return (

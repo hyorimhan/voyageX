@@ -19,8 +19,8 @@ import toast from 'react-hot-toast';
 
 function DetailCard({ tour }: { tour: Tour }) {
   const user = useAuthStore((state) => state.user);
-  const departDate = useTourDate((state) => state.departDate);
-  const arriveDate = useTourDate((state) => state.arriveDate);
+  const TourDate = useTourDate((state) => state.tourDate);
+  const setTourDateReset = useTourDate((state) => state.setTourDateReset);
   const { setTourOrder } = useTourOrderInfoStore((state) => state);
 
   const router = useRouter();
@@ -32,13 +32,13 @@ function DetailCard({ tour }: { tour: Tour }) {
       eng_name: tour.planets?.english_name!,
       planet_img: tour.planets?.planet_img!,
       price: tour.price,
-      depart_date: departDate!,
-      arrive_date: arriveDate!,
+      depart_date: TourDate.departDate!,
+      arrive_date: TourDate.arriveDate!,
       gate: tour.ship_code!,
       qr_code: 'QR코드',
     };
 
-    if (!departDate || !arriveDate) {
+    if (!TourDate.departDate || !TourDate.arriveDate) {
       toast.error('여행 기간을 선택해주세요');
       return;
     }
@@ -83,7 +83,7 @@ function DetailCard({ tour }: { tour: Tour }) {
           <DetailInfo title={'우주선 명'} description={`${tour.spaceship}`} />
           <DetailInfo title={'우주선 코드'} description={`${tour.ship_code}`} />
 
-          {departDate && (
+          {TourDate.departDate && (
             <div className='h-[82px] mt-10 grid-cols-2  border-b border-b-white'>
               <div className='flex'>
                 <div>
@@ -94,11 +94,16 @@ function DetailCard({ tour }: { tour: Tour }) {
                     </span>
                   </div>
                   <div>
-                    {`${departDate} ~
-                  ${arriveDate}`}
+                    {`${TourDate.departDate} ~
+                  ${TourDate.arriveDate}`}
                   </div>
                 </div>
-                <button className='ml-auto mr-5'>x</button>
+                <button
+                  className='ml-auto mr-5'
+                  onClick={() => setTourDateReset()}
+                >
+                  x
+                </button>
               </div>
             </div>
           )}

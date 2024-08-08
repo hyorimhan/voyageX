@@ -10,8 +10,10 @@ export type TourOrderType = {
 };
 
 export type dateType = {
-  departDate: string | null;
-  arriveDate: string | null;
-  setDepartDate: (depart: string) => void | string;
-  setArriveDate: (arrive: string) => void | string;
+  tourDate: {
+    departDate: string | null;
+    arriveDate: string | null;
+  };
+  setTourDate: (depart: string, arrive: string) => void;
+  setTourDateReset: () => void;
 };
