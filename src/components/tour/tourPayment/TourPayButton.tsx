@@ -41,7 +41,7 @@ function TourPayButton({ id }: { id: string }) {
       orderId,
       orderName: '주문명',
       customerName: '주문자명',
-      customerMobilePhone: updateInfo.phone,
+      customerMobilePhone: updateInfo.customerPhone,
       customerEmail: '이메일',
     };
     const orderInfo = JSON.stringify(currentOrder);

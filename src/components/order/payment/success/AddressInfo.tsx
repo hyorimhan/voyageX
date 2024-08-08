@@ -1,10 +1,11 @@
-import { Address } from '@/types/userAddressType';
+import { Address, Customer } from '@/types/userAddressType';
 
 interface AddressInfoPropsType {
   expressAddress: Address | null;
+  customerInfo: Customer;
 }
 
-function AddressInfo({ expressAddress }: AddressInfoPropsType) {
+function AddressInfo({ expressAddress, customerInfo }: AddressInfoPropsType) {
   return (
     <div className='border-black-300 border-[1px] rounded-lg p-5 text-sm flex-1 min-w-[300px]'>
       <div className='text-xl border-b-black-700 border-b-[1px] pb-3'>
@@ -12,11 +13,11 @@ function AddressInfo({ expressAddress }: AddressInfoPropsType) {
       </div>
       <div className='pt-4 flex'>
         <div className='w-[104px] text-black-200'>받는 분 </div>
-        {expressAddress?.recipient}
+        {customerInfo.customerName}
       </div>
       <div className='flex py-5'>
         <div className='w-[104px] text-black-200'>휴대전화 번호</div>
-        {expressAddress?.phone}
+        {customerInfo.customerPhone}
       </div>
       <div className='flex gap-4'>
         <div className='w-[150px] text-black-200'>배송지 정보</div>
