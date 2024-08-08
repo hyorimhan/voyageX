@@ -22,7 +22,7 @@ function TourInfo({ setTotalPrice }: TourInfoPropsType) {
   });
 
   return (
-    <div className='border-2 border-black-300 p-4 rounded-lg mb-4 text-black-50'>
+    <div className='border-2 border-black-300 p-4 rounded-lg mb-8 text-black-50'>
       <div className='py-4 mb-4 border-b-2 border-black-700'>
         <span className='text-xl'>여행상품 정보</span>
       </div>

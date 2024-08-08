@@ -7,9 +7,11 @@ import useAuthStore from '@/zustand/store/useAuth';
 import { Tables } from '@/types/supabase';
 import GoodsHearts from '../GoodsHearts';
 import { useState } from 'react';
-import useGoodsOrderStore from '@/zustand/store/useGoodsOrderInfo';
 import { useRouter } from 'next/navigation';
 import { addCartItem } from '@/services/goods';
+import useGoodsOrderStore from '@/zustand/store/useGoodsOrderInfoStore';
+import toast from 'react-hot-toast';
+import GenericModal from '@/components/common/GenericModal';
 
 type GoodsInfoProps = {
   goods: Tables<'goods'>;
@@ -24,17 +26,21 @@ const GoodsInfo = ({ goods, goods_id }: GoodsInfoProps) => {
   const [quantity, setQuantity] = useState(1);
   const goodsPrice = goods?.goods_price || 0;
   const formattedPrice = goodsPrice.toLocaleString();
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleAddCartItem = async () => {
+    if (!user?.id) return toast.error('로그인 해주세요!');
     const response = await addCartItem({
       user_id: user?.id!,
       goods_id: goods.id,
       quantity,
     });
     console.log(response);
+    setIsOpen(true);
   };
 
   const handleGoToOrderPage = () => {
+    if (!user?.id) toast.error('로그인 해주세요!');
     setGoodsOrderInfo([
       {
         goods,
@@ -46,6 +52,15 @@ const GoodsInfo = ({ goods, goods_id }: GoodsInfoProps) => {
 
   return (
     <div className='flex'>
+      <GenericModal
+        isOpen={isOpen}
+        title='장바구니에 담기 성공'
+        content='확인하러갈까'
+        buttonText='보러가기'
+        buttonAction={() => router.push('/wishlist')}
+        cancelText='취소'
+        cancelAction={() => setIsOpen(false)}
+      />
       <div>
         <Image
           src={goods.goods_img}
