@@ -77,6 +77,7 @@ const WritePost = () => {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder='제목을 입력해주세요.'
+            maxLength={60}
           />
         </div>
         <div>

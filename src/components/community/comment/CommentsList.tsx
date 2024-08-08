@@ -62,7 +62,6 @@ const CommentList = ({
   const handleSaveEdit = (id: string) => {
     if (!user) return;
     editComment({ id, content: newContent, post_id: postId, user_id: user.id });
-    console.log('Saving comment with id:', id, 'and new content:', newContent);
   };
 
   if (isPending)
@@ -97,7 +96,10 @@ const CommentList = ({
               </div>
               <div className='flex text-sm text-black-400'>
                 <button
-                  onClick={() => handleSaveEdit(comment.id)}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleSaveEdit(comment.id);
+                  }}
                   type='submit'
                   className='text-[13px] absolute right-2 bottom-5 bg-transparent text-white py-1 px-3 rounded-md border-primary-400 border-2 hover:bg-primary-200 hover:border-primary-200 transition-colors duration-200'
                 >

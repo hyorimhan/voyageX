@@ -7,7 +7,7 @@ export async function GET(
 ) {
   const { postId } = params;
   const supabase = createClient();
-  const { data, error } = await supabase
+  const { data: post, error } = await supabase
     .from('posts')
     .select('*')
     .eq('id', postId)
@@ -15,7 +15,18 @@ export async function GET(
 
   if (error)
     return NextResponse.json({ error: error.message }, { status: 500 });
-  return NextResponse.json(data);
+
+  const { count: commentsCount, error: commentsError } = await supabase
+    .from('comments')
+    .select('*', { count: 'exact', head: true })
+    .eq('post_id', postId);
+
+  if (commentsError)
+    return NextResponse.json({ error: commentsError.message }, { status: 500 });
+
+  const postWithComments = { ...post, comments: commentsCount || 0 };
+
+  return NextResponse.json(postWithComments);
 }
 
 export async function PUT(

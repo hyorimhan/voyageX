@@ -2,7 +2,7 @@
 
 import React from 'react';
 import CategoryBadge from '../common/CategoryBadge';
-import { Post } from '@/types/communityType';
+import { MyPost } from '@/types/communityType';
 import ShareIcon32px from '../../common/icons/32px/ShareIcon32px';
 import HeartDefaultIcon32px from '../../common/icons/32px/HeartDefaultIcon32px';
 import PostWriterIcon from '../ProfileImages/PostWriter';
@@ -21,7 +21,7 @@ const DetailPage = ({ params }: { params: { postId: string } }) => {
     data: post,
     isPending,
     isError,
-  } = useQuery<Post>({
+  } = useQuery<MyPost>({
     queryKey: ['post', postId],
     queryFn: () => getDetailPost(postId),
   });
@@ -62,7 +62,7 @@ const DetailPage = ({ params }: { params: { postId: string } }) => {
           </div>
           <div className='flex gap-4 items-end text-black-400'>
             <div>좋아요</div>
-            <div>댓글 5</div>
+            <div>댓글 {post.comments}</div>
           </div>
         </div>
       </div>
@@ -74,7 +74,7 @@ const DetailPage = ({ params }: { params: { postId: string } }) => {
         </div>
         <div className='flex gap-1 justify-center'>
           <ChatIcon20px />
-          댓글 5
+          댓글 {post.comments}
         </div>
       </div>
       <CommentList postId={postId} userId={post.user_id} />

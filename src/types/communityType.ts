@@ -18,3 +18,8 @@ export type TEditComment = Omit<Comment, 'created_at'>;
 export interface MyPost extends Post {
   comments: number;
 }
+
+export type Like = {
+  post_id: string;
+  user_id: string;
+};
