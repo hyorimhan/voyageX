@@ -14,7 +14,9 @@ function AccordionItems({
     <AccordionItem
       header={({ state: { isEnter } }) => (
         <div className='flex'>
-          <div className='text-lg'>{title}</div>
+          <div className='text-lg w-full sm:w-[255px] md:w-[600px] lg:w-[1056px] mx-auto text-left'>
+            {title}
+          </div>
           <AccordionImg isEnter={isEnter} />
         </div>
       )}

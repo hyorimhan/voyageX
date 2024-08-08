@@ -10,8 +10,12 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Autoplay, Pagination } from 'swiper/modules';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import TourRouter from '../tourDetail/TourRouter';
 
 function TourList() {
+  const router = useRouter();
   const { data: tours, isLoading } = useQuery<Tour[]>({
     queryKey: ['tours'],
     queryFn: () => tourList(),
@@ -23,11 +27,11 @@ function TourList() {
   return (
     <>
       <div
-        className={`text-[28px] mt-32 text-center ${orbitron.className} font-semibold`}
+        className={`text-[28px] sm:mt-20 md:mt-20 mt-32 text-center ${orbitron.className} font-semibold`}
       >
-        Travel Package
+        <TourRouter url='/' />
       </div>
-      <div className='lg:hidden md:hidden mx-5'>
+      <div className='lg:hidden md:hidden mx-5 sm:mt-8 '>
         <Swiper
           loop={true}
           spaceBetween={30}

@@ -14,15 +14,8 @@ function Terms() {
     }, 0);
   };
   return (
-    <AccordionItem
-      header={({ state: { isEnter } }) => (
-        <div className='flex'>
-          <div className='text-2xl font-semibold'>약관</div>
-          <AccordionImg isEnter={isEnter} />
-        </div>
-      )}
-      className='mt-14 mb-52'
-    >
+    <>
+      <div className='text-2xl font-semibold mt-[88px] '>약관</div>
       <div className='mt-6 mb-52'>
         <ul
           className={`space-y-6 ${
@@ -276,7 +269,7 @@ function Terms() {
           )}
         </button>
       </div>
-    </AccordionItem>
+    </>
   );
 }
 

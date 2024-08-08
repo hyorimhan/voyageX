@@ -1,18 +1,7 @@
-import { AccordionItem } from '@szhsin/react-accordion';
-import React from 'react';
-import AccordionImg from '../../tourContents/AccordionImg';
-
 function Precautions() {
   return (
-    <AccordionItem
-      header={({ state: { isEnter } }) => (
-        <div className='flex'>
-          <div className='text-2xl font-semibold'>주의 사항</div>
-          <AccordionImg isEnter={isEnter} />
-        </div>
-      )}
-      className='mt-14'
-    >
+    <>
+      <div className='text-2xl font-semibold mt-[88px]'>주의 사항</div>
       <ul className='list-disc pl-5 mt-6 space-y-2'>
         <li>우주 여행 중에는 정기적인 건강 점검을 받아야 합니다.</li>
         <li>
@@ -47,7 +36,7 @@ function Precautions() {
           이수해주세요.
         </li>
       </ul>
-    </AccordionItem>
+    </>
   );
 }
 

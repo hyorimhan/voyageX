@@ -27,8 +27,8 @@ function OrderForm({ user, isTour }: OrderFormPropsType) {
   if (isPending) return <Loading />;
   return (
     <>
-      <div className='grid grid-cols-[minmax(0,1fr)_minmax(0,0.5fr)] gap-x-10'>
-        <div className='flex flex-col items-start'>
+      <div className='grid grid-cols-[minmax(0,1fr)_minmax(0,0.5fr)] md:grid-cols-1 md:mx-5 md:mb-20 sm:mb-20 sm:grid-cols-1 sm:mx-5 gap-x-10'>
+        <div className='mt-14'>
           <div className='mt-4 w-full'>
             {addressList && !isTour && (
               <ExpressInfo addressList={addressList} />
@@ -47,7 +47,7 @@ function OrderForm({ user, isTour }: OrderFormPropsType) {
             )}
           </div>
         </div>
-        <div>
+        <div className='lg:mt-14'>
           <OrderSummary totalPrice={totalPrice} />
           <PayButton totalPrice={totalPrice} isTour={isTour} />
         </div>

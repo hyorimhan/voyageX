@@ -1,20 +1,15 @@
-import React, { useRef, useEffect, useState } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
+import React, { useRef, useEffect } from 'react';
 
 type VideoSectionProps = {
   videoSrc: string;
   heading: string;
   subHeading: string;
   sectionRef: React.RefObject<HTMLDivElement>;
+  setVideoLoaded: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const VideoSection: React.FC<VideoSectionProps> = ({ videoSrc, heading, subHeading, sectionRef }) => {
+const VideoSection: React.FC<VideoSectionProps> = ({ videoSrc, heading, subHeading, sectionRef, setVideoLoaded }) => {
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  const textRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const [videoLoaded, setVideoLoaded] = useState<boolean>(false);
 
   useEffect(() => {
     if (videoRef.current) {
@@ -26,46 +21,7 @@ const VideoSection: React.FC<VideoSectionProps> = ({ videoSrc, heading, subHeadi
       };
       checkVideoLoaded();
     }
-  }, []);
-
-  useEffect(() => {
-    if (videoLoaded && sectionRef.current) {
-      const section = sectionRef.current;
-
-      ScrollTrigger.create({
-        trigger: section,
-        start: 'top top',
-        pin: true,
-        pinSpacing: false,
-        scrub: true,
-      });
-
-      // 각 섹션의 텍스트가 점점 투명해지는 애니메이션
-      if (textRefs.current[0]) {
-        gsap.fromTo(
-          textRefs.current[0],
-          { opacity: 1, y: 0 },
-          {
-            opacity: 0,
-            y: -50,
-            scrollTrigger: {
-              trigger: section,
-              start: 'top+=100% center',
-              end: 'bottom top',
-              scrub: true,
-              onUpdate: (self) => {
-                if (self.progress < 0.1) {
-                  gsap.to(textRefs.current[0], { opacity: 1, y: 0 });
-                }
-              },
-            },
-          },
-        );
-      }
-
-      ScrollTrigger.refresh();
-    }
-  }, [videoLoaded, sectionRef]);
+  }, [setVideoLoaded]);
 
   return (
     <section ref={sectionRef} className='section h-screen flex items-center justify-center relative'>
@@ -77,12 +33,7 @@ const VideoSection: React.FC<VideoSectionProps> = ({ videoSrc, heading, subHeadi
         loop
         muted
       />
-      <div
-        ref={(el) => {
-          textRefs.current[0] = el as HTMLDivElement;
-        }}
-        className='absolute z-10 text-center top-48 sm:w-auto sm:text-left sm:left-48 md:left-40 lg:left-52 xl:left-64'
-      >
+      <div className='absolute z-10 text-center top-48 sm:w-auto sm:text-left sm:left-48 md:left-40 lg:left-52 xl:left-64'>
         <h1 className='text-gradient text-6xl font-bold font-yangpyeong'>{heading}</h1>
         <p className='text-white p-4 text-3xl'>{subHeading}</p>
         <p className='text-white p-4'>
