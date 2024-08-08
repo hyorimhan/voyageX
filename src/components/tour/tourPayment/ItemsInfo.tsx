@@ -12,13 +12,7 @@ function ItemsInfo({ id }: { id: string }) {
 
   const { data: tourList, isLoading } = useQuery<Tour[]>({
     queryKey: ['tours', id],
-    queryFn: async () => {
-      const { tours, error } = await tourDetail(id);
-      if (error) {
-        console.log(error);
-      }
-      return tours ?? [];
-    },
+    queryFn: () => tourDetail(id),
   });
   if (isLoading) {
     return <Loading />;

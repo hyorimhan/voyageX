@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
 
     if (error) {
       return NextResponse.json({
-        error: '로그인에 실패했습니다',
+        error: '이메일이나 비밀번호를 다시 확인해주세요',
       });
     }
     if (user) {

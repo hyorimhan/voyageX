@@ -11,39 +11,39 @@ export type Database = {
     Tables: {
       addresses: {
         Row: {
-          address: string | null
-          alias: string | null
-          detailAddress: string | null
+          address: string
+          alias: string
+          detailAddress: string
           id: string
-          is_default: boolean | null
-          oldAddress: string | null
-          phone: string | null
-          postcode: string | null
-          recipient: string | null
+          is_default: boolean
+          oldAddress: string
+          phone: string
+          postcode: string
+          recipient: string
           user_id: string
         }
         Insert: {
-          address?: string | null
-          alias?: string | null
-          detailAddress?: string | null
+          address: string
+          alias: string
+          detailAddress: string
           id?: string
-          is_default?: boolean | null
-          oldAddress?: string | null
-          phone?: string | null
-          postcode?: string | null
-          recipient?: string | null
+          is_default?: boolean
+          oldAddress: string
+          phone: string
+          postcode: string
+          recipient: string
           user_id: string
         }
         Update: {
-          address?: string | null
-          alias?: string | null
-          detailAddress?: string | null
+          address?: string
+          alias?: string
+          detailAddress?: string
           id?: string
-          is_default?: boolean | null
-          oldAddress?: string | null
-          phone?: string | null
-          postcode?: string | null
-          recipient?: string | null
+          is_default?: boolean
+          oldAddress?: string
+          phone?: string
+          postcode?: string
+          recipient?: string
           user_id?: string
         }
         Relationships: [
@@ -169,24 +169,58 @@ export type Database = {
       }
       goods_orders: {
         Row: {
+          address_id: string
+          express_cost: number
           goods_id: string
           id: string
-          order_date: string
+          installment: number
+          pay_at: string
+          pay_method: string
+          phone: string
+          quantity: number
+          recipient: string
+          state: string
+          total_price: number
           user_id: string
         }
         Insert: {
+          address_id?: string
+          express_cost?: number
           goods_id?: string
           id: string
-          order_date?: string
+          installment?: number
+          pay_at?: string
+          pay_method: string
+          phone: string
+          quantity: number
+          recipient: string
+          state: string
+          total_price: number
           user_id: string
         }
         Update: {
+          address_id?: string
+          express_cost?: number
           goods_id?: string
           id?: string
-          order_date?: string
+          installment?: number
+          pay_at?: string
+          pay_method?: string
+          phone?: string
+          quantity?: number
+          recipient?: string
+          state?: string
+          total_price?: number
           user_id?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "goods_orders_address_id_fkey"
+            columns: ["address_id"]
+            isOneToOne: false
+            referencedRelation: "addresses"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "goods_orders_goods_id_fkey"
             columns: ["goods_id"]
@@ -415,37 +449,133 @@ export type Database = {
           },
         ]
       }
+      tour_activities: {
+        Row: {
+          days: number | null
+          id: string
+          meal: string | null
+          schedule1: string | null
+          schedule2: string | null
+          tour_img: string | null
+        }
+        Insert: {
+          days?: number | null
+          id?: string
+          meal?: string | null
+          schedule1?: string | null
+          schedule2?: string | null
+          tour_img?: string | null
+        }
+        Update: {
+          days?: number | null
+          id?: string
+          meal?: string | null
+          schedule1?: string | null
+          schedule2?: string | null
+          tour_img?: string | null
+        }
+        Relationships: []
+      }
+      tour_days: {
+        Row: {
+          activitiy_id: string | null
+          date: string | null
+          day: string | null
+          description: string | null
+          id: string
+          tour_id: string
+        }
+        Insert: {
+          activitiy_id?: string | null
+          date?: string | null
+          day?: string | null
+          description?: string | null
+          id?: string
+          tour_id?: string
+        }
+        Update: {
+          activitiy_id?: string | null
+          date?: string | null
+          day?: string | null
+          description?: string | null
+          id?: string
+          tour_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tour_days_activitiy_id_fkey"
+            columns: ["activitiy_id"]
+            isOneToOne: false
+            referencedRelation: "tour_activities"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tourDays_tour_id_fkey"
+            columns: ["tour_id"]
+            isOneToOne: false
+            referencedRelation: "tours"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       tour_orders: {
         Row: {
-          amount: number
-          customer_email: string
-          customer_name: string
-          customer_phone: string
+          arrive_date: string
+          arrive_time: string
+          depart_date: string
+          depart_place: string
+          depart_time: string
+          gate: string
           id: string
-          order_date: string | null
-          total_price: number
+          installment: number
+          passenger: string
+          passenger_email: string
+          pay_at: string
+          pay_method: string
+          phone: string
+          qr_code: string
+          spaceship_code: string
+          spaceship_name: string
           tour_id: string
           user_id: string
         }
         Insert: {
-          amount: number
-          customer_email: string
-          customer_name: string
-          customer_phone: string
-          id?: string
-          order_date?: string | null
-          total_price: number
+          arrive_date: string
+          arrive_time?: string
+          depart_date: string
+          depart_place?: string
+          depart_time?: string
+          gate: string
+          id: string
+          installment?: number
+          passenger: string
+          passenger_email: string
+          pay_at?: string
+          pay_method: string
+          phone: string
+          qr_code: string
+          spaceship_code?: string
+          spaceship_name?: string
           tour_id?: string
           user_id: string
         }
         Update: {
-          amount?: number
-          customer_email?: string
-          customer_name?: string
-          customer_phone?: string
+          arrive_date?: string
+          arrive_time?: string
+          depart_date?: string
+          depart_place?: string
+          depart_time?: string
+          gate?: string
           id?: string
-          order_date?: string | null
-          total_price?: number
+          installment?: number
+          passenger?: string
+          passenger_email?: string
+          pay_at?: string
+          pay_method?: string
+          phone?: string
+          qr_code?: string
+          spaceship_code?: string
+          spaceship_name?: string
           tour_id?: string
           user_id?: string
         }
@@ -468,24 +598,24 @@ export type Database = {
       }
       tours: {
         Row: {
-          amount: number | null
           id: string
           planet_id: string
           price: number
+          spaceship: string | null
           tag: string
         }
         Insert: {
-          amount?: number | null
           id?: string
           planet_id?: string
           price: number
+          spaceship?: string | null
           tag: string
         }
         Update: {
-          amount?: number | null
           id?: string
           planet_id?: string
           price?: number
+          spaceship?: string | null
           tag?: string
         }
         Relationships: [

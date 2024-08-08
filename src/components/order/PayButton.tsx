@@ -4,36 +4,42 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { customAlphabet } from 'nanoid';
 import toast from 'react-hot-toast';
-import useExpressInfoStore from '@/zustand/store/expressInfoStore';
-import useCustomerInfoStore from '@/zustand/store/customrInfoStore';
-import useItemListStore from '@/zustand/store/itemListStore';
-import useTourIdStore from '@/zustand/store/useTourId';
-import useQuantityStore from '@/zustand/store/useQuantity';
-
+import useGoodsOrderStore from '@/zustand/store/useGoodsOrderInfo';
+import useTourOrderInfoStore from '@/zustand/store/useTourOrderInfoStore';
 interface PayButtonPropsType {
   totalPrice: number;
+  isTour: boolean;
 }
 
-function PayButton({ totalPrice }: PayButtonPropsType) {
+function PayButton({ totalPrice, isTour }: PayButtonPropsType) {
   const router = useRouter();
   const [isAgree, setIsAgree] = useState(false);
-  const { expressAddress } = useExpressInfoStore((state) => state);
-  console.log('expressAddress => ', expressAddress);
-  const { customerInfo } = useCustomerInfoStore((state) => state);
-  const { itemList } = useItemListStore((state) => state);
-  const { setTourId } = useTourIdStore((state) => state);
-  const { setQuantities, setTotalPrice } = useQuantityStore((state) => state);
+  const { goodsOrderInfo } = useGoodsOrderStore((state) => state);
+  const { tourOrder } = useTourOrderInfoStore((state) => state);
 
   const handleClickPayButton = () => {
+    console.log('totalPrice => ', totalPrice, 'tourOrder => ', tourOrder);
     if (!isAgree) {
       toast.error('약관에 동의하셔야합니다!');
       return;
     }
-
-    if (!totalPrice) {
-      toast.error('결제할 상품을 다시 선택해주세요!');
-      return;
+    let orderName: string = '';
+    if (isTour) {
+      if (!totalPrice || !tourOrder) {
+        toast.error('상품을 다시 선택해주세요!');
+        return;
+      } else {
+        orderName = `${tourOrder?.planet_name!} 티켓`;
+      }
+    } else {
+      if (!totalPrice || !goodsOrderInfo) {
+        toast.error('상품을 다시 선택해주세요!');
+        return;
+      } else {
+        orderName = `${goodsOrderInfo[0].goods.goods_name} 등 총 ${goodsOrderInfo.length}건`;
+      }
     }
+
     const today = new Date();
     const year = today.getFullYear().toString().slice(-2);
     const month = (today.getMonth() + 1).toString().padStart(2, '0');
@@ -47,48 +53,20 @@ function PayButton({ totalPrice }: PayButtonPropsType) {
 
     const orderId = yymmdd + randomAlphabet();
 
-    setTourId('');
-    setTotalPrice(0);
-    setQuantities(0);
-
     const currentOrder = {
       orderId,
-      orderName: `${itemList[0].goods.goods_name}외 ${itemList.length - 1}건`,
-      customerName: customerInfo?.customerName,
-      customerMobilePhone: customerInfo?.customerPhone.split('-').join(''),
-      totalPrice,
+      orderName,
     };
 
     const orderInfo = JSON.stringify(currentOrder);
     console.log(orderInfo);
-    router.push(`/shop/payment/${orderId}?orderInfo=${orderInfo}`);
+    router.push(
+      `/shop/payment/${orderId}?orderInfo=${orderInfo}&isTour=${isTour}`,
+    );
   };
 
   return (
     <>
-      <div className='border-2 border-black-300 p-4 rounded-lg mt-4'>
-        <div className='py-2 mb-4 border-b-2 border-black-700'>
-          <span className='text-xl'>주문요약</span>
-        </div>
-        <div className='flex flex-col items-start gap-4'>
-          <div className='w-full flex justify-between'>
-            <span className='text-black-200'>총 주문 금액</span>
-            <span className='text-black-50'>
-              {totalPrice.toLocaleString()}원
-            </span>
-          </div>
-          <div className='w-full flex justify-between'>
-            <span className='text-black-200'>총 배송비</span>
-            <span className='text-black-50'>0원</span>
-          </div>
-          <div className='border-t-2 border-black-200 w-full pt-4 flex justify-between'>
-            <span className='text-black-200'>{`총 결제 금액 `}</span>
-            <span className='text-primary-400'>
-              {totalPrice.toLocaleString()}원
-            </span>
-          </div>
-        </div>
-      </div>
       <div className='border-2 border-black-300 px-4 py-2 rounded-lg mt-4 flex flex-col items-start gap-y-5'>
         <div className='border-b-2 border-black-700 w-full py-2'>
           <p className='text-xl'>주문동의</p>

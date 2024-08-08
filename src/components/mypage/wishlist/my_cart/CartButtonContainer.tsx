@@ -1,5 +1,5 @@
 import { CartListType } from '@/types/mypageType';
-import useItemListStore from '@/zustand/store/itemListStore';
+import useGoodsOrderStore from '@/zustand/store/useGoodsOrderInfo';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 
@@ -9,14 +9,14 @@ interface CartButtonContainerPropsType {
 
 function CartButtonContainer({ selectItems }: CartButtonContainerPropsType) {
   const router = useRouter();
-  const { setItemList } = useItemListStore((state) => state);
+  const { setGoodsOrderInfo } = useGoodsOrderStore((state) => state);
   const handleGoToPayPage = () => {
     if (!selectItems.length) return toast.error('상품을 선택해주세요!');
     const itemList = selectItems.map((item) => ({
       quantity: item.quantity,
       goods: item.goods,
     }));
-    setItemList(itemList);
+    setGoodsOrderInfo(itemList);
     router.push(`/shop/order`);
   };
 
