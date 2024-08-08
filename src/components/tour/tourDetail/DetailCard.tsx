@@ -12,6 +12,7 @@ import { useRouter } from 'next/navigation';
 import useTourOrderInfoStore, {
   tourInfoType,
 } from '@/zustand/store/useTourOrderInfoStore';
+import TourRouter from './TourRouter';
 
 function DetailCard({ tour }: { tour: Tour }) {
   const user = useAuthStore((state) => state.user);
@@ -37,9 +38,9 @@ function DetailCard({ tour }: { tour: Tour }) {
   return (
     <>
       <div
-        className={` mb-14 mt-[132px] sm:ml-5 md:ml-5 ${orbitron.className} font-semibold text-[28px]`}
+        className={` mb-12 sm:mt-16 md:mt-16 mt-[132px] sm:ml-5 md:ml-5 ${orbitron.className} font-semibold text-[28px]`}
       >
-        Travel Package
+        <TourRouter url={'/tour'} />
       </div>
       <div className='grid grid-cols-2 md:grid-cols-1 sm:grid-cols-1'>
         <div className='sm:mx-[47.5px]'>
@@ -57,7 +58,7 @@ function DetailCard({ tour }: { tour: Tour }) {
             <span className='mr-3'>{tour.planets?.name}</span>
             <span className='text-black-700'>{tour.planets?.english_name}</span>
           </div>
-          <div></div>
+
           <div className='text-sm mb-8 font-medium'>{tour.tag}</div>
           <div className='text-lg mb-[12px] font-semibold'>6박 7일 패키지</div>
           <div className='text-2xl mb-[32px] font-medium'>
@@ -75,14 +76,13 @@ function DetailCard({ tour }: { tour: Tour }) {
           </div>
           <QuantityBtn tourPrice={tour.price} />
 
-          <div className='flex items-center gap-4'>
+          <div className='flex md:justify-center items-center gap-4 sm:justify-center'>
             <div className=' w-[53px] h-[53px] flex p-2 rounded-lg items-center border-2 justify-center border-solid border-primary-400 mt-8'>
               <TourHearts tour_id={tour.id} user_id={user?.id} />
             </div>
-
             <button
               onClick={handleGoToPayPage}
-              className='h-[60px] w-[487px] bg-primary-600 rounded-lg justify-center flex items-center mt-8 font-semibold'
+              className=' w-[487px] bg-primary-600 rounded-lg justify-center flex items-center mt-8 font-semibold sm:w-[266px] h-[53px]'
             >
               구매하기
             </button>

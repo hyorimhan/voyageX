@@ -12,6 +12,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Autoplay, Pagination } from 'swiper/modules';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import TourRouter from '../tourDetail/TourRouter';
 
 function TourList() {
   const router = useRouter();
@@ -26,26 +27,11 @@ function TourList() {
   return (
     <>
       <div
-        className={`text-[28px] mt-32 text-center ${orbitron.className} font-semibold`}
+        className={`text-[28px] sm:mt-20 md:mt-20 mt-32 text-center ${orbitron.className} font-semibold`}
       >
-        <div
-          className='flex lg:justify-center lg:items-center cursor-pointer sm:ml-5 md:ml-5'
-          onClick={() => {
-            router.replace('/');
-          }}
-        >
-          <div className='-rotate-90'>
-            <Image
-              src={'/icons/24px/left_arrow.svg'}
-              alt='arrow'
-              width={24}
-              height={24}
-            />
-          </div>
-          <div>Travel Package</div>
-        </div>
+        <TourRouter url='/' />
       </div>
-      <div className='lg:hidden md:hidden mx-5 sm:mt-[125px] '>
+      <div className='lg:hidden md:hidden mx-5 sm:mt-8 '>
         <Swiper
           loop={true}
           spaceBetween={30}

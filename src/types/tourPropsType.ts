@@ -2,7 +2,7 @@ export interface Tour {
   id: string;
   price: number;
   tag: string;
-  amount?: number | null;
+
   spaceship?: string | null;
   planets: {
     name: string;
