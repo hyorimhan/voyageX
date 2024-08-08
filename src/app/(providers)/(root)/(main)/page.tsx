@@ -1,4 +1,4 @@
-'use client';
+"use client"
 import React, { useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -9,15 +9,20 @@ import TopPostsSection from '@/components/main/TopPostsSection';
 import useScrollTrigger from '@/hooks/useScrollTrigger';
 import useSlideAnimation from '@/hooks/useSlideAnimation';
 import VideoSection from '@/components/main/VideoSection';
+import Page from '@/components/pages/Page';
 
-const MainPage = () => {
+interface MainPageProps {
+  tourId: string;
+}
+
+const MainPage = ({ tourId }: MainPageProps) => {
   const sectionsRef = useRef<(HTMLDivElement | null)[]>([]);
   const planetsRef = useRef<(HTMLDivElement | null)[]>([]);
   const [videoLoaded, setVideoLoaded] = useState<boolean>(false);
   const [currentSlide, setCurrentSlide] = useState<number>(0);
 
-  const { data: goods, isLoading: goodsLoading,  error: goodsError } = useFetchGoods();
-  const { data: tourDetail, isLoading: tourLoading, error: tourError} = useFetchTourDetail();
+  const { data: goods, isLoading: goodsLoading, error: goodsError } = useFetchGoods();
+  const { data: tourDetail, isLoading: tourLoading, error: tourError } = useFetchTourDetail(tourId);
 
   const planets = tourDetail?.planets || [];
   const visiblePlanetsCount = 3; // 처음에 보일 행성 수
@@ -37,7 +42,7 @@ const MainPage = () => {
   useSlideAnimation(videoLoaded, planets, currentSlide, visiblePlanetsCount, planetsRef);
 
   return (
-    <div className='w-full'>
+    <Page>
       <VideoSection
         videoSrc='/videos/main.mp4'
         heading='Voyage X'
@@ -200,7 +205,7 @@ const MainPage = () => {
         <h1>5번째 섹션입니다</h1>
       </section>
       <Footer />
-    </div>
+    </Page>
   );
 };
 
