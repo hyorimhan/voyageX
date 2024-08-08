@@ -16,7 +16,7 @@ const WriteButton = () => {
   return (
     <button
       onClick={handleClickWrite}
-      className='flex justify-center items-center bg-primary-100 rounded-full w-[48px] h-[48px]'
+      className='flex justify-center items-center bg-primary-100 rounded-full w-[56px] h-[56px]'
     >
       <PenIcon24px />
     </button>
