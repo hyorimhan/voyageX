@@ -37,8 +37,10 @@ const CommentList = ({
 
   const { mutate: removeComment } = useMutation({
     mutationFn: (id: string) => deleteComments(id),
-    onSuccess: () =>
-      queryClient.invalidateQueries({ queryKey: ['comments', postId] }),
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ['comments', postId] });
+      queryClient.invalidateQueries({ queryKey: ['post', postId] });
+    },
   });
 
   const { mutate: editComment } = useMutation({

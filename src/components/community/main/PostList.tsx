@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useQuery } from '@tanstack/react-query';
 import { getPostAll, getPostByCategory } from '@/services/community';
-import { MyPost } from '@/types/communityType';
+import { Community } from '@/types/communityType';
 import { useCategory } from '@/zustand/store/useCategory';
 import CategoryBadge from '../common/CategoryBadge';
 import Loading from '@/components/common/Loading';
@@ -14,7 +14,7 @@ const PostList = () => {
     data: posts,
     isPending,
     isError,
-  } = useQuery<MyPost[]>({
+  } = useQuery<Community[]>({
     queryKey: ['post', selectedCategory],
     queryFn:
       selectedCategory === 'All'
@@ -63,7 +63,9 @@ const PostList = () => {
               <span className='flex-none w-32 p-2 text-center'>
                 {new Date(post.created_at).toLocaleDateString()}
               </span>
-              <span className='flex-none w-20 p-2 text-center'>-</span>
+              <span className='flex-none w-20 p-2 text-center'>
+                {post.likes}
+              </span>
               <span className='flex-none w-20 p-2 text-center'>
                 {post.comments}
               </span>

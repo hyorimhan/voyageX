@@ -17,8 +17,10 @@ const CommentsWrite = ({
 
   const { mutate: addComment } = useMutation({
     mutationFn: (newComment: TWriteComment) => insertComment(newComment),
-    onSuccess: () =>
-      queryClient.invalidateQueries({ queryKey: ['comments', postId] }),
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ['comments', postId] });
+      queryClient.invalidateQueries({ queryKey: ['post', postId] });
+    },
   });
 
   const handleSubmitComment = (e: FormEvent<HTMLFormElement>) => {
