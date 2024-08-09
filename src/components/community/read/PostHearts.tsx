@@ -31,8 +31,9 @@ function PostHearts({ post_id, user_id, size = 'large' }: PostHeartsProps) {
     likeMutate(isLiked);
   };
 
-  if (isError) return <div>에러</div>;
   if (isPending) return <Loading />;
+
+  if (isError) return <div>Error</div>;
 
   const HeartIcon =
     size === 'large'

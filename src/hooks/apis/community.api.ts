@@ -34,6 +34,7 @@ export const useToggleLikePost = (post_id: string, user_id: string) => {
     },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ['like', post_id, user_id] });
+      queryClient.invalidateQueries({ queryKey: ['post', post_id] });
     },
   });
 };
