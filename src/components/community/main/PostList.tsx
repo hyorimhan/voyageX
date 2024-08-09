@@ -51,8 +51,8 @@ const PostList = () => {
             댓글
           </span>
         </div>
-        {posts.map((post, index) => (
-          <Link href={post.id} key={post.id}>
+        {posts.map((post) => (
+          <Link href={`/community/${post.id}`} key={post.id}>
             <div className='flex py-4 gap-x-4 items-center group'>
               <span className='flex-none w-32 p-2 text-center'>
                 <CategoryBadge category={post.category} />
