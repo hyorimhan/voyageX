@@ -12,6 +12,9 @@ import useAuthStore from '@/zustand/store/useAuth';
 import { TourOrderType } from '@/types/tour';
 import ArrowRightIcon16px from '@/components/common/icons/16px/ArrowRightIcon16px';
 import Link from 'next/link';
+import TourReviewModal from './TourReviewModal';
+import { useState } from 'react';
+import Loading from '@/components/common/Loading';
 
 const formatDate = (dateString: string, withDay: boolean = false) => {
   const date = new Date(dateString);
@@ -52,6 +55,10 @@ const formatTime = (timeString: string) => {
 };
 
 const TourOrdersList = () => {
+  const [showReviewFormAddModal, setShowReviewFormAddModal] =
+    useState<boolean>(false);
+  const [selectedTourId, setSelectedTourId] = useState<string | null>(null);
+  const [selectedOrderId, setSelectedOrderId] = useState<string | null>(null);
   const user = useAuthStore((state) => state.user);
   const user_id = user?.id;
 
@@ -65,7 +72,7 @@ const TourOrdersList = () => {
   });
 
   if (isLoading) {
-    return <div>로딩 중...</div>;
+    return <Loading />;
   }
 
   if (
@@ -379,8 +386,26 @@ const TourOrdersList = () => {
               </div>
             </div>
           </div>
+          <button
+            className='bg-primary-400 p-2 rounded-md w-[58px] text-xs'
+            onClick={() => {
+              setSelectedOrderId(order.id);
+              setSelectedTourId(order.tour_id);
+              setShowReviewFormAddModal(true);
+            }}
+          >
+            {order.review_id ? '리뷰수정' : '리뷰작성'}
+          </button>
         </div>
       ))}
+      {showReviewFormAddModal && user && selectedTourId && selectedOrderId && (
+        <TourReviewModal
+          order_id={selectedOrderId}
+          tourId={selectedTourId}
+          userId={user.id}
+          onClose={() => setShowReviewFormAddModal(false)}
+        />
+      )}
     </>
   );
 };
