@@ -37,8 +37,10 @@ const MyPageSideBarUserInfo = () => {
         <p>작성글 수</p>
         <p>{postCount}</p>
         <p>|</p>
-        <HeartWhiteIcon16px />
-        <p>35</p>
+        <div className='flex gap-1'>
+          <HeartWhiteIcon16px />
+          <p>35</p>
+        </div>
       </div>
     </div>
   );

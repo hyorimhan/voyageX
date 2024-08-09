@@ -1,4 +1,4 @@
-import StarTrueIcon24px from '../common/icons/24px/StarTrueIcon24px';
+import StarTrueIcon20px from '../common/icons/20px/StarTrueIcon20px';
 
 interface StarsPropsType {
   ratingAvg: number;
@@ -6,9 +6,9 @@ interface StarsPropsType {
 
 function Stars({ ratingAvg }: StarsPropsType) {
   return (
-    <span className='flex flex-row items-center text-xl text-black-50'>
-      <StarTrueIcon24px />
-      {ratingAvg.toFixed(1)}
+    <span className='flex flex-row items-center text-black-50 text-sm gap-1'>
+      <StarTrueIcon20px />
+      <p>{ratingAvg.toFixed(1)}</p>
     </span>
   );
 }

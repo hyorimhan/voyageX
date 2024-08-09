@@ -11,29 +11,36 @@ function TabSelector() {
   const user_id = user?.id;
   return (
     <>
-      <div className='flex flex-row justify-evenly w-full mb-8 border-b-2 border-white text-black-50'>
-        <div
-          className={`w-1/2 flex justify-center pb-1 ${
-            selectedTab === 'LikedGoods'
-              ? 'border-b-4 border-white'
-              : 'border-none'
-          }`}
-        >
+      <div className='flex flex-col w-full text-black-50'>
+        <div className='flex'>
           <button
             onClick={() => setSelectedTab('LikedGoods')}
-            className='text-lg'
+            className='text-lg w-full font-semibold h-[53px]'
           >
             찜
           </button>
-        </div>
-        <div
-          className={`w-1/2 flex justify-center pb-1 ${
-            selectedTab === 'MyCart' ? 'border-b-4 border-white' : 'border-none'
-          }`}
-        >
-          <button onClick={() => setSelectedTab('MyCart')} className='text-lg'>
+          <button
+            onClick={() => setSelectedTab('MyCart')}
+            className='text-lg font-semibold w-full  h-[53px]'
+          >
             장바구니
           </button>
+        </div>
+        <div className='flex w-full'>
+          <div
+            className={`flex w-1/2  ${
+              selectedTab === 'LikedGoods'
+                ? 'border-b-2 border-white'
+                : 'border-b-[1px]'
+            }`}
+          ></div>
+          <div
+            className={`flex w-1/2  ${
+              selectedTab === 'MyCart'
+                ? 'border-b-2 border-white'
+                : 'border-b-[1px]'
+            }`}
+          ></div>
         </div>
       </div>
       {selectedTab === 'LikedGoods' ? (
