@@ -250,6 +250,13 @@ export type Database = {
             referencedRelation: "users"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "goods_orders_user_id_fkey1"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
         ]
       }
       goods_reviews: {
@@ -577,6 +584,7 @@ export type Database = {
           pay_method: string
           phone: string
           qr_code: string
+          review_id: string | null
           spaceship_code: string
           spaceship_name: string
           tour_id: string
@@ -597,6 +605,7 @@ export type Database = {
           pay_method: string
           phone: string
           qr_code: string
+          review_id?: string | null
           spaceship_code?: string
           spaceship_name?: string
           tour_id?: string
@@ -617,12 +626,20 @@ export type Database = {
           pay_method?: string
           phone?: string
           qr_code?: string
+          review_id?: string | null
           spaceship_code?: string
           spaceship_name?: string
           tour_id?: string
           user_id?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "tour_orders_review_id_fkey"
+            columns: ["review_id"]
+            isOneToOne: false
+            referencedRelation: "tour_reviews"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "tour_orders_tour_id_fkey"
             columns: ["tour_id"]
@@ -639,11 +656,54 @@ export type Database = {
           },
         ]
       }
+      tour_reviews: {
+        Row: {
+          created_at: string
+          id: string
+          rating: number
+          review: string
+          tour_id: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          rating: number
+          review: string
+          tour_id: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          rating?: number
+          review?: string
+          tour_id?: string
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tour_reviews_tour_id_fkey"
+            columns: ["tour_id"]
+            isOneToOne: false
+            referencedRelation: "tours"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tour_reviews_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       tours: {
         Row: {
           id: string
           planet_id: string
           price: number
+          rating_avg: number
           ship_code: string | null
           spaceship: string | null
           tag: string
@@ -652,6 +712,7 @@ export type Database = {
           id?: string
           planet_id?: string
           price: number
+          rating_avg?: number
           ship_code?: string | null
           spaceship?: string | null
           tag: string
@@ -660,6 +721,7 @@ export type Database = {
           id?: string
           planet_id?: string
           price?: number
+          rating_avg?: number
           ship_code?: string | null
           spaceship?: string | null
           tag?: string
