@@ -65,7 +65,7 @@ const MainPage = () => {
   if (tourError) return <div>Error: {tourError.message}</div>;
 
   return (
-    <>
+    <div>
       <VideoSection
         videoSrc='/videos/main.mp4'
         heading='Voyage X'
@@ -228,7 +228,7 @@ const MainPage = () => {
         <h1>5번째 섹션입니다</h1>
       </section>
       <Footer />
-    </>
+    </div>
   );
 };
 
