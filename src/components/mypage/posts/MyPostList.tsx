@@ -2,7 +2,7 @@
 
 import { formatDate } from '@/components/common/formatDate';
 import { getMyPosts } from '@/services/community';
-import { MyPost } from '@/types/communityType';
+import { Community } from '@/types/communityType';
 import useAuthStore from '@/zustand/store/useAuth';
 import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
@@ -16,7 +16,7 @@ const MyPostList = () => {
     data: posts,
     isLoading,
     isError,
-  } = useQuery<MyPost[]>({
+  } = useQuery<Community[]>({
     queryKey: ['posts', user_id],
     queryFn: () => getMyPosts(user_id),
   });
