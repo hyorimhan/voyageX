@@ -28,6 +28,7 @@ export const tourList = async (): Promise<Tour[]> => {
     price, 
     tag,
     spaceship,
+    ship_code,
     planets (
       name, 
       planet_img,
@@ -153,4 +154,12 @@ export const getTourDateList = async () => {
     throw error;
   }
   return dateList ?? [];
+};
+
+// 마이페이지 주문목록 삭제
+export const deleteTourOrderDetail = async (order_id: string) => {
+  const response = await axios.delete(
+    `/api/mypage/tour_order/tour/${order_id}`,
+  );
+  return response.data;
 };

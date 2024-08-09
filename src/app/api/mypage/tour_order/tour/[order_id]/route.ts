@@ -49,3 +49,23 @@ export async function GET(
 
   return NextResponse.json(orderWithDetails);
 }
+
+export async function DELETE(
+  req: NextRequest,
+  { params }: { params: { order_id: string } },
+) {
+  const { order_id } = params;
+  const supabase = createClient();
+
+  const { error } = await supabase
+    .from('tour_orders')
+    .delete()
+    .eq('id', order_id);
+
+  if (error) {
+    return NextResponse.json({
+      error: '여행주문내역을 삭제하는 중 오류가 발생했습니다.',
+    });
+  }
+  return NextResponse.json({ message: '여행주문내역이 삭제되었습니다.' });
+}

@@ -21,12 +21,24 @@ export async function GET(
     .select('*', { count: 'exact', head: true })
     .eq('post_id', postId);
 
-  if (commentsError)
-    return NextResponse.json({ error: commentsError.message }, { status: 500 });
+  const { count: likesCount, error: likesError } = await supabase
+    .from('likes')
+    .select('*', { count: 'exact', head: true })
+    .eq('post_id', postId);
 
-  const postWithComments = { ...post, comments: commentsCount || 0 };
+  if (commentsError || likesError)
+    return NextResponse.json(
+      { error: commentsError?.message || likesError?.message },
+      { status: 500 },
+    );
 
-  return NextResponse.json(postWithComments);
+  const postDetails = {
+    ...post,
+    comments: commentsCount || 0,
+    likes: likesCount || 0,
+  };
+
+  return NextResponse.json(postDetails);
 }
 
 export async function PUT(

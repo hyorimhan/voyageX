@@ -1,4 +1,4 @@
-"use client"
+'use client';
 import React, { useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -8,10 +8,10 @@ import TopPostsSection from '@/components/main/TopPostsSection';
 import useScrollTrigger from '@/hooks/useScrollTrigger';
 import useSlideAnimation from '@/hooks/useSlideAnimation';
 import VideoSection from '@/components/main/VideoSection';
-import Page from '@/components/pages/Page';
 import { Planet } from '@/services/tour';
 import { useQuery } from '@tanstack/react-query';
 import { getPlanetsList } from '@/services/plants';
+import Page from '@/components/pages/Page';
 
 // TODO localhost:3000   페이지에서 tourID 를 받아올 방법이 없어요.
 const MainPage = () => {
@@ -20,15 +20,22 @@ const MainPage = () => {
   const [videoLoaded, setVideoLoaded] = useState<boolean>(false);
   const [currentSlide, setCurrentSlide] = useState<number>(0);
 
-  const { data: goods, isLoading: goodsLoading, error: goodsError } = useFetchGoods();
+  const {
+    data: goods,
+    isLoading: goodsLoading,
+    error: goodsError,
+  } = useFetchGoods();
 
   // TODO 굳이 tourID 를 통해 행성 정보를 다 가지고 오려고 하지 마시고! tourList 를 그냥 가지고 올 수 있는 api 를 이용해 주세요!
-  const { data: planetsData, isLoading: tourLoading, error: tourError } = useQuery({
-    queryKey: ["getPlanets"],
+  const {
+    data: planetsData,
+    isLoading: tourLoading,
+    error: tourError,
+  } = useQuery({
+    queryKey: ['getPlanets'],
     queryFn: getPlanetsList,
-    staleTime: 1000000
+    staleTime: 1000000,
   });
-
 
   const planets: Planet[] = planetsData || [];
 
@@ -46,13 +53,19 @@ const MainPage = () => {
   useScrollTrigger(videoLoaded, sectionsRef);
 
   // 슬라이드 행성 애니메이션
-  useSlideAnimation(videoLoaded, planets, currentSlide, visiblePlanetsCount, planetsRef);
+  useSlideAnimation(
+    videoLoaded,
+    planets,
+    currentSlide,
+    visiblePlanetsCount,
+    planetsRef,
+  );
 
   if (tourLoading) return <div>Loading...</div>;
-  if (tourError) return <div>Error: {tourError.message}</div>
+  if (tourError) return <div>Error: {tourError.message}</div>;
 
   return (
-    <Page>
+    <div>
       <VideoSection
         videoSrc='/videos/main.mp4'
         heading='Voyage X'
@@ -215,7 +228,7 @@ const MainPage = () => {
         <h1>5번째 섹션입니다</h1>
       </section>
       <Footer />
-    </Page>
+    </div>
   );
 };
 
