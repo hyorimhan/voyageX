@@ -1,6 +1,15 @@
 import useFetchTopPosts from '@/hooks/useFetchTopPosts';
 import Link from 'next/link';
 
+interface Post {
+  id: string;
+  title: string;
+  content: string;
+  date?: string;
+  likes?: number;
+  comments?: number;
+}
+
 const TopPostsSection: React.FC = () => {
   const { posts, loading, error } = useFetchTopPosts();
 
@@ -13,7 +22,7 @@ const TopPostsSection: React.FC = () => {
         Free Board
       </h1>
       <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-        {posts.map((post) => (
+        {posts.map((post:Post) => (
           <Link href={`/posts/${post.id}`} key={post.id}>
             <div className='p-4 border border-gray-300 rounded-md block hover:bg-gray-100'>
               <h2 className='text-2xl font-yangpyeong mb-2'>{post.title}</h2>
