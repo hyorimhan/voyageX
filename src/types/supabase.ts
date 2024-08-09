@@ -169,63 +169,78 @@ export type Database = {
       }
       goods_orders: {
         Row: {
-          address_id: string
+          address: string
+          detail_address: string
           express_cost: number
           goods_id: string
           id: string
           installment: number
+          old_address: string
+          order_id: string
           pay_at: string
           pay_method: string
           phone: string
+          postcode: string
           quantity: number
           recipient: string
+          review_id: string | null
           state: string
           total_price: number
           user_id: string
         }
         Insert: {
-          address_id?: string
+          address: string
+          detail_address: string
           express_cost?: number
           goods_id?: string
-          id: string
+          id?: string
           installment?: number
+          old_address: string
+          order_id: string
           pay_at?: string
           pay_method: string
           phone: string
+          postcode: string
           quantity: number
           recipient: string
+          review_id?: string | null
           state: string
           total_price: number
           user_id: string
         }
         Update: {
-          address_id?: string
+          address?: string
+          detail_address?: string
           express_cost?: number
           goods_id?: string
           id?: string
           installment?: number
+          old_address?: string
+          order_id?: string
           pay_at?: string
           pay_method?: string
           phone?: string
+          postcode?: string
           quantity?: number
           recipient?: string
+          review_id?: string | null
           state?: string
           total_price?: number
           user_id?: string
         }
         Relationships: [
           {
-            foreignKeyName: "goods_orders_address_id_fkey"
-            columns: ["address_id"]
-            isOneToOne: false
-            referencedRelation: "addresses"
-            referencedColumns: ["id"]
-          },
-          {
             foreignKeyName: "goods_orders_goods_id_fkey"
             columns: ["goods_id"]
             isOneToOne: false
             referencedRelation: "goods"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "goods_orders_review_id_fkey"
+            columns: ["review_id"]
+            isOneToOne: false
+            referencedRelation: "goods_reviews"
             referencedColumns: ["id"]
           },
           {
@@ -304,6 +319,13 @@ export type Database = {
             columns: ["goods_id"]
             isOneToOne: false
             referencedRelation: "goods"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "liked_goods_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
             referencedColumns: ["id"]
           },
           {
@@ -458,6 +480,7 @@ export type Database = {
           id: string
           meal: string | null
           schedule: string | null
+          space: string | null
           tour_img: string | null
         }
         Insert: {
@@ -465,6 +488,7 @@ export type Database = {
           id?: string
           meal?: string | null
           schedule?: string | null
+          space?: string | null
           tour_img?: string | null
         }
         Update: {
@@ -472,6 +496,7 @@ export type Database = {
           id?: string
           meal?: string | null
           schedule?: string | null
+          space?: string | null
           tour_img?: string | null
         }
         Relationships: []

@@ -63,7 +63,7 @@ const GoodsOrderList = () => {
   );
 
   const ordersById = sortedGoodsOrders.reduce((acc, order) => {
-    const id = order.id;
+    const id = order.order_id;
     if (!acc[id]) {
       acc[id] = [];
     }

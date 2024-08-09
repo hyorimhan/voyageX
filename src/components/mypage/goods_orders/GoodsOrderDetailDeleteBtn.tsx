@@ -15,7 +15,8 @@ const GoodsOrderDetailDeleteBtn = ({ order_id }: TourOrderDetailListProps) => {
 
   const handleDeleteTourOrder = async () => {
     try {
-      await deleteGoodsOrderDetail(order_id);
+      const response = await deleteGoodsOrderDetail(order_id);
+      console.log('deleteGoodsOrderDetail response => ', response);
     } catch (error) {
       console.error('삭제오류', error);
     }

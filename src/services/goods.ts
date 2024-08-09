@@ -126,7 +126,7 @@ export const deleteCartItemByGoodsId = async ({
 // 마이페이지 주문목록 삭제
 export const deleteGoodsOrderDetail = async (order_id: string) => {
   const response = await axios.delete(
-    `/api/mypage/my_goods_order_order/goods/${order_id}`,
+    `/api/mypage/my_goods_order/goods/${order_id}`,
   );
-  return response.data;
+  return response;
 };

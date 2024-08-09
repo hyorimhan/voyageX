@@ -13,13 +13,16 @@ export const POST = async (request: Request, { params }: ParamsType) => {
     quantity,
     total_price,
     customer,
-    address_id,
     pay_method,
     installment,
+    address,
+    old_address,
+    detail_address,
+    postcode,
   } = await request.json();
   const supabase = createClient();
   const { data, error } = await supabase.from('goods_orders').insert({
-    id: order_id,
+    order_id,
     user_id,
     goods_id,
     quantity,
@@ -27,9 +30,12 @@ export const POST = async (request: Request, { params }: ParamsType) => {
     total_price,
     recipient: customer.customerName,
     phone: customer.customerPhone,
-    address_id,
     pay_method,
     installment,
+    address,
+    old_address,
+    detail_address,
+    postcode,
   });
   if (error)
     return NextResponse.json({
