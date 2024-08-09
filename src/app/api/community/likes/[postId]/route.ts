@@ -1,19 +1,45 @@
 import { createClient } from '@/supabase/server';
 import { NextRequest, NextResponse } from 'next/server';
 
+export async function GET(
+  request: NextRequest,
+  { params }: { params: { postId: string } },
+) {
+  const { postId } = params;
+  const supabase = createClient();
+  const { searchParams } = new URL(request.url);
+  const user_id = searchParams.get('user_id');
+
+  if (!user_id)
+    return NextResponse.json({ error: '유저 ID를 찾을 수 없습니다' });
+
+  const { data, error } = await supabase
+    .from('likes')
+    .select('*')
+    .match({ post_id: postId, user_id });
+
+  if (error) return NextResponse.json({ error });
+  return NextResponse.json(!!data.length);
+}
+
 export async function POST(
   request: NextRequest,
   { params }: { params: { postId: string } },
 ) {
-  const supabase = createClient();
-
   const { postId } = params;
-  const userId = await request.json();
-  const { data, error } = await supabase
-    .from('likes')
-    .insert({ post_id: postId, userId });
+  const supabase = createClient();
+  const { searchParams } = new URL(request.url);
+  const user_id = searchParams.get('user_id');
 
-  if (error) return NextResponse.json(error);
+  if (!user_id)
+    return NextResponse.json({ error: '유저 ID를 찾을 수 없습니다' });
+
+  const { data, error } = await supabase.from('likes').insert({
+    post_id: postId,
+    user_id,
+  });
+
+  if (error) return NextResponse.json({ error });
   return NextResponse.json(data);
 }
 
@@ -22,15 +48,18 @@ export async function DELETE(
   { params }: { params: { postId: string } },
 ) {
   const { postId } = params;
-  const userId = await request.json();
   const supabase = createClient();
+  const { searchParams } = new URL(request.url);
+  const user_id = searchParams.get('user_id');
+
+  if (!user_id)
+    return NextResponse.json({ error: '유저 ID를 찾을 수 없습니다' });
 
   const { data, error } = await supabase
     .from('likes')
     .delete()
-    .eq('post_id', postId)
-    .eq('user_id', userId);
+    .match({ post_id: postId, user_id });
 
-  if (error) return NextResponse.json(error);
+  if (error) return NextResponse.json({ error });
   return NextResponse.json(data);
 }
