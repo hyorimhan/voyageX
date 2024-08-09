@@ -5,7 +5,7 @@ const PaymentPage = () => {
   return (
     <>
       <h1
-        className={`border-b-[1px] border-white text-xl font-bold text-white mt-20 py-4 ${orbitron.className}`}
+        className={`border-b-[1px] border-white text-xl font-bold text-white mt-20 py-4 ${orbitron.className} sm:mx-5`}
       >
         결제하기
       </h1>

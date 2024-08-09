@@ -68,8 +68,8 @@ function CustomerInfo({ addressList, user_email, isTour }: CustomerInfo) {
 
   return (
     <>
-      <div className='border-2 border-black-300 rounded-lg p-4 mb-8'>
-        <div className='py-4 mb-4 border-b-2 border-black-700 flex flex-row items-start justify-between'>
+      <div className='border-[1px] border-black-300 rounded-lg p-4 mb-8'>
+        <div className='py-4 mb-4 border-b border-black-700 flex flex-row items-start justify-between'>
           <span className='text-xl text-black-50'>주문자 정보</span>
           <div>
             <button
