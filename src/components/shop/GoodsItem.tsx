@@ -30,7 +30,7 @@ function GoodsItem({ item, user_id }: GoodsItemPropsType) {
       <div className='bg-black-600 rounded-xl text-xs py-1 px-2 w-min flex text-nowrap mt-3 mb-[6px] text-black-50'>
         무료배송
       </div>
-      <div className='ml-1 mr-4 flex flex-col'>
+      <div className='ml-1 flex flex-col'>
         <p
           className='flex justify-start cursor-pointer'
           onClick={() => handleItemClick(item.id)}

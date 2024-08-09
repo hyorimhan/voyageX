@@ -163,3 +163,8 @@ export const deleteTourOrderDetail = async (order_id: string) => {
   );
   return response.data;
 };
+
+export const getTourListByOrder = async () => {
+  const response = await axios.get('/api/tours');
+  return response.data;
+};

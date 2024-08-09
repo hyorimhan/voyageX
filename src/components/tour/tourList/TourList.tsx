@@ -45,7 +45,6 @@ function TourList() {
           </div>
         </Swiper>
       </div>
-
       <div className='sm:hidden '>
         <div className='grid lg:grid-cols-3 md:grid-cols-2 gap-8 p-4 mt-10'>
           {tours?.map((tour) => (
