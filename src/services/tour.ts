@@ -22,6 +22,12 @@ export interface Tour {
   planets: Planet[];
 }
 
+export interface tourProps {
+  params: {
+    id: string;
+  };
+}
+
 // 투어 리스트
 export const tourList = async (): Promise<Tour[]> => {
   const { data: tours, error } = await supabase.from('tours').select(`
@@ -41,10 +47,9 @@ export const tourList = async (): Promise<Tour[]> => {
     throw error;
   }
 
-  // 데이터가 예상 타입과 다를 경우를 대비한 처리
   return (tours ?? []).map(tour => ({
     ...tour,
-    planets: Array.isArray(tour.planets) ? tour.planets.map((planet: any) => ({
+    planets: Array.isArray(tour.planets) ? tour.planets.map((planet: Planet) => ({
       ...planet,
       price: tour.price,
     })) : []
@@ -52,7 +57,7 @@ export const tourList = async (): Promise<Tour[]> => {
 };
 
 // 투어 상세
-export const tourDetail = async (id: string): Promise<Tour[]> => {
+export const tourDetail = async (id: string): Promise<Tour> => {
   const { data: tour, error } = await supabase
     .from('tours')
     .select(
@@ -73,17 +78,21 @@ export const tourDetail = async (id: string): Promise<Tour[]> => {
     .eq('id', id)
     .single();
 
-  if (error) {
-    throw error;
+  if (error || !tour) {
+    throw new Error('Tour Not Found');
   }
 
-  // planets가 null인 경우 빈 배열로 처리
-  const normalizedTour = tour ? {
+  const normalizedTour: Tour = {
     ...tour,
-    planets: Array.isArray(tour.planets) ? tour.planets.map(planet => ({ ...planet, price: tour.price })) : []
-  } : null;
+    planets: Array.isArray(tour.planets)
+      ? tour.planets.map((planet: Planet) => ({
+          ...planet,
+          price: tour.price, // tour의 가격을 planet에 추가
+        }))
+      : [],
+  };
 
-  return normalizedTour ? [normalizedTour] : [];
+  return normalizedTour;
 };
 
 // 투어 일정, 날짜

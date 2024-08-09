@@ -41,6 +41,9 @@ const MainPage = () => {
   // 슬라이드 행성 애니메이션
   useSlideAnimation(videoLoaded, planets, currentSlide, visiblePlanetsCount, planetsRef);
 
+  if (tourLoading) return <div>Loading...</div>;
+  if (tourError) return <div>Error: {tourError.message}</div>
+
   return (
     <Page>
       <VideoSection
