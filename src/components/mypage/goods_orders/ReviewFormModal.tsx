@@ -36,21 +36,53 @@ const ReviewFormModal: React.FC<ReviewFormModallProps> = ({
       return;
     }
 
-    const { data, error } = await supabase.from('goods_reviews').insert([
-      {
-        user_id: userId,
-        goods_id: goodsId,
-        rating,
-        review,
-      },
-    ]);
-
-    if (error) {
-      console.error('리뷰 작성 오류:', error);
-      setInvalidMsg('리뷰 작성 중 오류가 발생했습니다.');
-    } else {
+    const { data: getReviewId, error: isReviewedError } = await supabase
+      .from('goods_orders')
+      .select('review_id')
+      .match({ order_id, goods_id: goodsId })
+      .single();
+    const isReviewed = !!getReviewId?.review_id;
+    if (!isReviewed) {
+      const review_id = crypto.randomUUID();
+      const { data, error } = await supabase.from('goods_reviews').insert([
+        {
+          id: review_id,
+          user_id: userId,
+          goods_id: goodsId,
+          rating,
+          review,
+        },
+      ]);
+      if (error) {
+        console.error('리뷰 작성 오류:', error);
+        setInvalidMsg('리뷰 작성 중 오류가 발생했습니다.');
+      }
+      const { data: createReviewId, error: createReviewIdError } =
+        await supabase
+          .from('goods_orders')
+          .update({ review_id: review_id })
+          .match({ order_id, goods_id: goodsId });
+      if (createReviewIdError) {
+        console.log('createReviewIdError => ', createReviewIdError);
+      }
+      console.log('createReviewId => ', createReviewId);
       console.log('리뷰 작성 성공:', data);
       onClose();
+    } else {
+      const { data, error } = await supabase
+        .from('goods_reviews')
+        .update({
+          rating,
+          review,
+        })
+        .match({ user_id: userId, goods_id: goodsId });
+      if (error) {
+        console.log('리뷰 수정 에러: ', error);
+        setInvalidMsg('리뷰 수정 중 오류가 발생했습니다.');
+      } else {
+        console.log('리뷰 수정 성공:', data);
+        onClose();
+      }
     }
   };
 
