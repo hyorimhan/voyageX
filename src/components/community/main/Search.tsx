@@ -22,6 +22,7 @@ function Search() {
             className='w-[336px] h-[48px] rounded-[16px] text-white px-4 py-3 bg-black-800 focus:outline-none'
             value={search}
             onChange={(e) => setSearch(e.target.value)}
+            placeholder='검색어'
           />
           <button
             type='submit'
