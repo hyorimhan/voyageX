@@ -115,7 +115,7 @@ const GoodsOrderDetailList = ({ order_id }: GoodsOrderDetailListProps) => {
           ))}
         </div>
         <div className='flex flex-col border-[1px] rounded-lg p-5'>
-          <p className='h-9 border-b-[1px] border-black-700'>결제정보</p>
+          <p className='h-9 border-b border-black-700'>결제정보</p>
           <div className='h-[77px] flex flex-col gap-4 border-b-[1px] mt-4'>
             <div className='flex w-full justify-between text-sm'>
               <p>총 주문 금액</p>

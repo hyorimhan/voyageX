@@ -3,10 +3,9 @@
 import Link from 'next/link';
 import { useQuery } from '@tanstack/react-query';
 import { getPostAll, getPostByCategory } from '@/services/community';
-import { Post } from '@/types/communityType';
+import { MyPost } from '@/types/communityType';
 import { useCategory } from '@/zustand/store/useCategory';
 import CategoryBadge from '../common/CategoryBadge';
-import { comment } from 'postcss';
 import Loading from '@/components/common/Loading';
 
 const PostList = () => {
@@ -15,7 +14,7 @@ const PostList = () => {
     data: posts,
     isPending,
     isError,
-  } = useQuery<Post[]>({
+  } = useQuery<MyPost[]>({
     queryKey: ['post', selectedCategory],
     queryFn:
       selectedCategory === 'All'
@@ -36,9 +35,6 @@ const PostList = () => {
     <div className='overflow-x-auto'>
       <div className='flex flex-col'>
         <div className='flex mb-[10px] border-b-[0.4px] border-white text-center gap-x-4'>
-          <span className='flex-none w-20 p-2 text-xs font-medium text-white'>
-            NO.
-          </span>
           <span className='flex-none w-32 p-2 text-xs font-medium text-white'>
             카테고리
           </span>
@@ -58,9 +54,6 @@ const PostList = () => {
         {posts.map((post, index) => (
           <Link href={post.id} key={post.id}>
             <div className='flex py-4 gap-x-4 items-center group'>
-              <span className='flex-none w-20 p-2 text-center'>
-                {String(index + 1)}
-              </span>
               <span className='flex-none w-32 p-2 text-center'>
                 <CategoryBadge category={post.category} />
               </span>
@@ -71,7 +64,9 @@ const PostList = () => {
                 {new Date(post.created_at).toLocaleDateString()}
               </span>
               <span className='flex-none w-20 p-2 text-center'>-</span>
-              <span className='flex-none w-20 p-2 text-center'>-</span>
+              <span className='flex-none w-20 p-2 text-center'>
+                {post.comments}
+              </span>
             </div>
           </Link>
         ))}

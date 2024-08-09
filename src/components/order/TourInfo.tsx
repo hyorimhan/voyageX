@@ -22,13 +22,13 @@ function TourInfo({ setTotalPrice }: TourInfoPropsType) {
   });
 
   return (
-    <div className='border-2 border-black-300 p-4 rounded-lg mb-4 text-black-50'>
-      <div className='py-4 mb-4 border-b-2 border-black-700'>
+    <div className='border-[1px] border-black-300 p-4 rounded-lg mb-8 text-black-50'>
+      <div className='py-4 mb-4 border-b border-black-700'>
         <span className='text-xl'>여행상품 정보</span>
       </div>
-      <div className='grid grid-cols-[minmax(0,1fr)_100px] mb-3'>
+      <div className='grid grid-cols-[minmax(0,1fr)_100px]'>
         <div className='flex items-center justify-start gap-4'>
-          <div className='w-20 h-24'>
+          <div className='w-20 h-24 mt-4'>
             <Image
               src={tourOrder?.planet_img!}
               alt={tourOrder?.planet_name!}
@@ -36,9 +36,12 @@ function TourInfo({ setTotalPrice }: TourInfoPropsType) {
               height={96}
             />
           </div>
-          <p>{`${tourOrder?.planet_name} ${tourOrder?.eng_name}`}</p>
+          <div>
+            <p>{`${tourOrder?.planet_name} ${tourOrder?.eng_name}`}</p>
+            <div className='sm:text-xs'>{tourOrder?.depart_date} ~</div>
+          </div>
         </div>
-        <div className='border-l-2 border-black-300 flex flex-col items-center justify-center'>
+        <div className='border-l border-black-300 flex flex-col items-center justify-center'>
           <p>{`${tourOrder?.price.toLocaleString()}원`}</p>
         </div>
       </div>

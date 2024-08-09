@@ -1,10 +1,9 @@
 'use client';
-
-import useGoodsOrderStore from '@/zustand/store/useGoodsOrderInfo';
 import { useRouter } from 'next/navigation';
 import { Dispatch, SetStateAction, useEffect } from 'react';
 import toast from 'react-hot-toast';
 import OrderItem from './OrderItem';
+import useGoodsOrderStore from '@/zustand/store/useGoodsOrderInfoStore';
 
 interface ItemsInfoPropsType {
   setTotalPrice: Dispatch<SetStateAction<number>>;

@@ -1,7 +1,7 @@
 'use client';
 
 import useAuthStore from '@/zustand/store/useAuth';
-import useGoodsOrderStore from '@/zustand/store/useGoodsOrderInfo';
+import useGoodsOrderStore from '@/zustand/store/useGoodsOrderInfoStore';
 import useTourOrderInfoStore from '@/zustand/store/useTourOrderInfoStore';
 import {
   loadPaymentWidget,
@@ -45,9 +45,7 @@ const GoodsPaymentWidget = () => {
         successUrl: isTour
           ? `${window.location.origin}/tour/payment/success`
           : `${window.location.origin}/shop/payment/success`,
-        failUrl: isTour
-          ? `${window.location.origin}/tour/payment/fail`
-          : `${window.location.origin}/shop/payment/fail`,
+        failUrl: `${window.location.origin}/shop/payment/fail`,
       });
     } catch (err: any) {
       toast.error(err.message);
@@ -87,10 +85,10 @@ const GoodsPaymentWidget = () => {
     loadWidget();
   });
   return (
-    <div className='flex flex-col justify-center items-center mt-10'>
-      <div id='payment-widget' className='w-2/3' />
-      <div id='agreement' className='w-2/3' />
-      <div className='bg-white w-2/3 flex justify-center mb-4'>
+    <div className='flex flex-col justify-center items-center mt-10 sm:x-[375px]'>
+      <div id='payment-widget' className='lg:w-2/3 md:w-2/3' />
+      <div id='agreement' className='lg:w-2/3 md:w-2/3' />
+      <div className='bg-white lg:w-2/3 md:w-2/3 sm:w-[300px] flex justify-center mb-4'>
         <button
           type='button'
           onClick={proceedPayment}

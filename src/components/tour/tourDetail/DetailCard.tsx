@@ -12,10 +12,17 @@ import useTourOrderInfoStore, {
   tourInfoType,
 } from '@/zustand/store/useTourOrderInfoStore';
 import TourRouter from './TourRouter';
+import DetailInfo from './DetailInfo';
+import DetailDate from './DetailDate';
+import { useTourDate } from '@/zustand/store/useTourDate';
+import toast from 'react-hot-toast';
 
 function DetailCard({ tour }: { tour: Tour }) {
   const user = useAuthStore((state) => state.user);
+  const TourDate = useTourDate((state) => state.tourDate);
+  const setTourDateReset = useTourDate((state) => state.setTourDateReset);
   const { setTourOrder } = useTourOrderInfoStore((state) => state);
+
   const router = useRouter();
 
   const handleGoToPayPage = () => {
@@ -25,12 +32,18 @@ function DetailCard({ tour }: { tour: Tour }) {
       eng_name: tour.planets?.english_name!,
       planet_img: tour.planets?.planet_img!,
       price: tour.price,
-      depart_date: '2024-08-07',
-      arrive_date: '2024-08-14',
-      gate: 'A3',
+      depart_date: TourDate.departDate!,
+      arrive_date: TourDate.arriveDate!,
+      gate: tour.ship_code!,
       qr_code: 'QR코드',
     };
+
+    if (!TourDate.departDate || !TourDate.arriveDate) {
+      toast.error('여행 기간을 선택해주세요');
+      return;
+    }
     setTourOrder(tourOrder);
+
     router.push(`/tour/payment/`);
   };
 
@@ -52,6 +65,7 @@ function DetailCard({ tour }: { tour: Tour }) {
             '
           />
         </div>
+
         <div className='sm:mx-5 md:mx-5'>
           <div className='text-2xl mb-4 font-semibold'>
             <span className='mr-3'>{tour.planets?.name}</span>
@@ -63,16 +77,36 @@ function DetailCard({ tour }: { tour: Tour }) {
           <div className='text-2xl mb-[32px] font-medium'>
             {tour.price?.toLocaleString()}원
           </div>
-          <div className='text-[14px] border-t font-medium '>
-            <div className=' border-b my-3  pb-3'>출발확정 2025.10.10</div>
-            <div className=' border-b my-3  pb-3'>
-              여행기간 2025.10.10 ~2025.10.20
+
+          <DetailInfo description={<DetailDate />} borderTop={'border-t'} />
+          <DetailInfo title={'출발지'} description={'대전, 한국'} />
+          <DetailInfo title={'우주선 명'} description={`${tour.spaceship}`} />
+          <DetailInfo title={'우주선 코드'} description={`${tour.ship_code}`} />
+
+          {TourDate.departDate && (
+            <div className='h-[82px] mt-10 grid-cols-2  border-b border-b-white'>
+              <div className='flex'>
+                <div>
+                  <div className='mb-2'>
+                    {tour.planets?.name} 6박 7일 패키지 ㅣ 1매
+                    <span className='text-black-300 text-sm'>
+                      (수량 1인 1매 한정*)
+                    </span>
+                  </div>
+                  <div>
+                    {`${TourDate.departDate} ~
+                  ${TourDate.arriveDate}`}
+                  </div>
+                </div>
+                <button
+                  className='ml-auto mr-7'
+                  onClick={() => setTourDateReset()}
+                >
+                  x
+                </button>
+              </div>
             </div>
-            <div className=' border-b my-3  pb-3 '>
-              우주선 명 {tour.spaceship}
-            </div>
-            <div className=' border-b my-3  pb-3'>수량 1개 (1인 1개 한정)</div>
-          </div>
+          )}
 
           <div className='flex md:justify-center items-center gap-4 sm:justify-center'>
             <div className=' w-[53px] h-[53px] flex p-2 rounded-lg items-center border-2 justify-center border-solid border-primary-400 mt-8'>
@@ -87,6 +121,7 @@ function DetailCard({ tour }: { tour: Tour }) {
           </div>
         </div>
       </div>
+
       <div className='md:mx-5 sm:mx-5'>
         <GoodsDetailPageTabSelector
           goodsRating={tour?.rating_avg}

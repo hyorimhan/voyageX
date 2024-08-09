@@ -87,7 +87,18 @@ function TourPaymentSuccess() {
     return () => {
       setTourOrder(null);
     };
-  }, [result]);
+  }, [
+    result,
+    customerInfo,
+    orderId,
+    setTourOrder,
+    tourOrder?.arrive_date,
+    tourOrder?.depart_date,
+    tourOrder?.gate,
+    tourOrder?.qr_code,
+    tourOrder?.tour_id,
+    user,
+  ]);
 
   if (!result || !tourOrder)
     return (

@@ -3,7 +3,6 @@
 import useAuthStore from '@/zustand/store/useAuth';
 import useExpressInfoStore from '@/zustand/store/useExpressInfoStore';
 import useCustomerInfoStore from '@/zustand/store/useCustomrInfoStore';
-import useGoodsOrderStore from '@/zustand/store/useGoodsOrderInfo';
 import { useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import toast from 'react-hot-toast';
@@ -14,6 +13,8 @@ import PriceInfo from './PriceInfo';
 import PayMethodInfo from './PayMethodInfo';
 import AfterPayButtons from './AfterPayButtons';
 import { createOrderReceipt } from '@/services/pay';
+import useGoodsOrderStore from '@/zustand/store/useGoodsOrderInfoStore';
+import { deleteCartItemByGoodsId } from '@/services/goods';
 
 function SuccessPayment() {
   const router = useRouter();
@@ -87,9 +88,20 @@ function SuccessPayment() {
     };
     postReceipt();
     return () => {
+      const ids = goodsOrderInfo?.map((item) => item.goods.id);
+      const response = deleteCartItemByGoodsId({ user_id: user.id, ids: ids! });
+      console.log('deleteCartItemByGoodsId response => ', response);
       setGoodsOrderInfo(null);
     };
-  }, [result]);
+  }, [
+    result,
+    customerInfo,
+    expressAddress,
+    goodsOrderInfo,
+    orderId,
+    setGoodsOrderInfo,
+    user,
+  ]);
 
   if (!result || !goodsOrderInfo)
     return (
@@ -118,7 +130,10 @@ function SuccessPayment() {
       <div className='mb-8'>주문상품 번호 {result.orderId}</div>
       <OrderedGoodsList goodsOrderInfo={goodsOrderInfo} />
       <div className='mt-8 mx-auto max-w-[1120px] flex flex-wrap gap-8 mb-10'>
-        <AddressInfo expressAddress={expressAddress} />
+        <AddressInfo
+          expressAddress={expressAddress}
+          customerInfo={customerInfo!}
+        />
         <PriceInfo amount={+amount} />
         <PayMethodInfo result={result} />
       </div>

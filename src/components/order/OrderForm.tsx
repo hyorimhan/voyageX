@@ -17,6 +17,7 @@ interface OrderFormPropsType {
 }
 
 function OrderForm({ user, isTour }: OrderFormPropsType) {
+  console.log(user);
   const user_id = user.id;
   const user_email = user.email ?? '이메일을 입력해주세요.';
   const [totalPrice, setTotalPrice] = useState(0);
@@ -36,7 +37,11 @@ function OrderForm({ user, isTour }: OrderFormPropsType) {
           </div>
           <div className='mt-4 w-full'>
             {addressList && (
-              <CustomerInfo user_email={user_email} addressList={addressList} />
+              <CustomerInfo
+                isTour={isTour}
+                user_email={user_email}
+                addressList={addressList}
+              />
             )}
           </div>
           <div className='mt-4 w-full'>

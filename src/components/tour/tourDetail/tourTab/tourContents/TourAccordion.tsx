@@ -5,6 +5,7 @@ import { Tour, TourSchedule } from '@/types/tourPropsType';
 import Loading from '@/components/common/Loading';
 import { useQuery } from '@tanstack/react-query';
 import AccordionImg from './AccordionImg';
+import Image from 'next/image';
 
 function TourAccordion({ tour }: { tour: Tour }) {
   const { data: schedule, isLoading } = useQuery<TourSchedule[]>({
@@ -19,18 +20,23 @@ function TourAccordion({ tour }: { tour: Tour }) {
   return (
     <Accordion allowMultiple className='mt-6 mb-60 md:mx-5'>
       {schedule?.map((sche) => (
-        <div className='flex mt-[50px]' key={sche.id}>
-          <div className=' flex-none  flex justify-center items-center border rounded-full w-[74px] h-[74px] mr-4 bg-black-600 '>
-            <div className='text-center'>{sche.day} DAY</div>
-          </div>
+        <div className='lg:flex mt-[50px]' key={sche.id}>
+          <span className=' flex-none sm:hidden sm:h-11 md:hidden  flex justify-center items-center border rounded-full w-[74px] h-[74px] mr-4 bg-black-600 '>
+            <div className='text-center sm:text-sm'>{sche.day} DAY</div>
+          </span>
 
           <AccordionItem
             header={({ state: { isEnter } }) => (
               <div className='flex '>
-                <div className='w-full sm:w-[200px] md:w-[600px] lg:w-[990px] mx-auto text-left'>
+                <span className=' flex-none sm:w-11 sm:h-11 flex justify-center items-center border rounded-full w-[74px] h-[74px] mr-4 lg:hidden bg-black-600 '>
+                  <div className='text-center lg:hidden  sm:text-sm'>
+                    {sche.day} DAY
+                  </div>
+                </span>
+                <div className='w-full md:mt-5 sm:w-[200px] md:w-[400px] sm:mt-2 lg:w-[990px] mx-auto text-left'>
                   {sche.date}
                 </div>
-                <div>
+                <div className='sm:mt-2 md:mt-5'>
                   <AccordionImg isEnter={isEnter} />
                 </div>
               </div>
@@ -38,11 +44,22 @@ function TourAccordion({ tour }: { tour: Tour }) {
             key={sche.id}
             className='overflow-hidden mt-[11px] '
           >
-            <div className='text-sm mt-4'>{sche.description}</div>
+            <div className='text-sm mt-4 '>{sche.description}</div>
             <div className='mt-16 text-sm'>
-              {sche.tour_activities?.schedule1}
+              <div className='flex'>
+                <Image
+                  src={'/icons/16px/spaceDeco.svg'}
+                  alt='space'
+                  width={16}
+                  height={16}
+                />
+                <div className='ml-[18px]'>
+                  {sche.tour_activities?.schedule}
+                </div>
+                <div></div>
+              </div>
             </div>
-            <div className='text-sm'>{sche.tour_activities?.schedule2}</div>
+
             <TourDetailContents
               title='숙박'
               description='본 일정의 숙박 시설은 우주선 내 시설을 이용할 예정입니다'

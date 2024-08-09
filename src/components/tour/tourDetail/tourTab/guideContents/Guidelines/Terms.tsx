@@ -1,5 +1,4 @@
-import { AccordionItem } from '@szhsin/react-accordion';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import AccordionImg from '../../tourContents/AccordionImg';
 
 function Terms() {

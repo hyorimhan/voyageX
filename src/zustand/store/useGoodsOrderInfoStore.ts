@@ -1,7 +1,7 @@
 import { ItemToBuyType } from '@/types/goods';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
-import CryptoJS, { enc } from 'crypto-js';
+import CryptoJS from 'crypto-js';
 
 type ItemListType = {
   goodsOrderInfo: ItemToBuyType[] | null;

@@ -5,16 +5,48 @@ import { getMyPosts } from '@/services/community';
 import { MyPost } from '@/types/communityType';
 import useAuthStore from '@/zustand/store/useAuth';
 import { useQuery } from '@tanstack/react-query';
+import Image from 'next/image';
+import Link from 'next/link';
 
 const MyPostList = () => {
   const { user } = useAuthStore();
   const user_id = user?.id;
 
-  const { data: posts } = useQuery<MyPost[]>({
+  const {
+    data: posts,
+    isLoading,
+    isError,
+  } = useQuery<MyPost[]>({
     queryKey: ['posts', user_id],
     queryFn: () => getMyPosts(user_id),
   });
 
+  if (isLoading) {
+    return <div>로딩 중...</div>;
+  }
+
+  if (isError || !posts || posts.length === 0) {
+    return (
+      <div className='flex flex-col justify-center items-center gap-9 mt-16'>
+        <Image
+          src='/images/arcticons_spacenow.svg'
+          alt='spacenow'
+          width={80}
+          height={80}
+        />
+        <div>
+          <p className='text-xl'>작성한 글이 없습니다.</p>
+          <p className='text-sm mt-[7px]'>새로운 글을 작성해 채워보세요.</p>
+        </div>
+        <Link
+          href={'/community'}
+          className='h-[43px] w-[230px] bg-primary-600 rounded-md text-black-50 justify-center items-center flex hover:bg-primary-400 active:bg-primary-500'
+        >
+          FREE BOARD 바로가기
+        </Link>
+      </div>
+    );
+  }
   return (
     <>
       {posts?.map((post) => {
