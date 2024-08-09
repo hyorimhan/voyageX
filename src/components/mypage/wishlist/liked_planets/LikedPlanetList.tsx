@@ -24,7 +24,7 @@ function LikedPlanetList({ user_id }: LikedPlanetListPropsType) {
   if (isPending) return <Loading />;
 
   return (
-    <ul className='text-black-50 mb-4 grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
+    <ul className='text-black-50 mb-4 grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3'>
       {likedTours.length
         ? likedTours.map((item) => (
             <LikedPlanetItem

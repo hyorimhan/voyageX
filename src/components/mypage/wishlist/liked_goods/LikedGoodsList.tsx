@@ -16,7 +16,7 @@ function LikedGoodsList({ user_id }: LikedGoodsListPropsType) {
   if (isError) return <div>에러</div>;
   if (isPending) return <Loading />;
   return (
-    <ul className='text-black-50 mb-4 grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
+    <ul className='text-black-50 grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3'>
       {likedGoods.length
         ? likedGoods.map((item) => (
             <GoodsItem
