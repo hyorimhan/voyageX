@@ -1,18 +1,23 @@
 import { dateType } from '@/types/tour';
 import { create } from 'zustand';
-import { createJSONStorage, persist } from 'zustand/middleware';
 
-export const useTourDate = create<dateType>()(
-  persist(
-    (set) => ({
-      departDate: null,
-      arriveDate: null,
-      setDepartDate: (depart) => set({ departDate: depart }),
-      setArriveDate: (arrive) => set({ arriveDate: arrive }),
+export const useTourDate = create<dateType>((set) => ({
+  tourDate: {
+    departDate: null,
+    arriveDate: null,
+  },
+  setTourDate: (depart, arrive) =>
+    set({
+      tourDate: {
+        departDate: depart,
+        arriveDate: arrive,
+      },
     }),
-    {
-      name: 'tourDate-storage',
-      storage: createJSONStorage(() => sessionStorage),
-    },
-  ),
-);
+  setTourDateReset: () =>
+    set({
+      tourDate: {
+        departDate: null,
+        arriveDate: null,
+      },
+    }),
+}));

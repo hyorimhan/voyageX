@@ -11,6 +11,8 @@ import CartTotalPrice from './CartTotalPrice';
 import CartButtonContainer from './CartButtonContainer';
 import CartItemSelector from './CartItemSelector';
 import GenericModal from '@/components/common/GenericModal';
+import Image from 'next/image';
+import Link from 'next/link';
 
 function MyCart({ user_id }: WishListPropsType) {
   const [totalPrice, setTotalPrice] = useState(0);
@@ -89,6 +91,29 @@ function MyCart({ user_id }: WishListPropsType) {
 
   if (isError) return <div>에러</div>;
   if (isPending) return <Loading />;
+
+  if (!cartList || cartList.length === 0) {
+    return (
+      <div className='flex flex-col justify-center items-center gap-9 mt-16'>
+        <Image
+          src='/images/arcticons_spacenow.svg'
+          alt='spacenow'
+          width={80}
+          height={80}
+        />
+        <div className='flex flex-col items-center'>
+          <p className='text-xl'>장바구니에 담은 상품이 없습니다.</p>
+          <p className='text-sm mt-[7px]'>다양한 상품을 둘러보고 채워보세요.</p>
+        </div>
+        <Link
+          href={'/shop'}
+          className='h-[43px] w-[230px] bg-primary-600 rounded-md text-black-50 justify-center items-center flex hover:bg-primary-400 active:bg-primary-500'
+        >
+          GOODS SHOP 바로가기
+        </Link>
+      </div>
+    );
+  }
 
   return (
     <div>

@@ -8,6 +8,7 @@ const useScrollTrigger = (
   videoLoaded: boolean,
   sectionsRef: React.MutableRefObject<(HTMLDivElement | null)[]>
 ) => {
+
   useEffect(() => {
     if (videoLoaded && sectionsRef.current.length > 0) {
       sectionsRef.current.forEach((section) => {

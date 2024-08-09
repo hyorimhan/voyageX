@@ -457,24 +457,21 @@ export type Database = {
           days: number | null
           id: string
           meal: string | null
-          schedule1: string | null
-          schedule2: string | null
+          schedule: string | null
           tour_img: string | null
         }
         Insert: {
           days?: number | null
           id?: string
           meal?: string | null
-          schedule1?: string | null
-          schedule2?: string | null
+          schedule?: string | null
           tour_img?: string | null
         }
         Update: {
           days?: number | null
           id?: string
           meal?: string | null
-          schedule1?: string | null
-          schedule2?: string | null
+          schedule?: string | null
           tour_img?: string | null
         }
         Relationships: []

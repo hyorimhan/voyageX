@@ -1,3 +1,4 @@
+import { phoneValidate } from '@/utils/tourValidation';
 import { useState, ChangeEvent } from 'react';
 
 const addressForm = (initialData: any) => {
@@ -21,18 +22,7 @@ const addressForm = (initialData: any) => {
   const [recipientError, setRecipientError] = useState<string>('');
 
   const handlePhoneChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const rawValue = e.target.value.replace(/[^0-9]/g, '');
-    let formattedValue = '';
-    if (rawValue.length <= 3) {
-      formattedValue = rawValue;
-    } else if (rawValue.length <= 7) {
-      formattedValue = `${rawValue.slice(0, 3)}-${rawValue.slice(3)}`;
-    } else {
-      formattedValue = `${rawValue.slice(0, 3)}-${rawValue.slice(
-        3,
-        7,
-      )}-${rawValue.slice(7, 11)}`;
-    }
+    const formattedValue = phoneValidate(e);
     setPhone(formattedValue);
 
     if (!/^(\d{3}-\d{4}-\d{4})$/.test(formattedValue)) {

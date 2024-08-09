@@ -4,7 +4,7 @@ interface CartTotalPricePropsType {
 
 function CartTotalPrice({ totalPrice }: CartTotalPricePropsType) {
   return (
-    <div className='border-t-2 border-white my-4'>
+    <div className='border-t border-white my-4'>
       <div className='flex flex-row justify-evenly p-4'>
         <div className='flex flex-col items-center'>
           <span className='text-base'>총 주문금액</span>
