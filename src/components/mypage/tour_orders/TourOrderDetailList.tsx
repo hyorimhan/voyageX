@@ -68,7 +68,7 @@ const TourOrderDetailList = ({ order_id }: TourOrderDetailListProps) => {
       </div>
       <div className='border-b-[1px] border-solid border-white mt-8'></div>
       <div className='flex flex-col gap-9'>
-        <div className='border-[1px] border-white p-5 rounded-lg mt-8'>
+        <div className='border-[1px] border-black-300 p-5 rounded-lg mt-8'>
           <div className='flex gap-[10px]'>
             <p className='text-xl'>주문상품 정보</p>
             <p className='text-lg'>총 1개</p>
@@ -82,20 +82,27 @@ const TourOrderDetailList = ({ order_id }: TourOrderDetailListProps) => {
               width={104}
             />
             <div className='ml-[18px] flex justify-between w-full'>
-              <div className='flex flex-col gap-2 justify-center'>
-                <p>우주</p>
-                <p>{order.planet.name}</p>
+              <div className='flex flex-col justify-center'>
+                <p className='text-sm'>6박 7일 패키지</p>
+                <div className='text-lg font-semibold flex gap-2 mt-1'>
+                  <p className='text-lg font-semibold'>{order.planet.name}</p>
+                  <p>{order.planet.english_name}</p>
+                </div>
+                <div className='flex gap-2'>
+                  <p>{order.tour.price.toLocaleString()}원</p>
+                  <p>|</p>
+                  <p>수량 1개</p>
+                </div>
               </div>
-              <div className='flex flex-col w-[122px] justify-center gap-2 border-l-[1px] px-4'>
-                <p>{order.tour.price.toLocaleString()}원</p>
-                <p className='text-sm'>1 개</p>
+              <div className='flex w-[126px] justify-center items-center gap-2 border-l-[1px] border-black-300'>
+                <p>구매확정</p>
               </div>
             </div>
           </div>
         </div>
-        <div className='flex flex-col border-[1px] rounded-lg p-5'>
+        <div className='flex flex-col border-[1px] rounded-lg p-5 border-black-300'>
           <p className='h-9 border-b-[1px] border-black-700'>결제정보</p>
-          <div className='h-[77px] flex flex-col gap-4 border-b-[1px] mt-4'>
+          <div className='h-[77px] flex flex-col gap-4 border-b-[1px] mt-4 border-black-50'>
             <div className='flex w-full justify-between text-sm'>
               <p>총 주문 금액</p>
               <p>{order.tour.price.toLocaleString()}원</p>
@@ -111,7 +118,7 @@ const TourOrderDetailList = ({ order_id }: TourOrderDetailListProps) => {
           </div>
         </div>
         <div className='flex gap-8'>
-          <div className='flex p-5 w-full flex-col border-[1px] rounded-lg'>
+          <div className='flex p-5 w-full flex-col border-[1px] rounded-lg border-black-300'>
             <p className='h-9 border-b-[1px] border-black-700 text-xl'>
               결제 수단
             </p>

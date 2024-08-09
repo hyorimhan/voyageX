@@ -19,8 +19,6 @@ const GoodsOrderDetailList = ({ order_id }: GoodsOrderDetailListProps) => {
     queryFn: () => getGoodsOrderDetail(order_id),
   });
 
-  console.log(goodsOrdersDetail);
-
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error loading order details</div>;
   if (!goodsOrdersDetail || goodsOrdersDetail.length === 0)
