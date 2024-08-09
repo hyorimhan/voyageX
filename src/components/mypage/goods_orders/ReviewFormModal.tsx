@@ -9,8 +9,9 @@ import { createClient } from '@/supabase/client';
 
 type ReviewFormModallProps = {
   onClose: () => void;
-  goodsId: string;
+  goodsId?: string;
   userId: string;
+  order_id?: string;
 };
 
 const supabase = createClient();
@@ -19,6 +20,7 @@ const ReviewFormModal: React.FC<ReviewFormModallProps> = ({
   onClose,
   goodsId,
   userId,
+  order_id,
 }) => {
   const [review, setReview] = useState('');
   const [invalidMsg, setInvalidMsg] = useState('');
