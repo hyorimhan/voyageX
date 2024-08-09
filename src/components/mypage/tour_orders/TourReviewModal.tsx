@@ -3,22 +3,22 @@
 import StarFalseIcon32px from '@/components/common/icons/32px/StarFalseIcon32px';
 import StarTrueIcon32px from '@/components/common/icons/32px/StarTrueIcon32px';
 import React, { useState } from 'react';
-import TextArea from './TextArea';
 import CloseIcon32px from '@/components/common/icons/32px/CloseIcon32px';
 import { createClient } from '@/supabase/client';
+import TextArea from '../goods_orders/TextArea';
 
-type ReviewFormModallProps = {
+type TourReviewModalProps = {
   onClose: () => void;
-  goodsId?: string;
+  tourId?: string;
   userId: string;
   order_id?: string;
 };
 
 const supabase = createClient();
 
-const ReviewFormModal: React.FC<ReviewFormModallProps> = ({
+const TourReviewModal: React.FC<TourReviewModalProps> = ({
   onClose,
-  goodsId,
+  tourId,
   userId,
   order_id,
 }) => {
@@ -37,20 +37,20 @@ const ReviewFormModal: React.FC<ReviewFormModallProps> = ({
     }
 
     const { data: getReviewId, error: isReviewedError } = await supabase
-      .from('goods_orders')
+      .from('tour_orders')
       .select('review_id')
-      .match({ order_id, goods_id: goodsId })
+      .match({ id: order_id, tour_id: tourId })
       .single();
     const isReviewed = !!getReviewId?.review_id;
     if (!isReviewed) {
       const review_id = crypto.randomUUID();
-      const { data, error } = await supabase.from('goods_reviews').insert([
+      const { data, error } = await supabase.from('tour_reviews').insert([
         {
           id: review_id,
           user_id: userId,
-          goods_id: goodsId,
-          rating,
+          tour_id: tourId!,
           review,
+          rating,
         },
       ]);
       if (error) {
@@ -59,9 +59,9 @@ const ReviewFormModal: React.FC<ReviewFormModallProps> = ({
       }
       const { data: createReviewId, error: createReviewIdError } =
         await supabase
-          .from('goods_orders')
+          .from('tour_orders')
           .update({ review_id: review_id })
-          .match({ order_id, goods_id: goodsId });
+          .match({ id: order_id, tour_id: tourId });
       if (createReviewIdError) {
         console.log('createReviewIdError => ', createReviewIdError);
       }
@@ -70,16 +70,12 @@ const ReviewFormModal: React.FC<ReviewFormModallProps> = ({
       onClose();
     } else {
       const { data, error } = await supabase
-        .from('goods_reviews')
+        .from('tour_reviews')
         .update({
           rating,
           review,
         })
-        .match({
-          id: getReviewId.review_id,
-          user_id: userId,
-          goods_id: goodsId,
-        });
+        .match({ id: getReviewId.review_id, user_id: userId, tour_id: tourId });
       if (error) {
         console.log('리뷰 수정 에러: ', error);
         setInvalidMsg('리뷰 수정 중 오류가 발생했습니다.');
@@ -148,4 +144,4 @@ const ReviewFormModal: React.FC<ReviewFormModallProps> = ({
   );
 };
 
-export default ReviewFormModal;
+export default TourReviewModal;

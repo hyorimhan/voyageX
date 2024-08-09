@@ -23,6 +23,7 @@ export type TourOrderType = {
   pay_method: string;
   installment: string;
   length: number;
+  review_id?: string;
 };
 
 export type PlanetType = {
