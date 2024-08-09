@@ -1,7 +1,7 @@
 import { phoneValidate } from '@/utils/tourValidation';
 import { useState, ChangeEvent } from 'react';
 
-const addressForm = (initialData: any) => {
+const AddressForm = (initialData: any) => {
   const [postcode, setPostcode] = useState<string>(initialData?.postcode || '');
   const [newAddress, setNewAddress] = useState<string>(
     initialData?.address || '',
@@ -75,4 +75,4 @@ const addressForm = (initialData: any) => {
   };
 };
 
-export default addressForm;
+export default AddressForm;
