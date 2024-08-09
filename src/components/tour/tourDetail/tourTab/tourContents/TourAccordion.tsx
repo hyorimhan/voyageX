@@ -56,7 +56,14 @@ function TourAccordion({ tour }: { tour: Tour }) {
                 <div className='ml-[18px]'>
                   {sche.tour_activities?.schedule}
                 </div>
-                <div></div>
+                <div>
+                  {/* <Image
+                    src={sche.tour_activities?.tour_img}
+                    alt='tour_img'
+                    width={210}
+                    height={140}
+                  /> */}
+                </div>
               </div>
             </div>
 
