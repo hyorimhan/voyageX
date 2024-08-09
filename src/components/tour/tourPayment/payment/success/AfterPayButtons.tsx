@@ -1,18 +1,18 @@
 import Link from 'next/link';
 
-function AfterPayButtons() {
+function AfterPayButtons({ orderId }: { orderId: string }) {
   return (
-    <div className='flex gap-4 md:w-[335px] sm:w-[335px] sm:mx-auto md:mx-auto'>
-      <div>
-        <Link href={`/mypage/tour_orders`}>
-          <button className='border-[1.5px]  border-primary-400 h-[53px] w-[277.5px] md:w-[163.5px] sm:w-[163.5px] rounded-lg bg-transparent transition-colors duration-200 hover:bg-primary-200 hover:text-black-1000 active:bg-primary-300'>
+    <div className='flex gap-4 w-[571px] sm:w-full sm:mx-auto'>
+      <div className='sm:flex-grow '>
+        <Link href={`/mypage/tour_orders/${orderId}`}>
+          <button className='border-[1.5px] w-[277.5px] sm:w-full border-primary-400 h-[53px]  rounded-lg bg-transparent transition-colors duration-200 hover:bg-primary-200 hover:text-black-1000 active:bg-primary-300'>
             주문상세 보기
           </button>
         </Link>
       </div>
-      <div>
+      <div className='sm:flex-grow'>
         <Link href={'/tour'}>
-          <button className='md:w-[163.5px] sm:w-[163.5px] bg-primary-600 h-[53px] w-[277.5px] rounded-lg duration-200 hover:bg-primary-400 active:bg-primary-500'>
+          <button className=' sm:w-full w-[277.5px] bg-primary-600 h-[53px] rounded-lg duration-200 hover:bg-primary-400 active:bg-primary-500'>
             쇼핑 계속하기
           </button>
         </Link>
