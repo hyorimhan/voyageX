@@ -11,7 +11,6 @@ import VideoSection from '@/components/main/VideoSection';
 import { Planet } from '@/services/tour';
 import { useQuery } from '@tanstack/react-query';
 import { getPlanetsList } from '@/services/plants';
-import Page from '@/components/pages/Page';
 
 // TODO localhost:3000   페이지에서 tourID 를 받아올 방법이 없어요.
 const MainPage = () => {
