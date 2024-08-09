@@ -12,15 +12,19 @@ const VideoSection: React.FC<VideoSectionProps> = ({ videoSrc, heading, subHeadi
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
   useEffect(() => {
-    if (videoRef.current) {
-      const videoElement = videoRef.current;
-      const checkVideoLoaded = () => {
-        if (videoElement.readyState >= 3) {
-          setVideoLoaded(true);
-        }
-      };
-      checkVideoLoaded();
-    }
+    setTimeout(() => {
+      if (videoRef.current) {
+        const videoElement = videoRef.current;
+        console.log(videoElement.readyState)
+        const checkVideoLoaded = () => {
+          console.log("videoElementvideoElementvideoElementvideoElementvideoElement", videoElement)
+          if (videoElement.readyState >= 3) {
+            setVideoLoaded(true);
+          }
+        };
+        checkVideoLoaded();
+      }
+    }, 1000)
   }, [setVideoLoaded]);
 
   return (
