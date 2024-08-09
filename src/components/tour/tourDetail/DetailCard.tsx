@@ -46,7 +46,7 @@ function DetailCard({ tour }: { tour: Tour }) {
 
     router.push(`/tour/payment/`);
   };
-
+  console.log(tour);
   return (
     <>
       <div
