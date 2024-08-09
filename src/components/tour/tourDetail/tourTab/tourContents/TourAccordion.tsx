@@ -51,18 +51,22 @@ function TourAccordion({ tour }: { tour: Tour }) {
                   src={'/icons/16px/spaceDeco.svg'}
                   alt='space'
                   width={16}
-                  height={16}
+                  height={160}
+                  className='h-[160px] object-cover'
                 />
-                <div className='ml-[18px]'>
-                  {sche.tour_activities?.schedule}
-                </div>
-                <div>
-                  {/* <Image
-                    src={sche.tour_activities?.tour_img}
-                    alt='tour_img'
-                    width={210}
-                    height={140}
-                  /> */}
+                <div className='h-[160px]'>
+                  <div className='ml-6 mb-4'>
+                    {sche.tour_activities?.schedule}
+                  </div>
+                  <div className='w-[210px] h-[140px] ml-6 '>
+                    <Image
+                      src={sche.tour_activities?.tour_img!}
+                      alt='tour_img'
+                      width={210}
+                      height={120}
+                      className='w-[210px] h-[120px] object-cover'
+                    />
+                  </div>
                 </div>
               </div>
             </div>
