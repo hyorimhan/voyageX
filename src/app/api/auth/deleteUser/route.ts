@@ -14,6 +14,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: '유저 ID를 찾을 수 없습니다.' });
     }
 
+    await supabase.from('liked_goods').delete().eq('user_id', userId);
+
     const { error } = await supabase.auth.admin.deleteUser(userId);
 
     if (error) {

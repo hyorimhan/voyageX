@@ -80,9 +80,12 @@ function SuccessPayment() {
         order_id: orderId,
         goodsList: goodsOrderInfo!,
         customer: customerInfo!,
-        address_id: expressAddress!.id,
         pay_method,
         installment,
+        address: expressAddress?.address!,
+        old_address: expressAddress?.oldAddress!,
+        detail_address: expressAddress?.detailAddress!,
+        postcode: expressAddress?.postcode!,
       });
       console.log('response => ', response);
     };
