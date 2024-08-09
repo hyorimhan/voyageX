@@ -1,6 +1,7 @@
 import { createClient } from '@/supabase/client';
 import axios from 'axios';
 import { toggleLikeToursParamsType, TourOrderType } from '@/types/tour';
+import { Tour } from '@/types/tourPropsType';
 
 const supabase = createClient();
 
@@ -12,14 +13,6 @@ export interface Planet {
   title: string | null;
   english_name: string | null;
   price?: number;
-}
-
-export interface Tour {
-  price: number;
-  tag: string;
-  id: string;
-  spaceship: string | null;
-  planets: Planet[];
 }
 
 export interface tourProps {
@@ -47,17 +40,11 @@ export const tourList = async (): Promise<Tour[]> => {
     throw error;
   }
 
-  return (tours ?? []).map(tour => ({
-    ...tour,
-    planets: Array.isArray(tour.planets) ? tour.planets.map((planet: Planet) => ({
-      ...planet,
-      price: tour.price,
-    })) : []
-  })) as Tour[];
+  return tours || [];
 };
 
 // 투어 상세
-export const tourDetail = async (id: string): Promise<Tour> => {
+export const tourDetail = async (id: string): Promise<Tour[]> => {
   const { data: tour, error } = await supabase
     .from('tours')
     .select(
@@ -76,23 +63,11 @@ export const tourDetail = async (id: string): Promise<Tour> => {
     `,
     )
     .eq('id', id)
-    .single();
 
   if (error || !tour) {
     throw new Error('Tour Not Found');
   }
-
-  const normalizedTour: Tour = {
-    ...tour,
-    planets: Array.isArray(tour.planets)
-      ? tour.planets.map((planet: Planet) => ({
-          ...planet,
-          price: tour.price, // tour의 가격을 planet에 추가
-        }))
-      : [],
-  };
-
-  return normalizedTour;
+  return tour;
 };
 
 // 투어 일정, 날짜

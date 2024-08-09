@@ -1,7 +1,8 @@
-import { useQuery, UseQueryResult } from '@tanstack/react-query';
-import { tourList, Tour } from '@/services/tour';
+import { useQuery } from '@tanstack/react-query';
+import { tourList } from '@/services/tour';
+import { Tour } from '@/types/tourPropsType';
 
-const useFetchTourDetail = (): UseQueryResult<Tour[], Error> => {
+const useFetchTourDetail = () => {
   return useQuery<Tour[], Error>({
     queryKey: ['tourList'],
     queryFn: tourList,
