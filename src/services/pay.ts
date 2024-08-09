@@ -7,9 +7,12 @@ type createOrderReceiptParamsType = {
   order_id: string;
   goodsList: ItemToBuyType[];
   customer: Customer;
-  address_id: string;
   pay_method: string;
   installment?: number;
+  address: string;
+  old_address: string;
+  detail_address: string;
+  postcode: string;
 };
 
 export const createOrderReceipt = async ({
@@ -17,9 +20,12 @@ export const createOrderReceipt = async ({
   order_id,
   goodsList,
   customer,
-  address_id,
   pay_method,
   installment,
+  address,
+  old_address,
+  detail_address,
+  postcode,
 }: createOrderReceiptParamsType) => {
   for (const goods of goodsList) {
     const response = await axios.post(`/api/goods/pay/${user_id}`, {
@@ -28,10 +34,14 @@ export const createOrderReceipt = async ({
       quantity: goods.quantity,
       total_price: goods.goods.goods_price * goods.quantity,
       customer,
-      address_id,
       pay_method,
       installment,
+      address,
+      old_address,
+      detail_address,
+      postcode,
     });
+    console.log('createOrderReceipt response => ', response);
   }
 };
 

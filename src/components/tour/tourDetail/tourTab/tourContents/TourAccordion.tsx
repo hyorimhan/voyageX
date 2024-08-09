@@ -27,16 +27,17 @@ function TourAccordion({ tour }: { tour: Tour }) {
 
           <AccordionItem
             header={({ state: { isEnter } }) => (
-              <div className='flex '>
+              <div className='flex'>
                 <span className=' flex-none sm:w-11 sm:h-11 flex justify-center items-center border rounded-full w-[74px] h-[74px] mr-4 lg:hidden bg-black-600 '>
                   <div className='text-center lg:hidden  sm:text-sm'>
                     {sche.day} DAY
                   </div>
                 </span>
-                <div className='w-full md:mt-5 sm:w-[200px] md:w-[400px] sm:mt-2 lg:w-[990px] mx-auto text-left'>
+
+                <div className='w-60 md:mt-5  md:w-[400px] sm:mt-2 lg:w-[990px] mx-auto text-left'>
                   {sche.date}
                 </div>
-                <div className='sm:mt-2 md:mt-5'>
+                <div className='sm:mt-2 md:mt-5 sm:w-full '>
                   <AccordionImg isEnter={isEnter} />
                 </div>
               </div>
@@ -51,12 +52,23 @@ function TourAccordion({ tour }: { tour: Tour }) {
                   src={'/icons/16px/spaceDeco.svg'}
                   alt='space'
                   width={16}
-                  height={16}
+                  height={160}
+                  className='h-[160px] object-cover'
                 />
-                <div className='ml-[18px]'>
-                  {sche.tour_activities?.schedule}
+                <div className='h-[160px]'>
+                  <div className='ml-6 mb-4'>
+                    {sche.tour_activities?.schedule}
+                  </div>
+                  <div className='w-[210px] h-[140px] ml-6 '>
+                    <Image
+                      src={sche.tour_activities?.tour_img!}
+                      alt='tour_img'
+                      width={210}
+                      height={120}
+                      className='w-[210px] h-[120px] object-cover'
+                    />
+                  </div>
                 </div>
-                <div></div>
               </div>
             </div>
 

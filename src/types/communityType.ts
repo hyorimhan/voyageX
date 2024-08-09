@@ -19,7 +19,7 @@ export interface MyPost extends Post {
   comments: number;
 }
 
-export type Like = {
-  post_id: string;
-  user_id: string;
-};
+export interface Community extends Post {
+  comments: number;
+  likes?: number;
+}

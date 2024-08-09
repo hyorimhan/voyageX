@@ -25,20 +25,17 @@ const GoodsOrderDetailList = ({ order_id }: GoodsOrderDetailListProps) => {
     return <div>주문 내역이 없습니다.</div>;
 
   const totalOrderPrice = goodsOrdersDetail.reduce(
-    (acc, item) => acc + item.order.total_price,
+    (acc, item) => acc + item.total_price,
     0,
   );
   const totalExpressCost = goodsOrdersDetail.reduce(
-    (acc, item) => acc + item.order.express_cost,
+    (acc, item) => acc + item.express_cost,
     0,
   );
   const totalQuantity = goodsOrdersDetail.reduce(
-    (acc, item) => acc + item.order.quantity,
+    (acc, item) => acc + item.quantity,
     0,
   );
-
-  const paymentInfo = goodsOrdersDetail[0].order;
-  const addressInfo = goodsOrdersDetail[0].address;
 
   const formatDateTime = (dateString: string) => {
     const optionsDate: Intl.DateTimeFormatOptions = {
@@ -76,7 +73,7 @@ const GoodsOrderDetailList = ({ order_id }: GoodsOrderDetailListProps) => {
       <div className='flex gap-8'>
         <div className='flex gap-2'>
           <p>주문일자</p>
-          <p>{formatOrderDate(paymentInfo.pay_at)}</p>
+          <p>{formatOrderDate(goodsOrdersDetail[0].pay_at)}</p>
         </div>
         <div className='flex gap-2'>
           <p>주문번호</p>
@@ -106,7 +103,7 @@ const GoodsOrderDetailList = ({ order_id }: GoodsOrderDetailListProps) => {
                 </div>
                 <div className='flex flex-col w-[122px] justify-center gap-2 border-l-[1px] px-4'>
                   <p>{item.goods.goods_price.toLocaleString()}원</p>
-                  <p className='text-sm'>수량 {item.order.quantity}개</p>
+                  <p className='text-sm'>수량 {item.quantity}개</p>
                 </div>
               </div>
             </div>
@@ -141,15 +138,17 @@ const GoodsOrderDetailList = ({ order_id }: GoodsOrderDetailListProps) => {
                 <p>배송지 정보</p>
               </div>
               <div className='flex flex-col gap-4 w-[277px]'>
-                <p>{paymentInfo.recipient}</p>
-                <p>{paymentInfo.phone}</p>
+                <p>{goodsOrdersDetail[0].recipient}</p>
+                <p>{goodsOrdersDetail[0].phone}</p>
                 <div>
-                  <p>({addressInfo.postcode})</p>
+                  <p>({goodsOrdersDetail[0].postcode})</p>
                   <p>
-                    도로명 : {addressInfo.address} {addressInfo.detailAddress}
+                    도로명 : {goodsOrdersDetail[0].address}{' '}
+                    {goodsOrdersDetail[0].detail_address}
                   </p>
                   <p>
-                    지번 : {addressInfo.oldAddress} {addressInfo.detailAddress}
+                    지번 : {goodsOrdersDetail[0].old_address}{' '}
+                    {goodsOrdersDetail[0].detail_address}
                   </p>
                 </div>
               </div>
@@ -167,13 +166,13 @@ const GoodsOrderDetailList = ({ order_id }: GoodsOrderDetailListProps) => {
                 <p>주문 상태</p>
               </div>
               <div className='flex flex-col gap-5'>
-                <p>{paymentInfo.pay_method}</p>
+                <p>{goodsOrdersDetail[0].pay_method}</p>
                 <p>
-                  {paymentInfo.installment
-                    ? `${paymentInfo.installment}개월`
+                  {goodsOrdersDetail[0].installment
+                    ? `${goodsOrdersDetail[0].installment}개월`
                     : '일시불'}
                 </p>
-                <p>{formatDateTime(paymentInfo.pay_at)}</p>
+                <p>{formatDateTime(goodsOrdersDetail[0].pay_at)}</p>
                 <p>결제완료</p>
               </div>
             </div>

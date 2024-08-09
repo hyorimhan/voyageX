@@ -46,7 +46,7 @@ function DetailCard({ tour }: { tour: Tour }) {
 
     router.push(`/tour/payment/`);
   };
-
+  console.log(tour);
   return (
     <>
       <div
@@ -78,13 +78,21 @@ function DetailCard({ tour }: { tour: Tour }) {
             {tour.price?.toLocaleString()}원
           </div>
 
-          <DetailInfo description={<DetailDate />} borderTop={'border-t'} />
+          <DetailInfo
+            title={
+              <span className='hidden sm:block  sm:whitespace-nowrap'>
+                여행 기간
+              </span>
+            }
+            description={<DetailDate />}
+            borderTop={'border-t'}
+          />
           <DetailInfo title={'출발지'} description={'대전, 한국'} />
           <DetailInfo title={'우주선 명'} description={`${tour.spaceship}`} />
           <DetailInfo title={'우주선 코드'} description={`${tour.ship_code}`} />
 
           {TourDate.departDate && (
-            <div className='h-[82px] mt-10 grid-cols-2  border-b border-b-white'>
+            <div className='h-[84px] lg:pt-3 mt-10 grid-cols-2 pl-2 bg-black-800 border-b border-b-white'>
               <div className='flex'>
                 <div>
                   <div className='mb-2'>
@@ -99,7 +107,7 @@ function DetailCard({ tour }: { tour: Tour }) {
                   </div>
                 </div>
                 <button
-                  className='ml-auto mr-7'
+                  className='ml-auto mr-5'
                   onClick={() => setTourDateReset()}
                 >
                   x

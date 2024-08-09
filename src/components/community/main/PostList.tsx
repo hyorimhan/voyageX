@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useQuery } from '@tanstack/react-query';
 import { getPostAll, getPostByCategory } from '@/services/community';
-import { MyPost } from '@/types/communityType';
+import { Community } from '@/types/communityType';
 import { useCategory } from '@/zustand/store/useCategory';
 import CategoryBadge from '../common/CategoryBadge';
 import Loading from '@/components/common/Loading';
@@ -14,7 +14,7 @@ const PostList = () => {
     data: posts,
     isPending,
     isError,
-  } = useQuery<MyPost[]>({
+  } = useQuery<Community[]>({
     queryKey: ['post', selectedCategory],
     queryFn:
       selectedCategory === 'All'
@@ -51,8 +51,8 @@ const PostList = () => {
             댓글
           </span>
         </div>
-        {posts.map((post, index) => (
-          <Link href={post.id} key={post.id}>
+        {posts.map((post) => (
+          <Link href={`/community/${post.id}`} key={post.id}>
             <div className='flex py-4 gap-x-4 items-center group'>
               <span className='flex-none w-32 p-2 text-center'>
                 <CategoryBadge category={post.category} />
@@ -63,7 +63,9 @@ const PostList = () => {
               <span className='flex-none w-32 p-2 text-center'>
                 {new Date(post.created_at).toLocaleDateString()}
               </span>
-              <span className='flex-none w-20 p-2 text-center'>-</span>
+              <span className='flex-none w-20 p-2 text-center'>
+                {post.likes}
+              </span>
               <span className='flex-none w-20 p-2 text-center'>
                 {post.comments}
               </span>

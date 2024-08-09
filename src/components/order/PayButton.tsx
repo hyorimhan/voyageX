@@ -55,7 +55,7 @@ function PayButton({ totalPrice, isTour }: PayButtonPropsType) {
         toast.error('상품을 다시 선택해주세요!');
         return;
       } else {
-        orderName = `${goodsOrderInfo[0].goods.goods_name} 등 총 ${goodsOrderInfo.length}건`;
+        orderName = `${goodsOrderInfo[0].goods.goods_name} ${goodsOrderInfo[0].quantity}개 등 총 ${goodsOrderInfo.length}건`;
       }
     }
 
