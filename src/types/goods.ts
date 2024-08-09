@@ -39,12 +39,32 @@ export type OrderType = {
 };
 
 export type GoodsOrdersType = {
-  id: string;
-  goods_id: string;
-  goods: GoodsType;
-  order: OrderType;
+  user_id: string;
   pay_at: string;
+  goods_id: string;
+  id: string;
   quantity: number;
   state: string;
-  address: Address;
+  total_price: number;
+  express_cost: number;
+  recipient: string;
+  phone: string;
+  pay_method: string;
+  installment: number;
+  address: string;
+  old_address: string;
+  detail_address: string;
+  postcode: string;
+  order_id: string;
+  review_id: null;
+  goods: {
+    id: string;
+    goods_img: string;
+    created_at: string;
+    goods_name: string;
+    like_count: number;
+    rating_avg: number;
+    description: string;
+    goods_price: number;
+  };
 };
