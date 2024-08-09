@@ -99,7 +99,7 @@ function DetailCard({ tour }: { tour: Tour }) {
                   </div>
                 </div>
                 <button
-                  className='ml-auto mr-5'
+                  className='ml-auto mr-7'
                   onClick={() => setTourDateReset()}
                 >
                   x

@@ -65,9 +65,9 @@ export const tourSchedule = async (id: string) => {
     date,
     description,
     tour_activities (
-    schedule1,
-    schedule2,
-    meal
+    schedule,
+    meal,
+    tour_img
     )
     `,
     )

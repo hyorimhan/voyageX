@@ -86,8 +86,8 @@ function PayButton({ totalPrice, isTour }: PayButtonPropsType) {
 
   return (
     <>
-      <div className='border-2 border-black-300 px-4 py-4 rounded-lg mt-4 flex flex-col items-start gap-y-5'>
-        <div className='border-b-2 border-black-700 w-full py-[10px]'>
+      <div className='border-[1px] border-black-300 px-4 py-4 rounded-lg mt-4 flex flex-col items-start gap-y-5'>
+        <div className='border-b border-black-700 w-full py-[10px]'>
           <p className='text-xl'>주문동의</p>
         </div>
         <div className='flex flex-row items-center justify-center gap-2'>

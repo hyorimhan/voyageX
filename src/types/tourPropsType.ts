@@ -23,9 +23,9 @@ export type TourSchedule = {
   date: string | null;
   description: string | null;
   tour_activities: {
-    schedule1: string | null;
-    schedule2: string | null;
+    schedule: string | null;
     meal: string | null;
+    tour_img: string | null;
   } | null;
 };
 
