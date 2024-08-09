@@ -1,13 +1,12 @@
-import { createClient } from '@/supabase/client';
+import { createClient } from '@/supabase/server';
 import { NextResponse } from 'next/server';
-
-const supabase = createClient();
 
 export type ParamsType = {
   params: { user_id: string };
 };
 
 export const GET = async (request: Request, { params }: ParamsType) => {
+  const supabase = createClient();
   const { user_id } = params;
   const { data: likedPlanetIds, error: likedPlanetError } = await supabase
     .from('liked_tours')
