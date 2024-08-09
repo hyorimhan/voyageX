@@ -1,11 +1,28 @@
 import { createClient } from '@/supabase/client';
-import { toggleLikeToursParamsType, TourOrderType } from '@/types/tour';
 import axios from 'axios';
+import { toggleLikeToursParamsType, TourOrderType } from '@/types/tour';
+import { Tour } from '@/types/tourPropsType';
 
 const supabase = createClient();
 
+export interface Planet {
+  id: string;
+  name: string;
+  description: string;
+  planet_img: string;
+  title: string | null;
+  english_name: string | null;
+  price?: number;
+}
+
+export interface tourProps {
+  params: {
+    id: string;
+  };
+}
+
 // 투어 리스트
-export const tourList = async () => {
+export const tourList = async (): Promise<Tour[]> => {
   const { data: tours, error } = await supabase.from('tours').select(`
     id,
     price, 
@@ -20,9 +37,10 @@ export const tourList = async () => {
     )
   `);
   if (error) {
-    console.log(error);
+    throw error;
   }
-  return tours ?? [];
+
+  return tours || [];
 };
 
 // 투어 상세
@@ -81,19 +99,6 @@ export const tourSchedule = async (id: string) => {
   return schedule ?? [];
 };
 
-//투어 결제 (주문자 정보)
-export const userAddress = async (id: string) => {
-  const response = await fetch('/api/tours/tourOrderInfo', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ id }),
-  });
-  const responseData = await response.json();
-  return responseData;
-};
-
 export const getLikedToursByUser = async (user_id: string) => {
   const response = await axios.get(`/api/tours/like/${user_id}`);
   return response.data;
@@ -124,38 +129,6 @@ export const toggleLikeTours = async (
     return response;
   }
 };
-
-// 투어 결제 (테이블에 넣기)
-// export const tourPayment = async ({
-//   userId,
-//   tourId,
-//   customerName,
-//   customerMobilePhone,
-//   customerEmail,
-//   totalPrice,
-//   amount,
-// }: {
-//   userId: string;
-//   tourId: string;
-//   customerName: string;
-//   customerMobilePhone: string;
-//   customerEmail: string;
-//   totalPrice: number;
-//   amount: number;
-// }) => {
-//   const { error } = await supabase.from('tour_orders').insert([
-//     {
-//       user_id: userId,
-//       tour_id: tourId,
-//       customer_name: customerName,
-//       customer_phone: customerMobilePhone,
-//       customer_email: customerEmail,
-//       total_price: totalPrice,
-//       amount: amount,
-//     },
-//   ]);
-//   return { error };
-// };
 
 //투어 주문목록 불러오기
 export const getTourOrder = async (
