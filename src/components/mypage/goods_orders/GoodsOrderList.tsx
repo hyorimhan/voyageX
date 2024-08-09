@@ -9,11 +9,13 @@ import ReviewFormModal from './ReviewFormModal';
 import { useQuery } from '@tanstack/react-query';
 import { getGoodsOrderList } from '@/services/goods';
 import { GoodsOrdersType } from '@/types/goods';
+import Loading from '@/components/common/Loading';
 
 const GoodsOrderList = () => {
   const [showReviewFormAddModal, setShowReviewFormAddModal] =
     useState<boolean>(false);
   const [selectedGoodsId, setSelectedGoodsId] = useState<string | null>(null);
+  const [selectedOrderId, setSelectedOrderId] = useState<string | null>(null);
   const user = useAuthStore((state) => state.user);
   const user_id = user?.id;
 
@@ -114,11 +116,12 @@ const GoodsOrderList = () => {
                     <button
                       className='bg-primary-400 p-2 rounded-md w-[58px] text-xs'
                       onClick={() => {
+                        setSelectedOrderId(order.order_id);
                         setSelectedGoodsId(order.goods_id);
                         setShowReviewFormAddModal(true);
                       }}
                     >
-                      리뷰작성
+                      {order.review_id ? '리뷰수정' : '리뷰작성'}
                     </button>
                   </div>
                 </div>
@@ -130,8 +133,9 @@ const GoodsOrderList = () => {
           ))}
         </div>
       ))}
-      {showReviewFormAddModal && user && selectedGoodsId && (
+      {showReviewFormAddModal && user && selectedGoodsId && selectedOrderId && (
         <ReviewFormModal
+          order_id={selectedOrderId}
           goodsId={selectedGoodsId}
           userId={user.id}
           onClose={() => setShowReviewFormAddModal(false)}
