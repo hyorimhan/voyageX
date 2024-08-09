@@ -6,10 +6,11 @@ function AccordionItems({ contents, title, containerStyle }: propsText) {
   return (
     <AccordionItem
       header={({ state: { isEnter } }) => (
-        <div className='flex'>
-          <div className='text-lg w-full sm:w-[255px] md:w-[600px] lg:w-[1056px] mx-auto text-left'>
+        <div className='flex '>
+          <div className='text-lg sm:pr-5 w-full md:w-[600px] lg:w-[1056px] mx-auto text-left'>
             {title}
           </div>
+
           <AccordionImg isEnter={isEnter} />
         </div>
       )}
