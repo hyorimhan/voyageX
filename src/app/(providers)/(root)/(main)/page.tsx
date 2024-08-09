@@ -4,14 +4,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 import useFetchGoods from '@/hooks/useFetchGoods';
 import Footer from '@/components/common/Footer';
-import useFetchTourDetail from '@/hooks/useFetchTourDetail';
 import TopPostsSection from '@/components/main/TopPostsSection';
 import useScrollTrigger from '@/hooks/useScrollTrigger';
 import useSlideAnimation from '@/hooks/useSlideAnimation';
 import VideoSection from '@/components/main/VideoSection';
 import Page from '@/components/pages/Page';
 import { Planet } from '@/services/tour';
-import { Tour } from '@/types/tourPropsType';
 import { useQuery } from '@tanstack/react-query';
 import { getPlanetsList } from '@/services/plants';
 
