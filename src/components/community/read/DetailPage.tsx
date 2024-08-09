@@ -2,13 +2,11 @@
 
 import React from 'react';
 import CategoryBadge from '../common/CategoryBadge';
-import { MyPost } from '@/types/communityType';
+import { Community } from '@/types/communityType';
 import ShareIcon32px from '../../common/icons/32px/ShareIcon32px';
-import HeartDefaultIcon32px from '../../common/icons/32px/HeartDefaultIcon32px';
 import PostWriterIcon from '../ProfileImages/PostWriter';
-import HeartDefaultIcon20px from '../../common/icons/20px/HeartDefaultIcon20px';
 import ChatIcon20px from '../../common/icons/20px/ChatIcon20px';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { getDetailPost } from '@/services/community';
 import PostButtons from './PostButtons';
 import CommentList from '../comment/CommentsList';
@@ -24,7 +22,7 @@ const DetailPage = ({ params }: { params: { postId: string } }) => {
     data: post,
     isPending,
     isError,
-  } = useQuery<MyPost>({
+  } = useQuery<Community>({
     queryKey: ['post', postId],
     queryFn: () => getDetailPost(postId),
   });
@@ -64,7 +62,7 @@ const DetailPage = ({ params }: { params: { postId: string } }) => {
             </div>
           </div>
           <div className='flex gap-4 items-end text-black-400'>
-            <div>좋아요 5</div>
+            <div>좋아요 {post.likes}</div>
             <div>댓글 {post.comments}</div>
           </div>
         </div>
@@ -73,7 +71,7 @@ const DetailPage = ({ params }: { params: { postId: string } }) => {
       <div className='flex gap-4 pt-9 pb-1'>
         <div className='flex gap-1 justify-center items-center'>
           <PostHearts post_id={postId} user_id={user?.id} size='small' />
-          좋아요 5
+          좋아요 {post.likes}
         </div>
         <div className='flex gap-1 justify-center items-center'>
           <ChatIcon20px />
