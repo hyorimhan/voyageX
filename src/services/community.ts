@@ -1,13 +1,13 @@
 import {
+  Community,
   MyPost,
-  Post,
   TEditComment,
   TEditPost,
   TWriteComment,
   TWritePost,
 } from '@/types/communityType';
 
-export async function getPostAll(): Promise<MyPost[]> {
+export async function getPostAll(): Promise<Community[]> {
   const response = await fetch('/api/community');
   const data = await response.json();
   return data;
