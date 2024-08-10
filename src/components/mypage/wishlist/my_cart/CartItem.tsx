@@ -1,8 +1,14 @@
+'use client';
+
 import MinusIcon20px from '@/components/common/icons/20px/MinusIcon20px';
 import PlusIcon20px from '@/components/common/icons/20px/PlusIcon20px';
 import { CartListType } from '@/types/mypageType';
 import Image from 'next/image';
 import CheckBox from '../../delete_account/CheckBox';
+import { useState } from 'react';
+import CheckBoxPressedIcon24px from '@/components/common/icons/24px/CheckBoxPressedIcon24px';
+import CheckBoxHoveredIcon24px from '@/components/common/icons/24px/CheckBoxHoveredIcon24px';
+import CheckBoxDefaultIcon24px from '@/components/common/icons/24px/CheckBoxDefaultIcon24px';
 
 interface CartItemPropsType {
   item: CartListType;
@@ -25,12 +31,24 @@ function CartItem({
   handleSelectItem,
   handleAdjustItemQuantity,
 }: CartItemPropsType) {
+  const [isChecked, setIsChecked] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   return (
     <li className='border-t-[1px] border-black-700 px-2 h-[136px] flex justify-between'>
       <div className='flex justify-center'>
-        <div className='p-2 flex'>
-          <CheckBox onChange={() => handleSelectItem(item)} />
-        </div>
+        <button
+          onClick={() => handleSelectItem(item)}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
+          {selectItems.includes(item) ? (
+            <CheckBoxPressedIcon24px />
+          ) : isHovered ? (
+            <CheckBoxHoveredIcon24px />
+          ) : (
+            <CheckBoxDefaultIcon24px />
+          )}
+        </button>
         <div className='flex justify-center self-center ml-2'>
           <Image
             width={104}

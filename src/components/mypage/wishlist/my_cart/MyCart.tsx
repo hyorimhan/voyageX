@@ -13,6 +13,7 @@ import CartItemSelector from './CartItemSelector';
 import GenericModal from '@/components/common/GenericModal';
 import Image from 'next/image';
 import Link from 'next/link';
+import toast from 'react-hot-toast';
 
 function MyCart({ user_id }: WishListPropsType) {
   const [totalPrice, setTotalPrice] = useState(0);
@@ -67,6 +68,7 @@ function MyCart({ user_id }: WishListPropsType) {
       queryClient.invalidateQueries({ queryKey: ['cart', user_id] });
       setSelectItems([]);
       setTotalPrice(0);
+      toast.success('삭제 되었습니다');
     },
   });
 

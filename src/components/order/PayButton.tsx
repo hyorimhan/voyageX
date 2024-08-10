@@ -8,6 +8,9 @@ import useTourOrderInfoStore from '@/zustand/store/useTourOrderInfoStore';
 import useCustomerInfoStore from '@/zustand/store/useCustomrInfoStore';
 import useExpressInfoStore from '@/zustand/store/useExpressInfoStore';
 import useGoodsOrderStore from '@/zustand/store/useGoodsOrderInfoStore';
+import CheckBoxPressedIcon24px from '../common/icons/24px/CheckBoxPressedIcon24px';
+import CheckBoxHoveredIcon24px from '../common/icons/24px/CheckBoxHoveredIcon24px';
+import CheckBoxDefaultIcon24px from '../common/icons/24px/CheckBoxDefaultIcon24px';
 interface PayButtonPropsType {
   totalPrice: number;
   isTour: boolean;
@@ -16,6 +19,7 @@ interface PayButtonPropsType {
 function PayButton({ totalPrice, isTour }: PayButtonPropsType) {
   const router = useRouter();
   const [isAgree, setIsAgree] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   const { expressAddress } = useExpressInfoStore((state) => state);
   const { goodsOrderInfo } = useGoodsOrderStore((state) => state);
   const { tourOrder } = useTourOrderInfoStore((state) => state);
@@ -93,10 +97,17 @@ function PayButton({ totalPrice, isTour }: PayButtonPropsType) {
         <div className='flex flex-row items-center justify-center gap-2'>
           <button
             onClick={() => setIsAgree((prev) => !prev)}
-            className={`p-2 border-2 border-black-50 rounded ${
-              isAgree ? 'bg-black-50' : 'bg-transparent'
-            }`}
-          ></button>
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+          >
+            {isAgree ? (
+              <CheckBoxPressedIcon24px />
+            ) : isHovered ? (
+              <CheckBoxHoveredIcon24px />
+            ) : (
+              <CheckBoxDefaultIcon24px />
+            )}
+          </button>
           <p className='text-xs self-center text-black-50'>
             {'[필수] 주문 내역에 대한 필수 동의'}
           </p>

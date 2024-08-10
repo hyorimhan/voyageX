@@ -6,6 +6,8 @@ import React, { useState } from 'react';
 import CloseIcon32px from '@/components/common/icons/32px/CloseIcon32px';
 import { createClient } from '@/supabase/client';
 import TextArea from '../goods_orders/TextArea';
+import { useQuery } from '@tanstack/react-query';
+import toast from 'react-hot-toast';
 
 type TourReviewModalProps = {
   onClose: () => void;
@@ -22,9 +24,23 @@ const TourReviewModal: React.FC<TourReviewModalProps> = ({
   userId,
   order_id,
 }) => {
-  const [review, setReview] = useState('');
+  const getReviewData = async () => {
+    const { data, error } = await supabase
+      .from('tour_reviews')
+      .select()
+      .match({ user_id: userId, tour_id: tourId })
+      .single();
+    if (error) return console.error(error);
+    return data;
+  };
+
+  const { data: loadedReview } = useQuery({
+    queryKey: ['reviews', userId, tourId],
+    queryFn: getReviewData,
+  });
+  const [review, setReview] = useState(loadedReview?.review ?? '');
   const [invalidMsg, setInvalidMsg] = useState('');
-  const [rating, setRating] = useState<number>(3);
+  const [rating, setRating] = useState<number>(loadedReview?.rating ?? 3);
 
   const handleRating = (index: number) => {
     setRating(index + 1); // 클릭한 별의 인덱스를 기준으로 별점 업데이트
@@ -33,6 +49,10 @@ const TourReviewModal: React.FC<TourReviewModalProps> = ({
   const handleSubmit = async () => {
     if (rating === 0) {
       setInvalidMsg('별점을 선택해주세요.');
+      return;
+    }
+    if (!review.trim()) {
+      setInvalidMsg('내용을 작성해주세요.');
       return;
     }
 
@@ -67,6 +87,7 @@ const TourReviewModal: React.FC<TourReviewModalProps> = ({
       }
       console.log('createReviewId => ', createReviewId);
       console.log('리뷰 작성 성공:', data);
+      toast.success('리뷰를 작성했습니다.');
       onClose();
     } else {
       const { data, error } = await supabase
@@ -81,6 +102,7 @@ const TourReviewModal: React.FC<TourReviewModalProps> = ({
         setInvalidMsg('리뷰 수정 중 오류가 발생했습니다.');
       } else {
         console.log('리뷰 수정 성공:', data);
+        toast.success('리뷰를 수정했습니다.');
         onClose();
       }
     }

@@ -2,10 +2,13 @@
 
 import StarFalseIcon32px from '@/components/common/icons/32px/StarFalseIcon32px';
 import StarTrueIcon32px from '@/components/common/icons/32px/StarTrueIcon32px';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import TextArea from './TextArea';
 import CloseIcon32px from '@/components/common/icons/32px/CloseIcon32px';
 import { createClient } from '@/supabase/client';
+import { useQuery } from '@tanstack/react-query';
+import Loading from '@/components/common/Loading';
+import toast from 'react-hot-toast';
 
 type ReviewFormModallProps = {
   onClose: () => void;
@@ -22,9 +25,24 @@ const ReviewFormModal: React.FC<ReviewFormModallProps> = ({
   userId,
   order_id,
 }) => {
-  const [review, setReview] = useState('');
+  const getReviewData = async () => {
+    const { data, error } = await supabase
+      .from('goods_reviews')
+      .select()
+      .match({ user_id: userId, goods_id: goodsId })
+      .single();
+    if (error) return console.error(error);
+    return data;
+  };
+
+  const { data: loadedReview } = useQuery({
+    queryKey: ['reviews', userId, goodsId],
+    queryFn: getReviewData,
+  });
+
+  const [review, setReview] = useState(loadedReview?.review ?? '');
   const [invalidMsg, setInvalidMsg] = useState('');
-  const [rating, setRating] = useState<number>(3);
+  const [rating, setRating] = useState<number>(loadedReview?.rating ?? 3);
 
   const handleRating = (index: number) => {
     setRating(index + 1); // 클릭한 별의 인덱스를 기준으로 별점 업데이트
@@ -33,6 +51,10 @@ const ReviewFormModal: React.FC<ReviewFormModallProps> = ({
   const handleSubmit = async () => {
     if (rating === 0) {
       setInvalidMsg('별점을 선택해주세요.');
+      return;
+    }
+    if (!review.trim()) {
+      setInvalidMsg('내용을 작성해주세요.');
       return;
     }
 
@@ -67,6 +89,7 @@ const ReviewFormModal: React.FC<ReviewFormModallProps> = ({
       }
       console.log('createReviewId => ', createReviewId);
       console.log('리뷰 작성 성공:', data);
+      toast.success('리뷰를 작성했습니다.');
       onClose();
     } else {
       const { data, error } = await supabase
@@ -85,6 +108,7 @@ const ReviewFormModal: React.FC<ReviewFormModallProps> = ({
         setInvalidMsg('리뷰 수정 중 오류가 발생했습니다.');
       } else {
         console.log('리뷰 수정 성공:', data);
+        toast.success('리뷰를 수정했습니다.');
         onClose();
       }
     }

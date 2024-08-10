@@ -4,6 +4,7 @@ import GenericModal from '@/components/common/GenericModal';
 import { deleteGoodsOrderDetail } from '@/services/goods';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 
 type TourOrderDetailListProps = {
   order_id: string;
@@ -17,6 +18,7 @@ const GoodsOrderDetailDeleteBtn = ({ order_id }: TourOrderDetailListProps) => {
     try {
       const response = await deleteGoodsOrderDetail(order_id);
       console.log('deleteGoodsOrderDetail response => ', response);
+      toast.success('내역이 삭제되었습니다.');
     } catch (error) {
       console.error('삭제오류', error);
     }
