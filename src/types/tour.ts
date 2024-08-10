@@ -38,6 +38,7 @@ export type PlanetType = {
 
 export type TourType = {
   price: number;
+  spaceship: string;
 };
 
 export type dateType = {
