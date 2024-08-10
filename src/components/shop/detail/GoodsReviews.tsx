@@ -2,6 +2,7 @@
 
 import StarFalseIcon24px from '@/components/common/icons/24px/StarFalseIcon24px';
 import StarTrueIcon24px from '@/components/common/icons/24px/StarTrueIcon24px';
+import Loading from '@/components/common/Loading';
 import { createClient } from '@/supabase/client';
 import { useEffect, useState } from 'react';
 
@@ -45,7 +46,7 @@ const GoodsReviews = ({ goodsId }: { goodsId: string }) => {
     fetchReviews();
   }, [goodsId]);
 
-  if (isLoading) return <div>로딩 중...</div>;
+  if (isLoading) return <Loading />;
   if (isError) return <div>에러 발생</div>;
 
   return (

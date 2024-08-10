@@ -124,15 +124,16 @@ function SuccessPayment() {
 
   return (
     <>
-      <div className='flex mt-[137px] mb-11 items-center justify-between'>
-        <div className=' border-white text-4xl font-bold text-white w-[330px]'>
+      <div className='lg:flex sm:mx-5 sm:grid-cols-2 mt-[137px] mb-11 items-center justify-between'>
+        <div className=' border-white text-4xl font-bold text-white lg:w-[330px]'>
           주문이 완료되었습니다
         </div>
         <AfterPayButtons />
       </div>
-      <div className='mb-8'>주문상품 번호 {result.orderId}</div>
+
+      <div className='mb-8 sm:mx-5'>주문상품 번호 {result.orderId}</div>
       <OrderedGoodsList goodsOrderInfo={goodsOrderInfo} />
-      <div className='mt-8 mx-auto max-w-[1120px] flex flex-wrap gap-8 mb-10'>
+      <div className='mt-8 mx-auto max-w-[1120px] flex flex-wrap gap-8 mb-10 sm:mx-5'>
         <AddressInfo
           expressAddress={expressAddress}
           customerInfo={customerInfo!}
