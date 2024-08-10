@@ -7,6 +7,7 @@ import { MyPost } from '@/types/communityType';
 import HeartWhiteIcon16px from '../common/icons/16px/HeartWhiteIcon16px';
 import { useEffect, useState } from 'react';
 import { userLoginInfo } from '@/services/auth';
+import ShareLink from '../common/ShareLink';
 
 const MyPageSideBarUserInfo = () => {
   const user = useAuthStore((state) => state.user);

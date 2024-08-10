@@ -12,6 +12,7 @@ import { addCartItem } from '@/services/goods';
 import useGoodsOrderStore from '@/zustand/store/useGoodsOrderInfoStore';
 import toast from 'react-hot-toast';
 import GenericModal from '@/components/common/GenericModal';
+import ShareLink from '../../common/ShareLink';
 
 type GoodsInfoProps = {
   goods: Tables<'goods'>;
@@ -55,7 +56,7 @@ const GoodsInfo = ({ goods, goods_id }: GoodsInfoProps) => {
   };
 
   return (
-    <div className='flex'>
+    <div className='sm:grid-cols-2 lg:flex'>
       <GenericModal
         isOpen={isConfirmOpen}
         title='장바구니에 담기 성공'
@@ -78,17 +79,15 @@ const GoodsInfo = ({ goods, goods_id }: GoodsInfoProps) => {
           alt={goods.description}
           width={497}
           height={497}
+          className='sm:w-[335px] sm:mx-auto'
         />
       </div>
-      <div className='ml-14 flex flex-col text-2xl flex-grow'>
+      <div className='lg:ml-14 sm:mx-5 flex flex-col text-2xl flex-grow'>
         <div className='mb-4 flex justify-between items-start'>
-          <div>
-            <p>{goods.goods_name}</p>
-            <p>{goods.goods_name}</p>
+          <div className='sm:mt-8 sm:flex sm:ml-auto w-full lg:flex'>
+            <p className='w-full '>{goods.goods_name}</p>
+            <ShareLink />
           </div>
-          <button className='items-stretch'>
-            <ShareIcon32px />
-          </button>
         </div>
         <div className='flex gap-1 flex-col font-bold'>
           <p className='text-lg text-black-500'>{formattedPrice}원</p>

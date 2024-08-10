@@ -79,7 +79,7 @@ const MyPageSideBar = () => {
   return (
     <>
       {isPending && <Loading />}
-      <div className='w-fit sticky top-0 mt-[139px]'>
+      <div className='w-fit sticky top-0 sm:mx-auto '>
         <MyPageSideBarUserInfo />
         <div className='gap-5 flex flex-col items-start h-[333px] w-[190px] justify-center'>
           <button
