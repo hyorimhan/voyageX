@@ -57,12 +57,12 @@ function AddressChangeModal({
   return (
     <section
       ref={modalBackground}
-      className='flex w-full h-full fixed top-0 left-0 justify-center bg-black-1000 bg-opacity-50 z-30'
+      className='flex w-full sm:px-5 h-full fixed top-0 left-0 justify-center bg-black-1000 bg-opacity-50 z-30'
       onClick={(e) => {
         if (e.target === modalBackground.current) setIsModalOpen(false);
       }}
     >
-      <div className='relative bg-black-800 rounded-lg p-8 my-20 h-[650px]'>
+      <div className='relative sm:w-full bg-black-800 rounded-lg  p-8 my-20 h-[650px]'>
         <div>
           <div className='flex flex-col'>
             <div className='flex flex-row justify-between items-start'>

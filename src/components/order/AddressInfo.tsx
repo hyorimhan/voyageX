@@ -1,4 +1,4 @@
-import { Address, Customer } from '@/types/userAddressType';
+import { Address } from '@/types/userAddressType';
 
 interface AddressInfoPropsType {
   expressAddress: Address | null;

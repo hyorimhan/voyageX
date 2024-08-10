@@ -5,7 +5,9 @@ const Page = ({ children }: PropsWithChildren) => {
   return (
     <>
       <BackgroundVideo />
-      <div className=' mx-auto max-w-[1120px] text-black-50'>{children}</div>
+      <div className=' mx-auto max-w-[1120px] mt-[131px] text-black-50'>
+        {children}
+      </div>
     </>
   );
 };
