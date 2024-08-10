@@ -15,6 +15,17 @@ export async function POST(req: NextRequest) {
     }
 
     await supabase.from('liked_goods').delete().eq('user_id', userId);
+    await supabase.from('goods_orders').delete().eq('user_id', userId);
+    await supabase.from('tour_orders').delete().eq('user_id', userId);
+    await supabase.from('liked_tours').delete().eq('user_id', userId);
+    await supabase
+      .from('goods_reviews')
+      .update({ user_id: null })
+      .eq('user_id', userId);
+    await supabase
+      .from('tour_reviews')
+      .update({ user_id: null })
+      .eq('user_id', userId);
 
     const { error } = await supabase.auth.admin.deleteUser(userId);
 
