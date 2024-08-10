@@ -33,7 +33,7 @@ export type PlanetType = {
   name: string;
   planet_img: string;
   title: string;
-  tiket_web_img: string;
+  ticket_web_img: string;
 };
 
 export type TourType = {

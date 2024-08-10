@@ -27,10 +27,10 @@ function ShareLink() {
             isOpen={show}
             title='공유하기'
             content={
-              <div className='w-[352px] h-[58px] '>
+              <div className='w-[352px] sm:w-full h-[58px] '>
                 <input
                   onClick={(e) => e.stopPropagation()}
-                  className='w-full h-full rounded-lg text-black-1000'
+                  className='w-full h-full rounded-lg text-lg text-black-1000'
                   value={pathname}
                   readOnly
                 />

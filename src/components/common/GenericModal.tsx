@@ -23,7 +23,7 @@ const GenericModal = ({
 
   return (
     <div className='fixed inset-0 flex items-center justify-center bg-black-1000 bg-opacity-50 z-50 text-white'>
-      <div className='bg-black-800 w-[414px] rounded-lg flex flex-col items-center px-5 pt-14 pb-9'>
+      <div className='bg-black-800 sm:w-[300px] w-[414px] rounded-lg flex flex-col items-center px-5 pt-14 pb-9'>
         <p className='text-xl mb-5'>{title}</p>
         <p className='text-sm mb-7 text-center'>{content}</p>
         <div className='flex w-full gap-4 text-black-50 font-semibold h-[51px]'>

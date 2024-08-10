@@ -76,7 +76,9 @@ function CustomerInfo({ addressList, user_email, isTour }: CustomerInfo) {
               onClick={() => setIsModalOpen(true)}
               className='bg-primary-400 rounded-lg p-2 transition-colors duration-200 hover:bg-primary-200 active:bg-primary-300'
             >
-              주문자정보 변경
+              {!customerInfo?.customerName || !customerInfo?.customerPhone
+                ? '주문자 정보 입력'
+                : '주문자 정보 변경'}
             </button>
           </div>
         </div>

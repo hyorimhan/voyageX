@@ -53,7 +53,7 @@ function CustomerChangeModal({
       customerPhone: phone,
       customerEmail: email,
     });
-    toast.success('주문자 정보가 변경되었습니다!');
+    toast.success('주문자 정보가 입력되었습니다!');
     setIsModalOpen(false);
   };
 

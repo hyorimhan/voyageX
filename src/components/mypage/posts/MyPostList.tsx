@@ -1,6 +1,7 @@
 'use client';
 
 import { formatDate } from '@/components/common/formatDate';
+import Loading from '@/components/common/Loading';
 import { getMyPosts } from '@/services/community';
 import { Community } from '@/types/communityType';
 import useAuthStore from '@/zustand/store/useAuth';
@@ -21,10 +22,7 @@ const MyPostList = () => {
     queryFn: () => getMyPosts(user_id),
   });
 
-  if (isLoading) {
-    return <div>로딩 중...</div>;
-  }
-
+  if (isLoading) return <Loading />;
   if (isError || !posts || posts.length === 0) {
     return (
       <div className='flex flex-col justify-center items-center gap-9 mt-16'>

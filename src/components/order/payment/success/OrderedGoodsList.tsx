@@ -7,7 +7,7 @@ interface OrderedGoodsInfoPropsType {
 
 function OrderedGoodsList({ goodsOrderInfo }: OrderedGoodsInfoPropsType) {
   return (
-    <div className='border-[1px] border-black-300 rounded-lg p-5'>
+    <div className='border-[1px] border-black-300 rounded-lg p-5 sm:mx-5'>
       <div className='text-xl border-b pb-3 border-black-700 mb-4'>
         {`주문상품 정보 ${
           goodsOrderInfo.length - 2 <= 0

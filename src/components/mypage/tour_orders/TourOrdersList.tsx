@@ -155,7 +155,7 @@ const TourOrdersList = () => {
               <div
                 className='bg-black-800 rounded-2xl flex py-6 px-4 w-[544px]'
                 style={{
-                  backgroundImage: `url('${order.planet.tiket_web_img}')`,
+                  backgroundImage: `url('${order.planet.ticket_web_img}')`,
                 }}
               >
                 <div className='mr-[59px]'>
@@ -258,7 +258,7 @@ const TourOrdersList = () => {
                   </div>
                   <div className='ml-2 mr-3 mt-3'>
                     <Image
-                      src='/tiket/bar.svg'
+                      src='/ticket/bar.svg'
                       alt='barcode'
                       height={7}
                       width={56}
@@ -288,7 +288,7 @@ const TourOrdersList = () => {
               <div
                 className='bg-black-800 rounded-2xl flex py-6 px-4 w-[544px]'
                 style={{
-                  backgroundImage: `url('${order.planet.tiket_web_img}')`,
+                  backgroundImage: `url('${order.planet.ticket_web_img}')`,
                 }}
               >
                 <div className='mr-[59px]'>
@@ -391,7 +391,7 @@ const TourOrdersList = () => {
                   </div>
                   <div className='ml-2 mr-3 mt-3'>
                     <Image
-                      src='/tiket/bar.svg'
+                      src='/ticket/bar.svg'
                       alt='barcode'
                       height={7}
                       width={56}

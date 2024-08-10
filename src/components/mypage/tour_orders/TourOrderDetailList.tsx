@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useQuery } from '@tanstack/react-query';
 import { getTourOrderDetail } from '@/services/tour';
 import { TourOrderType } from '@/types/tour';
+import Loading from '@/components/common/Loading';
 
 type TourOrderDetailListProps = {
   order_id: string;
@@ -19,9 +20,7 @@ const TourOrderDetailList = ({ order_id }: TourOrderDetailListProps) => {
     queryFn: () => getTourOrderDetail(order_id),
   });
 
-  if (isLoading) {
-    return <div>로딩 중...</div>;
-  }
+  if (isLoading) return <Loading />;
 
   if (isError || !order) {
     return <div>주문 내역이 없습니다.</div>;

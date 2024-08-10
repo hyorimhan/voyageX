@@ -36,8 +36,9 @@ function TourAccordion({ tour }: { tour: Tour }) {
 
                 <div className='w-60 md:mt-5  md:w-[400px] sm:mt-2 lg:w-[990px] mx-auto text-left'>
                   {sche.date}
+                  <div className='sm:text-xs sm:hidden'>{sche.description}</div>
                 </div>
-                <div className='sm:mt-2 md:mt-5 sm:w-full '>
+                <div className='sm:mt-2 sm:w-full sm:my-auto md:mt-5 flex'>
                   <AccordionImg isEnter={isEnter} />
                 </div>
               </div>
@@ -45,7 +46,9 @@ function TourAccordion({ tour }: { tour: Tour }) {
             key={sche.id}
             className='overflow-hidden mt-[11px] '
           >
-            <div className='text-sm mt-4 '>{sche.description}</div>
+            <div className='text-sm mt-4 sm:block lg:hidden md:hidden '>
+              {sche.description}
+            </div>
             <div className='mt-16 text-sm'>
               <div className='flex'>
                 <Image

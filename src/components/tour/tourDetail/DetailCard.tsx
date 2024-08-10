@@ -16,6 +16,7 @@ import DetailInfo from './DetailInfo';
 import DetailDate from './DetailDate';
 import { useTourDate } from '@/zustand/store/useTourDate';
 import toast from 'react-hot-toast';
+import ShareLink from '@/components/common/ShareLink';
 
 function DetailCard({ tour }: { tour: Tour }) {
   const user = useAuthStore((state) => state.user);
@@ -67,9 +68,12 @@ function DetailCard({ tour }: { tour: Tour }) {
         </div>
 
         <div className='sm:mx-5 md:mx-5'>
-          <div className='text-2xl mb-4 font-semibold'>
+          <div className='text-2xl mb-4 font-semibold flex '>
             <span className='mr-3'>{tour.planets?.name}</span>
             <span className='text-black-700'>{tour.planets?.english_name}</span>
+            <div className='ml-auto'>
+              <ShareLink />
+            </div>
           </div>
 
           <div className='text-sm mb-8 font-medium'>{tour.tag}</div>
