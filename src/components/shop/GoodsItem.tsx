@@ -15,14 +15,14 @@ function GoodsItem({ item, user_id }: GoodsItemPropsType) {
     router.push(`/shop_detail/${id}`);
   };
   return (
-    <li key={item.id} className='my-4 w-full bg-black-1000'>
+    <li key={item.id} className='w-full bg-black-1000'>
       <div className='relative'>
         <Image
           src={item.goods_img}
           alt={item.description}
-          width={268}
+          width={263}
           height={272}
-          className='rounded-lg cursor-pointer h-[272px] w-[268px] sm:h-[230px] sm:w-[250px]'
+          className='rounded-lg cursor-pointer h-[272px] w-[263px] sm:h-[230px] sm:w-[250px]'
           style={{ objectFit: 'cover' }}
           onClick={() => handleItemClick(item.id)}
         />

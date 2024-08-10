@@ -100,8 +100,6 @@ const TourOrdersList = () => {
     return <Loading />;
   }
 
-  console.log(tourOrders);
-
   if (
     isError ||
     !tourOrders ||
