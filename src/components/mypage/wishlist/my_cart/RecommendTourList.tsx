@@ -29,7 +29,7 @@ const RecommendTourList = () => {
 
   return (
     <>
-      <p>추천 여행상품</p>
+      <p className='text-xl font-semibold'>추천 여행상품</p>
       <ul className='text-black-50 mb-10 grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
         {hotTours?.slice(0, 4).map((item) => (
           <li key={item.id} className='my-4 w-full'>
