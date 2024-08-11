@@ -15,37 +15,44 @@ function GoodsItem({ item, user_id }: GoodsItemPropsType) {
     router.push(`/shop_detail/${id}`);
   };
   return (
-    <li key={item.id} className='mx-auto my-4 w-full bg-black-1000'>
+    <li key={item.id} className='my-4 w-full bg-black-1000'>
       <div className='relative'>
         <Image
           src={item.goods_img}
           alt={item.description}
           width={268}
           height={272}
-          className='rounded-lg w-full h-72 object-cover cursor-pointer'
+          className='rounded-lg cursor-pointer h-[272px] w-[268px] sm:h-[230px] sm:w-[250px]'
           style={{ objectFit: 'cover' }}
           onClick={() => handleItemClick(item.id)}
         />
       </div>
-      <div className='p-2'>
+      <div className='bg-black-600 rounded-xl text-xs py-1 px-2 w-min flex text-nowrap mt-3 mb-[6px] text-black-50'>
+        무료배송
+      </div>
+      <div className='ml-1 mr-4 flex flex-col '>
         <p
-          className='flex justify-start text-base cursor-pointer'
+          className='flex justify-start cursor-pointer'
           onClick={() => handleItemClick(item.id)}
         >
           {item.goods_name}
         </p>
-        <div className='flex flex-row'>
-          <p className='text-red-600 text-xl mr-2'>10%</p>
-          <p className='flex justify-center text-xl'>{`${item.goods_price.toLocaleString()}원`}</p>
-        </div>
-        <div className='flex flex-row justify-between items-center'>
-          <div className='flex flex-row gap-2'>
-            <Stars ratingAvg={item.rating_avg} />
-            <div className='bg-black-600 rounded-xl text-xs p-1.5'>
-              무료배송
+        <div className='flex justify-between items-end'>
+          <div className='flex flex-col'>
+            <div className='flex'>
+              <p className='text-error-900 text-xl mr-2 font-semibold'>10%</p>
+              <p className='text-xl font-semibold sm:text-sm'>{`${item.goods_price.toLocaleString()}원`}</p>
+            </div>
+            <div className='flex flex-row gap-2'>
+              <Stars ratingAvg={item.rating_avg} />
+              <div className='sm:block lg:hidden sm:ml-auto'>
+                <Hearts goods_id={item.id} user_id={user_id} />
+              </div>
             </div>
           </div>
-          <Hearts goods_id={item.id} user_id={user_id} />
+          <div className='flex flex-row sm:hidden justify-between items-center'>
+            <Hearts goods_id={item.id} user_id={user_id} />
+          </div>
         </div>
       </div>
     </li>

@@ -250,7 +250,7 @@ function Terms() {
             </ul>
           </ul>
         </ul>
-        <button onClick={clickToggle} className='mt-8 w-full text-lg mx-auto'>
+        <button onClick={clickToggle} className=' mt-8 flex  text-lg mx-auto'>
           {readMore ? (
             <>
               <div className='flex'>

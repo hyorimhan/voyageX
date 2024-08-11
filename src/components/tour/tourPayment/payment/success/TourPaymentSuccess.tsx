@@ -128,7 +128,7 @@ function TourPaymentSuccess() {
           <div className='mb-8 lg:hidden sm:mt-4 md:mt-4'>
             주문상품 번호 {result.orderId}
           </div>
-          <AfterPayButtons />
+          <AfterPayButtons orderId={result.orderId} />
         </div>
       </div>
       <div className='mb-8 sm:hidden md:hidden'>

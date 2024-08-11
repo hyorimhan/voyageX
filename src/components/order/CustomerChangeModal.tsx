@@ -53,7 +53,7 @@ function CustomerChangeModal({
       customerPhone: phone,
       customerEmail: email,
     });
-    toast.success('주문자 정보가 변경되었습니다!');
+    toast.success('주문자 정보가 입력되었습니다!');
     setIsModalOpen(false);
   };
 
@@ -65,15 +65,15 @@ function CustomerChangeModal({
         if (e.target === modalBackground.current) setIsModalOpen(false);
       }}
     >
-      <div className='relative bg-black-800 w-1/3 sm:w-3/4 md:w-2/3 h-[70%] sm:h-[80%] md:h-[600px] my-24 mx-auto rounded-lg'>
+      <div className='relative bg-black-800 w-1/3 sm:w-full sm:mx-5 md:w-2/3 h-[70%] sm:h-[80%] md:h-[600px] my-24 mx-auto rounded-lg'>
         {/* <div className='relative bg-black-800 w-1/3 md:w-2/3 sm:w-2/3 h-[700px] md:h-[600px] sm:h-[600px] my-24 mx-auto rounded-lg'> */}
         <div className='flex justify-end'>
           <button
-            className='mr-10 mt-4 text-3xl bg-transparent'
+            className='mr-11 mt-4 text-3xl bg-transparent'
             type='button'
             onClick={() => setIsModalOpen(false)}
           >
-            X
+            x
           </button>
         </div>
         <form
@@ -82,7 +82,7 @@ function CustomerChangeModal({
             handleChangeCustomerInfo();
           }}
         >
-          <div className='flex flex-col items-center sm:w-[280px] p-2  '>
+          <div className='flex flex-col items-center sm:w-full p-2  '>
             <div className='flex flex-row justify-center sm:w-full p-2'>
               <p className='text-xl'>주문자 정보</p>
             </div>

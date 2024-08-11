@@ -7,6 +7,7 @@ import {
 import { Address } from '@/types/userAddressType';
 import { useState } from 'react';
 import GenericModal from '../../common/GenericModal';
+import toast from 'react-hot-toast';
 
 type AddressActionsBtnProps = {
   userId: string;
@@ -31,14 +32,14 @@ const AddressActionsBtn = ({
 
   const handleSetDefaultAddress = async () => {
     if (!selectedAddressId) {
-      alert('기본 배송지를 설정할 주소를 선택해주세요.');
+      toast.error('기본 배송지로 설정할 주소를 선택해주세요.');
       return;
     }
 
     try {
       await resetDefaultAddressMutation.mutateAsync(userId);
       await setDefaultAddressMutation.mutateAsync(selectedAddressId);
-      alert('기본배송지 설정완료');
+      toast.success('기본배송지가 설정되었습니다.');
     } catch (error) {
       console.error('기본 배송지 설정 오류', error);
     }

@@ -1,4 +1,4 @@
-import { Address, Customer } from '@/types/userAddressType';
+import { Address } from '@/types/userAddressType';
 
 interface AddressInfoPropsType {
   expressAddress: Address | null;
@@ -25,7 +25,9 @@ function AddressInfo({ expressAddress, defaultAddress }: AddressInfoPropsType) {
           } ${
             expressAddress?.detailAddress ?? defaultAddress?.detailAddress
           }`}</p>
-          <span>{expressAddress?.postcode ?? defaultAddress?.postcode}</span>
+          <span>{`(${
+            expressAddress?.postcode ?? defaultAddress?.postcode
+          })`}</span>
         </div>
       </div>
     </div>

@@ -26,9 +26,11 @@ function OrderList({ setTotalPrice }: ItemsInfoPropsType) {
     );
   });
   return (
-    <div className='border-2 border-black-300 p-4 rounded-lg mb-4 text-black-50'>
-      <div className='py-4 mb-4 border-b-2 border-black-700'>
-        <span className='text-xl'>{`상품정보 총 ${goodsOrderInfo?.length}개`}</span>
+    <div className='border-[1px] border-black-300 p-4 rounded-lg mb-4 text-black-50'>
+      <div className='py-4 mb-4 border-b border-black-700 flex flex-row items-start gap-2'>
+        <span className='text-xl mb-2'>{`상품정보`}</span>
+        <span className='text-xl'>{' | '}</span>
+        <span className='text-lg'>{`총 ${goodsOrderInfo?.length}개`}</span>
       </div>
       {goodsOrderInfo?.map((item) => (
         <OrderItem key={item.goods.id} item={item} />

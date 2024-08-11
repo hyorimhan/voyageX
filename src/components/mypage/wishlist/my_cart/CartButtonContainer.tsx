@@ -26,7 +26,7 @@ function CartButtonContainer({ selectItems }: CartButtonContainerPropsType) {
     router.push('/shop');
   };
   return (
-    <section className='flex flex-row gap-4 mb-20'>
+    <section className='flex flex-row gap-4 mb-20 mt-[13px]'>
       <button
         className='border-2 border-primary-400 w-1/2 rounded-lg p-4 text-base bg-transparent transition-colors duration-200 hover:bg-primary-200 hover:text-black-1000 active:bg-primary-300 active:text-black-1000'
         onClick={handleGoToShop}

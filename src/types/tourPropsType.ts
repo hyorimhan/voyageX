@@ -36,7 +36,7 @@ export interface tourProps {
 }
 
 export interface propsText {
-  title?: string;
+  title?: string | ReactNode;
   description?: string | ReactNode;
   borderTop?: string;
   contents?: string | React.ReactNode;

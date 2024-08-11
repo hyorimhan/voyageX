@@ -16,7 +16,7 @@ function DropDownButton(props: DropDownButtonPropsType) {
     <div className='relative inline-block'>
       <button
         type='button'
-        className='text-black-50 text-lg cursor-pointer relative w-32 flex flex-row items-center mt-3 justify-between px-3'
+        className='text-black-50 text-lg cursor-pointer relative w-40 flex flex-row items-center mt-3 justify-between px-3'
         onClick={() => setIsActive((prev) => !prev)}
       >
         {categories[sortBy]}

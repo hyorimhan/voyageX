@@ -29,8 +29,8 @@ const config: Config = {
         yangpyeong: ["'Yangpyeong'", 'sans-serif'],
       },
       screens: {
-        sm: { min: '375px', max: '639px' },
-        md: { min: '640px', max: '1119px' },
+        sm: { min: '320px', max: '768px' },
+        md: { min: '769px', max: '1119px' },
         lg: { min: '1120px' },
       },
 

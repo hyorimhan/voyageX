@@ -7,6 +7,7 @@ import { MyPost } from '@/types/communityType';
 import HeartWhiteIcon16px from '../common/icons/16px/HeartWhiteIcon16px';
 import { useEffect, useState } from 'react';
 import { userLoginInfo } from '@/services/auth';
+import ShareLink from '../common/ShareLink';
 
 const MyPageSideBarUserInfo = () => {
   const user = useAuthStore((state) => state.user);
@@ -37,8 +38,10 @@ const MyPageSideBarUserInfo = () => {
         <p>작성글 수</p>
         <p>{postCount}</p>
         <p>|</p>
-        <HeartWhiteIcon16px />
-        <p>35</p>
+        <div className='flex gap-1'>
+          <HeartWhiteIcon16px />
+          <p>35</p>
+        </div>
       </div>
     </div>
   );

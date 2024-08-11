@@ -8,6 +8,8 @@ import useTourOrderInfoStore from '@/zustand/store/useTourOrderInfoStore';
 import useCustomerInfoStore from '@/zustand/store/useCustomrInfoStore';
 import useExpressInfoStore from '@/zustand/store/useExpressInfoStore';
 import useGoodsOrderStore from '@/zustand/store/useGoodsOrderInfoStore';
+import TermsAndConditions from './TermsAndConditions';
+import { termsAndConditionsList } from '@/constants/shop';
 interface PayButtonPropsType {
   totalPrice: number;
   isTour: boolean;
@@ -15,7 +17,7 @@ interface PayButtonPropsType {
 
 function PayButton({ totalPrice, isTour }: PayButtonPropsType) {
   const router = useRouter();
-  const [isAgree, setIsAgree] = useState(false);
+  const [isAllAgree, setIsAllAgree] = useState<string[]>([]);
   const { expressAddress } = useExpressInfoStore((state) => state);
   const { goodsOrderInfo } = useGoodsOrderStore((state) => state);
   const { tourOrder } = useTourOrderInfoStore((state) => state);
@@ -34,8 +36,8 @@ function PayButton({ totalPrice, isTour }: PayButtonPropsType) {
       toast.error('이메일 주소를 입력해주세요!');
       return;
     }
-    if (!isAgree) {
-      toast.error('약관에 동의하셔야합니다!');
+    if (isAllAgree.length < termsAndConditionsList.length) {
+      toast.error('모든 약관에 동의하셔야합니다!');
       return;
     }
     let orderName: string = '';
@@ -90,17 +92,10 @@ function PayButton({ totalPrice, isTour }: PayButtonPropsType) {
         <div className='border-b border-black-700 w-full py-[10px]'>
           <p className='text-xl'>주문동의</p>
         </div>
-        <div className='flex flex-row items-center justify-center gap-2'>
-          <button
-            onClick={() => setIsAgree((prev) => !prev)}
-            className={`p-2 border-2 border-black-50 rounded ${
-              isAgree ? 'bg-black-50' : 'bg-transparent'
-            }`}
-          ></button>
-          <p className='text-xs self-center text-black-50'>
-            {'[필수] 주문 내역에 대한 필수 동의'}
-          </p>
-        </div>
+        <TermsAndConditions
+          isAllAgree={isAllAgree}
+          setIsAllAgree={setIsAllAgree}
+        />
         <button
           onClick={handleClickPayButton}
           className='bg-primary-600 rounded-md p-4 w-full h-14 mb-5 text-lg transition-colors duration-200 hover:bg-primary-400 active:bg-primary-500'

@@ -1,5 +1,6 @@
 'use client';
 
+import Loading from '@/components/common/Loading';
 import { getGoodsOrderDetail } from '@/services/goods';
 import { GoodsOrdersType } from '@/types/goods';
 import { useQuery } from '@tanstack/react-query';
@@ -19,7 +20,7 @@ const GoodsOrderDetailList = ({ order_id }: GoodsOrderDetailListProps) => {
     queryFn: () => getGoodsOrderDetail(order_id),
   });
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <Loading />;
   if (error) return <div>Error loading order details</div>;
   if (!goodsOrdersDetail || goodsOrdersDetail.length === 0)
     return <div>주문 내역이 없습니다.</div>;

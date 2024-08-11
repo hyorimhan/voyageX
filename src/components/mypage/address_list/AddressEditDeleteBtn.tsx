@@ -4,6 +4,7 @@ import GenericModal from '@/components/common/GenericModal';
 import { useDeleteAddress } from '@/hooks/useAddresses';
 import { Address } from '@/types/userAddressType';
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 
 type AddressEditDeleteBtnProps = {
   address: Address;
@@ -20,6 +21,7 @@ const AddressEditDeleteBtn = ({
   const handleDeleteAddress = async (id: string) => {
     try {
       await deleteAddressMutation.mutateAsync(id);
+      toast.success('배송지가 삭제되었습니다.');
     } catch (error) {
       console.error('삭제 오류', error);
     }
