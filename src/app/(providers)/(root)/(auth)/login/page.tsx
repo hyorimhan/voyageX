@@ -7,6 +7,7 @@ const LoginPage = () => {
   return (
     <Page>
       {/* <Chatbot /> */}
+
       <div className='grid lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1'>
         <div className='my-auto lg:block md:hidden sm:hidden'>
           <AuthImg />

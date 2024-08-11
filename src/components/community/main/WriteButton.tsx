@@ -3,13 +3,14 @@
 import PenIcon24px from '@/components/common/icons/24px/PenIcon24px';
 import useAuthStore from '@/zustand/store/useAuth';
 import { useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
 
 const WriteButton = () => {
   const user = useAuthStore((state) => state.user);
   const route = useRouter();
 
   const handleClickWrite = () => {
-    if (!user) return alert('로그인 후 이용하실 수 있습니다');
+    if (!user) return toast.error('로그인 후 이용하실 수 있습니다');
     route.push('/community/write');
   };
 

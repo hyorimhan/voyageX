@@ -4,10 +4,14 @@ type ModalProps = {
   isOpen: boolean;
   title: string;
   content: React.ReactNode;
-  buttonText: string;
-  buttonAction: () => void;
+  buttonText: string | React.ReactNode;
+  buttonAction: () => void | React.ReactNode;
   cancelText?: string;
   cancelAction?: () => void;
+  popup?: string;
+  popupContent?: string;
+  popupWidth?: string;
+  popupTitle?: string;
 };
 
 const GenericModal = ({
@@ -18,14 +22,20 @@ const GenericModal = ({
   buttonAction,
   cancelText,
   cancelAction,
+  popup,
+  popupContent,
+  popupWidth,
+  popupTitle,
 }: ModalProps) => {
   if (!isOpen) return null;
 
   return (
     <div className='fixed inset-0 flex items-center justify-center bg-black-1000 bg-opacity-50 z-50 text-white'>
-      <div className='bg-black-800 sm:w-[300px] w-[414px] rounded-lg flex flex-col items-center px-5 pt-14 pb-9'>
-        <p className='text-xl mb-5'>{title}</p>
-        <p className='text-sm mb-7 text-center'>{content}</p>
+      <div
+        className={`bg-black-800 sm:w-[340px] ${popupWidth} w-[414px] rounded-lg flex flex-col items-center px-5 pt-14 pb-9 ${popup}`}
+      >
+        <p className={`text-xl mb-5 ${popupTitle}`}>{title}</p>
+        <p className={`text-sm mb-7 text-center ${popupContent} `}>{content}</p>
         <div className='flex w-full gap-4 text-black-50 font-semibold h-[51px]'>
           {cancelText && cancelAction && (
             <button

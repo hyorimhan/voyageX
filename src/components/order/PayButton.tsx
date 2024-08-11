@@ -8,6 +8,7 @@ import useTourOrderInfoStore from '@/zustand/store/useTourOrderInfoStore';
 import useCustomerInfoStore from '@/zustand/store/useCustomrInfoStore';
 import useExpressInfoStore from '@/zustand/store/useExpressInfoStore';
 import useGoodsOrderStore from '@/zustand/store/useGoodsOrderInfoStore';
+import CheckBox from '../mypage/delete_account/CheckBox';
 interface PayButtonPropsType {
   totalPrice: number;
   isTour: boolean;
@@ -91,12 +92,7 @@ function PayButton({ totalPrice, isTour }: PayButtonPropsType) {
           <p className='text-xl'>주문동의</p>
         </div>
         <div className='flex flex-row items-center justify-center gap-2'>
-          <button
-            onClick={() => setIsAgree((prev) => !prev)}
-            className={`p-2 border-2 border-black-50 rounded ${
-              isAgree ? 'bg-black-50' : 'bg-transparent'
-            }`}
-          ></button>
+          <CheckBox onChange={setIsAgree} />
           <p className='text-xs self-center text-black-50'>
             {'[필수] 주문 내역에 대한 필수 동의'}
           </p>

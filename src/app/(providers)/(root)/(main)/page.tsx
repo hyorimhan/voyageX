@@ -11,6 +11,7 @@ import VideoSection from '@/components/main/VideoSection';
 import { Planet } from '@/services/tour';
 import { useQuery } from '@tanstack/react-query';
 import { getPlanetsList } from '@/services/plants';
+import Loading from '@/components/common/Loading';
 
 // TODO localhost:3000   페이지에서 tourID 를 받아올 방법이 없어요.
 const MainPage = () => {
@@ -60,7 +61,7 @@ const MainPage = () => {
     planetsRef,
   );
 
-  if (tourLoading) return <div>Loading...</div>;
+  if (tourLoading) return <Loading />;
   if (tourError) return <div>Error: {tourError.message}</div>;
 
   return (

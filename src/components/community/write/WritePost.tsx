@@ -10,6 +10,7 @@ import { TWritePost } from '@/types/communityType';
 import useAuthStore from '@/zustand/store/useAuth';
 import { useRouter } from 'next/navigation';
 import PostPen20px from '@/components/common/icons/20px/PostPenIcon20px';
+import toast from 'react-hot-toast';
 
 const categories = {
   communication: '소통',
@@ -35,14 +36,14 @@ const WritePost = () => {
     },
     onError: () => {
       setIsSubmitting(false);
-      alert('글 작성에 실패했습니다. 다시 시도해 주세요.');
+      toast.error('글 작성에 실패했습니다. 다시 시도해 주세요.');
     },
   });
 
   const handleSubmitWrite = (e: React.FormEvent) => {
     e.preventDefault();
     if (!title || !content || !sortBy) {
-      return alert('빈칸을 채워주세요.');
+      return toast.error('빈칸을 채워주세요.');
     }
 
     if (isSubmitting) return;

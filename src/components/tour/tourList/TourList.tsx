@@ -11,6 +11,7 @@ import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Autoplay, Pagination } from 'swiper/modules';
 import TourRouter from '../tourDetail/TourRouter';
+import Popup from '@/components/common/Popup';
 
 function TourList() {
   const { data: tours, isLoading } = useQuery<Tour[]>({
@@ -28,6 +29,7 @@ function TourList() {
       >
         <TourRouter url='/' />
       </div>
+      <Popup />
       <div className='lg:hidden md:hidden mx-5 sm:mt-8 '>
         <Swiper
           loop={true}
@@ -45,7 +47,6 @@ function TourList() {
           </div>
         </Swiper>
       </div>
-
       <div className='sm:hidden '>
         <div className='grid lg:grid-cols-3 md:grid-cols-2 gap-8 p-4 mt-10'>
           {tours?.map((tour) => (

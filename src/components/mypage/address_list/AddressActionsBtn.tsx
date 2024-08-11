@@ -39,7 +39,7 @@ const AddressActionsBtn = ({
     try {
       await resetDefaultAddressMutation.mutateAsync(userId);
       await setDefaultAddressMutation.mutateAsync(selectedAddressId);
-      alert('기본배송지 설정완료');
+      toast.success('기본배송지 설정완료');
     } catch (error) {
       console.error('기본 배송지 설정 오류', error);
     }
