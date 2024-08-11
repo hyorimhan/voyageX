@@ -5,7 +5,7 @@ const ShopPage = () => {
   return (
     <>
       <h1
-        className={`sm:mx-5 border-b-2 border-white text-4xl font-bold text-white mt-20 py-4 ${orbitron.className}`}
+        className={`sm:mx-5 border-b-[1px] border-white text-4xl font-bold text-white mt-20 py-4 ${orbitron.className}`}
       >
         GOODS SHOP
       </h1>
