@@ -9,6 +9,7 @@ import AddressAddModalInput from './AddressAddModalInput';
 import CloseIcon32px from '@/components/common/icons/32px/CloseIcon32px';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { addAddress, updateAddress } from '@/services/address';
+import toast from 'react-hot-toast';
 
 type AddressAddModalProps = {
   onClose: () => void;
@@ -50,7 +51,7 @@ const AddressAddModal: React.FC<AddressAddModalProps> = ({
     mutationFn: addAddress,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['addresses', user!.id] });
-      alert('주소가 저장되었습니다.');
+      toast.success('새로운 배송지가 저장되었습니다.');
       onClose();
     },
   });
@@ -58,7 +59,7 @@ const AddressAddModal: React.FC<AddressAddModalProps> = ({
     mutationFn: updateAddress,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['addresses', user!.id] });
-      alert('주소가 저장되었습니다.');
+      toast.success('배송지 정보가 수정되었습니다.');
       onClose();
     },
   });
@@ -93,7 +94,7 @@ const AddressAddModal: React.FC<AddressAddModalProps> = ({
 
   const handleSave = async () => {
     if (aliasError || recipientError || phoneError) {
-      alert('옳바르게 작성되지 않은 항목이 있습니다.');
+      toast.error('모든 항목을 정확히 입력해주세요.');
       return;
     }
 
@@ -105,12 +106,12 @@ const AddressAddModal: React.FC<AddressAddModalProps> = ({
       !newAddress ||
       !oldAddress
     ) {
-      alert('작성하지 않은 항목이 있습니다.');
+      toast.error('작성하지 않은 항목이 있습니다.');
       return;
     }
 
     if (!user || !user.id) {
-      alert('사용자 정보를 가져오지 못했습니다. 다시 로그인 해주세요.');
+      toast.error('사용자 정보를 가져오지 못했습니다. 다시 로그인 해주세요.');
       return;
     }
 
@@ -134,7 +135,7 @@ const AddressAddModal: React.FC<AddressAddModalProps> = ({
         addAddressMutate({ userId: user.id, address: newAddressData });
       }
     } catch (error) {
-      alert('주소 저장에 실패했습니다.');
+      toast.error('주소 저장에 실패했습니다.');
       console.log(error);
     }
   };
