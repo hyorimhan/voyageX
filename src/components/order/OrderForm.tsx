@@ -31,17 +31,17 @@ function OrderForm({ user, isTour }: OrderFormPropsType) {
       <div className='grid grid-cols-[minmax(0,1fr)_minmax(0,0.5fr)] md:grid-cols-1 md:mx-5 md:mb-20 sm:mb-20 sm:grid-cols-1 sm:mx-5 gap-x-10'>
         <div className='mt-14'>
           <div className='mt-4 w-full'>
-            {addressList && !isTour && (
-              <ExpressInfo addressList={addressList} />
-            )}
-          </div>
-          <div className='mt-4 w-full'>
             {addressList && (
               <CustomerInfo
                 isTour={isTour}
                 user_email={user_email}
                 addressList={addressList}
               />
+            )}
+          </div>
+          <div className='mt-4 w-full'>
+            {addressList && !isTour && (
+              <ExpressInfo addressList={addressList} />
             )}
           </div>
           <div className='mt-4 w-full'>
