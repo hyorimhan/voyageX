@@ -51,7 +51,7 @@ const AddressAddModal: React.FC<AddressAddModalProps> = ({
     mutationFn: addAddress,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['addresses', user!.id] });
-      toast.success('주소가 저장되었습니다.');
+      toast.success('새로운 배송지가 저장되었습니다.');
       onClose();
     },
   });
@@ -59,7 +59,7 @@ const AddressAddModal: React.FC<AddressAddModalProps> = ({
     mutationFn: updateAddress,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['addresses', user!.id] });
-      toast.success('주소가 저장되었습니다.');
+      toast.success('배송지 정보가 수정되었습니다.');
       onClose();
     },
   });
@@ -94,7 +94,7 @@ const AddressAddModal: React.FC<AddressAddModalProps> = ({
 
   const handleSave = async () => {
     if (aliasError || recipientError || phoneError) {
-      toast.error('옳바르게 작성되지 않은 항목이 있습니다.');
+      toast.error('모든 항목을 정확히 입력해주세요.');
       return;
     }
 

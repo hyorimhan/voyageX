@@ -19,19 +19,21 @@ function ExpressInfo({ addressList }: ExpressInfoPropsType) {
 
   useEffect(() => {
     setExpressAddress(defaultAddress ?? null);
-  }, []);
+  }, [setExpressAddress, defaultAddress]);
 
   return (
     <>
-      <div className='border-2 border-black-300 rounded-lg p-4 mb-8'>
-        <div className='py-4 mb-4 border-b-2 border-black-700 flex flex-row items-center justify-between'>
+      <div className='border-[1px] border-black-300 rounded-lg p-4 mb-8'>
+        <div className='py-4 mb-4 border-b border-black-700 flex flex-row items-start justify-between'>
           <span className='text-xl text-black-50'>배송정보</span>
-          <button
-            className='bg-primary-400 rounded-lg p-2 transition-colors duration-200 hover:bg-primary-200 active:bg-primary-300'
-            onClick={() => setIsModalOpen(true)}
-          >
-            배송지 변경
-          </button>
+          <div>
+            <button
+              className='bg-primary-400 rounded-lg p-2 transition-colors duration-200 hover:bg-primary-200 active:bg-primary-300'
+              onClick={() => setIsModalOpen(true)}
+            >
+              배송지 변경
+            </button>
+          </div>
         </div>
         {expressAddress || defaultAddress ? (
           <AddressInfo
