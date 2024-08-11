@@ -2,12 +2,16 @@
 
 import StarFalseIcon32px from '@/components/common/icons/32px/StarFalseIcon32px';
 import StarTrueIcon32px from '@/components/common/icons/32px/StarTrueIcon32px';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import CloseIcon32px from '@/components/common/icons/32px/CloseIcon32px';
-import { createClient } from '@/supabase/client';
 import TextArea from '../goods_orders/TextArea';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
+import {
+  useGetOrderedTourReviewId,
+  useGetTourReview,
+} from '@/hooks/apis/review.api';
+import { createTourReview, modifyTourReview } from '@/services/review';
 
 type TourReviewModalProps = {
   onClose: () => void;
@@ -16,35 +20,49 @@ type TourReviewModalProps = {
   order_id?: string;
 };
 
-const supabase = createClient();
-
 const TourReviewModal: React.FC<TourReviewModalProps> = ({
   onClose,
   tourId,
   userId,
   order_id,
 }) => {
-  const getReviewData = async () => {
-    const { data, error } = await supabase
-      .from('tour_reviews')
-      .select()
-      .match({ user_id: userId, tour_id: tourId })
-      .single();
-    if (error) return console.error(error);
-    return data;
-  };
-
-  const { data: loadedReview } = useQuery({
-    queryKey: ['reviews', userId, tourId],
-    queryFn: getReviewData,
+  const queryClient = useQueryClient();
+  const { data: prevReviewId } = useGetOrderedTourReviewId({
+    order_id: order_id!,
+    tour_id: tourId!,
   });
-  const [review, setReview] = useState(loadedReview?.review ?? '');
+  const { data: loadedReview, isPending } = useGetTourReview({
+    user_id: userId,
+    tour_id: tourId!,
+    review_id: prevReviewId?.review_id!,
+  });
+  const isReviewed = !!prevReviewId?.review_id;
+
+  const [review, setReview] = useState('');
   const [invalidMsg, setInvalidMsg] = useState('');
-  const [rating, setRating] = useState<number>(loadedReview?.rating ?? 3);
+  const [rating, setRating] = useState<number>(3);
 
   const handleRating = (index: number) => {
     setRating(index + 1); // 클릭한 별의 인덱스를 기준으로 별점 업데이트
   };
+
+  const { mutate: createTourReviewMutate } = useMutation({
+    mutationFn: createTourReview,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['reviews'] });
+      toast.success('리뷰를 작성했습니다.');
+      onClose();
+    },
+  });
+
+  const { mutate: modifyTourReviewMutate } = useMutation({
+    mutationFn: modifyTourReview,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['reviews'] });
+      toast.success('리뷰를 수정했습니다.');
+      onClose();
+    },
+  });
 
   const handleSubmit = async () => {
     if (rating === 0) {
@@ -55,58 +73,33 @@ const TourReviewModal: React.FC<TourReviewModalProps> = ({
       setInvalidMsg('내용을 작성해주세요.');
       return;
     }
-
-    const { data: getReviewId, error: isReviewedError } = await supabase
-      .from('tour_orders')
-      .select('review_id')
-      .match({ id: order_id, tour_id: tourId })
-      .single();
-    const isReviewed = !!getReviewId?.review_id;
     if (!isReviewed) {
       const review_id = crypto.randomUUID();
-      const { data, error } = await supabase.from('tour_reviews').insert([
-        {
-          id: review_id,
-          user_id: userId,
-          tour_id: tourId!,
-          review,
-          rating,
-        },
-      ]);
-      if (error) {
-        console.error('리뷰 작성 오류:', error);
-        setInvalidMsg('리뷰 작성 중 오류가 발생했습니다.');
-      }
-      const { data: createReviewId, error: createReviewIdError } =
-        await supabase
-          .from('tour_orders')
-          .update({ review_id: review_id })
-          .match({ id: order_id, tour_id: tourId });
-      if (createReviewIdError) {
-        console.log('createReviewIdError => ', createReviewIdError);
-      }
-      console.log('createReviewId => ', createReviewId);
-      console.log('리뷰 작성 성공:', data);
-      toast.success('리뷰를 작성했습니다.');
-      onClose();
+      createTourReviewMutate({
+        review_id,
+        user_id: userId,
+        tour_id: tourId!,
+        order_id: order_id!,
+        rating,
+        review,
+      });
     } else {
-      const { data, error } = await supabase
-        .from('tour_reviews')
-        .update({
-          rating,
-          review,
-        })
-        .match({ id: getReviewId.review_id, user_id: userId, tour_id: tourId });
-      if (error) {
-        console.log('리뷰 수정 에러: ', error);
-        setInvalidMsg('리뷰 수정 중 오류가 발생했습니다.');
-      } else {
-        console.log('리뷰 수정 성공:', data);
-        toast.success('리뷰를 수정했습니다.');
-        onClose();
-      }
+      modifyTourReviewMutate({
+        review_id: prevReviewId.review_id,
+        user_id: userId,
+        tour_id: tourId!,
+        rating,
+        review,
+      });
     }
   };
+
+  useEffect(() => {
+    if (loadedReview) {
+      setReview(loadedReview?.review!);
+      setRating(loadedReview?.rating!);
+    }
+  }, [isPending, loadedReview]);
 
   return (
     <div className='fixed inset-0 flex items-center justify-center bg-black-1000 bg-opacity-50 z-30'>
@@ -139,7 +132,7 @@ const TourReviewModal: React.FC<TourReviewModalProps> = ({
                   ? '그저 그래요'
                   : rating === 1
                   ? '별로에요'
-                  : ''}
+                  : '불러오는 중..'}
               </p>
             </div>
           </div>

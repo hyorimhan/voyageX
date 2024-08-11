@@ -9,7 +9,6 @@ import ReviewFormModal from './ReviewFormModal';
 import { useQuery } from '@tanstack/react-query';
 import { getGoodsOrderList } from '@/services/goods';
 import { GoodsOrdersType } from '@/types/goods';
-import Loading from '@/components/common/Loading';
 
 const GoodsOrderList = () => {
   const [showReviewFormAddModal, setShowReviewFormAddModal] =
@@ -19,13 +18,18 @@ const GoodsOrderList = () => {
   const user = useAuthStore((state) => state.user);
   const user_id = user?.id;
 
-  const { data: goodsOrders } = useQuery<GoodsOrdersType[]>({
+  const { data: goodsOrders, isPending } = useQuery<GoodsOrdersType[]>({
     queryKey: ['goodsOrders', user_id],
     queryFn: () => getGoodsOrderList(user_id),
     enabled: !!user_id,
   });
 
-  if (!goodsOrders || !Array.isArray(goodsOrders) || goodsOrders.length === 0) {
+  if (
+    isPending ||
+    !goodsOrders ||
+    !Array.isArray(goodsOrders) ||
+    goodsOrders.length === 0
+  ) {
     return (
       <div className='flex flex-col justify-center items-center gap-9 mt-16'>
         <Image

@@ -2,7 +2,7 @@
 
 import StarFalseIcon32px from '@/components/common/icons/32px/StarFalseIcon32px';
 import StarTrueIcon32px from '@/components/common/icons/32px/StarTrueIcon32px';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import TextArea from './TextArea';
 import CloseIcon32px from '@/components/common/icons/32px/CloseIcon32px';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -27,19 +27,20 @@ const ReviewFormModal: React.FC<ReviewFormModallProps> = ({
   order_id,
 }) => {
   const queryClient = useQueryClient();
-  const { data: loadedReview } = useGetGoodsReview({
-    user_id: userId,
-    goods_id: goodsId!,
-  });
   const { data: prevReviewId } = useGetOrderedGoodsReviewId({
     order_id: order_id!,
     goods_id: goodsId!,
   });
+  const { data: loadedReview, isPending } = useGetGoodsReview({
+    user_id: userId,
+    goods_id: goodsId!,
+    review_id: prevReviewId?.review_id!,
+  });
   const isReviewed = !!prevReviewId?.review_id;
 
-  const [review, setReview] = useState(loadedReview?.review ?? '');
+  const [review, setReview] = useState('');
   const [invalidMsg, setInvalidMsg] = useState('');
-  const [rating, setRating] = useState<number>(loadedReview?.rating ?? 3);
+  const [rating, setRating] = useState<number>(3);
 
   const handleRating = (index: number) => {
     setRating(index + 1); // 클릭한 별의 인덱스를 기준으로 별점 업데이트
@@ -93,6 +94,13 @@ const ReviewFormModal: React.FC<ReviewFormModallProps> = ({
       });
     }
   };
+
+  useEffect(() => {
+    if (loadedReview) {
+      setReview(loadedReview?.review!);
+      setRating(loadedReview?.rating!);
+    }
+  }, [isPending, loadedReview]);
 
   return (
     <div className='fixed inset-0 flex items-center justify-center bg-black-1000 bg-opacity-50 z-30'>
