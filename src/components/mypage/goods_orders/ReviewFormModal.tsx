@@ -2,13 +2,16 @@
 
 import StarFalseIcon32px from '@/components/common/icons/32px/StarFalseIcon32px';
 import StarTrueIcon32px from '@/components/common/icons/32px/StarTrueIcon32px';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import TextArea from './TextArea';
 import CloseIcon32px from '@/components/common/icons/32px/CloseIcon32px';
-import { createClient } from '@/supabase/client';
-import { useQuery } from '@tanstack/react-query';
-import Loading from '@/components/common/Loading';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
+import { createGoodsReview, modifyGoodsReview } from '@/services/review';
+import {
+  useGetGoodsReview,
+  useGetOrderedGoodsReviewId,
+} from '@/hooks/apis/review.api';
 
 type ReviewFormModallProps = {
   onClose: () => void;
@@ -17,28 +20,22 @@ type ReviewFormModallProps = {
   order_id?: string;
 };
 
-const supabase = createClient();
-
 const ReviewFormModal: React.FC<ReviewFormModallProps> = ({
   onClose,
   goodsId,
   userId,
   order_id,
 }) => {
-  const getReviewData = async () => {
-    const { data, error } = await supabase
-      .from('goods_reviews')
-      .select()
-      .match({ user_id: userId, goods_id: goodsId })
-      .single();
-    if (error) return console.error(error);
-    return data;
-  };
-
-  const { data: loadedReview } = useQuery({
-    queryKey: ['reviews', userId, goodsId],
-    queryFn: getReviewData,
+  const queryClient = useQueryClient();
+  const { data: loadedReview } = useGetGoodsReview({
+    user_id: userId,
+    goods_id: goodsId!,
   });
+  const { data: prevReviewId } = useGetOrderedGoodsReviewId({
+    order_id: order_id!,
+    goods_id: goodsId!,
+  });
+  const isReviewed = !!prevReviewId?.review_id;
 
   const [review, setReview] = useState(loadedReview?.review ?? '');
   const [invalidMsg, setInvalidMsg] = useState('');
@@ -47,6 +44,24 @@ const ReviewFormModal: React.FC<ReviewFormModallProps> = ({
   const handleRating = (index: number) => {
     setRating(index + 1); // 클릭한 별의 인덱스를 기준으로 별점 업데이트
   };
+
+  const { mutate: createGoodsReviewMutate } = useMutation({
+    mutationFn: createGoodsReview,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['reviews'] });
+      toast.success('리뷰를 작성했습니다.');
+      onClose();
+    },
+  });
+
+  const { mutate: modifyGoodsReviewMutate } = useMutation({
+    mutationFn: modifyGoodsReview,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['reviews'] });
+      toast.success('리뷰를 수정했습니다.');
+      onClose();
+    },
+  });
 
   const handleSubmit = async () => {
     if (rating === 0) {
@@ -58,59 +73,24 @@ const ReviewFormModal: React.FC<ReviewFormModallProps> = ({
       return;
     }
 
-    const { data: getReviewId, error: isReviewedError } = await supabase
-      .from('goods_orders')
-      .select('review_id')
-      .match({ order_id, goods_id: goodsId })
-      .single();
-    const isReviewed = !!getReviewId?.review_id;
     if (!isReviewed) {
       const review_id = crypto.randomUUID();
-      const { data, error } = await supabase.from('goods_reviews').insert([
-        {
-          id: review_id,
-          user_id: userId,
-          goods_id: goodsId,
-          rating,
-          review,
-        },
-      ]);
-      if (error) {
-        console.error('리뷰 작성 오류:', error);
-        setInvalidMsg('리뷰 작성 중 오류가 발생했습니다.');
-      }
-      const { data: createReviewId, error: createReviewIdError } =
-        await supabase
-          .from('goods_orders')
-          .update({ review_id: review_id })
-          .match({ order_id, goods_id: goodsId });
-      if (createReviewIdError) {
-        console.log('createReviewIdError => ', createReviewIdError);
-      }
-      console.log('createReviewId => ', createReviewId);
-      console.log('리뷰 작성 성공:', data);
-      toast.success('리뷰를 작성했습니다.');
-      onClose();
+      createGoodsReviewMutate({
+        review_id,
+        user_id: userId,
+        goods_id: goodsId!,
+        order_id: order_id!,
+        rating,
+        review,
+      });
     } else {
-      const { data, error } = await supabase
-        .from('goods_reviews')
-        .update({
-          rating,
-          review,
-        })
-        .match({
-          id: getReviewId.review_id,
-          user_id: userId,
-          goods_id: goodsId,
-        });
-      if (error) {
-        console.log('리뷰 수정 에러: ', error);
-        setInvalidMsg('리뷰 수정 중 오류가 발생했습니다.');
-      } else {
-        console.log('리뷰 수정 성공:', data);
-        toast.success('리뷰를 수정했습니다.');
-        onClose();
-      }
+      modifyGoodsReviewMutate({
+        review_id: prevReviewId.review_id,
+        user_id: userId,
+        goods_id: goodsId!,
+        rating,
+        review,
+      });
     }
   };
 
