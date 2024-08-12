@@ -9,9 +9,7 @@ export const passwordValidate = () => PASSWORD_VALIDATION();
 export const passwordConfirmValidate = (password: string) => ({
   required: '비밀번호 확인은 필수 값입니다',
   validate: (value: string) =>
-    value === password
-      ? true
-      : '비밀번호, 비밀번호 확인 값을 다시 입력해주세요',
+    value === password ? true : '비밀번호가 동일하지 않습니다',
 });
 
 export const checkboxValidate = () => ({

@@ -10,6 +10,7 @@ import { getDetailPost, updatePost } from '@/services/community';
 import { Post, TEditPost } from '@/types/communityType';
 import useAuthStore from '@/zustand/store/useAuth';
 import { useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
 
 const categories = {
   communication: '소통',
@@ -50,7 +51,7 @@ const EditPost = ({ postId }: { postId: string }) => {
   const handleSubmitWrite = (e: React.FormEvent) => {
     e.preventDefault();
     if (!title || !content || !sortBy) {
-      return alert('빈칸을 채워주세요.');
+      return toast.error('빈칸을 채워주세요.');
     }
     const editPost = {
       title,

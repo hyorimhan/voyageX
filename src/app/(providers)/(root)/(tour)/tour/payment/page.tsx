@@ -6,7 +6,7 @@ const TourPaymentPage = () => {
   return (
     <>
       <h1
-        className={`border-b sm:mx-5 border-white text-lg font-bold text-white mt-20 py-4 ${orbitron.className}`}
+        className={`border-b sm:mx-5 border-white text-lg font-bold text-white ${orbitron.className}`}
       >
         TOUR ORDER
       </h1>

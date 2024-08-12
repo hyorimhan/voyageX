@@ -6,6 +6,7 @@ import { useMutation } from '@tanstack/react-query';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React from 'react';
+import toast from 'react-hot-toast';
 
 function PostButtons({ postId, userId }: { postId: string; userId: string }) {
   const user = useAuthStore((state) => state.user);
@@ -17,7 +18,7 @@ function PostButtons({ postId, userId }: { postId: string; userId: string }) {
 
   const handleClickDelete = () => {
     removePost(postId);
-    alert('삭제가 완료되었습니다.');
+    toast.success('삭제가 완료되었습니다.');
     route.push('/community');
   };
 

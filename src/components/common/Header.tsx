@@ -10,6 +10,7 @@ import HeartDefaultIcon24px from './icons/24px/HeartDefaultIcon24px';
 import { usePathname, useRouter } from 'next/navigation';
 import Loading from './Loading';
 import { orbitron } from '../../../public/fonts/orbitron';
+import toast from 'react-hot-toast';
 
 const Header = () => {
   const user = useAuthStore((state) => state.user);

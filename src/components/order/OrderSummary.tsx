@@ -4,7 +4,7 @@ interface OrderSummaryPropsType {
 
 function OrderSummary({ totalPrice }: OrderSummaryPropsType) {
   return (
-    <div className='border-[1px] border-black-300 p-4 rounded-lg mt-4 mb-8'>
+    <div className='border-[1px] border-black-300 p-4 rounded-lg lg:mt-4 mb-8'>
       <div className='py-2 mb-4 border-b border-black-700'>
         <span className='text-xl'>주문요약</span>
       </div>
