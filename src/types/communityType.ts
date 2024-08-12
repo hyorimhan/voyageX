@@ -23,3 +23,10 @@ export interface Community extends Post {
   comments: number;
   likes?: number;
 }
+
+export interface TPagination<T> {
+  posts: T[];
+  total: number;
+  page: number;
+  totalPages: number;
+}
