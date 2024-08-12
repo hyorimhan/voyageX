@@ -81,9 +81,9 @@ const GoodsOrderDetailList = ({ order_id }: GoodsOrderDetailListProps) => {
           <p>{order_id}</p>
         </div>
       </div>
-      <div className='border-b-[1px] border-solid border-white mt-8'></div>
+      <div className='border-b-[1px] border-solid mt-8'></div>
       <div className='flex flex-col gap-9'>
-        <div className='border-[1px] border-white p-5 rounded-lg mt-8'>
+        <div className='border-[1px] border-black-300 p-5 rounded-lg mt-8'>
           <div className='flex gap-[10px]'>
             <p className='text-xl'>주문상품 정보</p>
             <p className='text-lg'>총 {totalQuantity}개</p>
@@ -100,17 +100,21 @@ const GoodsOrderDetailList = ({ order_id }: GoodsOrderDetailListProps) => {
               <div className='ml-[18px] flex justify-between w-full'>
                 <div className='flex flex-col gap-2 justify-center'>
                   <p>우주</p>
-                  <p>{item.goods.goods_name}</p>
+                  <p className='text-lg'>{item.goods.goods_name}</p>
+                  <div className='flex gap-2 items-center'>
+                    <p>{item.goods.goods_price.toLocaleString()}원</p>
+                    <p>|</p>
+                    <p>수량 {item.quantity}개</p>
+                  </div>
                 </div>
                 <div className='flex flex-col w-[122px] justify-center gap-2 border-l-[1px] px-4'>
-                  <p>{item.goods.goods_price.toLocaleString()}원</p>
-                  <p className='text-sm'>수량 {item.quantity}개</p>
+                  <p className='text-sm self-center'>{item.state}</p>
                 </div>
               </div>
             </div>
           ))}
         </div>
-        <div className='flex flex-col border-[1px] rounded-lg p-5'>
+        <div className='flex flex-col border-[1px] border-black-300 rounded-lg p-5'>
           <p className='h-9 border-b border-black-700'>결제정보</p>
           <div className='h-[77px] flex flex-col gap-4 border-b-[1px] mt-4'>
             <div className='flex w-full justify-between text-sm'>
@@ -128,7 +132,7 @@ const GoodsOrderDetailList = ({ order_id }: GoodsOrderDetailListProps) => {
           </div>
         </div>
         <div className='flex gap-8'>
-          <div className='flex p-5 w-full flex-col border-[1px] rounded-md'>
+          <div className='flex p-5 flex-col border-[1px] border-black-300 rounded-md w-[489px]'>
             <p className='h-9 border-b-[1px] border-black-700 text-xl'>
               배송 정보
             </p>
@@ -138,7 +142,7 @@ const GoodsOrderDetailList = ({ order_id }: GoodsOrderDetailListProps) => {
                 <p>휴대전화 번호</p>
                 <p>배송지 정보</p>
               </div>
-              <div className='flex flex-col gap-4 w-[277px]'>
+              <div className='flex flex-col gap-4'>
                 <p>{goodsOrdersDetail[0].recipient}</p>
                 <p>{goodsOrdersDetail[0].phone}</p>
                 <div>
@@ -155,7 +159,7 @@ const GoodsOrderDetailList = ({ order_id }: GoodsOrderDetailListProps) => {
               </div>
             </div>
           </div>
-          <div className='flex p-5 w-full flex-col border-[1px] rounded-md'>
+          <div className='flex p-5 flex-col border-[1px] border-black-300 rounded-md flex-grow'>
             <p className='h-9 border-b-[1px] border-black-700 text-xl'>
               결제 수단
             </p>

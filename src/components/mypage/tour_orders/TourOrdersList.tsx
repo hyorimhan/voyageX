@@ -351,7 +351,7 @@ const TourOrdersList = () => {
                     </div>
                     <div className='gap-2 flex-col'>
                       <p className='text-xs text-black-300'>Spaceship</p>
-                      <p className='text-sm'>{order.spaceship_name}</p>
+                      <p className='text-sm'>{order.tour.spaceship}</p>
                     </div>
                     <div className='gap-2 flex-col'>
                       <p className='text-xs text-black-300'>Flight type</p>
