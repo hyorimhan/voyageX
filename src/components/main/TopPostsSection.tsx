@@ -36,30 +36,36 @@ const TopPostsSection: React.FC = () => {
     <section className='section h-screen flex items-center justify-center relative'>
       <div className='w-full max-w-6xl mx-auto p-4'>
         <h1 className={`text-4xl left-28 mb-8 mt-8 ${orbitron.className} font-semibold`}>
-          Free Board
+          FREE BOARD
         </h1>
-        <div className='grid grid-cols-2 gap-4 relative'>
+        <Link href='/community'>
+          <p className='absolute top-60 right-8'>MORE+</p>
+        </Link>
+        <div className='grid grid-cols-2 gap-8 relative'>
           {posts.map((post: Post) => (
             <Link
               href={`/posts/${post.id}`}
               key={post.id}
-              className='p-2 md:p-4 rounded-md block bg-black text-white hover:bg-gray-700 transition-colors'
+              className='p-6 md:p-8 rounded-md block bg-black text-white hover:bg-gray-700 transition-colors'
             >
               <div className='flex flex-col justify-between h-full'>
                 <div>
-                  <span className='bg-white text-gray-500 py-2 px-3 md:px-4 rounded-full mb-2 md:mb-4 inline-block text-sm md:text-base'>
-                    🔥HOT
-                  </span>
+                  <Image 
+                    src={'/images/chips.png'}
+                    alt='chips'
+                    width={55}
+                    height={28}
+                    className='mb-3'/>
                   <h2 className='text-base font-pretendard font-semibold mb-2 md:text-xl md:mb-4 '>
                     {post.title}
                   </h2>
-                  <p className='text-gray-400 mb-2 md:mb-4 text-sm md:text-base'>
-                    {post.content.length > 90
-                      ? `${post.content.substring(0, 90)}...`
+                  <p className='text-black-300 mb-4 text-sm md:text-base'>
+                    {post.content.length > 120
+                      ? `${post.content.substring(0, 120)}...`
                       : post.content}
                   </p>
                 </div>
-                <div className='text-gray-500 flex justify-between items-center mt-auto text-xs md:text-sm'>
+                <div className='text-black-50 flex justify-between items-center mt-auto text-xs md:text-sm'>
                   <span>{formatDate(post.created_at)}</span>
                   <span>
                     좋아요 {post.likes} 댓글 {post.comments}
@@ -73,7 +79,7 @@ const TopPostsSection: React.FC = () => {
               src='/images/free-board.svg'
               alt='Center Star'
               width={1200}
-              height={1000}
+              height={1200}
             />
           </div>
         </div>
