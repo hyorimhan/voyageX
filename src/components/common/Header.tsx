@@ -37,7 +37,6 @@ const Header = () => {
       router.push(href);
     });
   };
-  console.log(user);
 
   return (
     <>
