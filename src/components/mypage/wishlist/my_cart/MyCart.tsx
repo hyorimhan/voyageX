@@ -118,27 +118,35 @@ function MyCart({ user_id }: WishListPropsType) {
 
   return (
     <section>
-      <CartItemSelector
-        selectItems={selectItems}
-        listLength={cartList.length}
-        handleSelectAllItems={handleSelectAllItems}
-        setIsDeleteOpen={setIsDeleteOpen}
-      />
-      <ul className='flex flex-col gap-4'>
-        {cartList.length
-          ? cartList?.map((item) => (
-              <CartItem
-                key={item.id}
-                item={item}
-                selectItems={selectItems}
-                handleSelectItem={handleSelectItem}
-                handleAdjustItemQuantity={handleAdjustItemQuantity}
-              />
-            ))
-          : '장바구니에 담은 상품이 없습니다!'}
-      </ul>
-      <CartTotalPrice totalPrice={totalPrice} />
-      <CartButtonContainer selectItems={selectItems} />
+      <div>
+        <CartItemSelector
+          selectItems={selectItems}
+          listLength={cartList.length}
+          handleSelectAllItems={handleSelectAllItems}
+          setIsDeleteOpen={setIsDeleteOpen}
+        />
+      </div>
+      <div>
+        <ul className='flex flex-col gap-4'>
+          {cartList.length
+            ? cartList?.map((item) => (
+                <CartItem
+                  key={item.id}
+                  item={item}
+                  selectItems={selectItems}
+                  handleSelectItem={handleSelectItem}
+                  handleAdjustItemQuantity={handleAdjustItemQuantity}
+                />
+              ))
+            : '장바구니에 담은 상품이 없습니다!'}
+        </ul>
+      </div>
+      <div>
+        <CartTotalPrice totalPrice={totalPrice} />
+      </div>
+      <div>
+        <CartButtonContainer selectItems={selectItems} />
+      </div>
       <GenericModal
         isOpen={isDeleteOpen}
         title='장바구니 상품 삭제'
