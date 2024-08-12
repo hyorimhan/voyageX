@@ -30,7 +30,7 @@ function TourList() {
         <TourRouter url='/' />
       </div>
       <Popup />
-      <div className='lg:hidden md:hidden mx-5 sm:mt-8 '>
+      <div className='lg:hidden md:hidden mx-5 sm:mt-8 mb-5 '>
         <Swiper
           loop={true}
           spaceBetween={30}
@@ -47,7 +47,7 @@ function TourList() {
           </div>
         </Swiper>
       </div>
-      <div className='sm:hidden '>
+      <div className='sm:hidden mb-5'>
         <div className='grid lg:grid-cols-3 md:grid-cols-2 gap-8 p-4 mt-10'>
           {tours?.map((tour) => (
             <TourCard key={tour.id} tour={tour} />

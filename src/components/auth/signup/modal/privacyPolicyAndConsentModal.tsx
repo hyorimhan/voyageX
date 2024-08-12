@@ -7,7 +7,7 @@ function privacyPolicyAndConsentModal() {
       <div
         className={`${
           t.visible ? 'animate-enter' : 'animate-leave'
-        } flex items-center justify-center bg-gray-500 bg-opacity-50 mt-10`}
+        } flex items-center justify-center  bg-opacity-50  mt-[10%]`}
       >
         <div className='bg-white max-w-3xl w-full shadow-lg rounded-lg pointer-events-auto flex flex-col ring-1 ring-black ring-opacity-5'>
           <div className='p-6'>
@@ -122,8 +122,8 @@ function privacyPolicyAndConsentModal() {
             </div>
           </div>
           <button
-            onClick={() => toast.dismiss(t.id)}
-            className='border-t border-gray-200 p-4 flex items-center justify-center text-sm font-medium text-indigo-600 '
+            onClick={() => toast.remove(t.id)}
+            className='border-t  border-gray-200 p-4 flex items-center justify-center text-sm font-medium text-indigo-600 '
           >
             닫기
           </button>

@@ -7,9 +7,9 @@ function NonRefundModal() {
       <div
         className={`${
           t.visible ? 'animate-enter' : 'animate-leave'
-        } flex items-center justify-center bg-gray-500 bg-opacity-50 mt-10`}
+        } flex items-center justify-center mt-[10%]  bg-opacity-50 `}
       >
-        <div className='bg-white max-w-3xl w-full shadow-lg rounded-lg pointer-events-auto flex flex-col ring-1 ring-black ring-opacity-5'>
+        <div className='bg-white max-w-3xl mt-[5%] w-full shadow-lg rounded-lg pointer-events-auto flex flex-col ring-1 ring-black ring-opacity-5'>
           <div className='p-6'>
             <p className='text-lg font-medium text-gray-900'>
               결제 이후 환불 및 취소 불가 동의
@@ -89,7 +89,7 @@ function NonRefundModal() {
             </div>
           </div>
           <button
-            onClick={() => toast.dismiss(t.id)}
+            onClick={() => toast.remove(t.id)}
             className='border-t border-gray-200 p-4 flex items-center justify-center text-sm font-medium text-indigo-600 '
           >
             닫기
