@@ -134,7 +134,7 @@ const TourOrderListMobile = () => {
   }
 
   return (
-    <div className='lg:hidden'>
+    <div className='md:hidden lg:hidden'>
       {tourOrders.map((order) => (
         <div key={order.id} className='gap-4 flex flex-col'>
           <div className='border-b-[1px] border-black-700 flex py-4 justify-between items-center'>
@@ -157,138 +157,118 @@ const TourOrderListMobile = () => {
             </div>
             <div className='flex w-full text-white flex-wrap'>
               <div
-                className='bg-black-800 rounded-2xl flex py-4 px-4 w-[544px] h-[424px]'
+                className='bg-black-800 rounded-2xl flex h-[424px] w-full'
                 style={{
-                  backgroundImage: `url('${order.planet.ticket_web_img}')`,
+                  backgroundImage: `url('${order.planet.ticket_mobile_img}')`,
+                  backgroundSize: 'cover',
                 }}
               >
                 <div className='flex-col flex'>
-                  <div className='flex gap-2 h-5 mt-1 ml-[7px] items-center mb-7'>
+                  <div className='flex gap-2 ml-4 items-center mb-7 mt-4'>
                     <SpaceshipIcon20px />
                     <p className='text-xs font-semibold'>BOARDING PASS</p>
                   </div>
-                  <div className='flex flex-col h-[46px]'>
-                    <div className='flex flex-col gap-7'>
-                      <div className='flex gap-2 items-start'>
-                        <div>
-                          <p className={`${orbitron.className} text-2xl`}>
-                            DAEJEON
-                          </p>
-                          <p className='text-xs'>{order.depart_place}</p>
-                          <div className='flex gap-2 items-center mt-3'>
-                            <div className='flex flex-col gap-1'>
-                              <p className='text-black-300 text-xs w-[49px]'>
-                                Date
-                              </p>
-                              <p className='text-black-300 text-xs mt-1'>
-                                Dep time
-                              </p>
-                            </div>
-                            <div>
-                              <p className='text-sm'>
-                                {formatDate(order.depart_date, true)}
-                              </p>
-                              <p className='text-sm mt-1'>
-                                {formatTime(order.depart_time)}
-                              </p>
+                  <div className='flex items-start'>
+                    <Image
+                      src={'/ticket/long_bar.svg'}
+                      alt='ticket bar img'
+                      width={7}
+                      height={121}
+                      className='mr-2 ml-[22px] mt-4'
+                    />
+                    <div className='flex flex-col'>
+                      <div className='flex flex-col gap-7'>
+                        <div className='flex gap-2 items-start'>
+                          <div>
+                            <p className={`${orbitron.className} text-xl`}>
+                              DAEJEON
+                            </p>
+                            <p className='text-xs font-medium'>
+                              {order.depart_place}
+                            </p>
+                            <div className='flex gap-2 items-center mt-3'>
+                              <div className='flex flex-col gap-1 text-[10px]'>
+                                <p className='text-black-300'>Date</p>
+                                <p className='text-black-300 mt-1'>Dep time</p>
+                              </div>
+                              <div className='text-xs'>
+                                <p>{formatDate(order.depart_date, true)}</p>
+                                <p className=' mt-1'>
+                                  {formatTime(order.depart_time)}
+                                </p>
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                      <div className='flex h-[46px] gap-2 items-start'>
-                        <div>
-                          <p className={`${orbitron.className} text-2xl`}>
-                            {order.planet.english_name}
-                          </p>
-                          <p className='text-xs'>{order.planet.name}, 우주</p>
-                          <div className='flex items-center mt-3'>
-                            <div className='flex flex-col gap-1'>
-                              <p className='text-black-300 text-xs w-[49px]'>
-                                Date
-                              </p>
-                              <p className='text-black-300 text-xs mt-1'>
-                                Arr time
-                              </p>
-                            </div>
-                            <div>
-                              <p className='text-sm'>
-                                {formatDate(order.depart_date, true)}
-                              </p>
-                              <p className='text-sm mt-1'>
-                                {formatTime(order.arrive_time)}
-                              </p>
+                        <div className='flex gap-2 items-start'>
+                          <div>
+                            <p className={`${orbitron.className} text-xl`}>
+                              {order.planet.english_name}
+                            </p>
+                            <p className='text-xs font-medium'>
+                              {order.planet.name}, 우주
+                            </p>
+                            <div className='flex items-center mt-3'>
+                              <div className='flex flex-col gap-1'>
+                                <p className='text-black-300 text-xs w-[49px]'>
+                                  Date
+                                </p>
+                                <p className='text-black-300 text-xs mt-1'>
+                                  Arr time
+                                </p>
+                              </div>
+                              <div>
+                                <p className='text-sm'>
+                                  {formatDate(order.depart_date, true)}
+                                </p>
+                                <p className='text-sm mt-1'>
+                                  {formatTime(order.arrive_time)}
+                                </p>
+                              </div>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <div>
-                      <div className='flex gap-4'>
-                        <div className='gap-2 flex-col'>
-                          <p className='text-xs text-black-300'>Departure</p>
-                          <p className='text-sm'>
-                            {formatTime(order.depart_time)}
-                          </p>
-                        </div>
-                        <div className='gap-2 flex-col'>
-                          <p className='text-xs text-black-300'>
-                            Spaceship Code
-                          </p>
-                          <p className='text-sm'>{order.spaceship_code}</p>
-                        </div>
+                  </div>
+                  <div className='flex flex-col ml-7'>
+                    <div className='flex gap-5 mt-[28px]'>
+                      <div className='gap-2 flex-col'>
+                        <p className='text-xs text-black-300'>Departure</p>
+                        <p className='text-sm font-medium'>
+                          {formatTime(order.depart_time)}
+                        </p>
                       </div>
-                      <div className='flex gap-4 mt-3'>
-                        <div className='gap-2 flex-col'>
-                          <p className='text-xs text-black-300'>Name</p>
-                          <p className='text-sm'>{order.passenger}</p>
-                        </div>
-                        <div className='gap-2 flex-col'>
-                          <p className='text-xs text-black-300'>Passenger</p>
-                          <p className='text-sm'>1 Adult</p>
-                        </div>
-                        <div className='gap-2 flex-col'>
-                          <p className='text-xs text-black-300'>Gate</p>
-                          <p className='text-sm'>{order.gate}</p>
-                        </div>
-                        <div className='gap-2 flex-col'>
-                          <p className='text-xs text-black-300'>
-                            Boarding time
-                          </p>
-                          <p className='text-sm'>11:30</p>
-                        </div>
+                      <div className='gap-2 flex-col'>
+                        <p className='text-xs text-black-300'>Spaceship Code</p>
+                        <p className='text-sm font-medium'>
+                          {order.spaceship_code}
+                        </p>
+                      </div>
+                    </div>
+                    <div className='flex gap-5 mt-3'>
+                      <div className='gap-2 flex-col'>
+                        <p className='text-xs text-black-300'>Name</p>
+                        <p className='text-sm font-medium'>{order.passenger}</p>
+                      </div>
+                      <div className='gap-2 flex-col'>
+                        <p className='text-xs text-black-300'>Passenger</p>
+                        <p className='text-sm font-medium'>1 Adult</p>
+                      </div>
+                      <div className='gap-2 flex-col'>
+                        <p className='text-xs text-black-300'>Gate</p>
+                        <p className='text-sm font-medium'>{order.gate}</p>
+                      </div>
+                      <div className='gap-2 flex-col'>
+                        <p className='text-xs text-black-300'>Boarding time</p>
+                        <p className='text-sm'>11:30</p>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div className='bg-black-800 rounded-2xl text-black w-[292px] pl-[15px] py-4 flex flex-col sm:w-[335px]'>
-                <div className='flex mt-[27px]'>
-                  <div className='w-24'>
-                    <p className='text-xl'>DAEJEON</p>
-                    <p className='text-[10px]'>{order.depart_place}</p>
-                    <p className='text-xs mt-3'>
-                      {formatDate(order.depart_date, true)}
-                    </p>
-                    <p className='text-xs'>{formatTime(order.depart_time)}</p>
-                  </div>
-                  <div className='ml-2 mr-3 mt-3'>
-                    <Image
-                      src='/ticket/bar.svg'
-                      alt='barcode'
-                      height={7}
-                      width={56}
-                    />
-                  </div>
-                  <div>
-                    <p className='text-xl'>{order.planet.english_name}</p>
-                    <p className='text-[10px]'>{order.planet.name}, 우주</p>
-                    <p className='text-xs mt-3'>
-                      {formatDate(order.depart_date, true)}
-                    </p>
-                    <p className='text-xs'>{formatTime(order.arrive_time)}</p>
-                  </div>
-                </div>
-                <div className='flex justify-center items-end mt-5'>
+              <div className='bg-black-800 rounded-2xl text-black py-[30px] flex flex-col w-full'>
+                <div className='flex justify-center'>
                   <Image
                     src='/images/barcode1.svg'
                     alt='barcode'
@@ -299,6 +279,129 @@ const TourOrderListMobile = () => {
               </div>
             </div>
             <div className='my-5'> {showText && <p>여행도착 티켓</p>}</div>
+            <div className='flex w-full text-white flex-wrap'>
+              <div
+                className='bg-black-800 rounded-2xl flex h-[424px] w-full'
+                style={{
+                  backgroundImage: `url('${order.planet.ticket_mobile_img}')`,
+                  backgroundSize: 'cover',
+                }}
+              >
+                <div className='flex-col flex'>
+                  <div className='flex gap-2 ml-4 items-center mb-7 mt-4'>
+                    <SpaceshipIcon20px />
+                    <p className='text-xs font-semibold'>BOARDING PASS</p>
+                  </div>
+                  <div className='flex items-start'>
+                    <Image
+                      src={'/ticket/long_bar.svg'}
+                      alt='ticket bar img'
+                      width={7}
+                      height={121}
+                      className='mr-2 ml-[22px] mt-4'
+                    />
+                    <div className='flex flex-col'>
+                      <div className='flex flex-col gap-7'>
+                        <div className='flex gap-2 items-start'>
+                          <div>
+                            <p className={`${orbitron.className} text-xl`}>
+                              {order.planet.english_name}
+                            </p>
+                            <p className='text-xs font-medium'>
+                              {order.planet.name}, 우주
+                            </p>
+                            <div className='flex gap-2 items-center mt-3'>
+                              <div className='flex flex-col gap-1 text-[10px]'>
+                                <p className='text-black-300'>Date</p>
+                                <p className='text-black-300 mt-1'>Dep time</p>
+                              </div>
+                              <div className='text-xs'>
+                                <p>{formatDate(order.arrive_date, true)}</p>
+                                <p className=' mt-1'>
+                                  {formatTime(order.depart_time)}
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div className='flex gap-2 items-start'>
+                          <div>
+                            <p className={`${orbitron.className} text-xl`}>
+                              DAEJEON
+                            </p>
+                            <p className='text-xs font-medium'>
+                              {order.depart_place}
+                            </p>
+                            <div className='flex items-center mt-3'>
+                              <div className='flex flex-col gap-1'>
+                                <p className='text-black-300 text-xs w-[49px]'>
+                                  Date
+                                </p>
+                                <p className='text-black-300 text-xs mt-1'>
+                                  Arr time
+                                </p>
+                              </div>
+                              <div>
+                                <p className='text-sm'>
+                                  {formatDate(order.arrive_date, true)}
+                                </p>
+                                <p className='text-sm mt-1'>
+                                  {formatTime(order.arrive_time)}
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className='flex flex-col ml-7'>
+                    <div className='flex gap-5 mt-[28px]'>
+                      <div className='gap-2 flex-col'>
+                        <p className='text-xs text-black-300'>Departure</p>
+                        <p className='text-sm font-medium'>
+                          {formatTime(order.depart_time)}
+                        </p>
+                      </div>
+                      <div className='gap-2 flex-col'>
+                        <p className='text-xs text-black-300'>Spaceship Code</p>
+                        <p className='text-sm font-medium'>
+                          {order.spaceship_code}
+                        </p>
+                      </div>
+                    </div>
+                    <div className='flex gap-5 mt-3'>
+                      <div className='gap-2 flex-col'>
+                        <p className='text-xs text-black-300'>Name</p>
+                        <p className='text-sm font-medium'>{order.passenger}</p>
+                      </div>
+                      <div className='gap-2 flex-col'>
+                        <p className='text-xs text-black-300'>Passenger</p>
+                        <p className='text-sm font-medium'>1 Adult</p>
+                      </div>
+                      <div className='gap-2 flex-col'>
+                        <p className='text-xs text-black-300'>Gate</p>
+                        <p className='text-sm font-medium'>{order.gate}</p>
+                      </div>
+                      <div className='gap-2 flex-col'>
+                        <p className='text-xs text-black-300'>Boarding time</p>
+                        <p className='text-sm'>11:30</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className='bg-black-800 rounded-2xl text-black py-[30px] flex flex-col w-full'>
+                <div className='flex justify-center'>
+                  <Image
+                    src='/images/barcode1.svg'
+                    alt='barcode'
+                    height={69}
+                    width={213}
+                  />
+                </div>
+              </div>
+            </div>
           </div>
           <div className='flex mb-5 gap-3 justify-end'>
             <button

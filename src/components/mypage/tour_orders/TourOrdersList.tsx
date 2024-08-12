@@ -155,7 +155,7 @@ const TourOrdersList = () => {
             </div>
             <div className='flex w-full text-white flex-wrap '>
               <div
-                className='bg-black-800 rounded-2xl flex py-6 px-4 w-[544px] sm:h-[424px]'
+                className='bg-black-800 rounded-2xl flex py-6 px-4 w-[544px]'
                 style={{
                   backgroundImage: `url('${order.planet.ticket_web_img}')`,
                 }}
