@@ -132,44 +132,52 @@ import { NextResponse, type NextRequest } from 'next/server';
 
 export async function updateSession(request: NextRequest) {
   const isPrefetch = request.headers.get('Purpose') === 'prefetch';
+  let response = NextResponse.next({ request });
 
-  let supabaseResponse = NextResponse.next({ request });
+  const protectedPaths = [
+    '/mypage',
+    '/tour/payment',
+    '/community/write',
+    '/shop/order',
+    '/wishlist',
+  ];
 
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
       cookies: {
-        getAll() {
-          return request.cookies.getAll();
+        get(name: string) {
+          return request.cookies.get(name)?.value;
         },
-        setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value, options }) => {
-            supabaseResponse.cookies.set(name, value, options);
-          });
+        set(name: string, value: string, options?: any) {
+          response.cookies.set(name, value, options);
+        },
+        remove(name: string, options?: any) {
+          response.cookies.set(name, '', { ...options, maxAge: -1 });
         },
       },
     },
   );
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  try {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
 
-  if (
-    !isPrefetch &&
-    !user &&
-    (request.nextUrl.pathname.startsWith('/mypage/tour_orders') ||
-      request.nextUrl.pathname.startsWith('/tour/payment') ||
-      request.nextUrl.pathname.startsWith('/community/write') ||
-      request.nextUrl.pathname.startsWith('/shop/order') ||
-      request.nextUrl.pathname.startsWith('/mypage/goods_orders') ||
-      request.nextUrl.pathname.startsWith('/wishlist'))
-  ) {
-    const url = request.nextUrl.clone();
-    url.pathname = '/login';
-    return NextResponse.redirect(url);
+    if (
+      !isPrefetch &&
+      !user &&
+      protectedPaths.some((path) => request.nextUrl.pathname.startsWith(path))
+    ) {
+      const redirectUrl = new URL('/login', request.url);
+      redirectUrl.searchParams.set('redirect', request.nextUrl.pathname);
+      return NextResponse.redirect(redirectUrl);
+    }
+  } catch (error) {
+    console.error('Error in updateSession:', error);
+    return NextResponse.redirect(new URL('/login', request.url));
   }
 
-  return supabaseResponse;
+  return response;
 }
