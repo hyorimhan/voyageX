@@ -8,12 +8,25 @@ interface Post {
   id: string;
   title: string;
   content: string;
-  date?: string;
+  created_at: string;
   likes?: number;
   comments?: number;
 }
 
 const TopPostsSection: React.FC = () => {
+
+  const formatDate = (dateString: string) => { // 날짜 포맷팅
+    const options: Intl.DateTimeFormatOptions = {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false,
+    };
+    return new Date(dateString).toLocaleDateString('ko-KR', options);
+  }; 
+
   const { posts, loading, error } = useFetchTopPosts();
 
   if (loading) return <Loading />;
@@ -47,7 +60,7 @@ const TopPostsSection: React.FC = () => {
                   </p>
                 </div>
                 <div className='text-gray-500 flex justify-between items-center mt-auto text-xs md:text-sm'>
-                  <span>{post.date}</span>
+                  <span>{formatDate(post.created_at)}</span>
                   <span>
                     좋아요 {post.likes} 댓글 {post.comments}
                   </span>
