@@ -13,10 +13,10 @@ function DropDownButton(props: DropDownButtonPropsType) {
   const [isActive, setIsActive] = useState(false);
 
   return (
-    <div className='relative inline-block'>
+    <div className='relative inline-block mb-[20px]'>
       <button
         type='button'
-        className='text-black-50 text-lg cursor-pointer relative w-40 flex flex-row items-center mt-3 justify-between px-3'
+        className='text-black-50 text-lg cursor-pointer relative w-40 flex flex-row items-center mt-3 justify-between px-3 mb-[13px]'
         onClick={() => setIsActive((prev) => !prev)}
       >
         {categories[sortBy]}
