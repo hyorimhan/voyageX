@@ -80,8 +80,10 @@ export const signInWithGoogle = async () => {
 
 // 현재 로그인 유저 정보
 export const userLoginInfo = async () => {
-  const { data: loginInfo } = await supabase.auth.getUser();
-  return loginInfo;
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  return user;
 };
 
 // 비밀번호 변경

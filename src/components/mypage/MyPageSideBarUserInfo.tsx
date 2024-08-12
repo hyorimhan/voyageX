@@ -17,7 +17,7 @@ const MyPageSideBarUserInfo = () => {
 
   useEffect(() => {
     userLoginInfo().then((res) => {
-      saveUser(res.user);
+      saveUser(res);
     });
     if (user?.id) {
       getLikeLength(user.id).then((data) => {
