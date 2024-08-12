@@ -15,7 +15,7 @@ function LikedPlanetItem({
   handleGoToItem,
 }: LikedPlanetItemPropsType) {
   return (
-    <li className='text-black-50 mb-4 grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3'>
+    <li className='text-black-50'>
       <Image
         src={item.planets.planet_img}
         alt={item.planet_id}
