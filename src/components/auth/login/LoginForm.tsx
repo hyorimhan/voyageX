@@ -3,12 +3,15 @@
 import { login } from '@/services/auth';
 import { formType } from '@/types/authFormType';
 import { useRouter } from 'next/navigation';
-import { FieldErrors, useForm } from 'react-hook-form';
+import { FieldErrors, useForm, useWatch } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import useAuthStore from '../../../zustand/store/useAuth';
 import Link from 'next/link';
 import GoogleKakao from './GoogleKakao';
 import { emailValidate, passwordValidate } from '../AuthValidate';
+import EyeOffIcon24px from '../../common/icons/24px/EyeOffIcon24px';
+import EyeOnIcon24px from '@/components/common/icons/24px/EyeOnIcon24px';
+import { orbitron } from '../../../../public/fonts/orbitron';
 
 function LoginForm() {
   const router = useRouter();
@@ -18,8 +21,21 @@ function LoginForm() {
     register,
     handleSubmit,
     reset,
-    formState: { errors },
-  } = useForm<formType>();
+    control,
+    setValue,
+    formState: { errors, isValid },
+  } = useForm<formType>({
+    mode: 'onChange',
+    defaultValues: {
+      showPassword: false,
+    },
+  });
+
+  const showPassword = useWatch({
+    control,
+    name: 'showPassword',
+    defaultValue: false,
+  });
 
   const loginForm = async (data: formType) => {
     const response = await login(data);
@@ -40,21 +56,16 @@ function LoginForm() {
     }
   };
 
-  const handleError = (errors: FieldErrors<formType>) => {
-    if (errors.email?.message) {
-      toast.error(errors.email.message);
-    }
-
-    if (errors.password?.message) {
-      toast.error(errors.password.message);
-    }
-  };
   return (
-    <div className='flex flex-col items-end h-screen justify-center'>
-      <form onSubmit={handleSubmit(loginForm, handleError)}>
-        <div className='text-center text-2xl my-4 '>로그인</div>
+    <div className='flex flex-col items-end justify-center'>
+      <form onSubmit={handleSubmit(loginForm)}>
+        <div
+          className={`text-center text-2xl font-medium my-4 ${orbitron.className} `}
+        >
+          LOG IN
+        </div>
         <div className='flex flex-col'>
-          <label htmlFor='email' className='mb-1 '>
+          <label htmlFor='email' className='mb-1 text-black-300'>
             이메일 *
           </label>
           <input
@@ -63,36 +74,58 @@ function LoginForm() {
             placeholder='예) voyageX@gmail.com'
             {...register('email', emailValidate())}
             className={`text-black-900  w-[473px] h-[58px]  sm:w-[335px] rounded-lg p-2 border-2  ${
-              errors.email ? 'border-red-500' : ''
+              errors.email ? 'border-error-900 focus:border-error-900' : ''
             }  `}
             autoFocus
           />
+          {errors.email && (
+            <p className='text-error-900 text-sm mt-1'>
+              {errors.email.message}
+            </p>
+          )}
         </div>
 
         <div className='flex flex-col mt-4 '>
-          <label htmlFor='password' className='mb-1 text-black-200'>
+          <label htmlFor='password' className='mb-1 text-black-300'>
             비밀번호 *
           </label>
-          <input
-            type='password'
-            id='password'
-            placeholder='영문, 숫자, 특수문자 조합 8-16자'
-            {...register('password', passwordValidate())}
-            className={`text-black-900  w-[473px] h-[58px] sm:w-[335px]   rounded-lg p-2 ${
-              errors.password ? 'border-red-500' : ''
-            }`}
-          />
+          <div className='relative'>
+            <input
+              type={showPassword ? 'text' : 'password'}
+              id='password'
+              placeholder='영문, 숫자, 특수문자 조합 8-16자'
+              {...register('password', passwordValidate())}
+              className={`text-black-900  w-[473px] h-[58px] sm:w-[335px]   rounded-lg p-2 ${
+                errors.password ? 'border-error-900 focus:border-error-900' : ''
+              }`}
+            />
+            <button
+              type='button'
+              onClick={() => setValue('showPassword', !showPassword)}
+              className='absolute right-3 top-1/2 transform -translate-y-1/2'
+            >
+              {showPassword ? <EyeOnIcon24px /> : <EyeOffIcon24px />}
+            </button>
+            {errors.password && (
+              <p className='text-error-900 text-sm mt-1'>
+                {errors.password.message}
+              </p>
+            )}
+          </div>
         </div>
         <div className='flex flex-col'>
           <button
             type='submit'
-            className='bg-primary-600  w-[473px] h-[58px] sm:w-[335px]  rounded-lg p-2 mt-5 '
+            disabled={!isValid}
+            className={`bg-primary-600  w-[473px] h-[58px] sm:w-[335px] font-semibold  rounded-lg p-2 mt-5 ${
+              !isValid ? 'cursor-not-allowed hover:bg-black-400' : ''
+            }`}
           >
             로그인
           </button>
           <Link
             href={'/signup'}
-            className='bg-primary-100  w-[473px] h-[58px]   sm:w-[335px] rounded-lg p-2 mt-3 flex justify-center items-center text-primary-600'
+            className='bg-primary-100  w-[473px] h-[58px]  font-semibold sm:w-[335px] rounded-lg p-2 mt-3 flex justify-center items-center text-primary-700'
           >
             이메일로 회원가입
           </Link>

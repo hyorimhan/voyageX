@@ -10,6 +10,7 @@ import useExpressInfoStore from '@/zustand/store/useExpressInfoStore';
 import useGoodsOrderStore from '@/zustand/store/useGoodsOrderInfoStore';
 import TermsAndConditions from './TermsAndConditions';
 import { termsAndConditionsList } from '@/constants/shop';
+import CheckBox from '../mypage/delete_account/CheckBox';
 interface PayButtonPropsType {
   totalPrice: number;
   isTour: boolean;

@@ -3,6 +3,7 @@ import { TWriteComment } from '@/types/communityType';
 import useAuthStore from '@/zustand/store/useAuth';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { FormEvent, useState } from 'react';
+import toast from 'react-hot-toast';
 
 const CommentsWrite = ({
   postId,
@@ -25,14 +26,14 @@ const CommentsWrite = ({
 
   const handleSubmitComment = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!user) return alert('로그인 후 이용하실 수 있습니다');
+    if (!user) return toast.error('로그인 후 이용하실 수 있습니다');
     const newComment = {
       post_id: postId,
       user_id: user?.id as string,
       content: content,
     };
     if (!content) {
-      return alert('빈칸을 채워주세요.');
+      return toast.error('빈칸을 채워주세요.');
     }
     addComment(newComment);
     setContent('');

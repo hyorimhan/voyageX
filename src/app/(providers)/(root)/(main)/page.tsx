@@ -11,6 +11,8 @@ import VideoSection from '@/components/main/VideoSection';
 import { Planet } from '@/services/tour';
 import { useQuery } from '@tanstack/react-query';
 import { getPlanetsList } from '@/services/plants';
+import Loading from '@/components/common/Loading';
+import Chatbot from '@/components/chatbot/Chatbot';
 
 // TODO localhost:3000   페이지에서 tourID 를 받아올 방법이 없어요.
 const MainPage = () => {
@@ -60,11 +62,12 @@ const MainPage = () => {
     planetsRef,
   );
 
-  if (tourLoading) return <div>Loading...</div>;
+  if (tourLoading) return <Loading />;
   if (tourError) return <div>Error: {tourError.message}</div>;
 
   return (
     <div>
+      <Chatbot />
       <VideoSection
         videoSrc='/videos/main.mp4'
         heading='Voyage X'
@@ -172,11 +175,11 @@ const MainPage = () => {
         }}
         className='section section-bg h-screen flex flex-col items-center justify-center'
       >
-        <h1 className='text-4xl font-bold mb-8 absolute top-44 left-12'>
+        <h1 className='text-4xl font-bold mb-8 absolute top-8 left-50'>
           Goods Item
         </h1>
         <Link href='/shop'>
-          <p className='absolute top-44 right-24 underline'>More+</p>
+          <p className='absolute top-8 right-44 underline'>More+</p>
         </Link>
         {goodsError && <p className='text-red-500'>{goodsError.message}</p>}
         {goodsLoading ? (

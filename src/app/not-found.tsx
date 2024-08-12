@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 const NotFound = () => {
   const router = useRouter();
   return (
-    <div className='lg:w-[600px] mx-auto my-10 sm:w-[300px]'>
+    <div className='lg:w-[600px] sm:mt-[30%] mt-10 mx-auto flex items-center justify-center flex-col sm:w-[300px]'>
       <Lottie loop animationData={lottieJson} play />
       <button
         className='bg-primary-500 rounded-lg w-full mx-auto font-pretendard p-3 hover:bg-primary-300'
