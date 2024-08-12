@@ -18,9 +18,7 @@ function CustomerChangeModal({
   setIsModalOpen,
   updateCustomerInfo,
 }: CustomerChangeModalProps) {
-  const { customerInfo, setCustomerInfo } = useCustomerInfoStore(
-    (state) => state,
-  );
+  const { customerInfo } = useCustomerInfoStore((state) => state);
   const modalBackground = useRef(null);
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');

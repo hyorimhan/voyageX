@@ -1,10 +1,8 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
 function FailPayment() {
-  const router = useRouter();
   useEffect(() => {
     if (typeof window !== 'undefined') window.history.go(-3);
   });

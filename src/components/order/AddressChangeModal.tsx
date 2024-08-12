@@ -18,9 +18,7 @@ function AddressChangeModal({
   addressList,
   setIsModalOpen,
 }: AddressChangeModalProps) {
-  const { expressAddress, setExpressAddress } = useExpressInfoStore(
-    (state) => state,
-  );
+  const { setExpressAddress } = useExpressInfoStore((state) => state);
   const modalBackground = useRef(null);
   const [showAddressAddModal, setShowAddressAddModal] =
     useState<boolean>(false);

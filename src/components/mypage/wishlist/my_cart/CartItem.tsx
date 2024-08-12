@@ -4,7 +4,6 @@ import MinusIcon20px from '@/components/common/icons/20px/MinusIcon20px';
 import PlusIcon20px from '@/components/common/icons/20px/PlusIcon20px';
 import { CartListType } from '@/types/mypageType';
 import Image from 'next/image';
-import CheckBox from '../../delete_account/CheckBox';
 import { useState } from 'react';
 import CheckBoxPressedIcon24px from '@/components/common/icons/24px/CheckBoxPressedIcon24px';
 import CheckBoxHoveredIcon24px from '@/components/common/icons/24px/CheckBoxHoveredIcon24px';
@@ -31,11 +30,10 @@ function CartItem({
   handleSelectItem,
   handleAdjustItemQuantity,
 }: CartItemPropsType) {
-  const [isChecked, setIsChecked] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   return (
-    <li className='border-t-[1px] border-black-700 px-2 h-[136px] flex justify-between'>
-      <div className='flex justify-center'>
+    <li className='border-t-[1px] border-black-700 px-2 my-4 flex justify-between'>
+      <div className='flex md:justify-center lg:justify-center my-4'>
         <button
           onClick={() => handleSelectItem(item)}
           onMouseEnter={() => setIsHovered(true)}
@@ -61,8 +59,8 @@ function CartItem({
           <span>{item.goods.goods_name}</span>
         </div>
       </div>
-      <div className='flex'>
-        <div className='flex flex-row border-[1px] border-primary-300 rounded-lg justify-center gap-3 h-[33px] w-[96px] items-center self-center'>
+      <div className='flex sm:flex-col sm:justify-center'>
+        <div className='flex flex-row border-[1px] border-primary-300 rounded-lg justify-center gap-3 h-8 w-24 items-center self-center'>
           <button
             onClick={() =>
               handleAdjustItemQuantity({
@@ -88,7 +86,7 @@ function CartItem({
             <PlusIcon20px />
           </button>
         </div>
-        <div className='self-center w-[152px] text-center ml-[136px]'>
+        <div className='self-center w-40 text-center md:ml-36 lg:ml-36'>
           <span>{item.goods.goods_price.toLocaleString()}</span>
         </div>
       </div>

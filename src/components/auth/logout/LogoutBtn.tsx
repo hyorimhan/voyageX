@@ -2,6 +2,7 @@
 
 import { logout } from '@/services/auth';
 import useAuthStore from '@/zustand/store/useAuth';
+import useUpdateInfoStore from '@/zustand/store/useUpdateInfo';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 
@@ -9,6 +10,7 @@ function LogoutBtn() {
   const router = useRouter();
   const user = useAuthStore((state) => state.user);
   const saveUser = useAuthStore((state) => state.saveUser);
+  const { setUpdateInfo } = useUpdateInfoStore((state) => state);
 
   const logoutFunc = async () => {
     if (!user) {
@@ -21,6 +23,11 @@ function LogoutBtn() {
     }
 
     saveUser(null);
+    setUpdateInfo({
+      customerName: '',
+      customerPhone: '',
+      customerEmail: '',
+    });
     router.replace('/');
   };
   return <button onClick={logoutFunc}>로그아웃</button>;
