@@ -62,3 +62,11 @@ export async function GET(request: NextRequest) {
     totalPages: Math.ceil(total / limit),
   });
 }
+
+export async function POST(request: NextRequest) {
+  const supabase = createClient();
+  const newPost = await request.json();
+  const { data, error } = await supabase.from('posts').insert(newPost);
+  if (error) return NextResponse.json(error);
+  return NextResponse.json(data);
+}
