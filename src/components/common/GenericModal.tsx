@@ -5,7 +5,7 @@ type ModalProps = {
   title: string;
   content: React.ReactNode;
   buttonText: string | React.ReactNode;
-  buttonAction: () => void | React.ReactNode;
+  buttonAction: () => void | React.ReactNode | Promise<void>;
   cancelText?: string;
   cancelAction?: () => void;
   popup?: string;
