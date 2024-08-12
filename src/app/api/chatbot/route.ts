@@ -1,7 +1,7 @@
 import { initializeChannelService } from '@/components/chatbot/ChatbotUtils';
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 
-export async function POST(request: NextRequest) {
+export async function POST() {
   try {
     await initializeChannelService();
     return NextResponse.json({

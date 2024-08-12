@@ -2,14 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import GenericModal from './GenericModal';
 import Image from 'next/image';
+import CheckBox from '../mypage/delete_account/CheckBox';
 
 function Popup() {
   const [isOpen, setIsOpen] = useState<boolean>(true);
   const [checkModalBtn, setCheckModalBtn] = useState<boolean>(false);
   const [cookies, setCookies] = useCookies(['event']);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCheckModalBtn(e.target.checked);
+  const handleChange = (e: boolean) => {
+    setCheckModalBtn(e);
   };
 
   const expiredDate = (days: number) => {
@@ -58,24 +59,26 @@ function Popup() {
                 알람은 뜨지만 실제로 돈이 빠져나가지 않으니 걱정말고
                 결제해보세요!
               </div>
-              <div
-                className='flex items-center justify-center'
-                onClick={(e) => e.stopPropagation()}
-              >
-                <label htmlFor='checkbox' className='p-2'>
-                  하루동안 안 보기
-                </label>
-                <input type='checkbox' id='checkbox' onChange={handleChange} />
-              </div>
             </div>
           </div>
         }
-        popupTitle={'text-primary-200'}
+        popupTitle={'text-white text-center'}
         popupWidth={'w-[700px]'}
         popupContent={'flex-grow'}
-        popup={'h-[70%] sm:h-[500px]'}
-        buttonText={'닫기'}
+        popup={'h-[70%] sm:h-[550px]'}
+        buttonText={'확인'}
         buttonAction={handleCloseModal}
+        popupButton={
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className='flex items-center '
+          >
+            <CheckBox checked={checkModalBtn} onChange={handleChange} />
+            <label htmlFor='checkbox' className='p-2'>
+              오늘 하루 보지 않기
+            </label>
+          </div>
+        }
       />
     </div>
   );

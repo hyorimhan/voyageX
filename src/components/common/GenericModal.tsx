@@ -12,6 +12,7 @@ type ModalProps = {
   popupContent?: string;
   popupWidth?: string;
   popupTitle?: string;
+  popupButton?: React.ReactNode;
 };
 
 const GenericModal = ({
@@ -26,6 +27,7 @@ const GenericModal = ({
   popupContent,
   popupWidth,
   popupTitle,
+  popupButton,
 }: ModalProps) => {
   if (!isOpen) return null;
 
@@ -52,6 +54,7 @@ const GenericModal = ({
             {buttonText}
           </button>
         </div>
+        {popupButton && <div className='ml-auto mt-3'>{popupButton}</div>}
       </div>
     </div>
   );

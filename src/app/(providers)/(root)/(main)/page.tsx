@@ -12,6 +12,7 @@ import { Planet } from '@/services/tour';
 import { useQuery } from '@tanstack/react-query';
 import { getPlanetsList } from '@/services/plants';
 import Loading from '@/components/common/Loading';
+import Chatbot from '@/components/chatbot/Chatbot';
 
 // TODO localhost:3000   페이지에서 tourID 를 받아올 방법이 없어요.
 const MainPage = () => {
@@ -66,6 +67,7 @@ const MainPage = () => {
 
   return (
     <div>
+      <Chatbot />
       <VideoSection
         videoSrc='/videos/main.mp4'
         heading='Voyage X'
