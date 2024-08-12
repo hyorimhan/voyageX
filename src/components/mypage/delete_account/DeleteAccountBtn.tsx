@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { deleteUser } from '@/services/auth';
 import useAuthStore from '@/zustand/store/useAuth';
 import toast from 'react-hot-toast';
+import useUpdateInfoStore from '@/zustand/store/useUpdateInfo';
 
 type DeleteAccountBtnProps = {
   buttonText: string;
@@ -15,6 +16,7 @@ const DeleteAccountBtn = ({ buttonText }: DeleteAccountBtnProps) => {
   const [isChecked, setIsChecked] = useState(false);
   const router = useRouter();
   const user = useAuthStore((state) => state.user);
+  const { setUpdateInfo } = useUpdateInfoStore((state) => state);
 
   const handleDeleteAccount = async () => {
     if (user) {
@@ -24,6 +26,11 @@ const DeleteAccountBtn = ({ buttonText }: DeleteAccountBtnProps) => {
         console.error('회원탈퇴오류:', responseData.error);
         toast.error('회원탈퇴오류발생');
       } else {
+        setUpdateInfo({
+          customerName: '',
+          customerPhone: '',
+          customerEmail: '',
+        });
         toast.success('회원탈퇴완료');
         router.replace('/');
       }
