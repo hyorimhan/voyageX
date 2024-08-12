@@ -3,18 +3,28 @@ import {
   MyPost,
   TEditComment,
   TEditPost,
+  TPagination,
   TWriteComment,
   TWritePost,
 } from '@/types/communityType';
 
-export async function getPostAll(): Promise<Community[]> {
-  const response = await fetch('/api/community');
+export async function getPostAll(
+  page = 1,
+  limit = 10,
+): Promise<TPagination<MyPost>> {
+  const response = await fetch(`/api/community?page=${page}&limit=${limit}`);
   const data = await response.json();
   return data;
 }
 
-export async function getPostByCategory(category: string) {
-  const response = await fetch(`/api/community/category/${category}`);
+export async function getPostByCategory(
+  category: string,
+  page = 1,
+  limit = 10,
+) {
+  const response = await fetch(
+    `/api/community/category/${category}?page=${page}&limit=${limit}`,
+  );
   const data = await response.json();
   return data;
 }
@@ -119,6 +129,13 @@ export async function getIsLikedPost(post_id: string, user_id: string) {
   const response = await fetch(
     `/api/community/likes/${post_id}?user_id=${user_id}`,
   );
+  const data = await response.json();
+  return data;
+}
+
+export async function getPagination(page: number, limit: number) {
+  const response = await fetch(`/api/community?page=${page}&limit=${limit}`);
+
   const data = await response.json();
   return data;
 }

@@ -1,3 +1,4 @@
+import Planet16px from '@/components/common/icons/16px/Planet16px';
 import { categories } from '@/utils/categories';
 
 interface CategoryBadgeProps {
@@ -6,8 +7,11 @@ interface CategoryBadgeProps {
 
 const CategoryBadge: React.FC<CategoryBadgeProps> = ({ category }) => {
   return (
-    <div className='text-[10px] inline-block px-3 py-[6px] rounded-[30px] font-bold bg-primary-50 text-primary-500'>
-      {categories[category]}
+    <div className='text-[12px] inline-block px-2 py-[6px] rounded-[30px] border-primary-300 border-[1px] bg-primary-100 text-primary-500'>
+      <div className='flex'>
+        <Planet16px />
+        {categories[category]}
+      </div>
     </div>
   );
 };

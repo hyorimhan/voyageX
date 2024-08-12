@@ -6,11 +6,19 @@ import { useRouter } from 'next/navigation';
 
 function Search() {
   const [search, setSearch] = useState('');
+  const [error, setError] = useState<string | null>(null);
 
   const router = useRouter();
 
   const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    if (search.length < 2) {
+      setError('검색어는 두글자 이상이어야 합니다.');
+      return;
+    }
+
+    setError(null);
     router.push(`/community/search?search=${search}`);
   };
 
@@ -31,6 +39,9 @@ function Search() {
             <TbSearch size={24} />
           </button>
         </form>
+        {error && (
+          <div className='items-center text-red-500 ml-4 mt-3'>{error}</div>
+        )}
       </div>
     </>
   );
