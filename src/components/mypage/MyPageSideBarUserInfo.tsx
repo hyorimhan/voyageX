@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getMyPosts } from '@/services/community';
 import { MyPost } from '@/types/communityType';
 import HeartWhiteIcon16px from '../common/icons/16px/HeartWhiteIcon16px';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { userLoginInfo } from '@/services/auth';
 import { getLikeLength } from '@/services/mypage';
 import Link from 'next/link';
