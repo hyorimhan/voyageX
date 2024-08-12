@@ -7,7 +7,7 @@ interface CartTotalPricePropsType {
 
 function CartTotalPrice({ totalPrice }: CartTotalPricePropsType) {
   return (
-    <div className='border-t border-white h-[124px] flex py-6 justify-center mt-[5px]'>
+    <div className='border-t-[1px] border-white h-32 flex py-6 justify-center mt-1'>
       <div className='flex flex-col items-center w-[254px]'>
         <span className='mb-4'>총 주문금액</span>
         <span className='text-lg'>{`${totalPrice.toLocaleString()}원`}</span>

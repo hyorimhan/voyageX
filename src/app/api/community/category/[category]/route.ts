@@ -14,7 +14,7 @@ export async function GET(
     .order('created_at', { ascending: false });
 
   if (error) {
-    throw new Error(error.message);
+    return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
   const postsDetails = await Promise.all(
@@ -37,5 +37,8 @@ export async function GET(
     }),
   );
 
-  return NextResponse.json(postsDetails);
+  return NextResponse.json({
+    posts: postsDetails,
+    total: postsDetails.length,
+  });
 }

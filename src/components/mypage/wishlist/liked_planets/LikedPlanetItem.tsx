@@ -1,6 +1,4 @@
 import StarTrueIcon16px from '@/components/common/icons/16px/StarTrueIcon16px';
-import StarFalseIcon24px from '@/components/common/icons/24px/StarFalseIcon24px';
-import StarTrueIcon24px from '@/components/common/icons/24px/StarTrueIcon24px';
 import TourHearts from '@/components/tour/tourDetail/TourHearts';
 import { LikedPlanetType } from '@/types/mypageType';
 import Image from 'next/image';
@@ -17,7 +15,7 @@ function LikedPlanetItem({
   handleGoToItem,
 }: LikedPlanetItemPropsType) {
   return (
-    <li className='text-black-50 mb-4 grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3'>
+    <li className='text-black-50'>
       <Image
         src={item.planets.planet_img}
         alt={item.planet_id}
