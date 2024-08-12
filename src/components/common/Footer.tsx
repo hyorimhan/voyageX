@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import { AiFillGithub } from 'react-icons/ai';
@@ -18,19 +19,19 @@ const Footer = () => {
               <p>고객상담팀(채널톡) (상담시간 월~금: AM 09:00 ~ PM 06:00)</p>
             </div>
           </div>
-          <div className='text-center flex md:text-right space-x-4 text-gray-300 '>
-            {/* <a href="#" className="hover:underline">서비스이용약관</a>
-            <span> | </span>
-            <a href="#" className="hover:underline">개인정보처리방침</a>
-            <span> | </span>
-            <a href="#" className="hover:underline">영상정보처리방침</a>
-            <span> | </span>
-            <a href="#" className="hover:underline">우주여행문의</a>
-            <span> | </span>
-            <a href="#" className="hover:underline">찾아오는 길</a> */}
+          <div className='text-center flex items-center md:text-right space-x-4 text-gray-300 '>
             <Link href={'https://github.com/hyorimhan/voyageX'}>
               <AiFillGithub className='w-8 h-8' />
             </Link>
+            <Link href={'/'}>
+              <Image
+                src={'/icons/logo/logo1.svg'}
+                alt='voyage_x_logo'
+                width={32}
+                height={32}
+              />
+            </Link>
+
             <Link
               href={
                 'https://www.notion.so/teamsparta/A-11-10-1-a6343ef77fc84599a941ba2a50f7f72d'

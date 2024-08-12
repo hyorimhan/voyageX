@@ -11,6 +11,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import Loading from './Loading';
 import { orbitron } from '../../../public/fonts/orbitron';
 import toast from 'react-hot-toast';
+import Image from 'next/image';
 
 const Header = () => {
   const user = useAuthStore((state) => state.user);
@@ -73,7 +74,12 @@ const Header = () => {
             className={`flex items-center justify-center ${orbitron.className}`}
           >
             <button className='text-2xl' onClick={() => handleLinkClick('/')}>
-              Voyage X
+              <Image
+                src={'/icons/logo/logo3.svg'}
+                alt='voyage_x_logo'
+                width={200}
+                height={150}
+              />
             </button>
           </div>
           <div className='flex items-center justify-end w-[260px] gap-4'>
