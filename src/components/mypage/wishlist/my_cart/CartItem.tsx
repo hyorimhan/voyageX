@@ -4,7 +4,6 @@ import MinusIcon20px from '@/components/common/icons/20px/MinusIcon20px';
 import PlusIcon20px from '@/components/common/icons/20px/PlusIcon20px';
 import { CartListType } from '@/types/mypageType';
 import Image from 'next/image';
-import CheckBox from '../../delete_account/CheckBox';
 import { useState } from 'react';
 import CheckBoxPressedIcon24px from '@/components/common/icons/24px/CheckBoxPressedIcon24px';
 import CheckBoxHoveredIcon24px from '@/components/common/icons/24px/CheckBoxHoveredIcon24px';
@@ -31,7 +30,6 @@ function CartItem({
   handleSelectItem,
   handleAdjustItemQuantity,
 }: CartItemPropsType) {
-  const [isChecked, setIsChecked] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   return (
     <li className='border-t-[1px] border-black-700 px-2 h-[136px] flex justify-between'>

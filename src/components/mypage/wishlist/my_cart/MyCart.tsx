@@ -35,7 +35,6 @@ function MyCart({ user_id }: WishListPropsType) {
       setSelectItems((prev) =>
         prev.filter((item) => item.goods.id !== goods.goods.id),
       );
-    console.log('selectItems => ', selectItems);
   };
 
   const handleDeleteItem = () => {
@@ -118,7 +117,7 @@ function MyCart({ user_id }: WishListPropsType) {
   }
 
   return (
-    <div>
+    <section>
       <CartItemSelector
         selectItems={selectItems}
         listLength={cartList.length}
@@ -152,7 +151,7 @@ function MyCart({ user_id }: WishListPropsType) {
         cancelText='취소'
         cancelAction={() => setIsDeleteOpen(false)}
       />
-    </div>
+    </section>
   );
 }
 
