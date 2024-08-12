@@ -68,10 +68,12 @@ const GoodsInfo = ({ goods, goods_id }: GoodsInfoProps) => {
       />
       <GenericModal
         isOpen={isErrorOpen}
-        title='장바구니에 담기 실패'
-        content='이미 담은 상품입니다.'
-        buttonText='확인'
-        buttonAction={() => setIsErrorOpen(false)}
+        title='이미 담은 상품입니다.'
+        content='장바구니를 확인해볼까요?'
+        buttonText='보러가기'
+        buttonAction={() => router.push('/wishlist')}
+        cancelText='취소'
+        cancelAction={() => setIsConfirmOpen(false)}
       />
       <div>
         <Image

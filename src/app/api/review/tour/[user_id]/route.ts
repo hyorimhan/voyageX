@@ -34,14 +34,12 @@ export const POST = async (request: Request, { params }: ParamsType) => {
     },
   ]);
   if (error) return NextResponse.json({ error });
-  const { data: createReviewIdSuccess, error: createReviewIdFail } =
-    await supabase
-      .from('tour_orders')
-      .update({ review_id })
-      .match({ id: order_id, tour_id });
+  const { error: createReviewIdFail } = await supabase
+    .from('tour_orders')
+    .update({ review_id })
+    .match({ id: order_id, tour_id });
   if (createReviewIdFail)
     return NextResponse.json({ error: createReviewIdFail });
-  console.log('createReviewIdSuccess => ', createReviewIdSuccess);
   return NextResponse.json(data);
 };
 

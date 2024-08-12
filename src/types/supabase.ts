@@ -138,6 +138,7 @@ export type Database = {
         Row: {
           created_at: string
           description: string
+          discount: number
           goods_img: string
           goods_name: string
           goods_price: number
@@ -148,6 +149,7 @@ export type Database = {
         Insert: {
           created_at?: string
           description: string
+          discount?: number
           goods_img: string
           goods_name: string
           goods_price: number
@@ -158,6 +160,7 @@ export type Database = {
         Update: {
           created_at?: string
           description?: string
+          discount?: number
           goods_img?: string
           goods_name?: string
           goods_price?: number
