@@ -1,9 +1,11 @@
 import {
   getIsLikeTourByUser,
   getLikedToursByUser,
+  getTourListByOrder,
   toggleLikeTours,
 } from '@/services/tour';
 import { LikedPlanetType } from '@/types/mypageType';
+import { TourOrderType } from '@/types/tour';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 export const useGetLikedToursByUser = (user_id: string) => {
@@ -48,5 +50,12 @@ export const useToggleLikeTours = (tour_id: string, user_id: string) => {
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ['like', tour_id, user_id] });
     },
+  });
+};
+
+export const useGetTourListByRating = async () => {
+  return useQuery<TourOrderType[]>({
+    queryKey: ['tours', 'rating'],
+    queryFn: getTourListByOrder,
   });
 };

@@ -38,6 +38,7 @@ export type PlanetType = {
 
 export type TourType = {
   price: number;
+  spaceship: string;
 };
 
 export type dateType = {
@@ -47,4 +48,23 @@ export type dateType = {
   };
   setTourDate: (depart: string, arrive: string) => void;
   setTourDateReset: () => void;
+};
+
+export type TopRatedTours = {
+  id: string;
+  planet_id: string;
+  price: number;
+  tag: string;
+  spaceship: string;
+  ship_code: string;
+  rating_avg: number;
+  planets: {
+    id: string;
+    name: string;
+    title: string;
+    planet_img: string;
+    description: string;
+    english_name: string;
+    tiket_web_img: string;
+  };
 };
