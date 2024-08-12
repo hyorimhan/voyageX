@@ -8,7 +8,7 @@ function Layout({ children }: { children: React.ReactNode }) {
         <div className='hidden md:block lg:block lg:w-[375px]'>
           <MyPageSideBar />
         </div>
-        <main className='sm:mx-5'>{children}</main>
+        <main className='sm:mx-5 lg:w-full'>{children}</main>
       </div>
     </Page>
   );
