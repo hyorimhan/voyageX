@@ -8,4 +8,6 @@ export type formType = {
   selectAll: boolean;
   currentPassword: string;
   newPassword: string;
+  showPassword: boolean;
+  showPasswordConfirm: boolean;
 };

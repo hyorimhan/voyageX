@@ -5,6 +5,7 @@ import CheckBox from '@/components/mypage/delete_account/CheckBox';
 import { useRouter } from 'next/navigation';
 import { deleteUser } from '@/services/auth';
 import useAuthStore from '@/zustand/store/useAuth';
+import toast from 'react-hot-toast';
 
 type DeleteAccountBtnProps = {
   buttonText: string;
@@ -21,9 +22,9 @@ const DeleteAccountBtn = ({ buttonText }: DeleteAccountBtnProps) => {
 
       if (responseData.error) {
         console.error('회원탈퇴오류:', responseData.error);
-        alert('회원탈퇴오류발생');
+        toast.error('회원탈퇴오류발생');
       } else {
-        alert('회원탈퇴완료');
+        toast.success('회원탈퇴완료');
         router.replace('/');
       }
     }
