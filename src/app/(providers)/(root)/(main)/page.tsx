@@ -172,11 +172,11 @@ const MainPage = () => {
         }}
         className='section section-bg h-screen flex flex-col items-center justify-center'
       >
-        <h1 className='text-4xl font-bold mb-8 absolute top-44 left-12'>
+        <h1 className='text-4xl font-bold mb-8 absolute top-8 left-50'>
           Goods Item
         </h1>
         <Link href='/shop'>
-          <p className='absolute top-44 right-24 underline'>More+</p>
+          <p className='absolute top-8 right-44 underline'>More+</p>
         </Link>
         {goodsError && <p className='text-red-500'>{goodsError.message}</p>}
         {goodsLoading ? (
