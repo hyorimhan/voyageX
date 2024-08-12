@@ -50,12 +50,12 @@ const TopPostsSection: React.FC = () => {
                   <span className='bg-white text-gray-500 py-2 px-3 md:px-4 rounded-full mb-2 md:mb-4 inline-block text-sm md:text-base'>
                     🔥HOT
                   </span>
-                  <h2 className='text-lg md:text-xl font-yangpyeong mb-2 md:mb-4'>
+                  <h2 className='text-base font-pretendard font-semibold mb-2 md:text-xl md:mb-4 '>
                     {post.title}
                   </h2>
                   <p className='text-gray-400 mb-2 md:mb-4 text-sm md:text-base'>
-                    {post.content.length > 60
-                      ? `${post.content.substring(0, 60)}...`
+                    {post.content.length > 90
+                      ? `${post.content.substring(0, 90)}...`
                       : post.content}
                   </p>
                 </div>
