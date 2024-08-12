@@ -127,7 +127,7 @@ function LoginForm() {
             href={'/signup'}
             className='bg-primary-100  w-[473px] h-[58px]  font-semibold sm:w-[335px] rounded-lg p-2 mt-3 flex justify-center items-center text-primary-700'
           >
-            이메일로 회원가입
+            이메일 회원가입
           </Link>
         </div>
         <div className='flex items-center mt-10'>
