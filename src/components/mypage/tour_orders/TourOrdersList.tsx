@@ -151,14 +151,14 @@ const TourOrdersList = () => {
             }}
           >
             <div className='mb-5'>{showText && <p>여행시작 티켓</p>}</div>
-            <div className='flex w-full text-white'>
+            <div className='flex w-full text-white flex-wrap'>
               <div
-                className='bg-black-800 rounded-2xl flex py-6 px-4 w-[544px]'
+                className='bg-black-800 rounded-2xl flex py-6 px-4 w-[544px] sm:h-[424px]'
                 style={{
                   backgroundImage: `url('${order.planet.ticket_web_img}')`,
                 }}
               >
-                <div className='mr-[59px]'>
+                <div className='mr-[18px] sm:hidden'>
                   <Image
                     src='/images/barcode2.svg'
                     alt='barcode'
@@ -174,18 +174,22 @@ const TourOrdersList = () => {
                           DAEJEON
                         </p>
                         <p className='text-xs'>{order.depart_place}</p>
+                        <p className='text-black-300 text-xs w-[49px]'>Date</p>
+                        <p className='text-sm'>
+                          {formatDate(order.depart_date, true)}
+                        </p>
+                        <p className='text-black-300 text-xs'>Dep time</p>
+                        <p className='text-sm'>
+                          {formatTime(order.depart_time)}
+                        </p>
                       </div>
-                      <div className='mt-3'>
+                      <div className='mt-3 flex'>
                         <TourStartIcon />
-                      </div>
-                    </div>
-                    <div className='px-4 mt-[7px]'>
-                      <SpaceshipIcon16px />
-                    </div>
-                    <div className='flex h-[46px] gap-2 items-start'>
-                      <div className='mt-3'>
+                        <SpaceshipIcon16px />
                         <TourEndIcon />
                       </div>
+                    </div>
+                    <div className='flex h-[46px] gap-2 items-start'>
                       <div>
                         <p className={`${orbitron.className} text-2xl`}>
                           {order.planet.english_name}
@@ -195,17 +199,20 @@ const TourOrdersList = () => {
                     </div>
                   </div>
                   <div className='flex mt-[11px]'>
-                    <div className='flex-col gap-2 flex mr-[124px]'>
-                      <p className='text-sm'>
-                        {formatDate(order.depart_date, true)}
-                      </p>
-                      <p className='text-sm'>{formatTime(order.depart_time)}</p>
-                    </div>
+                    <div className='flex-col gap-2 flex mr-[103px]'></div>
                     <div className='flex-col flex gap-2'>
-                      <p className='text-sm'>
-                        {formatDate(order.depart_date, true)}
-                      </p>
-                      <p className='text-sm'>{formatTime(order.arrive_time)}</p>
+                      <div className='flex items-center gap-2'>
+                        <p className='text-black-300 text-xs w-[49px]'>Date</p>
+                        <p className='text-sm'>
+                          {formatDate(order.depart_date, true)}
+                        </p>
+                      </div>
+                      <div className='flex items-center gap-2'>
+                        <p className='text-black-300 text-xs'>Arr time</p>
+                        <p className='text-sm'>
+                          {formatTime(order.arrive_time)}
+                        </p>
+                      </div>
                     </div>
                   </div>
                   <div className='flex gap-4 mt-[17px]'>
@@ -214,12 +221,8 @@ const TourOrdersList = () => {
                       <p className='text-sm'>{formatTime(order.depart_time)}</p>
                     </div>
                     <div className='gap-2 flex-col'>
-                      <p className='text-xs text-black-300'>Spaceship</p>
-                      <p className='text-sm'>{order.spaceship_name}</p>
-                    </div>
-                    <div className='gap-2 flex-col'>
-                      <p className='text-xs text-black-300'>Flight type</p>
-                      <p className='text-sm'>Business</p>
+                      <p className='text-xs text-black-300'>Spaceship Code</p>
+                      <p className='text-sm'>{order.spaceship_code}</p>
                     </div>
                   </div>
                   <div className='flex gap-4 mt-3'>
@@ -232,17 +235,17 @@ const TourOrdersList = () => {
                       <p className='text-sm'>1 Adult</p>
                     </div>
                     <div className='gap-2 flex-col'>
-                      <p className='text-xs text-black-300'>Spaceship Code</p>
-                      <p className='text-sm'>{order.spaceship_code}</p>
+                      <p className='text-xs text-black-300'>Gate</p>
+                      <p className='text-sm'>{order.gate}</p>
                     </div>
                     <div className='gap-2 flex-col'>
-                      <p className='text-xs text-black-300'>Gate/Seat number</p>
-                      <p className='text-sm'>{order.gate}/A1</p>
+                      <p className='text-xs text-black-300'>Boarding time</p>
+                      <p className='text-sm'>11:30</p>
                     </div>
                   </div>
                 </div>
               </div>
-              <div className='bg-black-800 rounded-2xl text-black w-[292px] pl-[15px] py-4 flex flex-col'>
+              <div className='bg-black-800 rounded-2xl text-black w-[292px] pl-[15px] py-4 flex flex-col sm:w-[335px]'>
                 <div className='flex gap-2 h-5 mt-1 ml-[7px] items-center'>
                   <SpaceshipIcon20px />
                   <p className='text-xs font-semibold'>BOARDING PASS</p>
