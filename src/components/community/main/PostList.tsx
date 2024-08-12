@@ -55,19 +55,19 @@ const PostList = () => {
     <div className='overflow-x-auto'>
       <div className='flex flex-col'>
         <div className='flex mb-[10px] border-b-[0.4px] border-white text-center gap-x-4'>
-          <span className='flex-none w-32 p-2 text-xs font-medium text-white'>
+          <span className='flex-none w-32 p-2 text-lg font-normal text-white'>
             카테고리
           </span>
-          <span className='flex-grow p-2 text-xs font-medium text-white'>
+          <span className='flex-grow p-2 text-lg font-normal text-white'>
             제목
           </span>
-          <span className='flex-none w-32 p-2 text-xs font-medium text-white'>
+          <span className='flex-none w-32 p-2 text-lg font-normal text-white'>
             날짜
           </span>
-          <span className='flex-none w-20 p-2 text-xs font-medium text-white'>
+          <span className='flex-none w-20 p-2 text-lg font-normal text-white'>
             좋아요
           </span>
-          <span className='flex-none w-20 p-2 text-xs font-medium text-white'>
+          <span className='flex-none w-20 p-2 text-lg font-normal text-white'>
             댓글
           </span>
         </div>
