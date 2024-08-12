@@ -1,25 +1,38 @@
 'use client';
 
-import { getPostAll } from '@/services/community';
-import { Community } from '@/types/communityType';
+import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 import CategoryBadge from '../common/CategoryBadge';
 import Loading from '@/components/common/Loading';
+import Pagination from '@/components/common/Pagination';
+import { Community } from '@/types/communityType';
 
 const SearchResult = ({ searchValue }: { searchValue: string }) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+
   const {
-    data: posts = [],
+    data: searchData,
     isPending,
     isError,
-  } = useQuery<Community[]>({
-    queryKey: ['post'],
-    queryFn: getPostAll,
+  } = useQuery<{
+    posts: Community[];
+    total: number;
+    page: number;
+    totalPages: number;
+  }>({
+    queryKey: ['post', searchValue, currentPage],
+    queryFn: async () => {
+      const response = await fetch(
+        `/api/community/search?query=${searchValue}&page=${currentPage}&limit=${itemsPerPage}`,
+      );
+      const result = await response.json();
+      return result;
+    },
   });
 
-  const searchedPosts = posts?.filter((post) =>
-    post.title.includes(searchValue),
-  );
+  const searchedPosts = searchData?.posts || [];
 
   if (isPending)
     return (
@@ -28,7 +41,8 @@ const SearchResult = ({ searchValue }: { searchValue: string }) => {
       </div>
     );
 
-  if (isError) return <div>error</div>;
+  if (isError || searchedPosts.length === 0)
+    return <div>검색 결과가 없습니다.</div>;
 
   return (
     <div className='overflow-x-auto'>
@@ -50,34 +64,33 @@ const SearchResult = ({ searchValue }: { searchValue: string }) => {
             댓글
           </span>
         </div>
-        {searchedPosts.length > 0 ? (
-          <div>
-            {searchedPosts.map((post, index) => (
-              <Link href={`/community/${post.id}`} key={post.id}>
-                <div className='flex py-4 gap-x-4 items-center group'>
-                  <span className='flex-none w-32 p-2 text-center'>
-                    <CategoryBadge category={post.category} />
-                  </span>
-                  <span className='flex-grow p-2 mx-7 overflow-hidden whitespace-nowrap text-ellipsis group-hover:font-bold group-hover:underline'>
-                    {post.title}
-                  </span>
-                  <span className='flex-none w-32 p-2 text-center'>
-                    {new Date(post.created_at).toLocaleDateString()}
-                  </span>
-                  <span className='flex-none w-20 p-2 text-center'>
-                    {post.likes}
-                  </span>
-                  <span className='flex-none w-20 p-2 text-center'>
-                    {post.comments}
-                  </span>
-                </div>
-              </Link>
-            ))}
-          </div>
-        ) : (
-          <div>검색 결과가 없습니다.</div>
-        )}
+        {searchedPosts.map((post) => (
+          <Link href={`/community/${post.id}`} key={post.id}>
+            <div className='flex py-4 gap-x-4 items-center group'>
+              <span className='flex-none w-32 p-2 text-center'>
+                <CategoryBadge category={post.category} />
+              </span>
+              <span className='flex-grow p-2 mx-7 overflow-hidden whitespace-nowrap text-ellipsis group-hover:font-bold group-hover:underline'>
+                {post.title}
+              </span>
+              <span className='flex-none w-32 p-2 text-center'>
+                {new Date(post.created_at).toLocaleDateString()}
+              </span>
+              <span className='flex-none w-20 p-2 text-center'>
+                {post.likes}
+              </span>
+              <span className='flex-none w-20 p-2 text-center'>
+                {post.comments}
+              </span>
+            </div>
+          </Link>
+        ))}
       </div>
+      <Pagination
+        currentPage={currentPage}
+        totalPages={searchData?.totalPages || 1}
+        onPageChange={(page) => setCurrentPage(page)}
+      />
     </div>
   );
 };
