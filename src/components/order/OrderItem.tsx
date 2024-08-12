@@ -26,9 +26,6 @@ function OrderItem({ item }: OrderItemPropsType) {
           </div>
         </div>
       </div>
-      <div className='border-l-[1px] border-black-300 flex justify-center items-center'>
-        <p className='text-white'>구매확정</p>
-      </div>
     </div>
   );
 }
