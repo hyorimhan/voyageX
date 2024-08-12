@@ -18,23 +18,25 @@ const Header = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
-  const pathname = usePathname();
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
   useEffect(() => {
-    userLoginInfo().then((res) => {
-      saveUser(res.user);
-    });
-  }, [pathname]);
+    const loginInfo = async () => {
+      const userInfo = await userLoginInfo();
+      saveUser(userInfo);
+    };
+    loginInfo();
+  }, []);
 
   const handleLinkClick = (href: string) => {
     startTransition(() => {
       router.push(href);
     });
   };
+  console.log(user);
 
   return (
     <>

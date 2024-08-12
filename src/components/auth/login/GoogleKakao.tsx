@@ -8,7 +8,7 @@ function GoogleKakao() {
       <div className='mx-3.5'>
         <button onClick={signInWithGoogle}>
           <Image
-            src={'/images/google.png'}
+            src={'/images/google.svg'}
             alt='gooleIcon'
             width={48}
             height={48}
@@ -19,7 +19,7 @@ function GoogleKakao() {
       <div className='mx-3.5'>
         <button onClick={signInWithKakao}>
           <Image
-            src={'/images/kakaoIcon.png'}
+            src={'/images/kakaoIcon.svg'}
             alt='kakaoIcon'
             width={48}
             height={48}

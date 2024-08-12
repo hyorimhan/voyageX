@@ -5,9 +5,8 @@ import { useQuery } from '@tanstack/react-query';
 import { getMyPosts } from '@/services/community';
 import { MyPost } from '@/types/communityType';
 import HeartWhiteIcon16px from '../common/icons/16px/HeartWhiteIcon16px';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { userLoginInfo } from '@/services/auth';
-import ShareLink from '../common/ShareLink';
 
 const MyPageSideBarUserInfo = () => {
   const user = useAuthStore((state) => state.user);
@@ -15,7 +14,7 @@ const MyPageSideBarUserInfo = () => {
 
   useEffect(() => {
     userLoginInfo().then((res) => {
-      saveUser(res.user);
+      saveUser(res);
     });
   }, []);
 
