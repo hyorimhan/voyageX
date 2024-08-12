@@ -11,6 +11,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import Loading from './Loading';
 import { orbitron } from '../../../public/fonts/orbitron';
 import toast from 'react-hot-toast';
+import Image from 'next/image';
 
 const Header = () => {
   const user = useAuthStore((state) => state.user);
@@ -18,17 +19,18 @@ const Header = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
-  const pathname = usePathname();
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
   useEffect(() => {
-    userLoginInfo().then((res) => {
-      saveUser(res.user);
-    });
-  }, [pathname]);
+    const loginInfo = async () => {
+      const userInfo = await userLoginInfo();
+      saveUser(userInfo);
+    };
+    loginInfo();
+  }, []);
 
   const handleLinkClick = (href: string) => {
     startTransition(() => {
@@ -71,7 +73,12 @@ const Header = () => {
             className={`flex items-center justify-center ${orbitron.className}`}
           >
             <button className='text-2xl' onClick={() => handleLinkClick('/')}>
-              Voyage X
+              <Image
+                src={'/icons/logo/logo3.svg'}
+                alt='voyage_x_logo'
+                width={200}
+                height={150}
+              />
             </button>
           </div>
           <div className='flex items-center justify-end w-[260px] gap-4'>

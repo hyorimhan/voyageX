@@ -75,7 +75,7 @@ function SuccessPayment() {
         pay_method = `${result.easyPay.provider} ${result.method}`;
       }
 
-      const response = await createOrderReceipt({
+      await createOrderReceipt({
         user_id: user.id,
         order_id: orderId,
         goodsList: goodsOrderInfo!,
@@ -87,13 +87,11 @@ function SuccessPayment() {
         detail_address: expressAddress?.detailAddress!,
         postcode: expressAddress?.postcode!,
       });
-      console.log('response => ', response);
     };
     postReceipt();
     return () => {
       const ids = goodsOrderInfo?.map((item) => item.goods.id);
-      const response = deleteCartItemByGoodsId({ user_id: user.id, ids: ids! });
-      console.log('deleteCartItemByGoodsId response => ', response);
+      deleteCartItemByGoodsId({ user_id: user.id, ids: ids! });
       setGoodsOrderInfo(null);
     };
   }, [

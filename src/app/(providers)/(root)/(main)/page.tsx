@@ -13,8 +13,8 @@ import { useQuery } from '@tanstack/react-query';
 import { getPlanetsList } from '@/services/plants';
 import Loading from '@/components/common/Loading';
 import Chatbot from '@/components/chatbot/Chatbot';
+import { orbitron } from '../../../../../public/fonts/orbitron';
 
-// TODO localhost:3000   페이지에서 tourID 를 받아올 방법이 없어요.
 const MainPage = () => {
   const sectionsRef = useRef<(HTMLDivElement | null)[]>([]);
   const planetsRef = useRef<(HTMLDivElement | null)[]>([]);
@@ -27,7 +27,6 @@ const MainPage = () => {
     error: goodsError,
   } = useFetchGoods();
 
-  // TODO 굳이 tourID 를 통해 행성 정보를 다 가지고 오려고 하지 마시고! tourList 를 그냥 가지고 올 수 있는 api 를 이용해 주세요!
   const {
     data: planetsData,
     isLoading: tourLoading,
@@ -83,16 +82,21 @@ const MainPage = () => {
         className='section h-screen flex flex-col items-center justify-center relative bg-center bg-cover bg-no-repeat'
         style={{ backgroundImage: 'url(/images/section2.png)' }}
       >
-        <div className='absolute top-32 left-4 sm:top-44 sm:left-16 text-white font-yangpyeong text-2xl sm:text-4xl font-bold fade-text'>
-          Let&apos;s Find Popular Planets!
-        </div>
+        <p
+          className={`absolute top-32 left-4 sm:top-44 sm:left-16 text-white text-4xl sm:text-4xl font-semibold fade-text ${orbitron.className}`}
+        >
+          Let's Find Popular Planets!
+        </p>
+        <Link href='/tour'>
+          <p className='absolute top-36 right-20 z-10'>
+            MORE+
+          </p>
+        </Link>
         <div className='scroll-container h-full w-full relative flex items-center justify-center'>
           <button
             onClick={handlePrevSlide}
-            className='absolute left-2 sm:left-4 z-10 p-2 bg-white rounded-full'
-          >
-            ←
-          </button>
+            className='swiper-button-prev text-2xl rounded-full absolute left-2 sm:left-4 z-10 p-2'
+          ></button>
           <div className='slider-container relative flex items-center justify-center'>
             {planets.map((planet, index) => {
               const isVisible =
@@ -162,10 +166,8 @@ const MainPage = () => {
           </div>
           <button
             onClick={handleNextSlide}
-            className='absolute right-2 sm:right-4 z-10 p-2 bg-white rounded-full'
-          >
-            →
-          </button>
+            className='swiper-button-next rounded-full text-2xl absolute right-2 sm:right-4 z-10'
+          ></button>
         </div>
       </section>
 
@@ -175,30 +177,62 @@ const MainPage = () => {
         }}
         className='section section-bg h-screen flex flex-col items-center justify-center'
       >
-        <h1 className='text-4xl font-bold mb-8 absolute top-8 left-50'>
-          Goods Item
+        <h1
+          className={`text-4xl absolute font-bold top-48 left-24 ${orbitron.className}`}
+        >
+          GOODS SHOP
         </h1>
         <Link href='/shop'>
-          <p className='absolute top-8 right-44 underline'>More+</p>
+          <p className='absolute top-48 right-20 underline'>MORE+</p>
         </Link>
         {goodsError && <p className='text-red-500'>{goodsError.message}</p>}
         {goodsLoading ? (
           <p>Loading...</p>
         ) : (
           <div className='grid grid-cols-3 gap-4'>
-            {goods?.map((item) => (
-              <div key={item.id} className='p-4 rounded shadow'>
+            {goods?.slice(0, 3).map((item) => (
+              <div
+                key={item.id}
+                className='p-4 rounded shadow border border-white'
+              >
                 <Image
                   src={item.goods_img}
                   alt={item.goods_name}
                   width={300}
                   height={300}
-                  className='object-cover bg-white-600'
+                  className='object-cover'
                 />
-                <h2 className='text-xl font-semibold mt-4'>
-                  {item.goods_name}
-                </h2>
-                <p className='text-sm'>{item.goods_price}원</p>
+                <div className='mt-4'>
+                  <h2 className='text-xl font-semibold text-white'>
+                    {item.goods_name}
+                  </h2>
+                  <p className='text-sm'>
+                    <span className='text-red-500'>{item.discount}%</span>{' '}
+                    <span className='text-white'>{item.goods_price}원</span>
+                  </p>
+                  <div className='flex items-center justify-between mt-2'>
+                    <span className='flex items-center'>
+                      <Image
+                        src='/icons/20px/star_true.svg'
+                        alt='star icon'
+                        width={16}
+                        height={16}
+                        className='mr-1'
+                      />
+                      {item.rating_avg}
+                    </span>
+                    <span className='flex items-center'>
+                      <Image
+                        src='/icons/20px/heart_default.svg'
+                        alt='heart icon'
+                        width={16}
+                        height={16}
+                        className='mr-1'
+                      />
+                      {item.like_count}
+                    </span>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
@@ -227,7 +261,7 @@ const MainPage = () => {
           backgroundAttachment: 'fixed',
         }}
       >
-        <h1>5번째 섹션입니다</h1>
+        <h1>컨텐츠 준비 중입니다...</h1>
       </section>
       <Footer />
     </div>

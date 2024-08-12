@@ -138,6 +138,7 @@ export type Database = {
         Row: {
           created_at: string
           description: string
+          discount: number
           goods_img: string
           goods_name: string
           goods_price: number
@@ -148,6 +149,7 @@ export type Database = {
         Insert: {
           created_at?: string
           description: string
+          discount?: number
           goods_img: string
           goods_name: string
           goods_price: number
@@ -158,6 +160,7 @@ export type Database = {
         Update: {
           created_at?: string
           description?: string
+          discount?: number
           goods_img?: string
           goods_name?: string
           goods_price?: number
@@ -437,6 +440,7 @@ export type Database = {
           id: string
           name: string
           planet_img: string
+          ticket_mobile_img: string | null
           ticket_web_img: string | null
           title: string | null
         }
@@ -446,6 +450,7 @@ export type Database = {
           id?: string
           name: string
           planet_img: string
+          ticket_mobile_img?: string | null
           ticket_web_img?: string | null
           title?: string | null
         }
@@ -455,6 +460,7 @@ export type Database = {
           id?: string
           name?: string
           planet_img?: string
+          ticket_mobile_img?: string | null
           ticket_web_img?: string | null
           title?: string | null
         }
