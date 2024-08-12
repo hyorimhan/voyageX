@@ -2,17 +2,31 @@ import useFetchTopPosts from '@/hooks/useFetchTopPosts';
 import Link from 'next/link';
 import Image from 'next/image';
 import Loading from '../common/Loading';
+import { orbitron } from '../../../public/fonts/orbitron';
 
 interface Post {
   id: string;
   title: string;
   content: string;
-  date?: string;
+  created_at: string;
   likes?: number;
   comments?: number;
 }
 
 const TopPostsSection: React.FC = () => {
+
+  const formatDate = (dateString: string) => { // 날짜 포맷팅
+    const options: Intl.DateTimeFormatOptions = {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false,
+    };
+    return new Date(dateString).toLocaleDateString('ko-KR', options);
+  }; 
+
   const { posts, loading, error } = useFetchTopPosts();
 
   if (loading) return <Loading />;
@@ -21,32 +35,38 @@ const TopPostsSection: React.FC = () => {
   return (
     <section className='section h-screen flex items-center justify-center relative'>
       <div className='w-full max-w-6xl mx-auto p-4'>
-        <h1 className='text-3xl font-yangpyeong mb-8 mt-12 text-center'>
-          Free Board
+        <h1 className={`text-4xl left-28 mb-8 mt-8 ${orbitron.className} font-semibold`}>
+          FREE BOARD
         </h1>
-        <div className='grid grid-cols-2 gap-4 relative'>
+        <Link href='/community'>
+          <p className='absolute top-60 right-8'>MORE+</p>
+        </Link>
+        <div className='grid grid-cols-2 gap-8 relative'>
           {posts.map((post: Post) => (
             <Link
               href={`/posts/${post.id}`}
               key={post.id}
-              className='p-2 md:p-4 rounded-md block bg-black text-white hover:bg-gray-700 transition-colors'
+              className='p-6 md:p-8 rounded-md block bg-black text-white hover:bg-gray-700 transition-colors'
             >
               <div className='flex flex-col justify-between h-full'>
                 <div>
-                  <span className='bg-purple-700 text-white py-2 px-3 md:px-4 rounded-full mb-2 md:mb-4 inline-block text-sm md:text-base'>
-                    HOT
-                  </span>
-                  <h2 className='text-lg md:text-xl font-yangpyeong mb-2 md:mb-4'>
+                  <Image 
+                    src={'/images/chips.png'}
+                    alt='chips'
+                    width={55}
+                    height={28}
+                    className='mb-3'/>
+                  <h2 className='text-base font-pretendard font-semibold mb-2 md:text-xl md:mb-4 '>
                     {post.title}
                   </h2>
-                  <p className='text-gray-400 mb-2 md:mb-4 text-sm md:text-base'>
-                    {post.content.length > 60
-                      ? `${post.content.substring(0, 60)}...`
+                  <p className='text-black-300 mb-4 text-sm md:text-base'>
+                    {post.content.length > 120
+                      ? `${post.content.substring(0, 120)}...`
                       : post.content}
                   </p>
                 </div>
-                <div className='text-gray-500 flex justify-between items-center mt-auto text-xs md:text-sm'>
-                  <span>{post.date}</span>
+                <div className='text-black-50 flex justify-between items-center mt-auto text-xs md:text-sm'>
+                  <span>{formatDate(post.created_at)}</span>
                   <span>
                     좋아요 {post.likes} 댓글 {post.comments}
                   </span>
@@ -58,8 +78,8 @@ const TopPostsSection: React.FC = () => {
             <Image
               src='/images/free-board.svg'
               alt='Center Star'
-              width={800}
-              height={100}
+              width={1200}
+              height={1200}
             />
           </div>
         </div>
