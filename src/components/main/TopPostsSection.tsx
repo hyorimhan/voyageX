@@ -1,6 +1,7 @@
 import useFetchTopPosts from '@/hooks/useFetchTopPosts';
 import Link from 'next/link';
 import Image from 'next/image';
+import Loading from '../common/Loading';
 
 interface Post {
   id: string;
