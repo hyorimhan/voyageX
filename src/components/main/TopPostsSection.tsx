@@ -2,6 +2,7 @@ import useFetchTopPosts from '@/hooks/useFetchTopPosts';
 import Link from 'next/link';
 import Image from 'next/image';
 import Loading from '../common/Loading';
+import { orbitron } from '../../../public/fonts/orbitron';
 
 interface Post {
   id: string;
@@ -21,7 +22,7 @@ const TopPostsSection: React.FC = () => {
   return (
     <section className='section h-screen flex items-center justify-center relative'>
       <div className='w-full max-w-6xl mx-auto p-4'>
-        <h1 className='text-3xl font-yangpyeong mb-8 mt-12 text-center'>
+        <h1 className={`text-4xl left-28 mb-8 mt-8 ${orbitron.className} font-semibold`}>
           Free Board
         </h1>
         <div className='grid grid-cols-2 gap-4 relative'>
@@ -33,8 +34,8 @@ const TopPostsSection: React.FC = () => {
             >
               <div className='flex flex-col justify-between h-full'>
                 <div>
-                  <span className='bg-purple-700 text-white py-2 px-3 md:px-4 rounded-full mb-2 md:mb-4 inline-block text-sm md:text-base'>
-                    HOT
+                  <span className='bg-white text-gray-500 py-2 px-3 md:px-4 rounded-full mb-2 md:mb-4 inline-block text-sm md:text-base'>
+                    🔥HOT
                   </span>
                   <h2 className='text-lg md:text-xl font-yangpyeong mb-2 md:mb-4'>
                     {post.title}
@@ -58,8 +59,8 @@ const TopPostsSection: React.FC = () => {
             <Image
               src='/images/free-board.svg'
               alt='Center Star'
-              width={800}
-              height={100}
+              width={1200}
+              height={1000}
             />
           </div>
         </div>

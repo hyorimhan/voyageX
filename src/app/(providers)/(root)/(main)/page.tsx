@@ -89,9 +89,9 @@ const MainPage = () => {
         <div className='scroll-container h-full w-full relative flex items-center justify-center'>
           <button
             onClick={handlePrevSlide}
-            className='absolute left-2 sm:left-4 z-10 p-2 bg-white rounded-full'
+            className='swiper-button-prev text-2xl rounded-full absolute left-2 sm:left-4 z-10 p-2'
           >
-            ←
+            ⬅
           </button>
           <div className='slider-container relative flex items-center justify-center'>
             {planets.map((planet, index) => {
@@ -162,9 +162,9 @@ const MainPage = () => {
           </div>
           <button
             onClick={handleNextSlide}
-            className='absolute right-2 sm:right-4 z-10 p-2 bg-white rounded-full'
+            className='swiper-button-next rounded-full text-2xl absolute right-2 sm:right-4 z-10'
           >
-            →
+            ➡️
           </button>
         </div>
       </section>
