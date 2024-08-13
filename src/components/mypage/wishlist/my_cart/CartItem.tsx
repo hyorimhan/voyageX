@@ -32,8 +32,8 @@ function CartItem({
 }: CartItemPropsType) {
   const [isHovered, setIsHovered] = useState(false);
   return (
-    <li className='border-t-[1px] border-black-700 px-2 my-4 flex justify-between'>
-      <div className='flex md:justify-center lg:justify-center my-4'>
+    <li className='border-t-[1px] border-black-700 px-2 my-4 sm:hidden md:hidden lg:flex justify-between'>
+      <div className='flex justify-center my-4'>
         <button
           onClick={() => handleSelectItem(item)}
           onMouseEnter={() => setIsHovered(true)}
@@ -59,7 +59,7 @@ function CartItem({
           <span>{item.goods.goods_name}</span>
         </div>
       </div>
-      <div className='flex sm:flex-col sm:justify-center'>
+      <div className='flex'>
         <div className='flex flex-row border-[1px] border-primary-300 rounded-lg justify-center gap-3 h-8 w-24 items-center self-center'>
           <button
             onClick={() =>

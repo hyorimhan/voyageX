@@ -14,6 +14,7 @@ import GenericModal from '@/components/common/GenericModal';
 import Image from 'next/image';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
+import CartItemMobile from './CartItemMobile';
 
 function MyCart({ user_id }: WishListPropsType) {
   const [totalPrice, setTotalPrice] = useState(0);
@@ -126,11 +127,26 @@ function MyCart({ user_id }: WishListPropsType) {
           setIsDeleteOpen={setIsDeleteOpen}
         />
       </div>
-      <div>
+      <div className='sm:hidden'>
         <ul className='flex flex-col gap-4'>
           {cartList.length
             ? cartList?.map((item) => (
                 <CartItem
+                  key={item.id}
+                  item={item}
+                  selectItems={selectItems}
+                  handleSelectItem={handleSelectItem}
+                  handleAdjustItemQuantity={handleAdjustItemQuantity}
+                />
+              ))
+            : '장바구니에 담은 상품이 없습니다!'}
+        </ul>
+      </div>
+      <div className='md:hidden lg:hidden'>
+        <ul className='flex flex-col gap-4'>
+          {cartList.length
+            ? cartList?.map((item) => (
+                <CartItemMobile
                   key={item.id}
                   item={item}
                   selectItems={selectItems}

@@ -28,7 +28,7 @@ function CartItemSelector({
   };
   return (
     <div className='flex flex-row justify-between items-center h-[62px]'>
-      <div className='flex flex-row items-center gap-1'>
+      <div className='flex flex-row items-center gap-4 md:gap-1 lg:gap-1'>
         <button
           onClick={handleClick}
           onMouseEnter={() => setIsHovered(true)}
@@ -43,12 +43,13 @@ function CartItemSelector({
           )}
         </button>
         <span className='flex gap-1'>
-          <p>전체</p> ({selectItems ? selectItems.length : 0}/{listLength})
+          <p>전체</p>
           {selectItems.length === listLength
             ? !listLength
-              ? '선택'
-              : '해제'
-            : '선택'}
+              ? '선택 '
+              : '해제 '
+            : '선택 '}
+          ({selectItems ? selectItems.length : 0}/{listLength})
         </span>
       </div>
       <button
