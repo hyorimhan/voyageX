@@ -37,14 +37,14 @@ const AddressListPage: React.FC = () => {
   return (
     <div>
       <div className='flex flex-col'>
-        <div className='flex mb-9 gap-2'>
+        <div className='flex mb-9 gap-2 sm:mt-8'>
           <Link
             href={'/mypage/side_bar'}
             className='self-center md:hidden lg:hidden'
           >
             <ArrowLeftIcon24px />
           </Link>
-          <p className='text-2xl'>배송지 관리</p>
+          <p className='text-2xl '>배송지 관리</p>
         </div>
         {user && (
           <AddressActionsBtn
@@ -56,13 +56,13 @@ const AddressListPage: React.FC = () => {
           />
         )}
       </div>
-      <div className='flex gap-4 w-full text-center mt-6 justify-end'>
+      <div className='flex gap-4 w-full text-center mt-6 justify-end sm:hidden'>
         <p className='w-[78px]'>주소별칭</p>
         <p className='w-[363px]'>배송주소</p>
         <p className='w-[173px]'>받는 분 / 연락처</p>
         <p className='w-[79px]'>관리</p>
       </div>
-      <div className='border-b-[1px] border-white mt-3'></div>
+      <div className='border-b-[1px] border-white mt-3 sm:hidden'></div>
       {user && (
         <AddressesList
           userId={user.id}
