@@ -96,7 +96,7 @@ function DetailCard({ tour }: { tour: Tour }) {
           <DetailInfo title={'우주선 코드'} description={`${tour.ship_code}`} />
 
           {TourDate.departDate && (
-            <div className='h-[84px] lg:pt-3 mt-10 grid-cols-2 pl-2 bg-black-800 border-b border-b-white'>
+            <div className='h-[84px] lg:pt-3 mt-10 sm:pt-3 grid-cols-2 pl-2 bg-black-800 border-b border-b-white'>
               <div className='flex'>
                 <div>
                   <div className='mb-2'>
