@@ -15,6 +15,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
 import CartItemMobile from './CartItemMobile';
+import CartTotalPriceMobile from './CartTotalPriceMobile';
 
 function MyCart({ user_id }: WishListPropsType) {
   const [totalPrice, setTotalPrice] = useState(0);
@@ -157,8 +158,11 @@ function MyCart({ user_id }: WishListPropsType) {
             : '장바구니에 담은 상품이 없습니다!'}
         </ul>
       </div>
-      <div>
+      <div className='sm: hidden'>
         <CartTotalPrice totalPrice={totalPrice} />
+      </div>
+      <div className='md:hidden lg:hidden'>
+        <CartTotalPriceMobile totalPrice={totalPrice} />
       </div>
       <div>
         <CartButtonContainer selectItems={selectItems} />
