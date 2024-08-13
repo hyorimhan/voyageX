@@ -56,18 +56,32 @@ const AddressActionsBtn = ({
 
   return (
     <>
-      <div className='flex items-center justify-end gap-2 text-black-50'>
+      <div className='flex items-center justify-end gap-2 text-black-50 sm:hidden'>
         <button
-          className='bg-primary-400 py-2 px-3 rounded-md text-sm transition-colors duration-200 hover:bg-primary-200 active:bg-primary-300'
+          className='bg-primary-400 py-2 px-3 rounded-md text-sm hover:bg-primary-200 active:bg-primary-300'
           onClick={handleAddressAddClick}
         >
           새 배송지 추가
         </button>
         <button
-          className='bg-primary-400 py-2 px-3 rounded-md text-sm transition-colors duration-200 hover:bg-primary-200 active:bg-primary-300'
+          className='bg-primary-400 py-2 px-3 rounded-md text-sm hover:bg-primary-200 active:bg-primary-300'
           onClick={handleSetDefaultAddress}
         >
           기본배송지 등록
+        </button>
+      </div>
+      <div className='flex items-center gap-2 text-black-50 md:hidden lg:hidden'>
+        <button
+          className='bg-transparent border-primary-400 border-[1px] py-2 px-3 rounded-md text-xs hover:bg-primary-200 hover:text-primary-700 active:bg-primary-300 active:text-primary-700 w-full'
+          onClick={handleSetDefaultAddress}
+        >
+          기본 배송지 등록
+        </button>
+        <button
+          className='bg-primary-400 py-2 px-3 rounded-md text-xs hover:bg-primary-200 active:bg-primary-300 w-full'
+          onClick={handleAddressAddClick}
+        >
+          새 배송지 추가
         </button>
       </div>
       <GenericModal
