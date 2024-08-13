@@ -35,13 +35,13 @@ function ExpressInfo({ addressList }: ExpressInfoPropsType) {
             </button>
           </div>
         </div>
-        {expressAddress || defaultAddress ? (
+        {defaultAddress ? (
           <AddressInfo
             expressAddress={expressAddress}
-            defaultAddress={defaultAddress!}
+            defaultAddress={defaultAddress}
           />
         ) : (
-          <div className='font-semibold'>배송지를 설정해주세요</div>
+          <div className='font-semibold'>기본 배송지를 설정해주세요</div>
         )}
       </div>
       {isModalOpen && (

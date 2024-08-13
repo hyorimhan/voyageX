@@ -1,18 +1,21 @@
 'use client';
 
 import { Dispatch, SetStateAction, useRef, useState } from 'react';
-import AddressActionsBtn from '../mypage/address_list/AddressActionsBtn';
 import AddressesList from '../mypage/address_list/AddressList';
 import AddressAddModal from '../mypage/address_list/AddressAddModal';
 import { Address } from '@/types/userAddressType';
 import useAuthStore from '@/zustand/store/useAuth';
+import AddressChangeButton from './AddressChangeButton';
 
 interface AddressChangeModalProps {
   addressList: Address[];
   setIsModalOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-function AddressChangeModal({ setIsModalOpen }: AddressChangeModalProps) {
+function AddressChangeModal({
+  addressList,
+  setIsModalOpen,
+}: AddressChangeModalProps) {
   const modalBackground = useRef(null);
   const [showAddressAddModal, setShowAddressAddModal] =
     useState<boolean>(false);
@@ -53,12 +56,14 @@ function AddressChangeModal({ setIsModalOpen }: AddressChangeModalProps) {
               <button onClick={() => setIsModalOpen(false)}>X</button>
             </div>
             {user && (
-              <AddressActionsBtn
+              <AddressChangeButton
                 userId={user.id}
                 selectedAddressId={selectedAddressId}
                 addressesLength={addressesLength}
                 setShowAddressAddModal={setShowAddressAddModal}
                 setEditAddress={setEditAddress}
+                setIsModalOpen={setIsModalOpen}
+                addressList={addressList}
               />
             )}
           </div>
