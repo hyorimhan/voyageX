@@ -25,7 +25,7 @@ const MyPageSideBar = () => {
   };
 
   return (
-    <div className='hidden md:block lg:block'>
+    <div>
       {isPending && <Loading />}
       <div className='w-fit sticky top-0 sm:mx-auto '>
         <MyPageSideBarUserInfo />
