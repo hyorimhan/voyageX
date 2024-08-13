@@ -1,10 +1,7 @@
 'use client';
 
 import ArrowRightIcon16px from '@/components/common/icons/16px/ArrowRightIcon16px';
-import SpaceshipIcon16px from '@/components/common/icons/16px/SpaceshipIcon16px';
 import SpaceshipIcon20px from '@/components/common/icons/20px/SpaceshipIcon20px';
-import TourEndIcon from '@/components/common/icons/TourEndIcon';
-import TourStartIcon from '@/components/common/icons/TourStartIcon';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useCallback, useRef, useState } from 'react';
@@ -14,7 +11,7 @@ import { toPng } from 'html-to-image';
 import { useQuery } from '@tanstack/react-query';
 import { getTourOrder } from '@/services/tour';
 import Loading from '@/components/common/Loading';
-import { TourOrderType } from '@/types/tour';
+import { tourOrderListType } from '@/types/tour';
 import { orbitron } from '../../../../public/fonts/orbitron';
 
 const TourOrderListMobile = () => {
@@ -93,7 +90,7 @@ const TourOrderListMobile = () => {
     data: tourOrders,
     isLoading,
     isError,
-  } = useQuery<TourOrderType[]>({
+  } = useQuery<tourOrderListType[]>({
     queryKey: ['tourOrders', user_id],
     queryFn: () => getTourOrder(user_id),
   });
@@ -159,7 +156,7 @@ const TourOrderListMobile = () => {
               <div
                 className='bg-black-800 rounded-2xl flex h-[424px] w-full'
                 style={{
-                  backgroundImage: `url('${order.planet.ticket_mobile_img}')`,
+                  backgroundImage: `url('${order.tours.planets.ticket_mobile_img}')`,
                   backgroundSize: 'cover',
                 }}
               >
@@ -203,10 +200,10 @@ const TourOrderListMobile = () => {
                         <div className='flex gap-2 items-start'>
                           <div>
                             <p className={`${orbitron.className} text-xl`}>
-                              {order.planet.english_name}
+                              {order.tours.planets.english_name}
                             </p>
                             <p className='text-xs font-medium'>
-                              {order.planet.name}, 우주
+                              {order.tours.planets.name}, 우주
                             </p>
                             <div className='flex items-center mt-3'>
                               <div className='flex flex-col gap-1'>
@@ -283,7 +280,7 @@ const TourOrderListMobile = () => {
               <div
                 className='bg-black-800 rounded-2xl flex h-[424px] w-full'
                 style={{
-                  backgroundImage: `url('${order.planet.ticket_mobile_img}')`,
+                  backgroundImage: `url('${order.tours.planets.ticket_mobile_img}')`,
                   backgroundSize: 'cover',
                 }}
               >
@@ -305,10 +302,10 @@ const TourOrderListMobile = () => {
                         <div className='flex gap-2 items-start'>
                           <div>
                             <p className={`${orbitron.className} text-xl`}>
-                              {order.planet.english_name}
+                              {order.tours.planets.english_name}
                             </p>
                             <p className='text-xs font-medium'>
-                              {order.planet.name}, 우주
+                              {order.tours.planets.name}, 우주
                             </p>
                             <div className='flex gap-2 items-center mt-3'>
                               <div className='flex flex-col gap-1 text-[10px]'>
