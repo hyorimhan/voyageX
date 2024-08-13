@@ -91,18 +91,23 @@ function PayButton({ totalPrice, isTour }: PayButtonPropsType) {
     <>
       <div className='border-[1px] border-black-300 px-4 py-4 rounded-lg mt-4 flex flex-col items-start gap-y-5'>
         <div className='border-b border-black-700 w-full py-[10px]'>
-          <p className='text-xl'>주문동의</p>
+          <p className='text-xl font-medium'>주문동의</p>
         </div>
         <TermsAndConditions
           isAllAgree={isAllAgree}
           setIsAllAgree={setIsAllAgree}
         />
+        <span className='text-black-200 text-sm font-normal'>
+          본인은 만 14세 이상이며 주문내용을 확인하였습니다.
+        </span>
         <button
           onClick={handleClickPayButton}
           className='bg-primary-600 rounded-md p-4 w-full h-14 mb-5 text-lg transition-colors duration-200 hover:bg-primary-400 active:bg-primary-500'
         >
-          <span className='text-lg'>{totalPrice.toLocaleString()}원</span>
-          <span className='text-base'> 결제하기</span>
+          <span className='text-lg font-semibold'>
+            {totalPrice.toLocaleString()}원
+          </span>
+          <span className='text-base font-semibold'> 결제하기</span>
         </button>
       </div>
     </>

@@ -46,7 +46,7 @@ function TermsAndConditions({
           )}
         </button>
         <p className='w-full text-sm self-center text-white flex items-center justify-between'>
-          {'[필수] 주문 내역에 대한 필수 동의 '}
+          [필수] 주문 내역에 대한 필수 동의
           <button onClick={() => setIsView((prev) => !prev)}>
             {isView ? <ArrowUpWhiteIcon20px /> : <ArrowDownWhiteIcon20px />}
           </button>
