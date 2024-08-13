@@ -83,12 +83,13 @@ const MainPage = () => {
         style={{ backgroundImage: 'url(/images/section2-bg.png)' }}
       >
         <p
-          className={`absolute top-32 left-4 sm:top-44 sm:left-16 text-white text-4xl sm:text-4xl font-semibold fade-text ${orbitron.className}`}
+          className={`absolute top-32 left-4 text-white text-4xl font-semibold fade-text ${orbitron.className}
+           sm:text-2xl sm:top-24 sm:text-left sm:font-medium `}
         >
           Let&apos;s Find Popular Planets!
         </p>
         <Link href='/tour'>
-          <p className='absolute top-36 right-20 z-10'>MORE+</p>
+          <p className='absolute top-36 right-20 z-10 text-lg font-normal underline sm:top-24 sm:right-6'>MORE+</p>
         </Link>
         <div className='scroll-container h-full w-full relative flex items-center justify-center'>
           <button
@@ -112,7 +113,7 @@ const MainPage = () => {
                 index ===
                 (currentSlide + Math.floor(visiblePlanetsCount / 2)) %
                   planets.length;
-console.log("Planet ID:", planet.id);
+
               return (
                 <Link href={`/tour/${planet.id}`} key={index} passHref >
                   <div
@@ -121,7 +122,7 @@ console.log("Planet ID:", planet.id);
                       planetsRef.current[index] = el as HTMLDivElement;
                     }}
                     data-id={planet.id}
-                    className={`absolute w-36 h-36 sm:w-24 sm:h-24 transform-gpu transition-opacity duration-500 ${
+                    className={`absolute w-20 h-20 sm:w-24 sm:h-24 transform-gpu transition-opacity duration-500 ${
                       isVisible ? 'opacity-100' : 'opacity-0'
                     }`}
                     style={{
@@ -179,7 +180,7 @@ console.log("Planet ID:", planet.id);
         className='section section-bg h-screen flex flex-col items-center justify-center'
       >
         <h1
-          className={`text-4xl absolute font-bold top-48 left-24 ${orbitron.className}`}
+          className={`text-4xl absolute font-semibold top-48 left-24 ${orbitron.className}`}
         >
           GOODS SHOP
         </h1>
