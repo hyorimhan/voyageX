@@ -80,7 +80,7 @@ const MainPage = () => {
           sectionsRef.current[1] = el as HTMLDivElement;
         }}
         className='section h-screen flex flex-col items-center justify-center relative bg-center bg-cover bg-no-repeat'
-        style={{ backgroundImage: 'url(/images/section2.png)' }}
+        style={{ backgroundImage: 'url(/images/section2-bg.png)' }}
       >
         <p
           className={`absolute top-32 left-4 sm:top-44 sm:left-16 text-white text-4xl sm:text-4xl font-semibold fade-text ${orbitron.className}`}
@@ -88,9 +88,7 @@ const MainPage = () => {
           Let's Find Popular Planets!
         </p>
         <Link href='/tour'>
-          <p className='absolute top-36 right-20 z-10'>
-            MORE+
-          </p>
+          <p className='absolute top-36 right-20 z-10'>MORE+</p>
         </Link>
         <div className='scroll-container h-full w-full relative flex items-center justify-center'>
           <button
@@ -114,53 +112,55 @@ const MainPage = () => {
                 index ===
                 (currentSlide + Math.floor(visiblePlanetsCount / 2)) %
                   planets.length;
-
+console.log("Planet ID:", planet.id);
               return (
-                <div
-                  key={index}
-                  ref={(el) => {
-                    planetsRef.current[index] = el as HTMLDivElement;
-                  }}
-                  data-id={planet.id}
-                  className={`absolute w-20 h-20 sm:w-24 sm:h-24 transform-gpu transition-opacity duration-500 ${
-                    isVisible ? 'opacity-100' : 'opacity-0'
-                  }`}
-                  style={{
-                    transform: `translate3d(${
-                      150 *
-                      Math.sin(
-                        ((adjustedIndex - currentSlide) * (2 * Math.PI)) /
-                          planets.length,
-                      )
-                    }px, 0, ${
-                      150 *
-                      Math.cos(
-                        ((adjustedIndex - currentSlide) * (2 * Math.PI)) /
-                          planets.length,
-                      )
-                    }px) scale(${isActive ? 1.5 : 1})`,
-                    zIndex: isActive ? 10 : 0,
-                    opacity: isVisible ? (isActive ? 1 : 0.5) : 0,
-                  }}
-                >
-                  <Image
-                    src={planet.planet_img}
-                    alt={`Planet ${index + 1}`}
-                    fill
-                    sizes='100vw'
-                    objectFit='contain'
-                  />
-                  {isActive && (
-                    <div className='text-center absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-full w-max'>
-                      <p>{planet.name}</p>
-                      <p>
-                        {planet.price
-                          ? `₩${planet.price.toLocaleString()}`
-                          : 'Price Does Not Exist'}
-                      </p>
-                    </div>
-                  )}
-                </div>
+                <Link href={`/tour/${planet.id}`} key={index} passHref >
+                  <div
+                    key={index}
+                    ref={(el) => {
+                      planetsRef.current[index] = el as HTMLDivElement;
+                    }}
+                    data-id={planet.id}
+                    className={`absolute w-20 h-20 sm:w-24 sm:h-24 transform-gpu transition-opacity duration-500 ${
+                      isVisible ? 'opacity-100' : 'opacity-0'
+                    }`}
+                    style={{
+                      transform: `translate3d(${
+                        130 *
+                        Math.sin(
+                          ((adjustedIndex - currentSlide) * (2 * Math.PI)) /
+                            planets.length,
+                        )
+                      }px, 20px, ${
+                        150 *
+                        Math.cos(
+                          ((adjustedIndex - currentSlide) * (2 * Math.PI)) /
+                            planets.length,
+                        )
+                      }px) scale(${isActive ? 1.5 : 1})`,
+                      zIndex: isActive ? 10 : 0,
+                      opacity: isVisible ? (isActive ? 1 : 0.5) : 0,
+                    }}
+                  >
+                    <Image
+                      src={planet.planet_img}
+                      alt={`Planet ${index + 1}`}
+                      fill
+                      sizes='100vw'
+                      objectFit='contain'
+                    />
+                    {isActive && (
+                      <div className='text-center absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-full w-max'>
+                        <p>{planet.name}</p>
+                        <p>
+                          {planet.price
+                            ? `₩${planet.price.toLocaleString()}`
+                            : 'Price Does Not Exist'}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                </Link>
               );
             })}
           </div>

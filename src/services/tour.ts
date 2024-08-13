@@ -24,6 +24,7 @@ export interface tourProps {
 // 투어 리스트
 export const tourList = async (): Promise<Tour[]> => {
   const { data: tours, error } = await supabase.from('tours').select(`
+    planet_id,
     id,
     price, 
     tag,
