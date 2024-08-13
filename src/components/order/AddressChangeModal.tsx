@@ -6,19 +6,13 @@ import AddressesList from '../mypage/address_list/AddressList';
 import AddressAddModal from '../mypage/address_list/AddressAddModal';
 import { Address } from '@/types/userAddressType';
 import useAuthStore from '@/zustand/store/useAuth';
-import toast from 'react-hot-toast';
-import useExpressInfoStore from '@/zustand/store/useExpressInfoStore';
 
 interface AddressChangeModalProps {
   addressList: Address[];
   setIsModalOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-function AddressChangeModal({
-  addressList,
-  setIsModalOpen,
-}: AddressChangeModalProps) {
-  const { setExpressAddress } = useExpressInfoStore((state) => state);
+function AddressChangeModal({ setIsModalOpen }: AddressChangeModalProps) {
   const modalBackground = useRef(null);
   const [showAddressAddModal, setShowAddressAddModal] =
     useState<boolean>(false);
@@ -41,15 +35,6 @@ function AddressChangeModal({
 
   const handleSelectAddress = (id: string) => {
     setSelectedAddressId((prev) => (prev === id ? null : id));
-  };
-
-  const handleChangeAddress = () => {
-    if (!selectedAddressId) return toast.error('배송지를 선택해주세요!');
-    setExpressAddress(
-      addressList.find((address) => address.id === selectedAddressId) ?? null,
-    );
-    setIsModalOpen(false);
-    toast.success('배송지가 변경되었습니다!');
   };
 
   return (
@@ -100,14 +85,6 @@ function AddressChangeModal({
               initialData={editAddress}
             />
           )}
-        </div>
-        <div className='flex justify-center items-center mt-8'>
-          <button
-            onClick={handleChangeAddress}
-            className='bg-primary-400 p-2 rounded-md text-lg transition-colors duration-200 hover:bg-primary-200 active:bg-primary-300'
-          >
-            배송지 변경
-          </button>
         </div>
       </div>
     </section>

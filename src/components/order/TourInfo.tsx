@@ -22,25 +22,27 @@ function TourInfo({ setTotalPrice }: TourInfoPropsType) {
   });
 
   return (
-    <div className='border-[1px] border-black-300 p-4 rounded-lg mb-8 text-black-50'>
-      <div className='py-4 mb-4 border-b border-black-700 font-medium flex flex-row items-start gap-2'>
+    <div className='border-[1px] border-black-300 rounded-lg sm:p-4 md:pt-4 md:px-5 md:pb-5 lg:pt-4 lg:px-5 lg:pb-5 text-black-50'>
+      <div className='pt-1 pb-3 h-[50px] mb-4 border-b border-black-700 font-medium flex flex-row items-start gap-2'>
         <span className='text-xl'>주문상품 정보</span>
         <span className='text-xl'>{' | '}</span>
         <span className='text-lg'>총 1개</span>
       </div>
       <div>
-        <div className='flex items-center justify-start gap-4'>
-          <div className='w-20 h-24 mt-4'>
+        <div className='flex items-center justify-start gap-[18px]'>
+          <div className='w-[104px] h-[104px]'>
             <Image
               src={tourOrder?.planet_img!}
               alt={tourOrder?.planet_name!}
-              width={80}
-              height={96}
+              width={104}
+              height={104}
             />
           </div>
-          <div>
-            <p className='text-sm'>6박 7일 패키지</p>
-            <p className='font-semibold text-lg'>{`${tourOrder?.planet_name} ${tourOrder?.eng_name}`}</p>
+          <div className='flex flex-col gap-3'>
+            <div className='flex flex-col gap-1'>
+              <p className='text-sm'>6박 7일 패키지</p>
+              <p className='font-semibold text-lg'>{`${tourOrder?.planet_name} ${tourOrder?.eng_name}`}</p>
+            </div>
             <div className='flex flex-row gap-2 sm:w-full'>
               <p>{`${tourOrder?.price.toLocaleString()}원`}</p>
               <p>{' | '}</p>

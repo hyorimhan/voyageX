@@ -16,7 +16,7 @@ function DropDownButton(props: DropDownButtonPropsType) {
     <div className='relative inline-block mb-[20px]'>
       <button
         type='button'
-        className='text-black-50 font-medium text-lg cursor-pointer relative w-40 flex flex-row items-center mt-3 justify-between px-3 mb-[13px]'
+        className='text-black-50 font-medium text-lg cursor-pointer relative w-40 flex flex-row items-center mt-3 justify-center px-3 mb-[13px]'
         onClick={() => setIsActive((prev) => !prev)}
       >
         {categories[sortBy]}
@@ -36,7 +36,7 @@ function DropDownButton(props: DropDownButtonPropsType) {
           Object.entries(categories).map(([key, value]) => (
             <li
               key={key}
-              className='cursor-pointer text-sm text-black-1000 bg-black-50 border border-black-100 hover:bg-black-200 flex items-center'
+              className='cursor-pointer text-sm text-black-1000 bg-black-50 border border-black-100 hover:bg-black-200 flex items-center justify-center'
               style={{ height: '3rem' }}
               onClick={() => {
                 setSortBy(key);
