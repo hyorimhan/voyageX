@@ -1,5 +1,4 @@
 import {
-  Community,
   MyPost,
   TEditComment,
   TEditPost,
@@ -52,6 +51,21 @@ export async function insertPost(newPost: TWritePost) {
   return data;
 }
 
+// 이미지 업로드 서비스 함수
+export async function uploadImage(file: File): Promise<string> {
+  const formData = new FormData();
+  formData.append('file', file);
+
+  const response = await fetch('/api/community/upload', {
+    method: 'POST',
+    body: formData,
+  });
+
+  const data = await response.json();
+  return data.url; // 이미지 URL을 반환
+}
+
+//게시글 수정
 export async function updatePost(editPost: TEditPost) {
   const response = await fetch(`/api/community/detail/${editPost.id}`, {
     method: 'PUT',

@@ -5,7 +5,9 @@ export type Post = Tables<'posts'>;
 export type TWritePost = Pick<
   Post,
   'title' | 'content' | 'category' | 'user_id'
->;
+> & {
+  image_url?: string;
+};
 
 export type TEditPost = Omit<Post, 'created_at'>;
 
@@ -29,4 +31,9 @@ export interface TPagination<T> {
   total: number;
   page: number;
   totalPages: number;
+}
+
+export interface TUploadImage {
+  publicUrl: string;
+  error?: string;
 }

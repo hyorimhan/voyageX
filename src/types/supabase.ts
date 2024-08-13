@@ -1,3 +1,6 @@
+Need to install the following packages:
+supabase@1.188.4
+Ok to proceed? (y) 
 export type Json =
   | string
   | number
@@ -440,6 +443,7 @@ export type Database = {
           id: string
           name: string
           planet_img: string
+          ticket_mobile_img: string | null
           ticket_web_img: string | null
           title: string | null
         }
@@ -449,6 +453,7 @@ export type Database = {
           id?: string
           name: string
           planet_img: string
+          ticket_mobile_img?: string | null
           ticket_web_img?: string | null
           title?: string | null
         }
@@ -458,6 +463,7 @@ export type Database = {
           id?: string
           name?: string
           planet_img?: string
+          ticket_mobile_img?: string | null
           ticket_web_img?: string | null
           title?: string | null
         }
@@ -469,6 +475,7 @@ export type Database = {
           content: string
           created_at: string
           id: string
+          image_url: string | null
           title: string
           user_id: string
         }
@@ -477,6 +484,7 @@ export type Database = {
           content: string
           created_at?: string
           id?: string
+          image_url?: string | null
           title: string
           user_id: string
         }
@@ -485,6 +493,7 @@ export type Database = {
           content?: string
           created_at?: string
           id?: string
+          image_url?: string | null
           title?: string
           user_id?: string
         }
