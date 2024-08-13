@@ -1,6 +1,3 @@
-import EqualIcon32px from '@/components/common/icons/32px/EqualIcon32px';
-import PlusBoldIcon32px from '@/components/common/icons/32px/PlusBoldIcon32px';
-
 interface CartTotalPricePropsType {
   totalPrice: number;
 }
