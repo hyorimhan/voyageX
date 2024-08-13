@@ -119,7 +119,7 @@ function MyCart({ user_id }: WishListPropsType) {
   }
 
   return (
-    <section>
+    <>
       <div>
         <CartItemSelector
           selectItems={selectItems}
@@ -128,7 +128,7 @@ function MyCart({ user_id }: WishListPropsType) {
           setIsDeleteOpen={setIsDeleteOpen}
         />
       </div>
-      <div className='sm:hidden'>
+      <div className='sm:hidden md:block lg:block'>
         <ul className='flex flex-col gap-4'>
           {cartList.length
             ? cartList?.map((item) => (
@@ -158,7 +158,7 @@ function MyCart({ user_id }: WishListPropsType) {
             : '장바구니에 담은 상품이 없습니다!'}
         </ul>
       </div>
-      <div className='sm: hidden'>
+      <div className='sm:hidden'>
         <CartTotalPrice totalPrice={totalPrice} />
       </div>
       <div className='md:hidden lg:hidden'>
@@ -179,7 +179,7 @@ function MyCart({ user_id }: WishListPropsType) {
         cancelText='취소'
         cancelAction={() => setIsDeleteOpen(false)}
       />
-    </section>
+    </>
   );
 }
 
