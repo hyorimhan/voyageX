@@ -13,6 +13,7 @@ import CommentList from '../comment/CommentsList';
 import Loading from '@/components/common/Loading';
 import useAuthStore from '@/zustand/store/useAuth';
 import PostHearts from './PostHearts';
+import ShareLink from '@/components/common/ShareLink';
 
 const DetailPage = ({ params }: { params: { postId: string } }) => {
   const { postId } = params;
@@ -47,7 +48,7 @@ const DetailPage = ({ params }: { params: { postId: string } }) => {
             <div className='text-lg flex font-bold'>{post.title}</div>
           </div>
           <div className='flex gap-4 items-start'>
-            <ShareIcon32px />
+            <ShareLink />
             <PostHearts post_id={postId} user_id={user?.id} />
           </div>
         </div>

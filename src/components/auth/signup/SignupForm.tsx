@@ -100,7 +100,9 @@ function SignupForm() {
               type='email'
               placeholder='예) voyageX@gmail.com'
               {...register('email', emailValidate())}
-              className='text-black-900 w-[473px] h-[58px]  sm:w-[335px] rounded-lg p-2 '
+              className={`text-black-900 w-[473px] h-[58px] border-2  sm:w-[335px] rounded-lg p-6 ${
+                errors.email ? 'border-error-900' : ''
+              }`}
               autoFocus
             />
             {errors.email && (
@@ -119,7 +121,9 @@ function SignupForm() {
                 type={showPassword ? 'text' : 'password'}
                 placeholder='영문, 숫자, 특수문자 조합 8-16자'
                 {...register('password', passwordValidate())}
-                className='text-black-900 w-[473px] h-[58px]  sm:w-[335px]  rounded-lg p-2'
+                className={`text-black-900 w-[473px] h-[58px]  border-2 sm:w-[335px]  rounded-lg p-6 ${
+                  errors.password ? 'border-error-900' : ''
+                }`}
               />
               <button
                 type='button'
@@ -146,7 +150,9 @@ function SignupForm() {
                   'passwordConfirm',
                   passwordConfirmValidate(password),
                 )}
-                className='text-black-900 w-[473px] h-[58px]  sm:w-[335px]  rounded-lg p-2'
+                className={`text-black-900 w-[473px] h-[58px] border-2 sm:w-[335px]  rounded-lg p-6 ${
+                  errors.passwordConfirm ? 'border-error-900' : ''
+                }`}
               />
               <button
                 type='button'
@@ -173,8 +179,10 @@ function SignupForm() {
           </div>
           <button
             type='submit'
-            // disabled={!isValid}
-            className={`bg-primary-600 w-[473px] h-[58px]  sm:w-[335px] rounded-lg p-2 mt-5 `}
+            disabled={!isValid}
+            className={`w-[473px] h-[58px]  sm:w-[335px] rounded-lg p-2 mt-5              ${
+              !isValid ? 'cursor-not-allowed bg-black-400' : 'bg-primary-600'
+            }`}
           >
             가입하기
           </button>

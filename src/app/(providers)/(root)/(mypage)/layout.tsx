@@ -5,10 +5,10 @@ function Layout({ children }: { children: React.ReactNode }) {
   return (
     <Page>
       <div className='flex flex-col lg:flex-row'>
-        <div className='hidden md:block lg:block lg:w-[375px]'>
+        <div className='sm:hidden md:hidden w-[190px] mr-[88px]'>
           <MyPageSideBar />
         </div>
-        <main className='sm:mx-5'>{children}</main>
+        <main className='sm:mx-5 lg:w-full'>{children}</main>
       </div>
     </Page>
   );
