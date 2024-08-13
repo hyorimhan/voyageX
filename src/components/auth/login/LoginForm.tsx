@@ -73,7 +73,7 @@ function LoginForm() {
             id='email'
             placeholder='예) voyageX@gmail.com'
             {...register('email', emailValidate())}
-            className={`text-black-900  w-[473px] h-[58px]  sm:w-[335px] rounded-lg p-2 border-2  ${
+            className={`text-black-900  w-[473px] h-[58px]  sm:w-[335px] rounded-lg p-6 border-2  ${
               errors.email ? 'border-error-900 focus:border-error-900' : ''
             }  `}
             autoFocus
@@ -95,7 +95,7 @@ function LoginForm() {
               id='password'
               placeholder='영문, 숫자, 특수문자 조합 8-16자'
               {...register('password', passwordValidate())}
-              className={`text-black-900  w-[473px] h-[58px] sm:w-[335px]   rounded-lg p-2 ${
+              className={`text-black-900  w-[473px] h-[58px] sm:w-[335px]  border-2 rounded-lg p-6 ${
                 errors.password ? 'border-error-900 focus:border-error-900' : ''
               }`}
             />
@@ -107,7 +107,7 @@ function LoginForm() {
               {showPassword ? <EyeOnIcon24px /> : <EyeOffIcon24px />}
             </button>
             {errors.password && (
-              <p className='text-error-900 text-sm mt-1'>
+              <p className='text-error-900 text-sm mt-1 absolute'>
                 {errors.password.message}
               </p>
             )}
@@ -117,8 +117,8 @@ function LoginForm() {
           <button
             type='submit'
             disabled={!isValid}
-            className={`bg-primary-600  w-[473px] h-[58px] sm:w-[335px] font-semibold  rounded-lg p-2 mt-5 ${
-              !isValid ? 'cursor-not-allowed hover:bg-black-400' : ''
+            className={`  w-[473px] h-[58px] sm:w-[335px] font-semibold  rounded-lg p-2 mt-8 ${
+              !isValid ? 'cursor-not-allowed bg-black-400' : 'bg-primary-600'
             }`}
           >
             로그인
@@ -127,7 +127,7 @@ function LoginForm() {
             href={'/signup'}
             className='bg-primary-100  w-[473px] h-[58px]  font-semibold sm:w-[335px] rounded-lg p-2 mt-3 flex justify-center items-center text-primary-700'
           >
-            이메일 회원가입
+            이메일로 회원가입
           </Link>
         </div>
         <div className='flex items-center mt-10'>

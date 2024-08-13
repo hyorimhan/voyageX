@@ -39,13 +39,13 @@ function LikedGoodsList({
     <ul className='text-black-50 grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3'>
       {likedGoods.length
         ? likedGoods.map((item) => (
-            <>
+            <div key={item.goods_id}>
               <GoodsItem
                 key={item.goods_id}
                 item={item.goods}
                 user_id={user_id}
               />
-            </>
+            </div>
           ))
         : '찜한 상품이 없습니다!'}
     </ul>

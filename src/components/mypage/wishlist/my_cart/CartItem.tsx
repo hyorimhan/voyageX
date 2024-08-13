@@ -32,8 +32,8 @@ function CartItem({
 }: CartItemPropsType) {
   const [isHovered, setIsHovered] = useState(false);
   return (
-    <li className='border-t-[1px] border-black-700 px-2 my-4 flex justify-between'>
-      <div className='flex md:justify-center lg:justify-center my-4'>
+    <li className='border-t-[1px] border-black-700 px-2 h-[136px] flex justify-between'>
+      <div className='flex justify-center'>
         <button
           onClick={() => handleSelectItem(item)}
           onMouseEnter={() => setIsHovered(true)}
@@ -59,8 +59,8 @@ function CartItem({
           <span>{item.goods.goods_name}</span>
         </div>
       </div>
-      <div className='flex sm:flex-col sm:justify-center'>
-        <div className='flex flex-row border-[1px] border-primary-300 rounded-lg justify-center gap-3 h-8 w-24 items-center self-center'>
+      <div className='flex'>
+        <div className='flex flex-row border-[1px] border-primary-300 rounded-lg justify-center gap-3 h-[33px] w-[96px] items-center self-center'>
           <button
             onClick={() =>
               handleAdjustItemQuantity({
@@ -73,7 +73,7 @@ function CartItem({
           >
             <MinusIcon20px />
           </button>
-          <span>{item.quantity}</span>
+          <span className='font-medium'>{item.quantity}</span>
           <button
             onClick={() =>
               handleAdjustItemQuantity({
@@ -86,8 +86,8 @@ function CartItem({
             <PlusIcon20px />
           </button>
         </div>
-        <div className='self-center w-40 text-center md:ml-36 lg:ml-36'>
-          <span>{item.goods.goods_price.toLocaleString()}</span>
+        <div className='self-center w-[152px] text-center ml-[136px] font-medium'>
+          <span>{item.goods.goods_price.toLocaleString()}원</span>
         </div>
       </div>
     </li>

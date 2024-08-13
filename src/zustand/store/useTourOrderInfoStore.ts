@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
-import CryptoJS, { enc } from 'crypto-js';
+import CryptoJS from 'crypto-js';
 
 export type tourInfoType = {
   tour_id: string;
