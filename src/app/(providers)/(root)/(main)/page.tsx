@@ -85,12 +85,10 @@ const MainPage = () => {
         <p
           className={`absolute top-32 left-4 sm:top-44 sm:left-16 text-white text-4xl sm:text-4xl font-semibold fade-text ${orbitron.className}`}
         >
-          Let's Find Popular Planets!
+          Let&apos;s Find Popular Planets!
         </p>
         <Link href='/tour'>
-          <p className='absolute top-36 right-20 z-10'>
-            MORE+
-          </p>
+          <p className='absolute top-36 right-20 z-10'>MORE+</p>
         </Link>
         <div className='scroll-container h-full w-full relative flex items-center justify-center'>
           <button

@@ -9,6 +9,7 @@ function TabSelector() {
   const [selectedTab, setSelectedTab] = useState('LikedGoods');
   const user = useAuthStore((state) => state.user);
   const user_id = user?.id;
+  console.log(user_id);
   return (
     <>
       <div className='flex flex-col w-full text-black-50'>
