@@ -14,6 +14,7 @@ import { getPlanetsList } from '@/services/plants';
 import Loading from '@/components/common/Loading';
 import Chatbot from '@/components/chatbot/Chatbot';
 import { orbitron } from '../../../../../public/fonts/orbitron';
+import BackgroundVideo from '@/components/common/BackgroundVideo';
 
 const MainPage = () => {
   const sectionsRef = useRef<(HTMLDivElement | null)[]>([]);
@@ -68,7 +69,7 @@ const MainPage = () => {
     <div>
       <Chatbot />
       <VideoSection
-        videoSrc='/videos/main.mp4'
+        videoSrc='https://dl.dropboxusercontent.com/scl/fi/exu0m925ms20295srtzpl/main3.mp4?rlkey=xg5d927g3xmc75q4v2s95kq64&st=4u9wwjmr'
         heading='Voyage X'
         subHeading='상상을 현실로, 우주에서의 만남'
         sectionRef={{ current: sectionsRef.current[0] }} // sectionRef 타입 맞추기 위해 명시적 지정
@@ -89,7 +90,9 @@ const MainPage = () => {
           Let&apos;s Find Popular Planets!
         </p>
         <Link href='/tour'>
-          <p className='absolute top-36 right-20 z-10 text-lg font-normal underline sm:top-24 sm:right-6'>MORE+</p>
+          <p className='absolute top-36 right-20 z-10 text-lg font-normal underline sm:top-24 sm:right-6'>
+            MORE+
+          </p>
         </Link>
         <div className='scroll-container h-full w-full relative flex items-center justify-center'>
           <button
@@ -115,7 +118,7 @@ const MainPage = () => {
                   planets.length;
 
               return (
-                <Link href={`/tour/${planet.id}`} key={index} passHref >
+                <Link href={`/tour/${planet.id}`} key={index} passHref>
                   <div
                     key={index}
                     ref={(el) => {
@@ -129,10 +132,10 @@ const MainPage = () => {
                       transform: `translate3d(${
                         -450 +
                         50 *
-                        Math.sin(
-                          ((adjustedIndex - currentSlide) * (2 * Math.PI)) /
-                            planets.length,
-                        )
+                          Math.sin(
+                            ((adjustedIndex - currentSlide) * (2 * Math.PI)) /
+                              planets.length,
+                          )
                       }px, 0, ${
                         150 *
                         Math.cos(
@@ -189,55 +192,57 @@ const MainPage = () => {
         </Link>
         {goodsError && <p className='text-red-500'>{goodsError.message}</p>}
         {goodsLoading ? (
-          <p>Loading...</p>
+          <p>
+            <Loading />
+          </p>
         ) : (
           <div className='grid grid-cols-3 gap-4'>
             {goods?.slice(0, 3).map((item) => (
-              <Link href={`shop_detail/${item.id}`}>
               <div
                 key={item.id}
                 className='p-4 rounded shadow border border-white'
               >
-                <Image
-                  src={item.goods_img}
-                  alt={item.goods_name}
-                  width={300}
-                  height={300}
-                  className='object-cover'
-                />
-                <div className='mt-4'>
-                  <h2 className='text-xl font-semibold text-white'>
-                    {item.goods_name}
-                  </h2>
-                  <p className='text-sm'>
-                    <span className='text-red-500'>{item.discount}%</span>{' '}
-                    <span className='text-white'>{item.goods_price}원</span>
-                  </p>
-                  <div className='flex items-center justify-between mt-2'>
-                    <span className='flex items-center'>
-                      <Image
-                        src='/icons/20px/star_true.svg'
-                        alt='star icon'
-                        width={16}
-                        height={16}
-                        className='mr-1'
-                      />
-                      {item.rating_avg}
-                    </span>
-                    <span className='flex items-center'>
-                      <Image
-                        src='/icons/20px/heart_default.svg'
-                        alt='heart icon'
-                        width={16}
-                        height={16}
-                        className='mr-1'
-                      />
-                      {item.like_count}
-                    </span>
+                <Link href={`shop_detail/${item.id}`}>
+                  <Image
+                    src={item.goods_img}
+                    alt={item.goods_name}
+                    width={300}
+                    height={300}
+                    className='object-cover'
+                  />
+                  <div className='mt-4'>
+                    <h2 className='text-xl font-semibold text-white'>
+                      {item.goods_name}
+                    </h2>
+                    <p className='text-sm'>
+                      <span className='text-red-500'>{item.discount}%</span>{' '}
+                      <span className='text-white'>{item.goods_price}원</span>
+                    </p>
+                    <div className='flex items-center justify-between mt-2'>
+                      <span className='flex items-center'>
+                        <Image
+                          src='/icons/20px/star_true.svg'
+                          alt='star icon'
+                          width={16}
+                          height={16}
+                          className='mr-1'
+                        />
+                        {item.rating_avg}
+                      </span>
+                      <span className='flex items-center'>
+                        <Image
+                          src='/icons/20px/heart_default.svg'
+                          alt='heart icon'
+                          width={16}
+                          height={16}
+                          className='mr-1'
+                        />
+                        {item.like_count}
+                      </span>
+                    </div>
                   </div>
-                </div>
+                </Link>
               </div>
-              </Link>
             ))}
           </div>
         )}
@@ -267,6 +272,7 @@ const MainPage = () => {
       >
         <h1>컨텐츠 준비 중입니다…</h1>
       </section>
+
       <Footer />
     </div>
   );
