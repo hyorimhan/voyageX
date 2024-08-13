@@ -405,7 +405,7 @@ const TourOrderListMobile = () => {
           </div>
           <div className='flex mb-5 gap-3 justify-end'>
             <button
-              className='bg-primary-400 p-2 rounded-md w-[73px] text-xs'
+              className='bg-transparent p-2 rounded-md w-[73px] text-xs border-[1px] border-primary-400 hover:border-primary-200 active:border-primary-300'
               onClick={() => {
                 setSelectedOrderId(order.id);
                 setSelectedTourId(order.tour_id);
@@ -415,10 +415,10 @@ const TourOrderListMobile = () => {
               {order.review_id ? '리뷰수정' : '리뷰작성'}
             </button>
             <button
-              className='bg-primary-500 p-2 rounded-md w-[73px] text-xs'
+              className='bg-primary-400 p-2 rounded-md w-[73px] text-xs hover:bg-primary-200 active:bg-primary-300'
               onClick={() => ticketSave(order.id)}
             >
-              티켓 저장
+              티켓저장
             </button>
           </div>
         </div>
