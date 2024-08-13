@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 import { userLoginInfo } from '@/services/auth';
 import { getLikeLength } from '@/services/mypage';
 import Link from 'next/link';
+import { orbitron } from '../../../public/fonts/orbitron';
 
 const MyPageSideBarUserInfo = () => {
   const user = useAuthStore((state) => state.user);
@@ -40,8 +41,10 @@ const MyPageSideBarUserInfo = () => {
   const emailId = user?.email ? user.email.split('@')[0] : '비회원';
 
   return (
-    <div className='h-[60px] py-2 gap-1 flex flex-col'>
-      <p className='text-xl'>{emailId}</p>
+    <div className='h-[60px] py-2 gap-1 flex flex-col sm:px-5 md:px-5'>
+      <p className={`text-xl sm:text-[28px] ${orbitron.className}`}>
+        {emailId}
+      </p>
       <div className='flex flex-row items-center text-xs gap-2'>
         <Link href={'/mypage/my_posts'} className='flex gap-1 text-center'>
           <p>작성글 수</p>
