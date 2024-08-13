@@ -31,7 +31,7 @@ const GoodsOrderList = () => {
     goodsOrders.length === 0
   ) {
     return (
-      <div className='flex flex-col justify-center items-center gap-9 mt-16'>
+      <div className='flex flex-col justify-center items-center gap-9 mt-14 sm:mt-12'>
         <Image
           src='/images/arcticons_spacenow.svg'
           alt='spacenow'
@@ -93,32 +93,60 @@ const GoodsOrderList = () => {
           <div className='border-b-[1px] border-solid border-black-700'></div>
           {orders.map((order, index) => (
             <div key={order.id}>
-              <div className='flex justify-between h-[120px]'>
+              <div className='h-[136px] md:flex lg:flex justify-between sm:h-auto'>
+                <div className='flex justify-between md:hidden lg:hidden'>
+                  <p className='w-[78px] mb-2 self-end text-sm '>
+                    {order.state}
+                  </p>
+                  <button
+                    className='bg-primary-400 p-2 rounded-md w-[58px] mr-1 mt-7 text-xs'
+                    onClick={() => {
+                      setSelectedOrderId(order.order_id);
+                      setSelectedGoodsId(order.goods_id);
+                      setShowReviewFormAddModal(true);
+                    }}
+                  >
+                    {order.review_id ? '리뷰수정' : '리뷰작성'}
+                  </button>
+                </div>
                 <div className='flex gap-5 items-center'>
-                  <div className='bg-white flex h-[88px]'>
+                  <div className=' flex mt-2 h-[104px] sm:h-[104px] '>
                     <Image
                       src={order.goods.goods_img}
                       alt={order.goods.description}
-                      width={80}
-                      height={90}
+                      width={104}
+                      height={104}
+                      className='sm:hidden'
+                    />
+                    <Image
+                      src={order.goods.goods_img}
+                      alt={order.goods.description}
+                      width={104}
+                      height={104}
+                      className='md:hidden lg:hidden'
                     />
                   </div>
-                  <div className='gap-2 flex flex-col'>
-                    <p>{order.goods.goods_name}</p>
-                    <p className='font-semibold text-xl'>
+                  <div className='gap-2 flex flex-col sm:gap-1'>
+                    <p className='sm:text-sm'>{order.goods.goods_name}</p>
+                    <p className='font-semibold text-xl sm:text-lg'>
                       {order.goods.goods_price.toLocaleString()}원
                     </p>
-                    <p className='text-sm'>수량 {order.quantity}개</p>
+                    <p className='text-sm sm:text-xs'>
+                      수량 {order.quantity}개
+                    </p>
+                    <p className='text-xs bg-black-600 w-fit px-2 py-[6px] rounded-2xl md:hidden lg:hidden'>
+                      무료배송
+                    </p>
                   </div>
                 </div>
                 <div className='flex items-center justify-end'>
                   <div className='flex flex-row gap-4 text-center text-sm'>
-                    <p className='w-[79px]'>무료배송</p>
-                    <p className='w-[78px]'>{order.state}</p>
+                    <p className='w-[79px] sm:hidden'>무료배송</p>
+                    <p className='w-[78px] sm:hidden'>{order.state}</p>
                   </div>
                   <div className='w-[79px] flex justify-center ml-4'>
                     <button
-                      className='bg-primary-400 p-2 rounded-md w-[58px] text-xs'
+                      className='bg-primary-400 p-2 rounded-md w-[58px] text-xs sm:hidden'
                       onClick={() => {
                         setSelectedOrderId(order.order_id);
                         setSelectedGoodsId(order.goods_id);

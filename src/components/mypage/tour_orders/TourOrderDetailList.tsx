@@ -59,14 +59,18 @@ const TourOrderDetailList = ({ order_id }: TourOrderDetailListProps) => {
 
   return (
     <div className='flex flex-col'>
-      <div className='flex gap-2'>
-        <p>주문일자</p>
-        <p>{formatOrderDate(order.pay_at)}</p>
-        <p className='ml-8'>주문번호</p>
-        <p>{order.id}</p>
+      <div className='flex gap-2 sm:text-sm sm:justify-between'>
+        <div className='flex'>
+          <p>주문일자</p>
+          <p>{formatOrderDate(order.pay_at)}</p>
+        </div>
+        <div className='flex'>
+          <p className='ml-8'>주문번호</p>
+          <p>{order.id}</p>
+        </div>
       </div>
-      <div className='border-b-[1px] border-solid border-white mt-8'></div>
-      <div className='flex flex-col gap-9'>
+      <div className='border-b-[1px] border-solid border-white mt-8 sm:mt-6'></div>
+      <div className='flex flex-col gap-8 sm:gap-6'>
         <div className='border-[1px] border-black-300 p-5 rounded-lg mt-8'>
           <div className='flex gap-[10px]'>
             <p className='text-xl'>주문상품 정보</p>
@@ -81,7 +85,7 @@ const TourOrderDetailList = ({ order_id }: TourOrderDetailListProps) => {
               width={104}
             />
             <div className='ml-[18px] flex justify-between w-full'>
-              <div className='flex flex-col justify-center'>
+              <div className='flex flex-col justify-center sm:hidden'>
                 <p className='text-sm'>6박 7일 패키지</p>
                 <div className='text-lg font-semibold flex gap-2 mt-1'>
                   <p className='text-lg font-semibold'>{order.planet.name}</p>
@@ -93,7 +97,18 @@ const TourOrderDetailList = ({ order_id }: TourOrderDetailListProps) => {
                   <p>수량 1개</p>
                 </div>
               </div>
-              <div className='flex w-[126px] justify-center items-center gap-2 border-l-[1px] border-black-300'>
+              <div className='flex flex-col justify-center md:hidden lg:hidden'>
+                <div className='flex text-sm'>
+                  <p>{order.planet.name}</p>
+                  <p className='ml-1'>{order.planet.english_name}</p>
+                  <p className='ml-2'>6박 7일 패키지</p>
+                </div>
+                <p className='text-xs text-black-200 mt-1'>수량 1개</p>
+                <p className='font-semibold mt-5'>
+                  {order.tour.price.toLocaleString()}원
+                </p>
+              </div>
+              <div className='flex w-[126px] justify-center items-center gap-2 border-l-[1px] border-black-300 sm:hidden'>
                 <p>구매확정</p>
               </div>
             </div>
