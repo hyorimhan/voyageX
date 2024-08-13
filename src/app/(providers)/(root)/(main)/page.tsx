@@ -121,17 +121,18 @@ console.log("Planet ID:", planet.id);
                       planetsRef.current[index] = el as HTMLDivElement;
                     }}
                     data-id={planet.id}
-                    className={`absolute w-20 h-20 sm:w-24 sm:h-24 transform-gpu transition-opacity duration-500 ${
+                    className={`absolute w-36 h-36 sm:w-24 sm:h-24 transform-gpu transition-opacity duration-500 ${
                       isVisible ? 'opacity-100' : 'opacity-0'
                     }`}
                     style={{
                       transform: `translate3d(${
-                        130 *
+                        -450 +
+                        50 *
                         Math.sin(
                           ((adjustedIndex - currentSlide) * (2 * Math.PI)) /
                             planets.length,
                         )
-                      }px, 20px, ${
+                      }px, 0, ${
                         150 *
                         Math.cos(
                           ((adjustedIndex - currentSlide) * (2 * Math.PI)) /
@@ -191,6 +192,7 @@ console.log("Planet ID:", planet.id);
         ) : (
           <div className='grid grid-cols-3 gap-4'>
             {goods?.slice(0, 3).map((item) => (
+              <Link href={`shop_detail/${item.id}`}>
               <div
                 key={item.id}
                 className='p-4 rounded shadow border border-white'
@@ -234,6 +236,7 @@ console.log("Planet ID:", planet.id);
                   </div>
                 </div>
               </div>
+              </Link>
             ))}
           </div>
         )}
