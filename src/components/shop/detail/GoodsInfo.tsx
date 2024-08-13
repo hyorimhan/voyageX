@@ -13,6 +13,7 @@ import useGoodsOrderStore from '@/zustand/store/useGoodsOrderInfoStore';
 import toast from 'react-hot-toast';
 import GenericModal from '@/components/common/GenericModal';
 import ShareLink from '../../common/ShareLink';
+import useLastSelectWishListStore from '@/zustand/store/useLastSelectWishListStore';
 
 type GoodsInfoProps = {
   goods: Tables<'goods'>;
@@ -22,6 +23,7 @@ type GoodsInfoProps = {
 const GoodsInfo = ({ goods, goods_id }: GoodsInfoProps) => {
   const router = useRouter();
   const user = useAuthStore((state) => state.user);
+  const { setLastSelectTab } = useLastSelectWishListStore((state) => state);
   const { setGoodsOrderInfo } = useGoodsOrderStore((state) => state);
   const [totalPrice, setTotalPrice] = useState(goods.goods_price);
   const [quantity, setQuantity] = useState(1);
@@ -62,7 +64,10 @@ const GoodsInfo = ({ goods, goods_id }: GoodsInfoProps) => {
         title='장바구니에 담기 성공'
         content='장바구니를 확인해볼까요?'
         buttonText='보러가기'
-        buttonAction={() => router.push('/wishlist')}
+        buttonAction={() => {
+          setLastSelectTab('MyCart');
+          router.push('/wishlist');
+        }}
         cancelText='취소'
         cancelAction={() => setIsConfirmOpen(false)}
       />
@@ -71,9 +76,12 @@ const GoodsInfo = ({ goods, goods_id }: GoodsInfoProps) => {
         title='이미 담은 상품입니다.'
         content='장바구니를 확인해볼까요?'
         buttonText='보러가기'
-        buttonAction={() => router.push('/wishlist')}
+        buttonAction={() => {
+          setLastSelectTab('MyCart');
+          router.push('/wishlist');
+        }}
         cancelText='취소'
-        cancelAction={() => setIsConfirmOpen(false)}
+        cancelAction={() => setIsErrorOpen(false)}
       />
       <div>
         <Image
