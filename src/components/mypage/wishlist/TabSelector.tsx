@@ -4,9 +4,13 @@ import { useState } from 'react';
 import LikedGoods from './LikedGoods';
 import useAuthStore from '@/zustand/store/useAuth';
 import MyCart from './my_cart/MyCart';
+import useLastSelectWishListStore from '@/zustand/store/useLastSelectWishListStore';
 
 function TabSelector() {
-  const [selectedTab, setSelectedTab] = useState('LikedGoods');
+  const { lastSelectTab, setLastSelectTab } = useLastSelectWishListStore(
+    (state) => state,
+  );
+  const [selectedTab, setSelectedTab] = useState(lastSelectTab);
   const user = useAuthStore((state) => state.user);
   const user_id = user?.id;
   return (
@@ -14,13 +18,19 @@ function TabSelector() {
       <div className='flex flex-col w-full text-black-50'>
         <div className='flex'>
           <button
-            onClick={() => setSelectedTab('LikedGoods')}
+            onClick={() => {
+              setSelectedTab('LikedGoods');
+              setLastSelectTab('LikedGoods');
+            }}
             className='text-lg w-full font-semibold h-[53px]'
           >
             찜
           </button>
           <button
-            onClick={() => setSelectedTab('MyCart')}
+            onClick={() => {
+              setSelectedTab('MyCart');
+              setLastSelectTab('MyCart');
+            }}
             className='text-lg font-semibold w-full  h-[53px]'
           >
             장바구니
