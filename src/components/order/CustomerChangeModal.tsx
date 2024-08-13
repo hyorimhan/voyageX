@@ -67,7 +67,7 @@ function CustomerChangeModal({
         {/* <div className='relative bg-black-800 w-1/3 md:w-2/3 sm:w-2/3 h-[700px] md:h-[600px] sm:h-[600px] my-24 mx-auto rounded-lg'> */}
         <div className='flex justify-end'>
           <button
-            className='mr-11 mt-4 text-3xl bg-transparent'
+            className='mr-11 mt-4 text-3xl bg-transparent sm:mr-4 sm:mt-1'
             type='button'
             onClick={() => setIsModalOpen(false)}
           >

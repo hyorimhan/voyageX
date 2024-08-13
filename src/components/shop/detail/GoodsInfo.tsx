@@ -102,7 +102,7 @@ const GoodsInfo = ({ goods, goods_id }: GoodsInfoProps) => {
         <div className='flex gap-1 flex-col font-bold'>
           <p className='text-lg text-black-500'>{formattedPrice}원</p>
           <div className='flex text-2xl font-bold'>
-            <p className='text-error-900 mr-2'>10%</p>
+            <p className='text-error-900 mr-2'>{goods.discount}%</p>
             <p>{formattedPrice}원</p>
           </div>
         </div>

@@ -1,11 +1,11 @@
 import { ItemToBuyType } from '@/types/goods';
 import Image from 'next/image';
 
-interface OrderItemPropsType {
+interface OrderedGoodsItemPropsType {
   item: ItemToBuyType;
 }
 
-function OrderItem({ item }: OrderItemPropsType) {
+function OrderedGoodsItemMobile({ item }: OrderedGoodsItemPropsType) {
   return (
     <div className='mb-3'>
       <div className='flex items-center justify-start gap-4'>
@@ -24,10 +24,11 @@ function OrderItem({ item }: OrderItemPropsType) {
             <span className='mx-2'>{' | '}</span>
             <span>{`수량 ${item.quantity}개`}</span>
           </div>
+          <span className='text-base'>구매확정</span>
         </div>
       </div>
     </div>
   );
 }
 
-export default OrderItem;
+export default OrderedGoodsItemMobile;

@@ -6,9 +6,9 @@ const TourPaymentPage = () => {
   return (
     <>
       <h1
-        className={`border-b sm:mx-5 border-white text-lg font-bold text-white ${orbitron.className}`}
+        className={`border-b-[1px] sm:mx-5 border-white text-lg font-semibold text-white mt-20 py-4 ${orbitron.className}`}
       >
-        TOUR ORDER
+        여행상품 결제
       </h1>
       <TourOrderPageSection />
     </>

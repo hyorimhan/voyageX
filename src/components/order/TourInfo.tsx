@@ -23,10 +23,12 @@ function TourInfo({ setTotalPrice }: TourInfoPropsType) {
 
   return (
     <div className='border-[1px] border-black-300 p-4 rounded-lg mb-8 text-black-50'>
-      <div className='py-4 mb-4 border-b border-black-700'>
-        <span className='text-xl'>여행상품 정보</span>
+      <div className='py-4 mb-4 border-b border-black-700 font-medium flex flex-row items-start gap-2'>
+        <span className='text-xl'>주문상품 정보</span>
+        <span className='text-xl'>{' | '}</span>
+        <span className='text-lg'>총 1개</span>
       </div>
-      <div className='grid grid-cols-[minmax(0,1fr)_100px]'>
+      <div>
         <div className='flex items-center justify-start gap-4'>
           <div className='w-20 h-24 mt-4'>
             <Image
@@ -37,12 +39,14 @@ function TourInfo({ setTotalPrice }: TourInfoPropsType) {
             />
           </div>
           <div>
-            <p>{`${tourOrder?.planet_name} ${tourOrder?.eng_name}`}</p>
-            <div className='sm:text-xs'>{tourOrder?.depart_date} ~</div>
+            <p className='text-sm'>6박 7일 패키지</p>
+            <p className='font-semibold text-lg'>{`${tourOrder?.planet_name} ${tourOrder?.eng_name}`}</p>
+            <div className='flex flex-row gap-2 sm:w-full'>
+              <p>{`${tourOrder?.price.toLocaleString()}원`}</p>
+              <p>{' | '}</p>
+              <p>수량 1개</p>
+            </div>
           </div>
-        </div>
-        <div className='border-l border-black-300 flex flex-col items-center justify-center'>
-          <p>{`${tourOrder?.price.toLocaleString()}원`}</p>
         </div>
       </div>
     </div>
