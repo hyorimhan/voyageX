@@ -1,7 +1,7 @@
 import { Address } from '@/types/userAddressType';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
-import CryptoJS, { enc } from 'crypto-js';
+import CryptoJS from 'crypto-js';
 
 type ExpressAddressType = {
   expressAddress: Address | null;

@@ -17,7 +17,9 @@ function OrderedGoodsItem({ item }: OrderedGoodsItemPropsType) {
         />
       </div>
       <div className='w-[818px] mr-[18px] text-white'>
-        <div className='text-lg mb-3'>{`${item.goods.goods_name}`}</div>
+        <div className='text-lg mb-3 font-semibold'>
+          {item.goods.goods_name}
+        </div>
         <div className='flex flex-row items-start'>
           <span className='text-white text-base'>
             {item.goods.goods_price.toLocaleString()}원

@@ -14,6 +14,8 @@ import GenericModal from '@/components/common/GenericModal';
 import Image from 'next/image';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
+import CartItemMobile from './CartItemMobile';
+import CartTotalPriceMobile from './CartTotalPriceMobile';
 
 function MyCart({ user_id }: WishListPropsType) {
   const [totalPrice, setTotalPrice] = useState(0);
@@ -102,13 +104,13 @@ function MyCart({ user_id }: WishListPropsType) {
           width={80}
           height={80}
         />
-        <div className='flex flex-col items-center'>
+        <div className='flex flex-col items-center font-medium'>
           <p className='text-xl'>장바구니에 담은 상품이 없습니다.</p>
           <p className='text-sm mt-[7px]'>다양한 상품을 둘러보고 채워보세요.</p>
         </div>
         <Link
           href={'/shop'}
-          className='h-[43px] w-[230px] bg-primary-600 rounded-md text-black-50 justify-center items-center flex hover:bg-primary-400 active:bg-primary-500'
+          className='font-medium h-[43px] w-[230px] bg-primary-600 rounded-md text-black-50 justify-center items-center flex hover:bg-primary-400 active:bg-primary-500'
         >
           GOODS SHOP 바로가기
         </Link>
@@ -117,7 +119,7 @@ function MyCart({ user_id }: WishListPropsType) {
   }
 
   return (
-    <section>
+    <>
       <div>
         <CartItemSelector
           selectItems={selectItems}
@@ -126,8 +128,8 @@ function MyCart({ user_id }: WishListPropsType) {
           setIsDeleteOpen={setIsDeleteOpen}
         />
       </div>
-      <div>
-        <ul className='flex flex-col gap-4'>
+      <div className='sm:hidden'>
+        <ul className='flex flex-col'>
           {cartList.length
             ? cartList?.map((item) => (
                 <CartItem
@@ -141,8 +143,24 @@ function MyCart({ user_id }: WishListPropsType) {
             : '장바구니에 담은 상품이 없습니다!'}
         </ul>
       </div>
-      <div>
+      <div className='md:hidden lg:hidden'>
+        <ul className='flex flex-col gap-4'>
+          {cartList?.map((item) => (
+            <CartItemMobile
+              key={item.id}
+              item={item}
+              selectItems={selectItems}
+              handleSelectItem={handleSelectItem}
+              handleAdjustItemQuantity={handleAdjustItemQuantity}
+            />
+          ))}
+        </ul>
+      </div>
+      <div className='sm:hidden'>
         <CartTotalPrice totalPrice={totalPrice} />
+      </div>
+      <div className='md:hidden lg:hidden'>
+        <CartTotalPriceMobile totalPrice={totalPrice} />
       </div>
       <div>
         <CartButtonContainer selectItems={selectItems} />
@@ -159,7 +177,7 @@ function MyCart({ user_id }: WishListPropsType) {
         cancelText='취소'
         cancelAction={() => setIsDeleteOpen(false)}
       />
-    </section>
+    </>
   );
 }
 

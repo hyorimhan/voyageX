@@ -20,9 +20,9 @@ function GoodsItem({ item, user_id }: GoodsItemPropsType) {
         <Image
           src={item.goods_img}
           alt={item.description}
-          width={263}
+          width={268}
           height={272}
-          className='rounded-lg cursor-pointer h-[272px] w-[263px] sm:h-[230px] sm:w-[250px]'
+          className='rounded-lg cursor-pointer h-[272px] w-[268px] sm:h-[230px] sm:w-[250px]'
           style={{ objectFit: 'cover' }}
           onClick={() => handleItemClick(item.id)}
         />
@@ -32,7 +32,7 @@ function GoodsItem({ item, user_id }: GoodsItemPropsType) {
       </div>
       <div className='ml-1 flex flex-col'>
         <p
-          className='flex justify-start cursor-pointer'
+          className='flex justify-start cursor-pointer font-medium'
           onClick={() => handleItemClick(item.id)}
         >
           {item.goods_name}
@@ -40,7 +40,9 @@ function GoodsItem({ item, user_id }: GoodsItemPropsType) {
         <div className='flex justify-between items-end'>
           <div className='flex flex-col'>
             <div className='flex'>
-              <p className='text-error-900 text-xl mr-2 font-semibold'>10%</p>
+              <p className='text-error-900 text-xl mr-2 font-semibold'>
+                {item.discount}%
+              </p>
               <p className='text-xl font-semibold sm:text-sm'>{`${item.goods_price.toLocaleString()}원`}</p>
             </div>
             <div className='flex flex-row gap-2'>
