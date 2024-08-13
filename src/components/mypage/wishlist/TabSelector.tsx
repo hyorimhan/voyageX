@@ -15,8 +15,8 @@ function TabSelector() {
   const user_id = user?.id;
   return (
     <>
-      <div className='flex flex-col w-full text-black-50'>
-        <div className='flex'>
+      <div className='flex flex-col sm:max-w-[768px] lg:min-w-[768px] text-black-50'>
+        <div className='grid grid-cols-2'>
           <button
             onClick={() => {
               setSelectedTab('LikedGoods');
@@ -31,7 +31,7 @@ function TabSelector() {
               setSelectedTab('MyCart');
               setLastSelectTab('MyCart');
             }}
-            className='text-lg font-semibold w-full  h-[53px]'
+            className='text-lg font-semibold w-full h-[53px]'
           >
             장바구니
           </button>

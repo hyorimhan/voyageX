@@ -42,7 +42,7 @@ function CartItemSelector({
             <CheckBoxDefaultIcon24px />
           )}
         </button>
-        <span className='flex gap-1'>
+        <span className='flex gap-1 font-medium'>
           <p>전체</p>
           {selectItems.length === listLength
             ? !listLength

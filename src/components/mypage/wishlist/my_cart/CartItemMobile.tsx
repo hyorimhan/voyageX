@@ -59,7 +59,7 @@ function CartItemMobile({
             />
           </div>
           <div className='w-[152px]'>
-            <span>{item.goods.goods_name}</span>
+            <span className='font-medium'>{item.goods.goods_name}</span>
           </div>
         </div>
         <div className='w-full flex flex-row ml-3 gap-[19px]'>
@@ -89,7 +89,7 @@ function CartItemMobile({
               <PlusIcon20px />
             </button>
           </div>
-          <div className='self-center w-[152px] h-8 text-right'>
+          <div className='self-center w-[152px] h-8 text-right font-medium'>
             <span>{item.goods.goods_price.toLocaleString()}원</span>
           </div>
         </div>

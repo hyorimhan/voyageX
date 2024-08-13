@@ -73,7 +73,7 @@ function CartItem({
           >
             <MinusIcon20px />
           </button>
-          <span>{item.quantity}</span>
+          <span className='font-medium'>{item.quantity}</span>
           <button
             onClick={() =>
               handleAdjustItemQuantity({
@@ -86,8 +86,8 @@ function CartItem({
             <PlusIcon20px />
           </button>
         </div>
-        <div className='self-center w-[152px] text-center ml-[136px]'>
-          <span>{item.goods.goods_price.toLocaleString()}</span>
+        <div className='self-center w-[152px] text-center ml-[136px] font-medium'>
+          <span>{item.goods.goods_price.toLocaleString()}원</span>
         </div>
       </div>
     </li>
