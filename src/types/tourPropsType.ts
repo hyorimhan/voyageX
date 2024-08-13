@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 
 export interface Tour {
+  planet_id: string;
   id: string;
   price: number;
   tag: string;

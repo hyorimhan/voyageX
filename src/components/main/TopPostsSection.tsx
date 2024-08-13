@@ -44,7 +44,7 @@ const TopPostsSection: React.FC = () => {
         <div className='grid grid-cols-2 gap-8 relative'>
           {posts.map((post: Post) => (
             <Link
-              href={`/posts/${post.id}`}
+              href={`/community/${post.id}`}
               key={post.id}
               className='p-6 md:p-8 rounded-md block bg-black text-white hover:bg-gray-700 transition-colors'
             >
