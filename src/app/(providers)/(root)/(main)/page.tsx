@@ -14,6 +14,7 @@ import { getPlanetsList } from '@/services/plants';
 import Loading from '@/components/common/Loading';
 import Chatbot from '@/components/chatbot/Chatbot';
 import { orbitron } from '../../../../../public/fonts/orbitron';
+import { orbitron } from '../../../../../public/fonts/orbitron';
 
 const MainPage = () => {
   const sectionsRef = useRef<(HTMLDivElement | null)[]>([]);
@@ -88,9 +89,7 @@ const MainPage = () => {
           Let's Find Popular Planets!
         </p>
         <Link href='/tour'>
-          <p className='absolute top-36 right-20 z-10'>
-            MORE+
-          </p>
+          <p className='absolute top-36 right-20 z-10'>MORE+</p>
         </Link>
         <div className='scroll-container h-full w-full relative flex items-center justify-center'>
           <button
@@ -261,7 +260,7 @@ const MainPage = () => {
           backgroundAttachment: 'fixed',
         }}
       >
-        <h1>컨텐츠 준비 중입니다...</h1>
+        <h1>컨텐츠 준비 중입니다…</h1>
       </section>
       <Footer />
     </div>
