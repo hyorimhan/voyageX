@@ -25,7 +25,7 @@ function ExpressInfo({ addressList }: ExpressInfoPropsType) {
     <>
       <div className='border-[1px] border-black-300 rounded-lg p-4 mb-8'>
         <div className='py-4 mb-4 border-b border-black-700 flex flex-row items-start justify-between'>
-          <span className='text-xl text-black-50'>배송정보</span>
+          <span className='text-xl text-black-50 font-medium'>배송정보</span>
           <div>
             <button
               className='bg-primary-400 rounded-lg p-2 transition-colors duration-200 hover:bg-primary-200 active:bg-primary-300'
@@ -41,7 +41,7 @@ function ExpressInfo({ addressList }: ExpressInfoPropsType) {
             defaultAddress={defaultAddress!}
           />
         ) : (
-          <div>배송지를 설정해주세요</div>
+          <div className='font-semibold'>배송지를 설정해주세요</div>
         )}
       </div>
       {isModalOpen && (

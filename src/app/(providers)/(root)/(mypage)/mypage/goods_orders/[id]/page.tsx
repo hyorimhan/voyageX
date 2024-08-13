@@ -1,5 +1,7 @@
+import ArrowLeftIcon24px from '@/components/common/icons/24px/ArrowLeftIcon24px';
 import GoodsOrderDetailDeleteBtn from '@/components/mypage/goods_orders/GoodsOrderDetailDeleteBtn';
 import GoodsOrderDetailList from '@/components/mypage/goods_orders/GoodsOrderDetailList';
+import Link from 'next/link';
 
 type Params = {
   params: {
@@ -11,7 +13,15 @@ const GoodsOrdersDetailPage = ({ params }: Params) => {
   return (
     <>
       <div className='flex items-start justify-between'>
-        <p className='text-2xl font-semibold mb-4'>주문상세내역</p>
+        <div className='flex mb-4 gap-2'>
+          <Link
+            href={'/mypage/side_bar'}
+            className='self-center md:hidden lg:hidden'
+          >
+            <ArrowLeftIcon24px />
+          </Link>
+          <p className='text-2xl font-semibold'>주문상세내역</p>
+        </div>
         <GoodsOrderDetailDeleteBtn order_id={params.id} />
       </div>
       <GoodsOrderDetailList order_id={params.id} />

@@ -26,10 +26,10 @@ function OrderedTourInfo({ tourOrder }: OrderedTourInfoPropsType) {
           <div className=' mr-[18px] ml-[18px] my-auto'>
             <div className='md:mx-auto md:text-left sm:text-center'>
               <div>
-                {`${tourOrder?.planet_name} ${tourOrder?.eng_name}`}
                 <div className='md:text-sm sm:text-xs'>
-                  <span>{`${tourOrder?.depart_date} ~`}</span>
+                  <span>6박 7일 패키지</span>
                 </div>
+                {`${tourOrder?.planet_name} ${tourOrder?.eng_name}`}
               </div>
             </div>
           </div>

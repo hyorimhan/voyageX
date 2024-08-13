@@ -7,7 +7,7 @@ interface OrderItemPropsType {
 
 function OrderItem({ item }: OrderItemPropsType) {
   return (
-    <div className='grid grid-cols-[minmax(0,1fr)_100px] mb-3'>
+    <div className='mb-3'>
       <div className='flex items-center justify-start gap-4'>
         <div className='w-24 h-24'>
           <Image
@@ -18,7 +18,7 @@ function OrderItem({ item }: OrderItemPropsType) {
           />
         </div>
         <div className='flex flex-col text-white'>
-          <p className='text-lg'>{item.goods.goods_name}</p>
+          <p className='text-lg font-semibold'>{item.goods.goods_name}</p>
           <div className='flex flex-row'>
             <span>{`${item.goods.goods_price.toLocaleString()}원`}</span>
             <span className='mx-2'>{' | '}</span>

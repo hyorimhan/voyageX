@@ -63,13 +63,17 @@ function TourAccordion({ tour }: { tour: Tour }) {
                     {sche.tour_activities?.schedule}
                   </div>
                   <div className='w-[210px] h-[140px] ml-6 '>
-                    <Image
-                      src={sche.tour_activities?.tour_img!}
-                      alt='tour_img'
-                      width={210}
-                      height={120}
-                      className='w-[210px] h-[120px] object-cover'
-                    />
+                    {sche.tour_activities?.tour_img ? (
+                      <Image
+                        src={sche.tour_activities?.tour_img!}
+                        alt='tour_img'
+                        width={210}
+                        height={120}
+                        className='w-[210px] h-[120px] object-cover'
+                      />
+                    ) : (
+                      <div className='w-[210px] h-[120px] bg-black-500 animate-pulse rounded' />
+                    )}
                   </div>
                 </div>
               </div>

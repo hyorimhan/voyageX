@@ -14,6 +14,7 @@ import { getPlanetsList } from '@/services/plants';
 import Loading from '@/components/common/Loading';
 import Chatbot from '@/components/chatbot/Chatbot';
 import { orbitron } from '../../../../../public/fonts/orbitron';
+import BackgroundVideo from '@/components/common/BackgroundVideo';
 
 const MainPage = () => {
   const sectionsRef = useRef<(HTMLDivElement | null)[]>([]);
@@ -79,16 +80,19 @@ const MainPage = () => {
         ref={(el) => {
           sectionsRef.current[1] = el as HTMLDivElement;
         }}
-        className=' section h-screen flex flex-col items-center justify-center relative bg-center bg-cover bg-no-repeat'
-        style={{ backgroundImage: 'url(/images/section2.png)' }}
+        className='section h-screen flex flex-col items-center justify-center relative bg-center bg-cover bg-no-repeat'
+        style={{ backgroundImage: 'url(/images/section2-bg.png)' }}
       >
         <p
-          className={`absolute top-32 left-4 sm:top-44 sm:left-16 text-white text-4xl sm:text-4xl font-semibold fade-text ${orbitron.className}`}
+          className={`absolute top-32 left-4 text-white text-4xl font-semibold fade-text ${orbitron.className}
+           sm:text-2xl sm:top-24 sm:text-left sm:font-medium `}
         >
           Let&apos;s Find Popular Planets!
         </p>
         <Link href='/tour'>
-          <p className='absolute top-36 right-20 z-10'>MORE+</p>
+          <p className='absolute top-36 right-20 z-10 text-lg font-normal underline sm:top-24 sm:right-6'>
+            MORE+
+          </p>
         </Link>
         <div className='scroll-container h-full w-full relative flex items-center justify-center'>
           <button
@@ -114,51 +118,54 @@ const MainPage = () => {
                   planets.length;
 
               return (
-                <div
-                  key={index}
-                  ref={(el) => {
-                    planetsRef.current[index] = el as HTMLDivElement;
-                  }}
-                  data-id={planet.id}
-                  className={`absolute w-20 h-20 sm:w-24 sm:h-24 transform-gpu transition-opacity duration-500 ${
-                    isVisible ? 'opacity-100' : 'opacity-0'
-                  }`}
-                  style={{
-                    transform: `translate3d(${
-                      150 *
-                      Math.sin(
-                        ((adjustedIndex - currentSlide) * (2 * Math.PI)) /
-                          planets.length,
-                      )
-                    }px, 0, ${
-                      150 *
-                      Math.cos(
-                        ((adjustedIndex - currentSlide) * (2 * Math.PI)) /
-                          planets.length,
-                      )
-                    }px) scale(${isActive ? 1.5 : 1})`,
-                    zIndex: isActive ? 10 : 0,
-                    opacity: isVisible ? (isActive ? 1 : 0.5) : 0,
-                  }}
-                >
-                  <Image
-                    src={planet.planet_img}
-                    alt={`Planet ${index + 1}`}
-                    fill
-                    sizes='100vw'
-                    objectFit='contain'
-                  />
-                  {isActive && (
-                    <div className='text-center absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-full w-max'>
-                      <p>{planet.name}</p>
-                      <p>
-                        {planet.price
-                          ? `₩${planet.price.toLocaleString()}`
-                          : 'Price Does Not Exist'}
-                      </p>
-                    </div>
-                  )}
-                </div>
+                <Link href={`/tour/${planet.id}`} key={index} passHref>
+                  <div
+                    key={index}
+                    ref={(el) => {
+                      planetsRef.current[index] = el as HTMLDivElement;
+                    }}
+                    data-id={planet.id}
+                    className={`absolute w-20 h-20 sm:w-24 sm:h-24 transform-gpu transition-opacity duration-500 ${
+                      isVisible ? 'opacity-100' : 'opacity-0'
+                    }`}
+                    style={{
+                      transform: `translate3d(${
+                        -450 +
+                        50 *
+                          Math.sin(
+                            ((adjustedIndex - currentSlide) * (2 * Math.PI)) /
+                              planets.length,
+                          )
+                      }px, 0, ${
+                        150 *
+                        Math.cos(
+                          ((adjustedIndex - currentSlide) * (2 * Math.PI)) /
+                            planets.length,
+                        )
+                      }px) scale(${isActive ? 1.5 : 1})`,
+                      zIndex: isActive ? 10 : 0,
+                      opacity: isVisible ? (isActive ? 1 : 0.5) : 0,
+                    }}
+                  >
+                    <Image
+                      src={planet.planet_img}
+                      alt={`Planet ${index + 1}`}
+                      fill
+                      sizes='100vw'
+                      objectFit='contain'
+                    />
+                    {isActive && (
+                      <div className='text-center absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-full w-max'>
+                        <p>{planet.name}</p>
+                        <p>
+                          {planet.price
+                            ? `₩${planet.price.toLocaleString()}`
+                            : 'Price Does Not Exist'}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                </Link>
               );
             })}
           </div>
@@ -176,7 +183,7 @@ const MainPage = () => {
         className='section section-bg h-screen flex flex-col items-center justify-center'
       >
         <h1
-          className={`text-4xl absolute font-bold top-48 left-24 ${orbitron.className}`}
+          className={`text-4xl absolute font-semibold top-48 left-24 ${orbitron.className}`}
         >
           GOODS SHOP
         </h1>
@@ -185,7 +192,9 @@ const MainPage = () => {
         </Link>
         {goodsError && <p className='text-red-500'>{goodsError.message}</p>}
         {goodsLoading ? (
-          <p>Loading...</p>
+          <p>
+            <Loading />
+          </p>
         ) : (
           <div className='grid grid-cols-3 gap-4'>
             {goods?.slice(0, 3).map((item) => (
@@ -193,44 +202,46 @@ const MainPage = () => {
                 key={item.id}
                 className='p-4 rounded shadow border border-white'
               >
-                <Image
-                  src={item.goods_img}
-                  alt={item.goods_name}
-                  width={300}
-                  height={300}
-                  className='object-cover'
-                />
-                <div className='mt-4'>
-                  <h2 className='text-xl font-semibold text-white'>
-                    {item.goods_name}
-                  </h2>
-                  <p className='text-sm'>
-                    <span className='text-red-500'>{item.discount}%</span>{' '}
-                    <span className='text-white'>{item.goods_price}원</span>
-                  </p>
-                  <div className='flex items-center justify-between mt-2'>
-                    <span className='flex items-center'>
-                      <Image
-                        src='/icons/20px/star_true.svg'
-                        alt='star icon'
-                        width={16}
-                        height={16}
-                        className='mr-1'
-                      />
-                      {item.rating_avg}
-                    </span>
-                    <span className='flex items-center'>
-                      <Image
-                        src='/icons/20px/heart_default.svg'
-                        alt='heart icon'
-                        width={16}
-                        height={16}
-                        className='mr-1'
-                      />
-                      {item.like_count}
-                    </span>
+                <Link href={`shop_detail/${item.id}`}>
+                  <Image
+                    src={item.goods_img}
+                    alt={item.goods_name}
+                    width={300}
+                    height={300}
+                    className='object-cover'
+                  />
+                  <div className='mt-4'>
+                    <h2 className='text-xl font-semibold text-white'>
+                      {item.goods_name}
+                    </h2>
+                    <p className='text-sm'>
+                      <span className='text-red-500'>{item.discount}%</span>{' '}
+                      <span className='text-white'>{item.goods_price}원</span>
+                    </p>
+                    <div className='flex items-center justify-between mt-2'>
+                      <span className='flex items-center'>
+                        <Image
+                          src='/icons/20px/star_true.svg'
+                          alt='star icon'
+                          width={16}
+                          height={16}
+                          className='mr-1'
+                        />
+                        {item.rating_avg}
+                      </span>
+                      <span className='flex items-center'>
+                        <Image
+                          src='/icons/20px/heart_default.svg'
+                          alt='heart icon'
+                          width={16}
+                          height={16}
+                          className='mr-1'
+                        />
+                        {item.like_count}
+                      </span>
+                    </div>
                   </div>
-                </div>
+                </Link>
               </div>
             ))}
           </div>
@@ -261,6 +272,7 @@ const MainPage = () => {
       >
         <h1>컨텐츠 준비 중입니다…</h1>
       </section>
+
       <Footer />
     </div>
   );

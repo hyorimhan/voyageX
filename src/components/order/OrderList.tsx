@@ -27,7 +27,7 @@ function OrderList({ setTotalPrice }: ItemsInfoPropsType) {
   });
   return (
     <div className='border-[1px] border-black-300 p-4 rounded-lg mb-4 text-black-50'>
-      <div className='py-4 mb-4 border-b border-black-700 flex flex-row items-start gap-2'>
+      <div className='py-4 mb-4 border-b border-black-700 font-medium flex flex-row items-start gap-2'>
         <span className='text-xl mb-2'>{`상품정보`}</span>
         <span className='text-xl'>{' | '}</span>
         <span className='text-lg'>{`총 ${goodsOrderInfo?.length}개`}</span>

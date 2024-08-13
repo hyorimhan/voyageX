@@ -1,9 +1,11 @@
 'use client';
 
 import GenericModal from '@/components/common/GenericModal';
+import ArrowLeftIcon24px from '@/components/common/icons/24px/ArrowLeftIcon24px';
 import PasswordChangeInput from '@/components/mypage/password_change/PasswordChangeInput';
 
 import useChangePassword from '@/hooks/useChangePassword';
+import Link from 'next/link';
 import { useState } from 'react';
 
 const PasswordChangePage = () => {
@@ -38,8 +40,16 @@ const PasswordChangePage = () => {
 
   return (
     <div>
-      <p className='text-2xl mb-[49px]'>비밀번호 변경</p>
-      <div className='flex flex-col w-[568px] text-black-400 gap-4'>
+      <div className='flex mb-[49px] gap-2 sm:mb-[40px]'>
+        <Link
+          href={'mypage/side_bar'}
+          className='md:hidden lg:hidden self-center'
+        >
+          <ArrowLeftIcon24px />
+        </Link>
+        <p className='text-2xl'>비밀번호 변경</p>
+      </div>
+      <div className='flex flex-col w-[568px] text-black-400 gap-4 sm:w-full'>
         <PasswordChangeInput
           label='현재 비밀번호'
           placeholder='비밀번호를 입력해주세요.'
