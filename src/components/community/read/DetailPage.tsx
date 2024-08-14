@@ -70,7 +70,12 @@ const DetailPage = ({ params }: { params: { postId: string } }) => {
           </div>
         </div>
       </div>
-      <div dangerouslySetInnerHTML={{ __html: sanitizedContent }}></div>
+      <div>
+        <div
+          dangerouslySetInnerHTML={{ __html: sanitizedContent }}
+          className='prose prose-invert'
+        ></div>
+      </div>
       <div className='flex gap-4 pt-9 pb-1'>
         <div className='flex gap-1 justify-center items-center'>
           <PostHearts post_id={postId} user_id={user?.id} size='small' />
