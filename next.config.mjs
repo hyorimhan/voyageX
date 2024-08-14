@@ -21,6 +21,16 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'readme-typing-svg.demolab.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'www.nasa.gov',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'science.nasa.gov',
+        pathname: '/**',
+      },
     ],
   },
   eslint: {
@@ -48,23 +58,6 @@ const nextConfig = {
     includePaths: [path.join(__dirname, 'styles')],
   },
   trailingSlash: true,
-  images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'i.ibb.co',
-        pathname: '/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'uvjnwqdttdhvwexypdhx.supabase.co',
-      },
-      {
-        protocol: 'https',
-        hostname: 'readme-typing-svg.demolab.com',
-      },
-    ],
-  },
 
   env: {
     NEXT_PUBLIC_CRYPTO_KEY: process.env.NEXT_PUBLIC_CRYPTO_KEY,

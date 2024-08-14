@@ -1,6 +1,5 @@
 'use client';
 
-import PenIcon24px from '@/components/common/icons/24px/PenIcon24px';
 import useAuthStore from '@/zustand/store/useAuth';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
@@ -14,13 +13,27 @@ const WriteButton = () => {
     route.push('/community/write');
   };
 
+  const handleClickMyPost = () => {
+    route.push('/mypage/my_posts/');
+  };
+
   return (
-    <button
-      onClick={handleClickWrite}
-      className='flex justify-center items-center bg-primary-100 rounded-full w-[56px] h-[56px]'
-    >
-      <PenIcon24px />
-    </button>
+    <div className='flex gap-4'>
+      {user && (
+        <button
+          onClick={handleClickMyPost}
+          className='bg-black-1000 text-black-50 px-4 py-4 rounded-lg border-primary-600 border-[1px]'
+        >
+          내가 쓴 글 보러가기
+        </button>
+      )}
+      <button
+        onClick={handleClickWrite}
+        className='bg-primary-600 text-black-50 px-9 py-4 rounded-lg'
+      >
+        글쓰기
+      </button>
+    </div>
   );
 };
 
