@@ -30,7 +30,7 @@ const VideoSection: React.FC<VideoSectionProps> = ({
         };
         checkVideoLoaded();
       }
-    }, 1000);
+    }, 3000);
   }, [setVideoLoaded]);
 
   const scrollToTop = () => {
