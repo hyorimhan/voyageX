@@ -139,8 +139,14 @@ const Header = () => {
                 커뮤니티
               </button>
               <button
-                className='hover:text-gray-300'
+                className='hover:text-gray-300 sm:hidden'
                 onClick={() => handleLinkClick('/mypage/tour_orders')}
+              >
+                마이페이지
+              </button>
+              <button
+                className='hover:text-gray-300 md:hidden lg:hidden'
+                onClick={() => handleLinkClick('/mypage/side_bar')}
               >
                 마이페이지
               </button>

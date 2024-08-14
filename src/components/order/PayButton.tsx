@@ -10,7 +10,6 @@ import useExpressInfoStore from '@/zustand/store/useExpressInfoStore';
 import useGoodsOrderStore from '@/zustand/store/useGoodsOrderInfoStore';
 import TermsAndConditions from './TermsAndConditions';
 import { termsAndConditionsList } from '@/constants/shop';
-import CheckBox from '../mypage/delete_account/CheckBox';
 interface PayButtonPropsType {
   totalPrice: number;
   isTour: boolean;
@@ -89,9 +88,11 @@ function PayButton({ totalPrice, isTour }: PayButtonPropsType) {
 
   return (
     <>
-      <div className='border-[1px] border-black-300 px-4 py-4 rounded-lg mt-4 flex flex-col items-start gap-y-5'>
-        <div className='border-b border-black-700 w-full py-[10px]'>
-          <p className='text-xl font-medium'>주문동의</p>
+      <div className='border-[1px] border-black-300 rounded-lg sm:p-4 md:pt-4 md:px-5 md:pb-5 lg:pt-4 lg:px-5 lg:pb-5 flex flex-col items-center gap-y-4'>
+        <div className='pt-1 pb-3 h-[50px] border-b-[1px] border-black-700 w-full flex items-center'>
+          <div className='h-[40px]'>
+            <span className='text-xl font-medium'>주문 동의</span>
+          </div>
         </div>
         <TermsAndConditions
           isAllAgree={isAllAgree}
@@ -102,12 +103,12 @@ function PayButton({ totalPrice, isTour }: PayButtonPropsType) {
         </span>
         <button
           onClick={handleClickPayButton}
-          className='bg-primary-600 rounded-md p-4 w-full h-14 mb-5 text-lg transition-colors duration-200 hover:bg-primary-400 active:bg-primary-500'
+          className='bg-primary-600 rounded-md mb-1 flex flex-row gap-2 items-center justify-center p-4 w-[303px] h-[51px] text-lg transition-colors duration-200 hover:bg-primary-400 active:bg-primary-500'
         >
           <span className='text-lg font-semibold'>
             {totalPrice.toLocaleString()}원
           </span>
-          <span className='text-base font-semibold'> 결제하기</span>
+          <span className='text-base font-semibold'>결제하기</span>
         </button>
       </div>
     </>

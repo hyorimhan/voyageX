@@ -1,10 +1,12 @@
 'use client';
 
+import ArrowLeftIcon24px from '@/components/common/icons/24px/ArrowLeftIcon24px';
 import AddressActionsBtn from '@/components/mypage/address_list/AddressActionsBtn';
 import AddressAddModal from '@/components/mypage/address_list/AddressAddModal';
 import AddressesList from '@/components/mypage/address_list/AddressList';
 import { Address } from '@/types/userAddressType';
 import useAuthStore from '@/zustand/store/useAuth';
+import Link from 'next/link';
 import { useState } from 'react';
 
 const AddressListPage: React.FC = () => {
@@ -35,7 +37,15 @@ const AddressListPage: React.FC = () => {
   return (
     <div>
       <div className='flex flex-col'>
-        <p className='text-2xl mb-9'>배송지 관리</p>
+        <div className='flex mb-9 gap-2'>
+          <Link
+            href={'/mypage/side_bar'}
+            className='self-center md:hidden lg:hidden'
+          >
+            <ArrowLeftIcon24px />
+          </Link>
+          <p className='text-2xl'>배송지 관리</p>
+        </div>
         {user && (
           <AddressActionsBtn
             userId={user.id}

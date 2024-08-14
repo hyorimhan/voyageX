@@ -1,6 +1,10 @@
 import { createClient } from '@/supabase/client';
 import axios from 'axios';
-import { toggleLikeToursParamsType, TourOrderType } from '@/types/tour';
+import {
+  toggleLikeToursParamsType,
+  tourOrderListType,
+  TourOrderType,
+} from '@/types/tour';
 import { Tour } from '@/types/tourPropsType';
 
 const supabase = createClient();
@@ -24,6 +28,7 @@ export interface tourProps {
 // 투어 리스트
 export const tourList = async (): Promise<Tour[]> => {
   const { data: tours, error } = await supabase.from('tours').select(`
+    planet_id,
     id,
     price, 
     tag,
@@ -134,7 +139,7 @@ export const toggleLikeTours = async (
 //투어 주문목록 불러오기
 export const getTourOrder = async (
   user_id: string | undefined,
-): Promise<TourOrderType[]> => {
+): Promise<tourOrderListType[]> => {
   const response = await axios.get(`/api/mypage/tour_order/user/${user_id}`);
   return response.data;
 };
