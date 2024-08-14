@@ -74,3 +74,15 @@ body {
   @apply text-black-300  p-3 shadow-lg !important;
   @apply hover:scale-110 !important;
 }
+
+.prose .ql-align-center {
+  text-align: center;
+}
+
+.prose .ql-align-right {
+  text-align: right;
+}
+
+.prose {
+  max-width: 100%; /* 부모 요소의 전체 너비를 차지하도록 설정 */
+}

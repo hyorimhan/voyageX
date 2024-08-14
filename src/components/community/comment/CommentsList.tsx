@@ -12,6 +12,7 @@ import useAuthStore from '@/zustand/store/useAuth';
 import CommentWriterIcon from '../ProfileImages/CommentWriter';
 import Loading from '@/components/common/Loading';
 import PostWriterIcon from '../ProfileImages/PostWriter';
+import toast from 'react-hot-toast';
 
 const CommentList = ({
   postId,
@@ -41,6 +42,9 @@ const CommentList = ({
       queryClient.invalidateQueries({ queryKey: ['comments', postId] });
       queryClient.invalidateQueries({ queryKey: ['post', postId] });
     },
+    onSuccess: () => {
+      toast.success('댓글이 삭제되었습니다.');
+    },
   });
 
   const { mutate: editComment } = useMutation({
@@ -49,6 +53,7 @@ const CommentList = ({
       queryClient.invalidateQueries({ queryKey: ['comments', postId] });
       setEditMode(null);
       setNewContent('');
+      toast.success('댓글이 수정되었습니다.');
     },
   });
 

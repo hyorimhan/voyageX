@@ -19,7 +19,8 @@ export const GET = async (request: Request, { params }: ParamsType) => {
       goods: goods_id (*)
       `,
     )
-    .eq('user_id', user_id);
+    .eq('user_id', user_id)
+    .order('created_at', { ascending: true });
   if (error) return NextResponse.json({ error });
   return NextResponse.json(data);
 };

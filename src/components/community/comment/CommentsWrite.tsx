@@ -37,6 +37,7 @@ const CommentsWrite = ({
     }
     addComment(newComment);
     setContent('');
+    toast.success('댓글이 작성되었습니다.');
   };
 
   return (
