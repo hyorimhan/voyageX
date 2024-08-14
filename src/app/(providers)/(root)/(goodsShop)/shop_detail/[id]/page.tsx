@@ -6,6 +6,7 @@ import FAQ from '@/components/shop/detail/FAQ';
 import GoodsDetailPageTabSelector from '@/components/shop/detail/GoodsDetailPageTabSelector';
 import GoodsInfo from '@/components/shop/detail/GoodsInfo';
 import { useGetGoodsItem } from '@/hooks/apis/goods.api';
+import { orbitron } from '../../../../../../../public/fonts/orbitron';
 
 type Params = {
   params: {
@@ -23,13 +24,17 @@ const ShopDetailPage = ({ params }: Params) => {
   return (
     <Page>
       <div className='sm:mx-5'>
-        <p className='text-xl '>GOODS SHOP</p>
-        <div className='border-b-[1px] border-solid border-white mt-3 mb-8'></div>
+        <p
+          className={`text-[28px] font-semibold mb-[55px] ${orbitron.className}`}
+        >
+          GOODS SHOP
+        </p>
         {goods && <GoodsInfo goods={goods} goods_id={params.id} />}
         <GoodsDetailPageTabSelector
           goodsRating={goods?.rating_avg}
           goodsId={params.id}
           contents={contents}
+          defaultTab='Reviews'
         />
         <FAQ />
       </div>
