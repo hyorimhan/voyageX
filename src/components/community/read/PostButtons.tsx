@@ -18,8 +18,8 @@ function PostButtons({ postId, userId }: { postId: string; userId: string }) {
 
   const handleClickDelete = () => {
     removePost(postId);
-    toast.success('삭제가 완료되었습니다.');
     route.push('/community');
+    toast.success('삭제가 완료되었습니다.');
   };
 
   return (
@@ -27,7 +27,7 @@ function PostButtons({ postId, userId }: { postId: string; userId: string }) {
       {user?.id === userId && (
         <>
           <Link
-            className='text-primary-700 rounded-lg bg-primary-100 px-3 py-2 flex justify-center items-center gap-1'
+            className='text-primary-700 rounded-lg bg-primary-100 px-3 py-2 flex justify-center items-center gap-1 font-'
             href={`/community/edit/${postId}`}
           >
             수정
