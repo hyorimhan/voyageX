@@ -32,8 +32,3 @@ export interface TPagination<T> {
   page: number;
   totalPages: number;
 }
-
-export interface TUploadImage {
-  publicUrl: string;
-  error?: string;
-}

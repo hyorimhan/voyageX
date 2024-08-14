@@ -52,17 +52,21 @@ export async function insertPost(newPost: TWritePost) {
 }
 
 // 이미지 업로드 서비스 함수
-export async function uploadImage(file: File): Promise<string> {
-  const formData = new FormData();
-  formData.append('file', file);
-
-  const response = await fetch('/api/community/upload', {
+export async function uploadImage(content: string) {
+  const response = await fetch('/api/community/upload/', {
     method: 'POST',
-    body: formData,
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ image: content }),
   });
 
-  const data = await response.json();
-  return data.url; // 이미지 URL을 반환
+  if (!response.ok) {
+    throw new Error('이미지 업로드 실패');
+  }
+
+  const { imageUrl } = await response.json();
+  return imageUrl;
 }
 
 //게시글 수정
