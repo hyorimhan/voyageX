@@ -120,7 +120,7 @@ const EditPost = ({ postId }: { postId: string }) => {
         category: sortBy,
         user_id: user?.id as string,
         id: postId,
-        image_url: 'url', // 임시로 추가
+        image_url: post?.image_url || '',
       };
       await submitPost(editPost);
     } catch (error) {

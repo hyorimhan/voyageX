@@ -133,7 +133,7 @@ const WritePost = () => {
 
   return (
     <form onSubmit={handleSubmitWrite} className='flex flex-col gap-4'>
-      <div className='text-[24px] justify-between content-center flex'>
+      <div className='text-[24px] justify-between content-center flex mb-16'>
         <div className='flex'>
           <Link href='/community'>
             <div>자유게시판</div>
