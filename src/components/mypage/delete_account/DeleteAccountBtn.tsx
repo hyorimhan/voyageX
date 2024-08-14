@@ -41,14 +41,14 @@ const DeleteAccountBtn = ({ buttonText }: DeleteAccountBtnProps) => {
     <div>
       <div className='flex gap-2 py-9 items-center'>
         <CheckBox onChange={setIsChecked} />
-        <p className='text-sm'>
+        <p className='text-sm sm:text-xs'>
           회원탈퇴 유의사항을 모두 확인하였으며, VOYAGE X 회원탈퇴에 동의합니다.
         </p>
       </div>
       <div className='flex justify-center'>
         <button
           onClick={handleDeleteAccount}
-          className={`w-80 rounded-lg p-3 text-black-50 ${
+          className={`w-80 rounded-lg p-3 text-black-50 sm:p-[17px] ${
             isChecked
               ? 'bg-primary-600 hover:bg-primary-400 active:bg-primary-500'
               : 'bg-black-400 text-black-200 cursor-not-allowed'
