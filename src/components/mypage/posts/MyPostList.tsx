@@ -3,7 +3,7 @@
 import { formatDate } from '@/components/common/formatDate';
 import Loading from '@/components/common/Loading';
 import { getMyPosts } from '@/services/community';
-import { Community } from '@/types/communityType';
+import { Community, MyPost } from '@/types/communityType';
 import useAuthStore from '@/zustand/store/useAuth';
 import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
@@ -17,10 +17,12 @@ const MyPostList = () => {
     data: posts,
     isLoading,
     isError,
-  } = useQuery<Community[]>({
+  } = useQuery<MyPost[]>({
     queryKey: ['posts', user_id],
     queryFn: () => getMyPosts(user_id),
   });
+
+  console.log(posts);
 
   if (isLoading) return <Loading />;
   if (isError || !posts || posts.length === 0) {
@@ -45,18 +47,21 @@ const MyPostList = () => {
       </div>
     );
   }
+
   return (
     <>
       {posts?.map((post) => {
         const formattedDate = formatDate(post.created_at);
+        const likeCount = post.likes?.length || 0;
+
         return (
           <div key={post.id}>
-            <div className='gap-2 flex flex-col p-6'>
+            <div className='gap-2 flex flex-col p-6 sm:p-6 sm:gap-4'>
               <div className='text-xs flex justify-between h-6'>
                 <p>{formattedDate}</p>
                 <div className='flex gap-2'>
                   <p className='bg-primary-100 text-primary-500 px-3 rounded-2xl text-[10px] font-bold flex items-center justify-center w-16'>
-                    좋아요 10
+                    좋아요 {likeCount}
                   </p>
                   <p className='bg-primary-100 text-primary-500 px-3 rounded-2xl text-[10px] font-bold flex items-center justify-center w-16'>
                     댓글수 {post.comments}
@@ -65,7 +70,9 @@ const MyPostList = () => {
               </div>
               <p className='font-bold line-clamp-1'>{post.title}</p>
               <div>
-                <p className='line-clamp-4 text-sm'>{post.content}</p>
+                <p className='line-clamp-4 text-sm sm:text-xs'>
+                  {post.content}
+                </p>
               </div>
             </div>
             <div className='border-b-[1px] border-solid border-black-700'></div>

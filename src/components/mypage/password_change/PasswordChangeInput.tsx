@@ -28,7 +28,7 @@ const PasswordChangeInput = ({
   };
 
   return (
-    <div className='flex flex-col gap-1 h-[102px]'>
+    <div className='flex flex-col h-[102px]'>
       <label>{label}</label>
       <div className='relative'>
         <input
