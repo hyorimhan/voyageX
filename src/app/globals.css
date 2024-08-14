@@ -78,11 +78,31 @@ body {
 .prose .ql-align-center {
   text-align: center;
 }
-
 .prose .ql-align-right {
   text-align: right;
 }
-
 .prose {
-  max-width: 100%; /* 부모 요소의 전체 너비를 차지하도록 설정 */
+  max-width: 100%;
+}
+
+.ql-toolbar.ql-snow {
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+.ql-container.ql-snow {
+  height: 100%;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+.quill {
+  background-color: white;
+  border-radius: 15px;
+}
+
+.ql-editor {
+  min-height: 500px !important;
+  max-height: 500px;
+  overflow: hidden;
 }

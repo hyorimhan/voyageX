@@ -145,7 +145,7 @@ const WritePost = () => {
           maxLength={60}
         />
       </div>
-      <div className='bg-black-50 rounded-2xl'>
+      <div>
         <ReactQuill
           theme='snow'
           value={content}
@@ -165,9 +165,6 @@ const WritePost = () => {
           placeholder='내용을 입력해주세요.'
           style={{
             color: '#000000',
-            height: '100%',
-            minHeight: 500,
-            borderRadius: 20,
             marginBottom: '6%',
           }}
         />
