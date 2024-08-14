@@ -34,6 +34,7 @@ const ShopDetailPage = ({ params }: Params) => {
           goodsRating={goods?.rating_avg}
           goodsId={params.id}
           contents={contents}
+          defaultTab='Reviews'
         />
         <FAQ />
       </div>

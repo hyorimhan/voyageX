@@ -16,7 +16,15 @@ type Review = {
   user: { email: string };
 };
 
-const GoodsReviews = ({ goodsId }: { goodsId: string }) => {
+type GoodsReviewsProps = {
+  goodsId: string;
+  setReviewCount: (count: number) => void;
+};
+
+const GoodsReviews: React.FC<GoodsReviewsProps> = ({
+  goodsId,
+  setReviewCount,
+}) => {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
@@ -36,6 +44,7 @@ const GoodsReviews = ({ goodsId }: { goodsId: string }) => {
           setIsError(true);
         } else {
           setReviews(data as Review[]);
+          setReviewCount(data.length);
         }
       } catch (error) {
         setIsError(true);
@@ -45,7 +54,7 @@ const GoodsReviews = ({ goodsId }: { goodsId: string }) => {
     };
 
     fetchReviews();
-  }, [goodsId]);
+  }, [goodsId, setReviewCount]);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
