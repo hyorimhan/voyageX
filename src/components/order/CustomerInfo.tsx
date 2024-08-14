@@ -6,6 +6,7 @@ import CustomerChangeModal from './CustomerChangeModal';
 import useCustomerInfoStore from '@/zustand/store/useCustomrInfoStore';
 import useUpdateInfoStore from '@/zustand/store/useUpdateInfo';
 import useExpressInfoStore from '@/zustand/store/useExpressInfoStore';
+import CustomerChangeSheet from './CustomerChangeSheet';
 
 interface CustomerInfo {
   addressList: Address[];
@@ -107,10 +108,20 @@ function CustomerInfo({ addressList, user_email, isTour }: CustomerInfo) {
         </div>
       </div>
       {isModalOpen && (
-        <CustomerChangeModal
-          setIsModalOpen={setIsModalOpen}
-          updateCustomerInfo={updateCustomerInfo}
-        />
+        <>
+          <div className='sm:hidden'>
+            <CustomerChangeModal
+              setIsModalOpen={setIsModalOpen}
+              updateCustomerInfo={updateCustomerInfo}
+            />
+          </div>
+          <div className='md:hidden lg:hidden'>
+            <CustomerChangeSheet
+              setIsModalOpen={setIsModalOpen}
+              updateCustomerInfo={updateCustomerInfo}
+            />
+          </div>
+        </>
       )}
     </>
   );
