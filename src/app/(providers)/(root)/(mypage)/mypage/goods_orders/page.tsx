@@ -5,14 +5,14 @@ import Link from 'next/link';
 const GoodsOrdersPage = () => {
   return (
     <div>
-      <div className='flex mb-9 gap-2'>
+      <div className='flex mb-9 gap-2 sm:mt-8'>
         <Link
           href={'mypage/side_bar'}
           className='md:hidden lg:hidden self-center'
         >
           <ArrowLeftIcon24px />
         </Link>
-        <p className='text-2xl'>굿즈샵 주문/배송조회</p>
+        <p className='text-2xl sm:text-xl'>굿즈샵 주문/배송조회</p>
       </div>
       <div>
         <div className='flex text-lg mt-3 text-center sm:hidden'>

@@ -28,7 +28,7 @@ function TermsAndConditionsItem({
   };
 
   return (
-    <li className='w-full flex ml-3'>
+    <li className='w-full flex ml-3 gap-2'>
       <button
         onClick={() => handleToggleAgree(item.id)}
         onMouseEnter={() => setIsHovered(true)}

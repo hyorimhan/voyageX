@@ -14,7 +14,7 @@ export async function GET(
 
   const { data, error } = await supabase
     .from('posts')
-    .select('*')
+    .select('*, likes(*)')
     .eq('user_id', user_id);
 
   if (error) {

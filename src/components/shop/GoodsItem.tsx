@@ -37,6 +37,9 @@ function GoodsItem({ item, user_id }: GoodsItemPropsType) {
         >
           {item.goods_name}
         </p>
+        <span className='text-base text-black-200 line-through'>
+          {item.pre_price.toLocaleString()}원
+        </span>
         <div className='flex justify-between items-end'>
           <div className='flex flex-col'>
             <div className='flex'>

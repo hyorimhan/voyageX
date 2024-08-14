@@ -27,8 +27,17 @@ const Pagination = ({
   };
 
   const pageNumbers = [];
-  const startPage = Math.max(1, currentPage - 2);
-  const endPage = Math.min(totalPages, currentPage + 2);
+  let startPage, endPage;
+  if (currentPage <= 3) {
+    startPage = 1;
+    endPage = Math.min(5, totalPages);
+  } else if (currentPage >= totalPages - 2) {
+    startPage = Math.max(1, totalPages - 4);
+    endPage = totalPages;
+  } else {
+    startPage = currentPage - 2;
+    endPage = currentPage + 2;
+  }
 
   for (let i = startPage; i <= endPage; i++) {
     pageNumbers.push(i);

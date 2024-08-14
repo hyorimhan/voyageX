@@ -3,7 +3,6 @@
 import React from 'react';
 import CategoryBadge from '../common/CategoryBadge';
 import { Community } from '@/types/communityType';
-import ShareIcon32px from '../../common/icons/32px/ShareIcon32px';
 import PostWriterIcon from '../ProfileImages/PostWriter';
 import ChatIcon20px from '../../common/icons/20px/ChatIcon20px';
 import { useQuery } from '@tanstack/react-query';
@@ -14,6 +13,7 @@ import Loading from '@/components/common/Loading';
 import useAuthStore from '@/zustand/store/useAuth';
 import PostHearts from './PostHearts';
 import ShareLink from '@/components/common/ShareLink';
+import DOMPurify from 'dompurify';
 
 const DetailPage = ({ params }: { params: { postId: string } }) => {
   const { postId } = params;
@@ -36,6 +36,8 @@ const DetailPage = ({ params }: { params: { postId: string } }) => {
     );
 
   if (isError) return <div>error</div>;
+
+  const sanitizedContent = DOMPurify.sanitize(post.content);
 
   return (
     <div className='flex flex-col font-pretendard gap-5'>
@@ -68,7 +70,12 @@ const DetailPage = ({ params }: { params: { postId: string } }) => {
           </div>
         </div>
       </div>
-      <div>{post.content}</div>
+      <div>
+        <div
+          dangerouslySetInnerHTML={{ __html: sanitizedContent }}
+          className='prose prose-invert'
+        ></div>
+      </div>
       <div className='flex gap-4 pt-9 pb-1'>
         <div className='flex gap-1 justify-center items-center'>
           <PostHearts post_id={postId} user_id={user?.id} size='small' />

@@ -144,6 +144,7 @@ export type Database = {
           goods_price: number;
           id: string;
           like_count: number;
+          pre_price: number;
           rating_avg: number;
         };
         Insert: {
@@ -155,6 +156,7 @@ export type Database = {
           goods_price: number;
           id?: string;
           like_count?: number;
+          pre_price: number;
           rating_avg?: number;
         };
         Update: {
@@ -166,6 +168,7 @@ export type Database = {
           goods_price?: number;
           id?: string;
           like_count?: number;
+          pre_price?: number;
           rating_avg?: number;
         };
         Relationships: [];
