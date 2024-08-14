@@ -27,6 +27,8 @@ const config: Config = {
       fontFamily: {
         pretendard: ['var(--font-pretendard)'],
         yangpyeong: ["'Yangpyeong'", 'sans-serif'],
+        bookmyungjo: ['BookkMyungjo-Bd'],
+        yuna: ['JNE-Yuna-TTF-Regular'],
       },
       screens: {
         sm: { min: '320px', max: '768px' },

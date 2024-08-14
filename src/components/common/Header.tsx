@@ -43,7 +43,7 @@ const Header = () => {
       {isPending && <Loading />}
       <header className='bg-header-default bg-opacity-60 h-16 flex fixed z-20 top-0 items-center justify-between px-4 w-full mx-auto'>
         <div className='max-w-[1120px] mx-auto flex justify-between items-center w-full'>
-          <nav className='hidden lg:flex items-center space-x-5 w-[260px]'>
+          <nav className='hidden lg:flex items-center space-x-5 w-[350px]'>
             <button
               className='hover:text-gray-300'
               onClick={() => handleLinkClick('/tour')}
@@ -62,11 +62,17 @@ const Header = () => {
             >
               자유게시판
             </button>
-            <button
+            {/* <button
               className='hover:text-gray-300'
               onClick={() => handleLinkClick('/address_list')}
             >
               뉴스
+            </button> */}
+            <button
+              className='hover:text-gray-300'
+              onClick={() => handleLinkClick('/about')}
+            >
+              ABOUT US
             </button>
           </nav>
           <div

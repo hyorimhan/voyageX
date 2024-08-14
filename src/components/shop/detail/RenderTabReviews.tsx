@@ -5,11 +5,13 @@ import GoodsReviews from './GoodsReviews';
 type RenderTabReviewsProps = {
   goodsRating: number | undefined;
   goodsId: string;
+  setReviewCount: (count: number) => void;
 };
 
 const RenderTabReviews: React.FC<RenderTabReviewsProps> = ({
   goodsRating,
   goodsId,
+  setReviewCount,
 }) => {
   const roundedStars = Math.round(goodsRating ?? 0);
   const fullStars = roundedStars;
@@ -31,7 +33,7 @@ const RenderTabReviews: React.FC<RenderTabReviewsProps> = ({
           <p className='text-2xl text-black-400 ml-1 font-bold'>/5.0</p>
         </div>
       </div>
-      <GoodsReviews goodsId={goodsId} />
+      <GoodsReviews goodsId={goodsId} setReviewCount={setReviewCount} />
     </>
   );
 };
