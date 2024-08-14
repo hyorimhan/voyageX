@@ -44,7 +44,7 @@ const AddressListPage: React.FC = () => {
           >
             <ArrowLeftIcon24px />
           </Link>
-          <p className='text-2xl '>배송지 관리</p>
+          <p className='text-2xl sm:text-xl'>배송지 관리</p>
         </div>
         {user && (
           <AddressActionsBtn
