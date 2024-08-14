@@ -69,7 +69,7 @@ const MainPage = () => {
     <div>
       <Chatbot />
       <VideoSection
-        videoSrc='https://dl.dropboxusercontent.com/scl/fi/exu0m925ms20295srtzpl/main3.mp4?rlkey=xg5d927g3xmc75q4v2s95kq64&st=4u9wwjmr'
+        videoSrc=' https://dl.dropboxusercontent.com/scl/fi/qc5g3hr3d0uv7tkwzscrr/main11.mp4?rlkey=4aupyoz91ct7go0la75mrskdz&st=9qg5npty'
         heading='Voyage X'
         subHeading='상상을 현실로, 우주에서의 만남'
         sectionRef={{ current: sectionsRef.current[0] }} // sectionRef 타입 맞추기 위해 명시적 지정

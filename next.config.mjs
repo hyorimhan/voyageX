@@ -17,6 +17,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'uvjnwqdttdhvwexypdhx.supabase.co',
       },
+      {
+        protocol: 'https',
+        hostname: 'readme-typing-svg.demolab.com',
+      },
     ],
   },
   eslint: {
@@ -54,6 +58,10 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'uvjnwqdttdhvwexypdhx.supabase.co',
+      },
+      {
+        protocol: 'https',
+        hostname: 'readme-typing-svg.demolab.com',
       },
     ],
   },
