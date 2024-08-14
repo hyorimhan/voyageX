@@ -9,7 +9,7 @@ import SpaceshipIcon20px from '@/components/common/icons/20px/SpaceshipIcon20px'
 import { useQuery } from '@tanstack/react-query';
 import { getTourOrder } from '@/services/tour';
 import useAuthStore from '@/zustand/store/useAuth';
-import { TourOrderType } from '@/types/tour';
+import { tourOrderListType } from '@/types/tour';
 import ArrowRightIcon16px from '@/components/common/icons/16px/ArrowRightIcon16px';
 import Link from 'next/link';
 import TourReviewModal from './TourReviewModal';
@@ -91,7 +91,7 @@ const TourOrdersList = () => {
     data: tourOrders,
     isLoading,
     isError,
-  } = useQuery<TourOrderType[]>({
+  } = useQuery<tourOrderListType[]>({
     queryKey: ['tourOrders', user_id],
     queryFn: () => getTourOrder(user_id),
   });
@@ -156,7 +156,7 @@ const TourOrdersList = () => {
               <div
                 className='bg-black-800 rounded-2xl flex py-6 px-4 w-[544px]'
                 style={{
-                  backgroundImage: `url('${order.planet.ticket_web_img}')`,
+                  backgroundImage: `url('${order.tours.planets.ticket_web_img}')`,
                 }}
               >
                 <div className='mr-[18px] sm:hidden'>
@@ -204,9 +204,11 @@ const TourOrdersList = () => {
                       <div className='flex h-[46px] gap-2 items-start'>
                         <div>
                           <p className={`${orbitron.className} text-2xl`}>
-                            {order.planet.english_name}
+                            {order.tours.planets.english_name}
                           </p>
-                          <p className='text-xs'>{order.planet.name}, 우주</p>
+                          <p className='text-xs'>
+                            {order.tours.planets.name}, 우주
+                          </p>
                           <div className='flex items-center mt-3'>
                             <div className='flex flex-col gap-1'>
                               <p className='text-black-300 text-xs w-[49px]'>
@@ -284,8 +286,12 @@ const TourOrdersList = () => {
                     />
                   </div>
                   <div>
-                    <p className='text-xl'>{order.planet.english_name}</p>
-                    <p className='text-[10px]'>{order.planet.name}, 우주</p>
+                    <p className='text-xl'>
+                      {order.tours.planets.english_name}
+                    </p>
+                    <p className='text-[10px]'>
+                      {order.tours.planets.name}, 우주
+                    </p>
                     <p className='text-xs mt-3'>
                       {formatDate(order.depart_date, true)}
                     </p>
@@ -307,7 +313,7 @@ const TourOrdersList = () => {
               <div
                 className='bg-black-800 rounded-2xl flex py-6 px-4 w-[544px] sm:h-[424px]'
                 style={{
-                  backgroundImage: `url('${order.planet.ticket_web_img}')`,
+                  backgroundImage: `url('${order.tours.planets.ticket_web_img}')`,
                 }}
               >
                 <div className='mr-[18px] sm:hidden'>
@@ -324,9 +330,11 @@ const TourOrdersList = () => {
                       <div className='flex gap-2 items-start'>
                         <div>
                           <p className={`${orbitron.className} text-2xl`}>
-                            {order.planet.english_name}
+                            {order.tours.planets.english_name}
                           </p>
-                          <p className='text-xs'>{order.planet.name}, 우주</p>
+                          <p className='text-xs'>
+                            {order.tours.planets.name}, 우주
+                          </p>
                           <div className='flex gap-2 items-center mt-3'>
                             <div className='items-center flex flex-col gap-1'>
                               <p className='text-black-300 text-xs w-[49px]'>
@@ -419,8 +427,12 @@ const TourOrdersList = () => {
                 </div>
                 <div className='flex mt-[27px]'>
                   <div className='w-24'>
-                    <p className='text-xl'>{order.planet.english_name}</p>
-                    <p className='text-[10px]'>{order.planet.name}, 우주</p>
+                    <p className='text-xl'>
+                      {order.tours.planets.english_name}
+                    </p>
+                    <p className='text-[10px]'>
+                      {order.tours.planets.name}, 우주
+                    </p>
                     <p className='text-xs mt-3'>
                       {formatDate(order.arrive_date, true)}
                     </p>

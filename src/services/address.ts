@@ -51,3 +51,10 @@ export const resetDefaultAddress = async (userId: string): Promise<void> => {
 export const setDefaultAddress = async (addressId: string): Promise<void> => {
   await axios.put(`/api/mypage/addresses/set_default`, { addressId });
 };
+
+export const getDefaultAddress = async (user_id: string) => {
+  const response = await axios.get(
+    `/api/mypage/addresses/address/default/${user_id}`,
+  );
+  return response.data;
+};
