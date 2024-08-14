@@ -45,7 +45,7 @@ function Popup() {
             <div>
               <div>
                 <Image
-                  src={'/images/ticket.png'}
+                  src={'/images/ticket.svg'}
                   alt='ticket_img'
                   width={800}
                   height={700}

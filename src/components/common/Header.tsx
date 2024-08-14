@@ -41,9 +41,9 @@ const Header = () => {
   return (
     <>
       {isPending && <Loading />}
-      <header className='bg-header-default bg-opacity-60 h-16 flex fixed z-20 top-0 items-center justify-between px-4 w-full mx-auto'>
-        <div className='max-w-[1120px] mx-auto flex justify-between items-center w-full'>
-          <nav className='hidden lg:flex items-center space-x-5 w-[350px]'>
+      <header className='bg-header-default  h-16 flex fixed z-20 top-0 items-center justify-between px-4 w-full mx-auto'>
+        <div className='max-w-[1120px] mx-auto flex justify-between items-center w-full bg-black-900'>
+          <nav className='hidden lg:flex bg-black-900 items-center space-x-5 w-[310px]'>
             <button
               className='hover:text-gray-300'
               onClick={() => handleLinkClick('/tour')}
@@ -87,7 +87,7 @@ const Header = () => {
               />
             </button>
           </div>
-          <div className='flex items-center justify-end w-[260px] gap-4'>
+          <div className='flex items-center justify-end w-[310px] gap-4'>
             <button
               className='hover:text-gray-300'
               onClick={() => handleLinkClick('/wishlist')}
