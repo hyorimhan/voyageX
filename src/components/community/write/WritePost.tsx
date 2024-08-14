@@ -33,11 +33,12 @@ const WritePost = () => {
 
   const { mutate: submit } = useMutation({
     mutationFn: async (newPost: TWritePost) => {
-      const processedContent = await handleImageUpload(content);
+      const { processedContent, imageUrls } = await handleImageUpload(content);
 
       const postToSubmit = {
         ...newPost,
         content: processedContent,
+        image_url: imageUrls.length > 0 ? imageUrls[0] : null,
       };
       await insertPost(postToSubmit);
     },
@@ -54,24 +55,36 @@ const WritePost = () => {
 
   const handleImageUpload = async (rawContent: string) => {
     let processedContent = rawContent;
+    let imageUrls = [];
 
     const imageTags = rawContent.match(/<img[^>]+src="data:image\/[^">]+"/g);
+
     if (imageTags) {
+      if (imageTags.length > 1) {
+        toast.error('이미지는 한 장만 업로드할 수 있습니다.');
+        throw new Error('Too many images');
+      }
+
       for (const imgTag of imageTags) {
         const base64Src = imgTag.match(/src="([^"]+)"/)?.[1];
         if (base64Src) {
+          if (imageUrls.length > 0) {
+            // 이미 한 장의 이미지를 업로드한 경우 중단
+            toast.error('이미지는 한 장만 업로드할 수 있습니다.');
+            throw new Error('Too many images');
+          }
           try {
             const imageUrl = await uploadImage(base64Src);
             processedContent = processedContent.replace(base64Src, imageUrl);
+            imageUrls.push(imageUrl); // 업로드된 이미지 URL 저장
           } catch (error) {
             console.error('이미지 업로드 실패:', error);
 
-            // error를 명시적으로 Error로 타입 캐스팅
             if (error instanceof Error) {
               if (error.message.includes('413')) {
                 toast.error('이미지 용량이 1MB를 초과했습니다.');
               } else {
-                toast.error('이미지 용량이 1MB를 초과했습니다.');
+                toast.error('이미지 업로드에 실패했습니다.');
               }
             } else {
               toast.error('알 수 없는 오류가 발생했습니다.');
@@ -82,7 +95,8 @@ const WritePost = () => {
         }
       }
     }
-    return processedContent;
+
+    return { processedContent, imageUrls };
   };
 
   const handleSubmitWrite = async (e: React.FormEvent) => {
@@ -96,16 +110,24 @@ const WritePost = () => {
     setIsSubmitting(true);
 
     try {
+      const { processedContent, imageUrls } = await handleImageUpload(content);
+
+      if (imageUrls.length > 1) {
+        setIsSubmitting(false);
+        return toast.error('이미지는 한 장만 업로드할 수 있습니다.');
+      }
+
       const newPost = {
         title,
-        content,
+        content: processedContent,
         category: sortBy,
         user_id: user?.id as string,
+        image_url: imageUrls[0] || null, // 첫 번째 이미지 URL 저장
       };
       await submit(newPost);
     } catch (error) {
-      // 이미지 업로드 실패 또는 글 작성 실패 시 오류 처리
       console.error('글 작성 중 오류 발생:', error);
+      setIsSubmitting(false);
     }
   };
 
