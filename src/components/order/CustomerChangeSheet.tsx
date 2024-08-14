@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { phoneValidate } from '@/utils/tourValidation';
 import useCustomerInfoStore from '@/zustand/store/useCustomrInfoStore';
 import toast from 'react-hot-toast';
+import CloseWhiteIcon24px from '../common/icons/24px/CloseWhiteIcon24px';
 
 interface CustomerChangeSheetProps {
   isModalOpen: boolean;
@@ -74,93 +75,101 @@ function CustomerChangeSheet({
     setIsModalOpen(false);
   };
 
+  useEffect(() => {
+    if (isModalOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+  }, [isModalOpen]);
+
   return (
     <AnimatePresence>
-      {isModalOpen && (
-        <motion.section
-          className='fixed inset-0 flex items-end justify-center bg-black bg-opacity-50'
+      <motion.section
+        className='fixed inset-0 flex items-end justify-center bg-black-1000 bg-opacity-75 z-30'
+        variants={modalVariants}
+        initial='hidden'
+        animate='visible'
+        exit='exit'
+        transition={modalTransition}
+        onClick={(e) => {
+          if (e.target === e.currentTarget) setIsModalOpen(false);
+        }}
+      >
+        <motion.div
+          className='bg-black-800 w-full rounded-t-lg p-8 transform'
           variants={modalVariants}
-          initial='hidden'
-          animate='visible'
-          exit='exit'
           transition={modalTransition}
-          onClick={(e) => {
-            if (e.target === e.currentTarget) setIsModalOpen(false);
-          }}
         >
-          <motion.div
-            className='bg-black-800 w-full rounded-t-lg p-8 transform'
-            variants={modalVariants}
-            transition={modalTransition}
+          <div className='flex justify-end'>
+            <button type='button' onClick={() => setIsModalOpen(false)}>
+              <CloseWhiteIcon24px />
+            </button>
+          </div>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleChangeCustomerInfo();
+            }}
           >
-            <div className='flex justify-end'>
+            <div className='flex flex-col items-center gap-8 w-full'>
+              <div>
+                <p className='text-xl font-semibold text-white'>
+                  주문자정보 변경
+                </p>
+              </div>
+              <div className='flex flex-col w-full gap-4'>
+                <div className='flex flex-col'>
+                  <label htmlFor='customerName' className='text-black-200'>
+                    주문자
+                  </label>
+                  <input
+                    id='customerName'
+                    type='text'
+                    placeholder='이름을 입력해주세요.'
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    className='rounded h-12 text-black-1000 p-4'
+                  />
+                </div>
+                <div className='flex flex-col'>
+                  <label htmlFor='customerPhone' className='text-black-200'>
+                    휴대폰 번호
+                  </label>
+                  <input
+                    id='customerPhone'
+                    type='tel'
+                    placeholder='010-1234-5678'
+                    value={phone}
+                    onChange={onChangePhone}
+                    className='rounded h-12 text-black-1000 p-4'
+                  />
+                </div>
+                <div className='flex flex-col'>
+                  <label htmlFor='customerEmail' className='text-black-200'>
+                    이메일
+                  </label>
+                  <input
+                    id='customerEmail'
+                    type='email'
+                    placeholder='예) voyageX@gmail.com'
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    className='rounded h-12 text-black-1000 p-4'
+                  />
+                </div>
+              </div>
               <button
-                className='text-2xl bg-transparent text-white'
-                type='button'
-                onClick={() => setIsModalOpen(false)}
+                type='submit'
+                className='bg-primary-600 text-base font-semibold py-4 w-full rounded-lg transition-colors duration-200 hover:bg-primary-400 active:bg-primary-500 text-white'
               >
-                x
+                저장하기
               </button>
             </div>
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                handleChangeCustomerInfo();
-              }}
-            >
-              <div className='flex flex-col items-center gap-8 w-full'>
-                <div>
-                  <p className='text-xl font-semibold text-white'>
-                    주문자정보 변경
-                  </p>
-                </div>
-                <div className='flex flex-col w-full gap-4'>
-                  <div className='flex flex-col'>
-                    <label htmlFor='customerName'>주문자</label>
-                    <input
-                      id='customerName'
-                      type='text'
-                      placeholder='이름을 입력해주세요.'
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                      className='rounded h-12 text-black-1000 p-4'
-                    />
-                  </div>
-                  <div className='flex flex-col'>
-                    <label htmlFor='customerPhone'>휴대폰 번호</label>
-                    <input
-                      id='customerPhone'
-                      type='tel'
-                      placeholder='010-1234-5678'
-                      value={phone}
-                      onChange={onChangePhone}
-                      className='rounded h-12 text-black-1000 p-4'
-                    />
-                  </div>
-                  <div className='flex flex-col'>
-                    <label htmlFor='customerEmail'>이메일</label>
-                    <input
-                      id='customerEmail'
-                      type='email'
-                      placeholder='예) voyageX@gmail.com'
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      required
-                      className='rounded h-12 text-black-1000 p-4'
-                    />
-                  </div>
-                </div>
-                <button
-                  type='submit'
-                  className='bg-primary-600 text-base font-semibold py-4 w-full rounded-lg transition-colors duration-200 hover:bg-primary-400 active:bg-primary-500 text-white'
-                >
-                  저장하기
-                </button>
-              </div>
-            </form>
-          </motion.div>
-        </motion.section>
-      )}
+          </form>
+        </motion.div>
+      </motion.section>
     </AnimatePresence>
   );
 }

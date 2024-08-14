@@ -111,6 +111,7 @@ function CustomerInfo({ addressList, user_email, isTour }: CustomerInfo) {
         <>
           <div className='sm:hidden'>
             <CustomerChangeModal
+              isModalOpen={isModalOpen}
               setIsModalOpen={setIsModalOpen}
               updateCustomerInfo={updateCustomerInfo}
             />
