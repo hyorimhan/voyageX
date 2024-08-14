@@ -118,14 +118,14 @@ function TourPaymentSuccess() {
 
   return (
     <div className='md:mx-5 sm:mx-5'>
-      <div className='flex md:grid sm:grid md:grid-cols-1 sm:grid-cols-1 mt-[137px] mb-11 items-center justify-between'>
+      <div className='flex md:grid sm:grid md:grid-cols-1 sm:grid-cols-1 mt-[128px] mb-10 items-center justify-between'>
         <div className=' max-full'>
-          <div className='text-4xl font-semibold sm:text-xl border-white  text-white  '>
+          <div className='text-4xl font-semibold sm:text-xl border-white text-white'>
             주문이 완료되었습니다
           </div>
         </div>
         <div>
-          <div className='mb-8 lg:hidden sm:mt-4 md:mt-4'>
+          <div className='mb-8 font-semibold lg:hidden sm:mt-4 md:mt-4'>
             주문상품 번호 {result.orderId}
           </div>
           <AfterPayButtons orderId={result.orderId} />

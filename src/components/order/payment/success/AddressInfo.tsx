@@ -11,24 +11,26 @@ function AddressInfo({ expressAddress, customerInfo }: AddressInfoPropsType) {
       <div className='text-xl border-b-black-700 border-b-[1px] pb-3'>
         배송 정보
       </div>
-      <div className='pt-4 flex'>
-        <div className='w-[104px] text-black-200'>받는 분 </div>
+      <div className='mt-4 flex'>
+        <div className='w-[80px] text-black-200'>받는 분 </div>
         {customerInfo.customerName}
       </div>
-      <div className='flex py-5'>
-        <div className='w-[104px] text-black-200'>휴대전화 번호</div>
+      <div className='flex my-5'>
+        <div className='w-[80px] text-black-200'>휴대폰 번호</div>
         {customerInfo.customerPhone}
       </div>
-      <div className='flex gap-4'>
-        <div className='w-[150px] text-black-200'>배송지 정보</div>
-        <div>
+      <div className='flex flex-row flex-nowrap'>
+        <div className='w-[80px] text-black-200'>
+          <span className='w-full'>배송지 정보</span>
+        </div>
+        <div className='w-[216px]'>
+          <div>{`(${expressAddress?.postcode})`}</div>
           <div>
             도로명: {expressAddress?.address} {expressAddress?.detailAddress}
           </div>
           <div>
             지번: {expressAddress?.oldAddress} {expressAddress?.detailAddress}
           </div>
-          <div>{`(${expressAddress?.postcode})`}</div>
         </div>
       </div>
     </div>
