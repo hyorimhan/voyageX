@@ -7,7 +7,7 @@ interface OrderedGoodsItemPropsType {
 
 function OrderedGoodsItem({ item }: OrderedGoodsItemPropsType) {
   return (
-    <div className='flex items-center my-4'>
+    <div className='flex items-center mt-4'>
       <div className='mr-[18px]'>
         <Image
           src={item.goods.goods_img}
@@ -17,14 +17,15 @@ function OrderedGoodsItem({ item }: OrderedGoodsItemPropsType) {
         />
       </div>
       <div className='w-[818px] mr-[18px] text-white'>
-        <div className='text-lg mb-3 font-semibold'>
+        <div className='text-lg mb-3 font-semibold flex flex-col gap-1'>
+          <span className='text-sm'>Voyage X</span>
           {item.goods.goods_name}
         </div>
-        <div className='flex flex-row items-start'>
+        <div className='flex flex-row items-start gap-2'>
           <span className='text-white text-base'>
             {item.goods.goods_price.toLocaleString()}원
           </span>
-          <span className='mx-2'>{' | '}</span>
+          <span>{' | '}</span>
           <span className='text-white'>{`수량 ${item.quantity}개`}</span>
         </div>
       </div>
