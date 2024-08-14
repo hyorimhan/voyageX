@@ -8,8 +8,10 @@ interface OrderedTourInfoPropsType {
 function OrderedTourInfo({ tourOrder }: OrderedTourInfoPropsType) {
   return (
     <div className='border-[1px] border-black-300 rounded-lg pl-5 pt-5 pr-5 md:pb-5 sm:pb-5'>
-      <div className='text-xl border-b pb-3 border-black-700 mb-4'>
-        주문상품 정보
+      <div className='text-xl border-b pb-3 border-black-700 mb-4 flex flex-row gap-[10px]'>
+        <span>주문상품 정보</span>
+        <span>{' | '}</span>
+        <span className='text-lg'>총 1개</span>
       </div>
       <div className='lg:flex lg:tems-center lg:my-4 sm:grid-cols-3 md:flex sm:grid  '>
         <div className='lg:mx-auto'>
@@ -26,17 +28,20 @@ function OrderedTourInfo({ tourOrder }: OrderedTourInfoPropsType) {
           <div className=' mr-[18px] ml-[18px] my-auto'>
             <div className='md:mx-auto md:text-left sm:text-center'>
               <div>
-                <div className='md:text-sm sm:text-xs'>
+                <span className='text-sm'>
+                  {`${tourOrder?.planet_name} ${tourOrder?.eng_name}`}
+                </span>
+                <div className='md:text-sm lg:text-sm sm:text-xs'>
                   <span>6박 7일 패키지</span>
                 </div>
-                {`${tourOrder?.planet_name} ${tourOrder?.eng_name}`}
               </div>
             </div>
           </div>
-          <div className='flex flex-col lg:border-l  lg:border-black-300 sm:border-t sm:border-t-black-300 lg:h-[104px] px-4 lg:py-[30px] '>
-            <div className='text-white text-base my-auto sm:mx-auto'>
+          <div className='flex flex-col items-start justify-center pl-4 lg:border-l lg:border-black-300 lg:h-[104px]'>
+            <div className='text-white text-base font-semibold'>
               {tourOrder?.price.toLocaleString()}원
             </div>
+            <span className='text-sm text-black-200'>수량 1개</span>
           </div>
         </div>
       </div>
