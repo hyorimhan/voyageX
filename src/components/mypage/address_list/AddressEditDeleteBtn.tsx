@@ -38,7 +38,7 @@ const AddressEditDeleteBtn = ({
 
   return (
     <>
-      <div className='gap-1 flex flex-col text-xs w-[77px] justify-center items-center text-black-50'>
+      <div className='gap-1 flex flex-col text-xs w-[81px] ml-[19px] justify-center items-center text-black-50 sm:flex-row sm:w-full sm:justify-end'>
         <button
           className='bg-black-1000 border-[1px] border-primary-400 px-3 py-2 rounded-md transition-colors duration-200 hover:border-primary-200 active:border-primary-300'
           onClick={() => onEditAddress(address)}
