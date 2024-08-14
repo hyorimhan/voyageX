@@ -46,6 +46,18 @@ body {
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'BookkMyungjo-Bd';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.0/BookkMyungjo-Bd.woff2')
+    format('woff2');
+  font-weight: 700;
+  font-style: normal;
+}
+
+.text-bookmyungjo {
+  font-family: 'BookkMyungjo-Bd';
+}
+
 .text-yangpyeong {
   font-family: 'Yangpyeong', sans-serif;
 }
@@ -55,10 +67,30 @@ body {
 }
 
 .section-bg {
-  background-image: url('/images/section3-bg.png');
+  background-image: url('/images/backgroundImg.png');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+}
+
+.about-section {
+  background-image: url('/icons/logo/logo6.svg');
+  background-size: auto;
+  height: 100vh;
+  background-repeat: repeat;
+  background-position: center;
+}
+
+@font-face {
+  font-family: 'JNE-Yuna-TTF-Regular';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-1@1.0/JNE-Yuna-TTF-Regular.woff2')
+    format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.text-yuna {
+  font-family: 'JNE-Yuna-TTF-Regular';
 }
 
 .swiper-pagination-bullet {
