@@ -1,11 +1,13 @@
 'use client';
 
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { phoneValidate } from '@/utils/tourValidation';
 import useCustomerInfoStore from '@/zustand/store/useCustomrInfoStore';
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 
-interface CustomerChangeModalProps {
+interface CustomerChangeSheetProps {
+  isModalOpen: boolean;
   setIsModalOpen: Dispatch<SetStateAction<boolean>>;
   updateCustomerInfo: (updateInfo: {
     customerName: string;
@@ -14,30 +16,47 @@ interface CustomerChangeModalProps {
   }) => void;
 }
 
+const modalVariants = {
+  hidden: {
+    opacity: 0,
+    y: '100%',
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+  },
+  exit: {
+    opacity: 0,
+    y: '10%',
+  },
+};
+
+const modalTransition = {
+  type: 'spring',
+  stiffness: 500,
+  damping: 50,
+};
+
 function CustomerChangeSheet({
+  isModalOpen,
   setIsModalOpen,
   updateCustomerInfo,
-}: CustomerChangeModalProps) {
+}: CustomerChangeSheetProps) {
   const { customerInfo } = useCustomerInfoStore((state) => state);
-  const modalBackground = useRef(null);
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
-
-  const onChangePhone = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const formattedValue = phoneValidate(e);
-    setPhone(formattedValue);
-  };
 
   useEffect(() => {
     setName(customerInfo?.customerName ?? '');
     setPhone(customerInfo?.customerPhone ?? '');
     setEmail(customerInfo?.customerEmail ?? '');
-  }, [
-    customerInfo?.customerName,
-    customerInfo?.customerPhone,
-    customerInfo?.customerEmail,
-  ]);
+  }, [customerInfo]);
+
+  const onChangePhone = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const formattedValue = phoneValidate(e);
+    setPhone(formattedValue);
+  };
 
   const handleChangeCustomerInfo = () => {
     if (!name.trim()) return toast.error('성함을 입력해주세요!');
@@ -56,73 +75,93 @@ function CustomerChangeSheet({
   };
 
   return (
-    <section
-      ref={modalBackground}
-      className='flex w-full h-full fixed top-0 left-0 justify-center bg-black-1000 bg-opacity-50 z-30'
-      onClick={(e) => {
-        if (e.target === modalBackground.current) setIsModalOpen(false);
-      }}
-    >
-      <div className='fixed bottom-0 bg-black-800 w-full rounded-t-lg p-8'>
-        <div className='flex justify-end'>
-          <button
-            className='mr-11 mt-4 text-3xl bg-transparent sm:mr-4 sm:mt-1'
-            type='button'
-            onClick={() => setIsModalOpen(false)}
-          >
-            x
-          </button>
-        </div>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            handleChangeCustomerInfo();
+    <AnimatePresence>
+      {isModalOpen && (
+        <motion.section
+          className='fixed inset-0 flex items-end justify-center bg-black bg-opacity-50'
+          variants={modalVariants}
+          initial='hidden'
+          animate='visible'
+          exit='exit'
+          transition={modalTransition}
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setIsModalOpen(false);
           }}
         >
-          <div className='flex flex-col items-center gap-8 w-full'>
-            <div className=''>
-              <p className='text-xl'>주문자정보 변경</p>
+          <motion.div
+            className='bg-black-800 w-full rounded-t-lg p-8 transform'
+            variants={modalVariants}
+            transition={modalTransition}
+          >
+            <div className='flex justify-end'>
+              <button
+                className='text-2xl bg-transparent text-white'
+                type='button'
+                onClick={() => setIsModalOpen(false)}
+              >
+                x
+              </button>
             </div>
-            <div className='flex flex-col sm:w-full w-2/3 sm:mx-2 gap-4'>
-              <label htmlFor='customerName'>이름</label>
-              <input
-                id='customerName'
-                type='text'
-                placeholder=' 이름을 입력해주세요.'
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                className='rounded h-16 sm:h-12 text-black-1000 p-1'
-              />
-              <label htmlFor='customerPhone'>휴대폰 번호</label>
-              <input
-                id='customerPhone'
-                type='tel'
-                placeholder='010-1234-5678'
-                value={phone}
-                onChange={onChangePhone}
-                className='rounded h-16 sm:h-12 text-black-1000 p-1'
-              />
-              <label htmlFor='customerEmail'>이메일</label>
-              <input
-                id='customerEmail'
-                type='email'
-                placeholder=' 예) voyageX@gmail.com'
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                className='rounded h-16 sm:h-12 sm:w-full  text-black-1000 p-1'
-              />
-            </div>
-            <button
-              type='submit'
-              className='bg-primary-600 p-4 sm:mt-10 mt-16 w-2/3 sm:w-full  rounded-lg transition-colors duration-200 hover:bg-primary-400 active:bg-primary-500'
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleChangeCustomerInfo();
+              }}
             >
-              주문자 정보 변경
-            </button>
-          </div>
-        </form>
-      </div>
-    </section>
+              <div className='flex flex-col items-center gap-8 w-full'>
+                <div>
+                  <p className='text-xl font-semibold text-white'>
+                    주문자정보 변경
+                  </p>
+                </div>
+                <div className='flex flex-col w-full gap-4'>
+                  <div className='flex flex-col'>
+                    <label htmlFor='customerName'>주문자</label>
+                    <input
+                      id='customerName'
+                      type='text'
+                      placeholder='이름을 입력해주세요.'
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      className='rounded h-12 text-black-1000 p-4'
+                    />
+                  </div>
+                  <div className='flex flex-col'>
+                    <label htmlFor='customerPhone'>휴대폰 번호</label>
+                    <input
+                      id='customerPhone'
+                      type='tel'
+                      placeholder='010-1234-5678'
+                      value={phone}
+                      onChange={onChangePhone}
+                      className='rounded h-12 text-black-1000 p-4'
+                    />
+                  </div>
+                  <div className='flex flex-col'>
+                    <label htmlFor='customerEmail'>이메일</label>
+                    <input
+                      id='customerEmail'
+                      type='email'
+                      placeholder='예) voyageX@gmail.com'
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                      className='rounded h-12 text-black-1000 p-4'
+                    />
+                  </div>
+                </div>
+                <button
+                  type='submit'
+                  className='bg-primary-600 text-base font-semibold py-4 w-full rounded-lg transition-colors duration-200 hover:bg-primary-400 active:bg-primary-500 text-white'
+                >
+                  저장하기
+                </button>
+              </div>
+            </form>
+          </motion.div>
+        </motion.section>
+      )}
+    </AnimatePresence>
   );
 }
 

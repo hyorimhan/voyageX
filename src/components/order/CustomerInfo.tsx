@@ -117,6 +117,7 @@ function CustomerInfo({ addressList, user_email, isTour }: CustomerInfo) {
           </div>
           <div className='md:hidden lg:hidden'>
             <CustomerChangeSheet
+              isModalOpen={isModalOpen}
               setIsModalOpen={setIsModalOpen}
               updateCustomerInfo={updateCustomerInfo}
             />
