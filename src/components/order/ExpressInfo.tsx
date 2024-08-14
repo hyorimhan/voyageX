@@ -23,25 +23,25 @@ function ExpressInfo({ addressList }: ExpressInfoPropsType) {
 
   return (
     <>
-      <div className='border-[1px] border-black-300 rounded-lg p-4 mb-8'>
-        <div className='py-4 mb-4 border-b border-black-700 flex flex-row items-start justify-between'>
+      <div className='border-[1px] border-black-300 rounded-lg sm:p-4 md:pt-4 md:px-5 md:pb-5 lg:pt-4 lg:px-5 lg:pb-5'>
+        <div className='pt-1 pb-3 mb-4 border-b border-black-700 flex flex-row items-start justify-between'>
           <span className='text-xl text-black-50 font-medium'>배송정보</span>
           <div>
             <button
-              className='bg-primary-400 rounded-lg p-2 transition-colors duration-200 hover:bg-primary-200 active:bg-primary-300'
+              className='bg-primary-400 rounded flex  items-center justify-center px-3 py-2 w-[89px] h-[33px] text-sm transition-colors duration-200 hover:bg-primary-200 active:bg-primary-300'
               onClick={() => setIsModalOpen(true)}
             >
               배송지 변경
             </button>
           </div>
         </div>
-        {expressAddress || defaultAddress ? (
+        {defaultAddress ? (
           <AddressInfo
             expressAddress={expressAddress}
-            defaultAddress={defaultAddress!}
+            defaultAddress={defaultAddress}
           />
         ) : (
-          <div className='font-semibold'>배송지를 설정해주세요</div>
+          <div className='font-semibold'>기본 배송지를 설정해주세요</div>
         )}
       </div>
       {isModalOpen && (

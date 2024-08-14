@@ -30,8 +30,8 @@ function TermsAndConditions({
   };
 
   return (
-    <ul className='flex flex-col items-start gap-2 w-full'>
-      <div className='flex flex-row w-full'>
+    <ul className='flex flex-col items-start gap-3 w-full'>
+      <div className='flex flex-row w-full gap-2'>
         <button
           onClick={handleToggleAllAgree}
           onMouseEnter={() => setIsHovered(true)}

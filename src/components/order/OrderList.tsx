@@ -4,6 +4,7 @@ import { Dispatch, SetStateAction, useEffect } from 'react';
 import toast from 'react-hot-toast';
 import OrderItem from './OrderItem';
 import useGoodsOrderStore from '@/zustand/store/useGoodsOrderInfoStore';
+import OrderItemMobile from './OrderItemMobile';
 
 interface ItemsInfoPropsType {
   setTotalPrice: Dispatch<SetStateAction<number>>;
@@ -26,15 +27,25 @@ function OrderList({ setTotalPrice }: ItemsInfoPropsType) {
     );
   });
   return (
-    <div className='border-[1px] border-black-300 p-4 rounded-lg mb-4 text-black-50'>
-      <div className='py-4 mb-4 border-b border-black-700 font-medium flex flex-row items-start gap-2'>
-        <span className='text-xl mb-2'>{`상품정보`}</span>
+    <div className='border-[1px] border-black-300 rounded-lg sm:p-4 md:pt-4 md:px-5 md:pb-5 lg:pt-4 lg:px-5 lg:pb-5 text-black-50'>
+      <div className='pt-1 pb-3 md:mb-4 lg:mb-4 h-[50px] border-b border-black-700 font-medium flex flex-row items-start gap-2'>
+        <span className='text-xl mb-2'>{`주문상품 정보`}</span>
         <span className='text-xl'>{' | '}</span>
-        <span className='text-lg'>{`총 ${goodsOrderInfo?.length}개`}</span>
+        <span className='text-lg'>{`총 ${goodsOrderInfo?.reduce(
+          (total, item) => (total = total + item.quantity),
+          0,
+        )}개`}</span>
       </div>
-      {goodsOrderInfo?.map((item) => (
-        <OrderItem key={item.goods.id} item={item} />
-      ))}
+      <div className='sm:hidden'>
+        {goodsOrderInfo?.map((item) => (
+          <OrderItem key={item.goods.id} item={item} />
+        ))}
+      </div>
+      <div className='md:hidden lg:hidden'>
+        {goodsOrderInfo?.map((item) => (
+          <OrderItemMobile key={item.goods.id} item={item} />
+        ))}
+      </div>
     </div>
   );
 }

@@ -28,8 +28,8 @@ function OrderForm({ user, isTour }: OrderFormPropsType) {
   return (
     <>
       <div className='grid grid-cols-[minmax(0,1fr)_minmax(0,0.5fr)] md:grid-cols-1 md:mx-5 md:mb-20 sm:mb-20 sm:grid-cols-1 sm:mx-5 gap-x-10'>
-        <div className='mt-14'>
-          <div className='mt-4 w-full'>
+        <div className='mt-1'>
+          <div className='mt-5 w-full'>
             {addressList && (
               <CustomerInfo
                 isTour={isTour}
@@ -38,12 +38,12 @@ function OrderForm({ user, isTour }: OrderFormPropsType) {
               />
             )}
           </div>
-          <div className='mt-4 w-full'>
+          <div className='mt-5 w-full'>
             {addressList && !isTour && (
               <ExpressInfo addressList={addressList} />
             )}
           </div>
-          <div className='mt-4 w-full'>
+          <div className='mt-5 w-full'>
             {isTour ? (
               <TourInfo setTotalPrice={setTotalPrice} />
             ) : (
@@ -51,9 +51,13 @@ function OrderForm({ user, isTour }: OrderFormPropsType) {
             )}
           </div>
         </div>
-        <div className='lg:mt-14'>
-          <OrderSummary totalPrice={totalPrice} />
-          <PayButton totalPrice={totalPrice} isTour={isTour} />
+        <div className='lg:mt-1'>
+          <div className='mt-5 w-full'>
+            <OrderSummary totalPrice={totalPrice} />
+          </div>
+          <div className='mt-5 w-full'>
+            <PayButton totalPrice={totalPrice} isTour={isTour} />
+          </div>
         </div>
       </div>
     </>
