@@ -14,7 +14,6 @@ import { getPlanetsList } from '@/services/plants';
 import Loading from '@/components/common/Loading';
 import Chatbot from '@/components/chatbot/Chatbot';
 import { orbitron } from '../../../../../public/fonts/orbitron';
-import BackgroundVideo from '@/components/common/BackgroundVideo';
 
 const MainPage = () => {
   const sectionsRef = useRef<(HTMLDivElement | null)[]>([]);
@@ -76,91 +75,97 @@ const MainPage = () => {
         setVideoLoaded={setVideoLoaded}
       />
 
-<section
-  ref={(el) => {
-    sectionsRef.current[1] = el as HTMLDivElement;
-  }}
-  className='section h-screen flex flex-col items-center justify-center relative bg-center bg-cover bg-no-repeat'
-  style={{ backgroundImage: 'url(/images/section2-bg.png)' }}
->
-  <p
-    className={`absolute top-32 left-4 text-white text-4xl font-semibold fade-text ${orbitron.className}`}
-  >
-    Let&apos;s Find Popular Planets!
-  </p>
-  <Link href='/tour'>
-    <p className='absolute top-36 right-20 z-10 text-lg font-normal underline'>MORE+</p>
-  </Link>
-  <div className='scroll-container h-full w-full relative flex items-center justify-center'>
-    <button
-      onClick={handlePrevSlide}
-      className='swiper-button-prev text-2xl absolute left-2 sm:left-4 z-10 p-2'
-    >⬅️</button>
-    <div className='slider-container relative flex items-center justify-center'>
-      {planets.map((planet, index) => {
-        const totalPlanets = planets.length;
-        const angle = (index / totalPlanets) * 2 * Math.PI;
+      <section
+        ref={(el) => {
+          sectionsRef.current[1] = el as HTMLDivElement;
+        }}
+        className='section h-screen flex flex-col items-center justify-center relative bg-center bg-cover bg-no-repeat'
+        style={{ backgroundImage: 'url(/images/back13.png)' }}
+      >
+        <p
+          className={`absolute top-32 left-4 text-white text-4xl font-semibold fade-text ${orbitron.className}`}
+        >
+          Let&apos;s Find Popular Planets!
+        </p>
+        <Link href='/tour'>
+          <p className='absolute top-36 right-20 z-10 text-lg font-normal underline'>
+            MORE+
+          </p>
+        </Link>
+        <div className='scroll-container h-full w-full relative flex items-center justify-center'>
+          <button
+            onClick={handlePrevSlide}
+            className='swiper-button-prev text-2xl absolute left-2 sm:left-4 z-10 p-2'
+          >
+            ⬅️
+          </button>
+          <div className='slider-container relative flex items-center justify-center'>
+            {planets.map((planet, index) => {
+              const totalPlanets = planets.length;
+              const angle = (index / totalPlanets) * 2 * Math.PI;
 
-        const isVisible =
-          (index >= currentSlide &&
-            index < currentSlide + visiblePlanetsCount) ||
-          (index < currentSlide &&
-            index + planets.length < currentSlide + visiblePlanetsCount);
+              const isVisible =
+                (index >= currentSlide &&
+                  index < currentSlide + visiblePlanetsCount) ||
+                (index < currentSlide &&
+                  index + planets.length < currentSlide + visiblePlanetsCount);
 
-        const isActive =
-          index ===
-          (currentSlide + Math.floor(visiblePlanetsCount / 2)) %
-            planets.length;
+              const isActive =
+                index ===
+                (currentSlide + Math.floor(visiblePlanetsCount / 2)) %
+                  planets.length;
 
-        return (
-          <Link href={`/tour/${planet.id}`} key={index} passHref >
-            <div
-              key={index}
-              ref={(el) => {
-                planetsRef.current[index] = el as HTMLDivElement;
-              }}
-              data-id={planet.id}
-              className={`absolute w-20 h-20 sm:w-24 sm:h-24 transform-gpu transition-opacity duration-500 ${
-                isVisible ? 'opacity-100' : 'opacity-0'
-              }`}
-              style={{
-                transform: `translate3d(${
-                  300 * Math.cos(angle)
-                }px, -50px, ${
-                  150 * Math.sin(angle)
-                }px) scale(${isActive ? 1.5 : 1})`,
-                zIndex: isActive ? 10 : 0,
-                opacity: isVisible ? (isActive ? 1 : 0.5) : 0,
-              }}
-            >
-              <Image
-                src={planet.planet_img}
-                alt={`Planet ${index + 1}`}
-                fill
-                sizes='100vw'
-                objectFit='contain'
-              />
-              {isActive && (
-                <div className='text-center absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-full w-max'>
-                  <p>{planet.name}</p>
-                  <p>
-                    {planet.price
-                      ? `₩${planet.price.toLocaleString()}`
-                      : 'Price Does Not Exist'}
-                  </p>
-                </div>
-              )}
-            </div>
-          </Link>
-        );
-      })}
-    </div>
-    <button
-      onClick={handleNextSlide}
-      className='swiper-button-next text-2xl absolute right-2 z-10 sm:right-4 p-2'
-    >➡️</button>
-  </div>
-</section>
+              return (
+                <Link href={`/tour/${planet.id}`} key={index} passHref>
+                  <div
+                    key={index}
+                    ref={(el) => {
+                      planetsRef.current[index] = el as HTMLDivElement;
+                    }}
+                    data-id={planet.id}
+                    className={`absolute w-20 h-20 sm:w-24 sm:h-24 transform-gpu transition-opacity duration-500 ${
+                      isVisible ? 'opacity-100' : 'opacity-0'
+                    }`}
+                    style={{
+                      transform: `translate3d(${
+                        300 * Math.cos(angle)
+                      }px, -50px, ${150 * Math.sin(angle)}px) scale(${
+                        isActive ? 1.5 : 1
+                      })`,
+                      zIndex: isActive ? 10 : 0,
+                      opacity: isVisible ? (isActive ? 1 : 0.5) : 0,
+                    }}
+                  >
+                    <Image
+                      src={planet.planet_img}
+                      alt={`Planet ${index + 1}`}
+                      fill
+                      sizes='100vw'
+                      objectFit='contain'
+                    />
+                    {isActive && (
+                      <div className='text-center absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-full w-max'>
+                        <p>{planet.name}</p>
+                        <p>
+                          {planet.price
+                            ? `₩${planet.price.toLocaleString()}`
+                            : 'Price Does Not Exist'}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+          <button
+            onClick={handleNextSlide}
+            className='swiper-button-next text-2xl absolute right-2 z-10 sm:right-4 p-2'
+          >
+            ➡️
+          </button>
+        </div>
+      </section>
 
       <section
         ref={(el) => {
@@ -169,7 +174,7 @@ const MainPage = () => {
         className='section section-bg h-screen flex flex-col items-center justify-center'
       >
         <h1
-          className={`text-4xl absolute font-semibold top-48 left-24 ${orbitron.className}`}
+          className={`text-4xl  absolute font-semibold top-48 left-24 ${orbitron.className}`}
         >
           GOODS SHOP
         </h1>
@@ -178,9 +183,9 @@ const MainPage = () => {
         </Link>
         {goodsError && <p className='text-red-500'>{goodsError.message}</p>}
         {goodsLoading ? (
-          <p>
+          <div>
             <Loading />
-          </p>
+          </div>
         ) : (
           <div className='grid grid-cols-3 gap-4'>
             {goods?.slice(0, 3).map((item) => (
@@ -242,7 +247,7 @@ const MainPage = () => {
       >
         <TopPostsSection />
       </section>
-
+      {/* 
       <section
         ref={(el) => {
           sectionsRef.current[4] = el as HTMLDivElement;
@@ -257,7 +262,7 @@ const MainPage = () => {
         }}
       >
         <h1>컨텐츠 준비 중입니다…</h1>
-      </section>
+      </section> */}
 
       <Footer />
     </div>

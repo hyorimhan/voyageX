@@ -125,13 +125,11 @@ export const toggleLikeTours = async (
     const response = await axios.delete(
       `/api/tours/${tour_id}/like?user_id=${user_id}`,
     );
-    console.log(response);
     return response;
   } else {
     const response = await axios.post(
       `/api/tours/${tour_id}/like?user_id=${user_id}`,
     );
-    console.log(response);
     return response;
   }
 };

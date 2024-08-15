@@ -5,9 +5,9 @@ function AccordionImg({ isEnter }: { isEnter: boolean }) {
     <>
       <Image
         className={`transition-transform duration-200 ease-out cursor-pointer ${
-          isEnter && 'rotate-180'
+          isEnter && '-rotate-180'
         }`}
-        src='/icons/24px/detail_arrow_up.svg'
+        src='/icons/24px/arrow_down.svg'
         alt='button'
         width={24}
         height={24}

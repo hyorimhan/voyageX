@@ -36,8 +36,10 @@ const GenericModal = ({
       <div
         className={`bg-black-800 sm:w-[340px] ${popupWidth} w-[414px] rounded-lg flex flex-col items-center px-5 pt-14 pb-9 ${popup}`}
       >
-        <p className={`text-xl mb-5 ${popupTitle}`}>{title}</p>
-        <p className={`text-sm mb-7 text-center ${popupContent} `}>{content}</p>
+        <div className={`text-xl mb-5 ${popupTitle}`}>{title}</div>
+        <div className={`text-sm mb-7 text-center ${popupContent} `}>
+          {content}
+        </div>
         <div className='flex w-full gap-4 text-black-50 font-semibold h-[51px]'>
           {cancelText && cancelAction && (
             <button

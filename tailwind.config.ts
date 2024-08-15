@@ -88,7 +88,7 @@ const config: Config = {
           900: '#00bbf9',
         },
         header: {
-          default: '#2D2D2D', //투명도 60%
+          default: '#1A1A1A', //투명도 60%
         },
       },
 

@@ -82,6 +82,7 @@ function CartItem({
                 prev: item.quantity,
               })
             }
+            disabled={item.quantity === 3}
           >
             <PlusIcon20px />
           </button>
