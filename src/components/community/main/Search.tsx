@@ -27,7 +27,7 @@ function Search() {
       <div className=''>
         <form className='relative' onSubmit={handleSearch}>
           <input
-            className='w-[336px] h-[48px] rounded-[16px] text-white px-4 py-3 bg-black-800 focus:outline-none'
+            className='w-[336px] h-[48px] rounded-[30px] text-white px-4 py-3 bg-black-800 focus:outline-none'
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder='검색어'
