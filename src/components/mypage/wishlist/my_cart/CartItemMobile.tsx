@@ -4,7 +4,7 @@ import MinusIcon20px from '@/components/common/icons/20px/MinusIcon20px';
 import PlusIcon20px from '@/components/common/icons/20px/PlusIcon20px';
 import { CartListType } from '@/types/mypageType';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import CheckBoxPressedIcon24px from '@/components/common/icons/24px/CheckBoxPressedIcon24px';
 import CheckBoxHoveredIcon24px from '@/components/common/icons/24px/CheckBoxHoveredIcon24px';
 import CheckBoxDefaultIcon24px from '@/components/common/icons/24px/CheckBoxDefaultIcon24px';
@@ -31,6 +31,12 @@ function CartItemMobile({
   handleAdjustItemQuantity,
 }: CartItemPropsType) {
   const [isHovered, setIsHovered] = useState(false);
+
+  const [resPrice, setResPrice] = useState(0);
+
+  useEffect(() => {
+    setResPrice(item.quantity * item.goods.goods_price);
+  }, [item.quantity, item.goods]);
   return (
     <li className='border-t-[1px] border-black-700 px-2 flex flex-row items-start'>
       <div className='w-[24px] h-[24px] mt-[28px]'>
@@ -91,7 +97,7 @@ function CartItemMobile({
             </button>
           </div>
           <div className='self-center w-[152px] h-8 text-right font-medium'>
-            <span>{item.goods.goods_price.toLocaleString()}원</span>
+            <span>{resPrice.toLocaleString()}원</span>
           </div>
         </div>
       </div>
