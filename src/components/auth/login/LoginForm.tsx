@@ -14,7 +14,7 @@ import EyeOnIcon24px from '@/components/common/icons/24px/EyeOnIcon24px';
 import { orbitron } from '../../../../public/fonts/orbitron';
 
 function LoginForm() {
-  const searchParams = useSearchParams();
+  // const searchParams = useSearchParams();
 
   const saveUser = useAuthStore((state) => state.saveUser);
 
@@ -52,8 +52,9 @@ function LoginForm() {
 
       saveUser(response.user);
       // router.replace('/');
-      const redirectPath = searchParams.get('redirect') || '/';
-      window.location.href = redirectPath;
+      // const redirectPath = searchParams.get('redirect') || '/';
+      // window.location.href = redirectPath;
+      window.location.href = '/';
 
       return;
     }
