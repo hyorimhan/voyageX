@@ -7,7 +7,6 @@ import toast from 'react-hot-toast';
 
 function Search() {
   const [search, setSearch] = useState('');
-  const [error, setError] = useState<string | null>(null);
 
   const router = useRouter();
 
@@ -18,21 +17,20 @@ function Search() {
       return toast.error('두글자 이상 입력해주세요.');
     }
 
-    setError(null);
     router.push(`/community/search?search=${search}`);
   };
 
   return (
     <form className='relative' onSubmit={handleSearch}>
       <input
-        className='w-[336px] h-[48px] rounded-[30px] text-white px-4 py-3 bg-black-800 pr-12 focus:outline-none'
+        className='w-[336px] h-[48px] rounded-[30px] text-white px-4 py-3 bg-black-800 pr-14 focus:outline-none'
         value={search}
         onChange={(e) => setSearch(e.target.value)}
         placeholder='검색어'
       />
       <button
         type='submit'
-        className='absolute right-3 top-1/2 transform -translate-y-1/2 text-white'
+        className='absolute right-3 top-1/2 transform -translate-y-1/2 text-white cursor-pointer'
       >
         <TbSearch size={24} />
       </button>
