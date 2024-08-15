@@ -63,7 +63,7 @@ const EditPost = ({ postId }: { postId: string }) => {
     onSuccess: () => {
       setIsSubmitting(false);
       toast.success('글이 수정되었습니다.');
-      router.push('/community');
+      router.push(`/community/${postId}`);
     },
     onError: () => {
       setIsSubmitting(false);
