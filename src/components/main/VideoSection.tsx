@@ -47,6 +47,7 @@ const VideoSection: React.FC<VideoSectionProps> = ({
         src={videoSrc}
         autoPlay
         loop
+        playsInline
         muted
       />
       <div className='absolute z-10 text-center top-48 sm:w-auto sm:text-left sm:left-12 sm:mt-16 md:left-40 lg:left-52 xl:left-64'>

@@ -7,6 +7,7 @@ function Section4() {
         src='https://dl.dropboxusercontent.com/scl/fi/tdg9uxfik3oj3s2bdvecn/7664745-hd_1920_1080_25fps.mp4?rlkey=p59d4flvsgh4uclytlsowbue7&st=zgthsdij'
         autoPlay
         muted
+        playsInline
         loop
         className='absolute top-0 left-0  w-full sm:h-full object-cover'
       />

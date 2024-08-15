@@ -22,7 +22,6 @@ function AboutPage() {
         style={{ scaleX: scrollYProgress }}
       />
 
-      <TopBtn size={100} />
       <Section1 />
       <Section2 />
       <Section3 />
@@ -31,7 +30,6 @@ function AboutPage() {
       <Section6 />
       <Section7 />
       <Section8 />
-      <TopBtnMobile size={30} />
     </>
   );
 }

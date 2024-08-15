@@ -2,11 +2,16 @@ import { useRef, useEffect } from 'react';
 import { usePresence } from 'framer-motion';
 import { gsap } from 'gsap';
 import Image from 'next/image';
-import TopBtnMobile from '@/components/common/TopBtnMobile';
 
 function Content() {
   const ref = useRef(null);
   const [isPresent, safeToRemove] = usePresence();
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
 
   useEffect(() => {
     if (!isPresent) {
@@ -31,11 +36,17 @@ function Content() {
         />
         <p className='my-5'>여기까지 봐주셔서 감사합니다!!</p>
         <div>
-          <p>스크롤 올리기 귀찮으시죠</p>
           <p>요 귀여운 도넛을 클릭해주세요</p>
         </div>
         <div className='flex justify-center p-5'>
-          <TopBtnMobile size={100} />
+          <button onClick={scrollToTop} className=' animate-bounce z-50 '>
+            <Image
+              src={'/icons/logo/logo1.svg'}
+              alt='voyage_x_logo'
+              width={100}
+              height={100}
+            />
+          </button>
         </div>
       </div>
     </div>
