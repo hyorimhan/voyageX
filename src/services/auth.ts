@@ -105,7 +105,6 @@ export const updatePassword = async ({
       });
 
     if (signInError) {
-      console.error('Sign-in error:', signInError);
       return {
         error: {
           field: 'currentPassword',
@@ -120,7 +119,6 @@ export const updatePassword = async ({
     });
 
     if (updateError) {
-      console.error('Update password error:', updateError);
       return {
         error: {
           field: 'currentPassword',
@@ -131,7 +129,6 @@ export const updatePassword = async ({
 
     return {};
   } catch (error) {
-    console.error('Unexpected error:', error);
     return {
       error: {
         field: 'unexpected',

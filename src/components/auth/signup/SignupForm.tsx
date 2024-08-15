@@ -55,7 +55,6 @@ function SignupForm() {
   const joinForm = async (data: formType) => {
     const response = await signUp(data);
 
-    console.log('Response from signUp:', response);
     if (response.message) {
       toast.success(response.message);
       router.replace('/login');

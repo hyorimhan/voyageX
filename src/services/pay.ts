@@ -41,7 +41,6 @@ export const createOrderReceipt = async ({
       detail_address,
       postcode,
     });
-    console.log('createOrderReceipt response => ', response);
   }
 };
 

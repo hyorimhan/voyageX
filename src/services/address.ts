@@ -13,7 +13,6 @@ export const addAddress = async ({
   userId: string;
   address: Partial<Address>;
 }): Promise<Address[]> => {
-  console.log('address => ', address);
   const response = await axios.post(`/api/mypage/addresses/user/${userId}`, {
     userId,
     address,

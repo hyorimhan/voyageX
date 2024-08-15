@@ -7,10 +7,9 @@ import { userLoginInfo } from '@/services/auth';
 import MyPageIcon24px from './icons/24px/MyPageIcon24px';
 import ShoppingBagIcon24px from './icons/24px/ShoppingBagIcon24px';
 import HeartDefaultIcon24px from './icons/24px/HeartDefaultIcon24px';
-import { usePathname, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import Loading from './Loading';
 import { orbitron } from '../../../public/fonts/orbitron';
-import toast from 'react-hot-toast';
 import Image from 'next/image';
 
 const Header = () => {
@@ -27,7 +26,7 @@ const Header = () => {
   useEffect(() => {
     const loginInfo = async () => {
       const userInfo = await userLoginInfo();
-      saveUser(userInfo);
+      return userInfo;
     };
     loginInfo();
   }, []);

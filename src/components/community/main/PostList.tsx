@@ -35,8 +35,6 @@ const PostList = () => {
     },
   });
 
-  console.log(postData);
-
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };

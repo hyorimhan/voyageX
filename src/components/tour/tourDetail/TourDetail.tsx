@@ -21,11 +21,10 @@ function TourDetail({ params }: tourProps) {
     return <div>투어 정보를 찾을 수 없습니다.</div>;
   }
 
-  const tour = tours.find((tour) => tour.id === id) ||  
-    tours.find((tour) => tour.planet_id === id)
+  const tour =
+    tours.find((tour) => tour.id === id) ||
+    tours.find((tour) => tour.planet_id === id);
 
-    console.log(tour);
-    console.log(tours);
   if (!tour) {
     return <div>투어 정보를 찾을 수 없습니다.</div>;
   }
