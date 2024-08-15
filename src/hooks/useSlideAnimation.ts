@@ -15,7 +15,7 @@ const useSlideAnimation = (
   planets: Planet[],
   currentSlide: number,
   visiblePlanetsCount: number,
-  planetsRef: React.RefObject<(HTMLDivElement | null)[]>
+  planetsRef: React.RefObject<(HTMLDivElement | null)[]>,
 ) => {
   useEffect(() => {
     const animatePlanets = () => {
@@ -58,7 +58,6 @@ const useSlideAnimation = (
           // 디버깅을 위한 로그 추가
           const planet = planets[index]; // planets 배열의 요소 가져오기
           const tourPrice: number | undefined = planet.price;
-          console.log(`Planet ${planet.id} - Price: ${tourPrice}`);
         }
       });
     };

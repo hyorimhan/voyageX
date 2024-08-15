@@ -7,11 +7,14 @@ import { userLoginInfo } from '@/services/auth';
 import MyPageIcon24px from './icons/24px/MyPageIcon24px';
 import ShoppingBagIcon24px from './icons/24px/ShoppingBagIcon24px';
 import HeartDefaultIcon24px from './icons/24px/HeartDefaultIcon24px';
-import { usePathname, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import Loading from './Loading';
 import { orbitron } from '../../../public/fonts/orbitron';
-import toast from 'react-hot-toast';
 import Image from 'next/image';
+import useLastSelectWishListStore from '@/zustand/store/useLastSelectWishListStore';
+import { createClient } from '@/supabase/client';
+
+const supabase = createClient();
 
 const Header = () => {
   const user = useAuthStore((state) => state.user);
@@ -19,18 +22,33 @@ const Header = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
+  const { setLastSelectTab } = useLastSelectWishListStore((state) => state);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
+  // useEffect(() => {
+  //   const loginInfo = async () => {
+  //     const userInfo = await userLoginInfo();
+  //     saveUser(userInfo);
+  //   };
+  //   loginInfo();
+  // }, []);
+
   useEffect(() => {
-    const loginInfo = async () => {
-      const userInfo = await userLoginInfo();
-      saveUser(userInfo);
-    };
-    loginInfo();
-  }, []);
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (session) {
+        saveUser(session.user);
+      } else {
+        saveUser(null);
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, [saveUser]);
 
   const handleLinkClick = (href: string) => {
     startTransition(() => {
@@ -41,9 +59,9 @@ const Header = () => {
   return (
     <>
       {isPending && <Loading />}
-      <header className='bg-header-default bg-opacity-60 h-16 flex fixed z-20 top-0 items-center justify-between px-4 w-full mx-auto'>
-        <div className='max-w-[1120px] mx-auto flex justify-between items-center w-full'>
-          <nav className='hidden lg:flex items-center space-x-5 w-[350px]'>
+      <header className='bg-header-default  h-16 flex fixed z-20 top-0 items-center justify-between px-4 w-full mx-auto'>
+        <div className='max-w-[1120px] mx-auto flex justify-between items-center w-full bg-black-900'>
+          <nav className='hidden lg:flex bg-black-900 items-center space-x-5 w-[310px]'>
             <button
               className='hover:text-gray-300'
               onClick={() => handleLinkClick('/tour')}
@@ -87,10 +105,13 @@ const Header = () => {
               />
             </button>
           </div>
-          <div className='flex items-center justify-end w-[260px] gap-4'>
+          <div className='flex items-center justify-end w-[310px] gap-4'>
             <button
               className='hover:text-gray-300'
-              onClick={() => handleLinkClick('/wishlist')}
+              onClick={() => {
+                setLastSelectTab('LikedGoods');
+                handleLinkClick('/wishlist');
+              }}
             >
               <HeartDefaultIcon24px />
             </button>

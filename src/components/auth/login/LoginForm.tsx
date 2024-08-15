@@ -116,10 +116,11 @@ function LoginForm() {
         <div className='flex flex-col'>
           <button
             type='submit'
-            disabled={!isValid}
-            className={`  w-[473px] h-[58px] sm:w-[335px] font-semibold  rounded-lg p-2 mt-8 ${
-              !isValid ? 'cursor-not-allowed bg-black-400' : 'bg-primary-600'
-            }`}
+            // disabled={!isValid}
+            className={
+              ' w-[473px] h-[58px] sm:w-[335px] font-semibold  rounded-lg p-2 mt-8 bg-primary-600 '
+            }
+            // ${!isValid ? 'cursor-not-allowed bg-black-400' : 'bg-primary-600'}
           >
             로그인
           </button>

@@ -26,7 +26,7 @@ const MyPageSideBarUserInfo = () => {
         setLikeCount(totalLikedItems);
       });
     }
-  }, [user?.id]);
+  }, [saveUser, user?.id]);
 
   const { data: posts, isLoading } = useQuery<MyPost[]>({
     queryKey: ['myPosts', user?.id],

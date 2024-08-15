@@ -2,7 +2,6 @@
 
 import useAuthStore from '@/zustand/store/useAuth';
 import Image from 'next/image';
-import GoodsSmallHearts from './GoodsSmallHearts';
 import Stars from '@/components/shop/Stars';
 import { useRouter } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
@@ -14,6 +13,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Autoplay, Pagination } from 'swiper/modules';
+import TourSmallHearts from './TourSmallHearts';
 
 const RecommendTourList = () => {
   const user = useAuthStore((state) => state.user);
@@ -83,7 +83,7 @@ const RecommendTourList = () => {
                     </div>
                   </div>
                   <div className='flex items-center'>
-                    <GoodsSmallHearts goods_id={item.id} user_id={user.id} />
+                    <TourSmallHearts tour_id={item.id} user_id={user.id} />
                   </div>
                 </div>
               </div>

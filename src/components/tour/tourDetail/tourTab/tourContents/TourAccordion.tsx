@@ -13,9 +13,9 @@ function TourAccordion({ tour }: { tour: Tour }) {
     queryFn: () => tourSchedule(tour.id),
   });
 
-  if (isLoading) {
-    return <Loading />;
-  }
+  // if (isLoading) {
+  //   return <Loading />;
+  // }
 
   return (
     <Accordion allowMultiple className='mt-6 mb-60 md:mx-5'>
@@ -63,7 +63,7 @@ function TourAccordion({ tour }: { tour: Tour }) {
                     {sche.tour_activities?.schedule}
                   </div>
                   <div className='w-[210px] h-[140px] ml-6 '>
-                    {sche.tour_activities?.tour_img ? (
+                    {!isLoading && !schedule !== undefined ? (
                       <Image
                         src={sche.tour_activities?.tour_img!}
                         alt='tour_img'

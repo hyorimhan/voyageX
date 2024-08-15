@@ -10,6 +10,7 @@ function Section1() {
         autoPlay
         muted
         loop
+        data-video
         className='absolute top-0 left-0  w-full sm:h-full object-cover'
       />
       <div className='relative z-10 flex h-full flex-col lg:w-[1120px] w-full mx-auto'>
