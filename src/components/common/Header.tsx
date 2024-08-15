@@ -11,6 +11,7 @@ import { useRouter } from 'next/navigation';
 import Loading from './Loading';
 import { orbitron } from '../../../public/fonts/orbitron';
 import Image from 'next/image';
+import useLastSelectWishListStore from '@/zustand/store/useLastSelectWishListStore';
 
 const Header = () => {
   const user = useAuthStore((state) => state.user);
@@ -18,6 +19,7 @@ const Header = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
+  const { setLastSelectTab } = useLastSelectWishListStore((state) => state);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -89,7 +91,10 @@ const Header = () => {
           <div className='flex items-center justify-end w-[310px] gap-4'>
             <button
               className='hover:text-gray-300'
-              onClick={() => handleLinkClick('/wishlist')}
+              onClick={() => {
+                setLastSelectTab('LikedGoods');
+                handleLinkClick('/wishlist');
+              }}
             >
               <HeartDefaultIcon24px />
             </button>
