@@ -12,6 +12,9 @@ import Loading from './Loading';
 import { orbitron } from '../../../public/fonts/orbitron';
 import Image from 'next/image';
 import useLastSelectWishListStore from '@/zustand/store/useLastSelectWishListStore';
+import { createClient } from '@/supabase/client';
+
+const supabase = createClient();
 
 const Header = () => {
   const user = useAuthStore((state) => state.user);
@@ -25,13 +28,27 @@ const Header = () => {
     setIsOpen(!isOpen);
   };
 
+  // useEffect(() => {
+  //   const loginInfo = async () => {
+  //     const userInfo = await userLoginInfo();
+  //     saveUser(userInfo);
+  //   };
+  //   loginInfo();
+  // }, []);
+
   useEffect(() => {
-    const loginInfo = async () => {
-      const userInfo = await userLoginInfo();
-      return userInfo;
-    };
-    loginInfo();
-  }, []);
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (session) {
+        saveUser(session.user);
+      } else {
+        saveUser(null);
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, [saveUser]);
 
   const handleLinkClick = (href: string) => {
     startTransition(() => {
