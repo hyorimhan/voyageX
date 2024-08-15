@@ -18,57 +18,72 @@ import CartItemMobile from './CartItemMobile';
 import CartTotalPriceMobile from './CartTotalPriceMobile';
 
 function MyCart({ user_id }: WishListPropsType) {
+  const queryClient = useQueryClient();
+  const { data: cartData, isError, isPending } = useGetCartList(user_id);
+  const [cartList, setCartList] = useState<CartListType[]>([]);
+  const [selectItemIds, setSelectItemIds] = useState<string[]>([]);
   const [totalPrice, setTotalPrice] = useState(0);
-  const [selectItems, setSelectItems] = useState<CartListType[]>([]);
-  const { data: cartList, isError, isPending } = useGetCartList(user_id);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 
   const handleSelectAllItems = () => {
-    if (cartList && selectItems.length < cartList.length)
-      setSelectItems(cartList);
-    else if (cartList && selectItems.length === cartList.length)
-      setSelectItems([]);
+    if (cartList && selectItemIds.length < cartList.length)
+      setSelectItemIds(cartList.map((item) => item.id));
+    else if (cartList && selectItemIds.length === cartList.length)
+      setSelectItemIds([]);
   };
 
-  const handleSelectItem = (goods: CartListType) => {
-    if (!selectItems.includes(goods))
-      setSelectItems((prev) => [...prev, goods]);
-    else
-      setSelectItems((prev) =>
-        prev.filter((item) => item.goods.id !== goods.goods.id),
-      );
+  const handleSelectItem = (itemId: string) => {
+    setSelectItemIds((prev) =>
+      prev.includes(itemId)
+        ? prev.filter((id) => id !== itemId)
+        : [...prev, itemId],
+    );
   };
 
   const handleDeleteItem = () => {
-    const selectedItemIds = selectItems.map((item) => item.id);
-    const idList = JSON.stringify(selectedItemIds);
+    const idList = JSON.stringify(selectItemIds);
+    const cleanedCartList = cartList.filter(
+      (item) => !selectItemIds.includes(item.id),
+    );
+    setCartList(cleanedCartList);
     deleteCartItemMutate({ user_id, idList });
   };
 
   const handleAdjustItemQuantity = ({
     id,
     operator,
-    prev,
+    quantity,
   }: {
     id: string;
     operator: string;
-    prev: number;
+    quantity: number;
   }) => {
-    if (operator === '+') {
-      quantityMutate({ user_id, cart_id: id, task: 'increase', prev });
-    } else {
-      quantityMutate({ user_id, cart_id: id, task: 'decrease', prev });
+    if (!selectItemIds.includes(id)) setSelectItemIds((prev) => [...prev, id]);
+    if (
+      cartList.find((item) => item.id === id)?.quantity === 3 &&
+      operator === '+'
+    ) {
+      toast.error('한 번에 3개까지만 담을 수 있습니다!');
     }
+    setCartList((prev) =>
+      prev.map((item) => {
+        if (item.id === id) {
+          const newQuantity =
+            operator === '+'
+              ? Math.min(item.quantity + 1, 3)
+              : Math.max(item.quantity - 1, 1);
+          quantityMutate({ user_id, cart_id: id, quantity: newQuantity });
+          return { ...item, quantity: newQuantity > 0 ? newQuantity : 1 };
+        }
+        return item;
+      }),
+    );
   };
-
-  const queryClient = useQueryClient();
 
   const { mutate: deleteCartItemMutate } = useMutation({
     mutationFn: deleteCartItem,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['cart', user_id] });
-      setSelectItems([]);
-      setTotalPrice(0);
       toast.success('삭제 되었습니다');
     },
   });
@@ -77,20 +92,21 @@ function MyCart({ user_id }: WishListPropsType) {
     mutationFn: adjustQuantity,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['cart', user_id] });
-      setSelectItems([]);
-      setTotalPrice(0);
     },
   });
 
   useEffect(() => {
+    setCartList(cartData!);
+  }, [cartData]);
+
+  useEffect(() => {
     setTotalPrice(
-      selectItems.reduce((total, item) => {
-        const price = item.goods.goods_price;
-        const quantity = item.quantity;
-        return total + price * quantity;
+      selectItemIds.reduce((total, itemId) => {
+        const cartItem = cartList.find((item) => item.id === itemId);
+        return total + cartItem?.goods.goods_price! * cartItem?.quantity!;
       }, 0),
     );
-  }, [selectItems]);
+  }, [selectItemIds, cartList]);
 
   if (isError) return <div>에러</div>;
   if (isPending) return <Loading />;
@@ -122,7 +138,7 @@ function MyCart({ user_id }: WishListPropsType) {
     <>
       <div>
         <CartItemSelector
-          selectItems={selectItems}
+          selectItemIds={selectItemIds}
           listLength={cartList.length}
           handleSelectAllItems={handleSelectAllItems}
           setIsDeleteOpen={setIsDeleteOpen}
@@ -135,7 +151,7 @@ function MyCart({ user_id }: WishListPropsType) {
                 <CartItem
                   key={item.id}
                   item={item}
-                  selectItems={selectItems}
+                  selectItemIds={selectItemIds}
                   handleSelectItem={handleSelectItem}
                   handleAdjustItemQuantity={handleAdjustItemQuantity}
                 />
@@ -149,7 +165,7 @@ function MyCart({ user_id }: WishListPropsType) {
             <CartItemMobile
               key={item.id}
               item={item}
-              selectItems={selectItems}
+              selectItemIds={selectItemIds}
               handleSelectItem={handleSelectItem}
               handleAdjustItemQuantity={handleAdjustItemQuantity}
             />
@@ -163,7 +179,10 @@ function MyCart({ user_id }: WishListPropsType) {
         <CartTotalPriceMobile totalPrice={totalPrice} />
       </div>
       <div>
-        <CartButtonContainer selectItems={selectItems} />
+        <CartButtonContainer
+          selectItemIds={selectItemIds}
+          cartList={cartList}
+        />
       </div>
       <GenericModal
         isOpen={isDeleteOpen}

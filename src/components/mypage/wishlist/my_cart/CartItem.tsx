@@ -11,22 +11,22 @@ import CheckBoxDefaultIcon24px from '@/components/common/icons/24px/CheckBoxDefa
 
 interface CartItemPropsType {
   item: CartListType;
-  selectItems: CartListType[];
-  handleSelectItem: (goods: CartListType) => void;
+  selectItemIds: string[];
+  handleSelectItem: (itemId: string) => void;
   handleAdjustItemQuantity: ({
     id,
     operator,
-    prev,
+    quantity,
   }: {
     id: string;
     operator: string;
-    prev: number;
+    quantity: number;
   }) => void;
 }
 
 function CartItem({
   item,
-  selectItems,
+  selectItemIds,
   handleSelectItem,
   handleAdjustItemQuantity,
 }: CartItemPropsType) {
@@ -40,11 +40,11 @@ function CartItem({
     <li className='border-t-[1px] border-black-700 px-2 h-[136px] flex justify-between'>
       <div className='flex justify-center'>
         <button
-          onClick={() => handleSelectItem(item)}
+          onClick={() => handleSelectItem(item.id)}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
-          {selectItems.includes(item) ? (
+          {selectItemIds.includes(item.id) ? (
             <CheckBoxPressedIcon24px />
           ) : isHovered ? (
             <CheckBoxHoveredIcon24px />
@@ -71,10 +71,9 @@ function CartItem({
               handleAdjustItemQuantity({
                 id: item.id,
                 operator: '-',
-                prev: item.quantity,
+                quantity: item.quantity,
               });
             }}
-            disabled={item.quantity === 1}
           >
             <MinusIcon20px />
           </button>
@@ -84,10 +83,9 @@ function CartItem({
               handleAdjustItemQuantity({
                 id: item.id,
                 operator: '+',
-                prev: item.quantity,
+                quantity: item.quantity,
               });
             }}
-            disabled={item.quantity === 3}
           >
             <PlusIcon20px />
           </button>
