@@ -4,42 +4,48 @@ import MinusIcon20px from '@/components/common/icons/20px/MinusIcon20px';
 import PlusIcon20px from '@/components/common/icons/20px/PlusIcon20px';
 import { CartListType } from '@/types/mypageType';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import CheckBoxPressedIcon24px from '@/components/common/icons/24px/CheckBoxPressedIcon24px';
 import CheckBoxHoveredIcon24px from '@/components/common/icons/24px/CheckBoxHoveredIcon24px';
 import CheckBoxDefaultIcon24px from '@/components/common/icons/24px/CheckBoxDefaultIcon24px';
 
 interface CartItemPropsType {
   item: CartListType;
-  selectItems: CartListType[];
-  handleSelectItem: (goods: CartListType) => void;
+  selectItemIds: string[];
+  handleSelectItem: (itemId: string) => void;
   handleAdjustItemQuantity: ({
     id,
     operator,
-    prev,
+    quantity,
   }: {
     id: string;
     operator: string;
-    prev: number;
+    quantity: number;
   }) => void;
 }
 
 function CartItemMobile({
   item,
-  selectItems,
+  selectItemIds,
   handleSelectItem,
   handleAdjustItemQuantity,
 }: CartItemPropsType) {
   const [isHovered, setIsHovered] = useState(false);
+
+  const [resPrice, setResPrice] = useState(0);
+
+  useEffect(() => {
+    setResPrice(item.quantity * item.goods.goods_price);
+  }, [item.quantity, item.goods]);
   return (
     <li className='border-t-[1px] border-black-700 px-2 flex flex-row items-start'>
       <div className='w-[24px] h-[24px] mt-[28px]'>
         <button
-          onClick={() => handleSelectItem(item)}
+          onClick={() => handleSelectItem(item.id)}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
-          {selectItems.includes(item) ? (
+          {selectItemIds.includes(item.id) ? (
             <CheckBoxPressedIcon24px />
           ) : isHovered ? (
             <CheckBoxHoveredIcon24px />
@@ -69,10 +75,9 @@ function CartItemMobile({
                 handleAdjustItemQuantity({
                   id: item.id,
                   operator: '-',
-                  prev: item.quantity,
+                  quantity: item.quantity,
                 })
               }
-              disabled={item.quantity === 1}
             >
               <MinusIcon20px />
             </button>
@@ -82,16 +87,15 @@ function CartItemMobile({
                 handleAdjustItemQuantity({
                   id: item.id,
                   operator: '+',
-                  prev: item.quantity,
+                  quantity: item.quantity,
                 })
               }
-              disabled={item.quantity === 3}
             >
               <PlusIcon20px />
             </button>
           </div>
           <div className='self-center w-[152px] h-8 text-right font-medium'>
-            <span>{item.goods.goods_price.toLocaleString()}원</span>
+            <span>{resPrice.toLocaleString()}원</span>
           </div>
         </div>
       </div>
