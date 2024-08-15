@@ -36,13 +36,11 @@ export const toggleLikeGoods = async (
     const response = await axios.delete(
       `/api/goods/${goods_id}/like?user_id=${user_id}`,
     );
-    console.log(response);
     return response;
   } else {
     const response = await axios.post(
       `/api/goods/${goods_id}/like?user_id=${user_id}`,
     );
-    console.log(response);
     return response;
   }
 };
@@ -61,7 +59,6 @@ export const addCartItem = async ({
     goods_id,
     quantity,
   });
-  console.log('addCartItem response => ', response);
   return response.data;
 };
 

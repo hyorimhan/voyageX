@@ -9,7 +9,7 @@ function Section3() {
         autoPlay
         muted
         loop
-        className='absolute top-0 left-0 object-cover sm:w-full sm:h-full'
+        className='absolute top-0 left-0  w-full sm:h-full object-cover'
       />
       <div className='relative w-[1120px] sm:w-full mx-auto sm:p-3 '>
         <Scroll>
