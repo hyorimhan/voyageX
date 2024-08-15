@@ -26,8 +26,7 @@ export type DeleteCartItemParamsType = {
 export type adjustQuantityParamsType = {
   user_id: string;
   cart_id: string;
-  task: string;
-  prev: number;
+  quantity: number;
 };
 
 export type LikedPlanetType = {
