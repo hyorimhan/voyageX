@@ -9,6 +9,7 @@ interface Goods {
   rating_avg: number;
   like_count: number;
   discount: number;
+  pre_price: number;
 }
 
 const fetchGoods = async (): Promise<Goods[]> => {
