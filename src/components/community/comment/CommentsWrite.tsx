@@ -26,15 +26,19 @@ const CommentsWrite = ({
 
   const handleSubmitComment = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!user) return toast.error('로그인 후 이용하실 수 있습니다');
+
+    if (!user) return toast.error('로그인 후 이용하실 수 있습니다.');
+
+    if (!/^(?!\s*$).{5,}$/.test(content)) {
+      return toast.error('댓글은 최소 5글자 이상이어야 합니다.');
+    }
+
     const newComment = {
       post_id: postId,
       user_id: user?.id as string,
-      content: content,
+      content: content.trim(),
     };
-    if (!content) {
-      return toast.error('빈칸을 채워주세요.');
-    }
+
     addComment(newComment);
     setContent('');
     toast.success('댓글이 작성되었습니다.');
