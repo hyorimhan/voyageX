@@ -15,6 +15,5 @@ export const GET = async (request: Request, { params }: ParamsType) => {
     .single();
   if (error) return NextResponse.json({ error });
   if (!data) return NextResponse.json({ error: '기본배송지가 없습니다.' });
-  console.log('default-address => ', data);
   return NextResponse.json(data);
 };

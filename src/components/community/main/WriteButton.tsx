@@ -1,5 +1,6 @@
 'use client';
 
+import PenIcon20px from '@/components/common/icons/20px/PenIcon20px';
 import useAuthStore from '@/zustand/store/useAuth';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
@@ -22,15 +23,16 @@ const WriteButton = () => {
       {user && (
         <button
           onClick={handleClickMyPost}
-          className='bg-black-1000 text-black-50 px-4 py-4 rounded-lg border-primary-600 border-[1px] sm:hidden'
+          className='bg-black-1000 text-black-50 px-3 py-3 rounded-lg border-primary-600 border-[1px] sm:hidden'
         >
           내가 쓴 글 보러가기
         </button>
       )}
       <button
         onClick={handleClickWrite}
-        className='bg-primary-600 text-black-50 px-9 py-4 rounded-lg sm:text-sm sm:px-5 sm:py-2'
+        className='flex items-center bg-primary-600 text-black-50 px-8 py-3 rounded-lg sm:text-sm sm:px-5 sm:py-2'
       >
+        <PenIcon20px />
         글쓰기
       </button>
     </div>

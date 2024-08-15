@@ -31,8 +31,6 @@ export async function POST(req: NextRequest) {
     await req.json();
   const supabase = createClient();
 
-  console.log('address => ', address);
-
   if (!userId || !address) {
     return NextResponse.json({ error: '유저 ID 또는 주소가 누락되었습니다.' });
   }

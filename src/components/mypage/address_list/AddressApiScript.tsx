@@ -5,7 +5,7 @@ const AddressApiScript: React.FC = () => {
     <Script
       src='https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js'
       strategy='afterInteractive'
-      onLoad={() => console.log('스크립트 로드 완료')}
+      // onLoad={() => console.log('스크립트 로드 완료')}
     />
   );
 };

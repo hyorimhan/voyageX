@@ -36,7 +36,6 @@ export const POST = async (request: Request, { params }: ParamsType) => {
   if (prevCartItemError) {
     return NextResponse.json({ error: '장바구니 불러오기 실패' });
   }
-  console.log('prevCartItemId => ', prevCartItemId);
   if (prevCartItemId.length) {
     return NextResponse.json({ error: '이미 장바구니에 존재하는 상품입니다' });
   } else if (!prevCartItemId.length) {
