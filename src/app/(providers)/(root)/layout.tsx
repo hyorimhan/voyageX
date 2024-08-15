@@ -1,5 +1,4 @@
 import Header from '@/components/common/Header';
-import { MiddlewareValidator } from '@/utils/middlewarValidate';
 import { Metadata } from 'next';
 import { Toaster } from 'react-hot-toast';
 
@@ -11,7 +10,6 @@ export const metadata: Metadata = {
 async function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className='font-pretendard select-none'>
-      <MiddlewareValidator />;
       <Header />
       <Toaster />
       <main>{children}</main>

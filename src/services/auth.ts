@@ -49,6 +49,7 @@ export const signInWithKakao = async () => {
     options: {
       queryParams: {
         access_type: 'offline',
+        prompt: 'login',
       },
     },
   });

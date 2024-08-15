@@ -1,6 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import { orbitron } from '../../../public/fonts/orbitron';
 import Image from 'next/image';
+import ScrollBtn from './ScrollBtn';
 
 type VideoSectionProps = {
   videoSrc: string;
@@ -8,6 +9,7 @@ type VideoSectionProps = {
   subHeading: string;
   sectionRef: React.RefObject<HTMLDivElement>;
   setVideoLoaded: React.Dispatch<React.SetStateAction<boolean>>;
+  source: React.ReactNode;
 };
 
 const VideoSection: React.FC<VideoSectionProps> = ({
@@ -16,6 +18,7 @@ const VideoSection: React.FC<VideoSectionProps> = ({
   subHeading,
   sectionRef,
   setVideoLoaded,
+  source,
 }) => {
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
@@ -33,12 +36,6 @@ const VideoSection: React.FC<VideoSectionProps> = ({
     }, 3000);
   }, [setVideoLoaded]);
 
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: window.innerHeight,
-      behavior: 'smooth',
-    });
-  };
   return (
     <section
       ref={sectionRef}
@@ -68,17 +65,9 @@ const VideoSection: React.FC<VideoSectionProps> = ({
         </p>
       </div>
 
-      <div
-        onClick={scrollToTop}
-        className='absolute cursor-pointer bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce z-20'
-      >
-        <Image
-          src='/images/scroll-text.png'
-          alt='Scroll Down'
-          className='w-[60px] h-12 sm:w-10 sm:h-10'
-          width={60}
-          height={48}
-        />
+      <ScrollBtn />
+      <div className='text-xs  text-white absolute bottom-3 right-3'>
+        {source}
       </div>
     </section>
   );

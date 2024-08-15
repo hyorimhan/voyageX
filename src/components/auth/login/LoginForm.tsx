@@ -2,7 +2,7 @@
 
 import { login } from '@/services/auth';
 import { formType } from '@/types/authFormType';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { FieldErrors, useForm, useWatch } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import useAuthStore from '../../../zustand/store/useAuth';
@@ -14,7 +14,8 @@ import EyeOnIcon24px from '@/components/common/icons/24px/EyeOnIcon24px';
 import { orbitron } from '../../../../public/fonts/orbitron';
 
 function LoginForm() {
-  const router = useRouter();
+  const searchParams = useSearchParams();
+
   const saveUser = useAuthStore((state) => state.saveUser);
 
   const {
@@ -50,7 +51,9 @@ function LoginForm() {
       toast.success(response.message);
 
       saveUser(response.user);
-      router.replace('/');
+      // router.replace('/');
+      const redirectPath = searchParams.get('redirect') || '/';
+      window.location.href = redirectPath;
 
       return;
     }
