@@ -14,6 +14,7 @@ import { getPlanetsList } from '@/services/plants';
 import Loading from '@/components/common/Loading';
 import Chatbot from '@/components/chatbot/Chatbot';
 import { orbitron } from '../../../../../public/fonts/orbitron';
+import ScrollBtn from '@/components/main/ScrollBtn';
 
 const MainPage = () => {
   const sectionsRef = useRef<(HTMLDivElement | null)[]>([]);
@@ -73,6 +74,15 @@ const MainPage = () => {
         subHeading='상상을 현실로, 우주에서의 만남'
         sectionRef={{ current: sectionsRef.current[0] }} // sectionRef 타입 맞추기 위해 명시적 지정
         setVideoLoaded={setVideoLoaded}
+        source={
+          <Link
+            href={
+              'https://kr.freepik.com/free-video/traveling-through-star-fields-space-distant-galaxy-2_179468#fromView=search&page=1&position=0&uuid=4946a633-a12e-4230-a49f-07ec1569be25'
+            }
+          >
+            Designed by Freepik
+          </Link>
+        }
       />
 
       <section
@@ -80,7 +90,7 @@ const MainPage = () => {
           sectionsRef.current[1] = el as HTMLDivElement;
         }}
         className='section h-screen flex flex-col items-center justify-center relative bg-center bg-cover bg-no-repeat'
-        style={{ backgroundImage: 'url(/images/back13.png)' }}
+        style={{ backgroundImage: 'url(/images/section2_bg.svg)' }}
       >
         <p
           className={`absolute top-32 left-4 text-white text-4xl font-semibold fade-text ${orbitron.className}`}
@@ -165,6 +175,7 @@ const MainPage = () => {
             ➡️
           </button>
         </div>
+        <ScrollBtn />
       </section>
 
       <section
