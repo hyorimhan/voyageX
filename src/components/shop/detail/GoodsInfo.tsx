@@ -110,7 +110,7 @@ const GoodsInfo = ({ goods, goods_id }: GoodsInfoProps) => {
           <div className='border-t-[1px] border-black-700'></div>
           <div className='flex py-3 px-4 ga text-sm p-[18px]'>
             <p className=' w-[70px]'>배송정보</p>
-            <p>예약 출고 (2024. 08. 11 이내 출고)</p>
+            <p>예약 출고 (2024. 08. 30 이내 출고)</p>
           </div>
           <div className='border-t-[1px] border-black-700'></div>
           <div className='flex py-3 px-4 ga text-sm p-[18px]'>
@@ -125,7 +125,7 @@ const GoodsInfo = ({ goods, goods_id }: GoodsInfoProps) => {
           <div className='border-t-[1px] border-black-700'></div>
           <div className='flex py-3 px-4 ga text-sm p-[18px]'>
             <p className=' w-[70px]'>색상</p>
-            <p>RED</p>
+            <p>BLACK</p>
           </div>
           <div className='border-t-[1px] border-black-700'></div>
           <QuantityBtn

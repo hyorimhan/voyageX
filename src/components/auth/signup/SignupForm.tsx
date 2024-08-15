@@ -179,7 +179,9 @@ function SignupForm() {
           <button
             type='submit'
             // disabled={!isValid}
-            className={'w-[473px] h-[58px]  sm:w-[335px] rounded-lg p-2 mt-5'}
+            className={
+              'w-[473px] h-[58px]  sm:w-[335px] rounded-lg p-2 mt-5 bg-primary-600'
+            }
             // ${!isValid ? 'cursor-not-allowed bg-black-400' : 'bg-primary-600' }
           >
             가입하기

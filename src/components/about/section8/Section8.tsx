@@ -17,7 +17,7 @@ function Section8() {
                   onClick={() => setShow(!show)}
                   className='font-yuna text-5xl  rounded-lg py-2 px-7 bg-primary-400'
                 >
-                  {show ? 'close' : '출처, 기타'}
+                  {show ? 'close' : '별거 없는 버튼'}
                 </motion.button>
               </div>
               <AnimatePresence>{show ? <Content /> : null}</AnimatePresence>

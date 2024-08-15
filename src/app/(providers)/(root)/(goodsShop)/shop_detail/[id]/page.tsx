@@ -7,6 +7,8 @@ import GoodsDetailPageTabSelector from '@/components/shop/detail/GoodsDetailPage
 import GoodsInfo from '@/components/shop/detail/GoodsInfo';
 import { useGetGoodsItem } from '@/hooks/apis/goods.api';
 import { orbitron } from '../../../../../../../public/fonts/orbitron';
+import Image from 'next/image';
+import TopBtn from '@/components/common/TopBtn';
 
 type Params = {
   params: {
@@ -16,7 +18,6 @@ type Params = {
 
 const ShopDetailPage = ({ params }: Params) => {
   const { data: goods, isLoading, isError } = useGetGoodsItem(params.id);
-  const contents = '콘텐츠';
 
   if (isLoading) return <Loading />;
   if (isError) return <div>에러 발생</div>;
@@ -33,10 +34,21 @@ const ShopDetailPage = ({ params }: Params) => {
         <GoodsDetailPageTabSelector
           goodsRating={goods?.rating_avg}
           goodsId={params.id}
-          contents={contents}
-          defaultTab='Reviews'
+          contents={
+            <>
+              <Image
+                src={goods?.description}
+                alt='goods_detail'
+                width={1000}
+                height={500}
+              />
+            </>
+          }
+          defaultTab='Details'
         />
         <FAQ />
+
+        <TopBtn size={80} />
       </div>
     </Page>
   );
