@@ -68,7 +68,7 @@ const MainPage = () => {
     <div>
       <Chatbot />
       <VideoSection
-        videoSrc='/videos/mainVideo.mp4'
+        videoSrc='https://uvjnwqdttdhvwexypdhx.supabase.co/storage/v1/object/public/background/mainvideo%20(2).mp4?t=2024-08-16T07%3A58%3A43.247Z'
         heading='Voyage X'
         subHeading='상상을 현실로, 우주에서의 만남'
         sectionRef={{ current: sectionsRef.current[0] }} // sectionRef 타입 맞추기 위해 명시적 지정
