@@ -20,12 +20,12 @@ type TourReviewModalProps = {
   order_id?: string;
 };
 
-const TourReviewModal: React.FC<TourReviewModalProps> = ({
+const TourReviewModal = ({
   onClose,
   tourId,
   userId,
   order_id,
-}) => {
+}: TourReviewModalProps) => {
   const queryClient = useQueryClient();
   const { data: prevReviewId } = useGetOrderedTourReviewId({
     order_id: order_id!,
