@@ -7,13 +7,17 @@ import { Community } from '@/types/communityType';
 import { useCategory } from '@/zustand/store/useCategory';
 import CategoryBadge from '../common/CategoryBadge';
 import Loading from '@/components/common/Loading';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Pagination from '@/components/common/Pagination';
 
 const PostList = () => {
-  const selectedCategory = useCategory((state) => state.selectedCategory);
+  const { selectedCategory, setSelectedCategory } = useCategory();
   const [currentPage, setCurrentPage] = useState(1);
   const ITEMS_PER_PAGE = 10;
+
+  useEffect(() => {
+    setSelectedCategory('All');
+  }, [setSelectedCategory]);
 
   const {
     data: postData,
