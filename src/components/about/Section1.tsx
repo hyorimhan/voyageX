@@ -10,6 +10,7 @@ function Section1() {
         autoPlay
         muted
         loop
+        playsInline
         data-video
         className='absolute top-0 left-0  w-full sm:h-full object-cover'
       />

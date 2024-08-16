@@ -8,6 +8,7 @@ function Section6() {
         src='https://dl.dropboxusercontent.com/scl/fi/l2nyd9ksygfr3sdxl8qir/8047710-hd_1920_1080_30fps.mp4?rlkey=y4ypnltssl9f92weab3xubkej&st=bx0ffanf'
         autoPlay
         muted
+        playsInline
         loop
         className='absolute top-0 left-0  w-full sm:h-full object-cover'
       />

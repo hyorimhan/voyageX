@@ -18,16 +18,13 @@ function Training() {
             <ul>
               <li className='flex mt-10'>
                 <ul className='list-disc pl-5 space-y-2'>
-                  <ul className='mt-2'>
-                    <li>
-                      신체 검사 및 건강 진단: 우주 여행에 적합한 신체 상태인지
-                      확인
-                    </li>
-                    <li>
-                      기초 체력 훈련: 유산소 운동, 근력 운동 등 전반적인 체력
-                      향상
-                    </li>
-                  </ul>
+                  <li>
+                    신체 검사 및 건강 진단: 우주 여행에 적합한 신체 상태인지
+                    확인
+                  </li>
+                  <li>
+                    기초 체력 훈련: 유산소 운동, 근력 운동 등 전반적인 체력 향상
+                  </li>
                 </ul>
               </li>
             </ul>
