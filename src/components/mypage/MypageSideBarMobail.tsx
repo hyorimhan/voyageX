@@ -5,6 +5,7 @@ import Loading from '../common/Loading';
 import MyPageSideBarUserInfo from './MyPageSideBarUserInfo';
 import ArrowRightIcon24px from '../common/icons/24px/ArrowRightIcon24px';
 import Link from 'next/link';
+import LogoutBtn from '../auth/logout/LogoutBtn';
 
 const MyPageSideBarMobile = () => {
   const [isPending] = useTransition();
@@ -12,7 +13,7 @@ const MyPageSideBarMobile = () => {
   return (
     <div>
       {isPending && <Loading />}
-      <div>
+      <div className='sm:mt-16'>
         <MyPageSideBarUserInfo />
         <div className='h-[561px] py-9 px-5 w-full'>
           <Link
@@ -64,6 +65,9 @@ const MyPageSideBarMobile = () => {
             <p className='text-lg '>회원탈퇴</p>
             <ArrowRightIcon24px />
           </Link>
+          <div className='flex text-sm pt-5 border-b-[1px] justify-between w-fit'>
+            <LogoutBtn />
+          </div>
         </div>
       </div>
     </div>
