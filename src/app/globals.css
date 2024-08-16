@@ -2,8 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body {
-  background-color: black;
+html,
+body {
+  /* background-color: black; */
   color: white;
   overflow-x: hidden;
 }
