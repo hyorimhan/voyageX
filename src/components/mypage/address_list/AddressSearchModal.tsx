@@ -11,10 +11,7 @@ interface PostcodeModalProps {
   onClose: () => void;
 }
 
-const AddressSearchModal: React.FC<PostcodeModalProps> = ({
-  onComplete,
-  onClose,
-}) => {
+const AddressSearchModal = ({ onComplete, onClose }: PostcodeModalProps) => {
   const handleComplete = (data: any) => {
     let newAddress = data.roadAddress;
     let oldAddress = data.jibunAddress;

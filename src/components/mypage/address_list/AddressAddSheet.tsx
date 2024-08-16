@@ -19,12 +19,12 @@ type AddressAddModalProps = {
   initialData?: any;
 };
 
-const AddressAddSheet: React.FC<AddressAddModalProps> = ({
+const AddressAddSheet = ({
   showAddressAddModal,
   setShowAddressAddModal,
   editMode,
   initialData,
-}) => {
+}: AddressAddModalProps) => {
   const {
     postcode,
     setPostcode,

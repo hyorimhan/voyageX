@@ -10,7 +10,7 @@ import useAuthStore from '@/zustand/store/useAuth';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
-const AddressListPage: React.FC = () => {
+const AddressListPage = () => {
   const router = useRouter();
   const [showAddressAddModal, setShowAddressAddModal] =
     useState<boolean>(false);
