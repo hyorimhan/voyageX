@@ -66,7 +66,7 @@ const RecommendGoodsList = () => {
               </div>
               <div className='ml-1 flex flex-col'>
                 <p
-                  className='flex justify-start cursor-pointer text-sm'
+                  className='flex justify-start cursor-pointer text-sm whitespace-nowrap overflow-hidden text-ellipsis'
                   onClick={() => handleItemClick(item.id)}
                 >
                   {item.goods_name}
