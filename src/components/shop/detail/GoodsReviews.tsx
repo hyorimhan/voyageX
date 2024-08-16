@@ -91,7 +91,10 @@ const GoodsReviews: React.FC<GoodsReviewsProps> = ({
                     ),
                   )}
                 </p>
-                <p>{review.user?.email.split('@')[0]}</p>
+                <p>
+                  {review.user?.email.split('@')[0] ??
+                    '우주 미아 (탈퇴한 유저)'}
+                </p>
               </div>
               <div>
                 <p className='text-sm'>{review.review}</p>

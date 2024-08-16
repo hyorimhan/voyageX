@@ -1,6 +1,7 @@
 'use client';
 
 import GenericModal from '@/components/common/GenericModal';
+import GenericSheet from '@/components/common/GenericSheet';
 import { useDeleteAddress } from '@/hooks/useAddresses';
 import { Address } from '@/types/userAddressType';
 import { useState } from 'react';
@@ -54,15 +55,29 @@ const AddressEditDeleteBtn = ({
           </button>
         )}
       </div>
-      <GenericModal
-        isOpen={isModalOpen}
-        title='배송지 삭제'
-        content='선택한 배송지를 삭제하시겠습니까?'
-        buttonText='확인'
-        buttonAction={confirmDelete}
-        cancelText='취소'
-        cancelAction={() => setIsModalOpen(false)}
-      />
+      <div className='sm:hidden'>
+        <GenericModal
+          isOpen={isModalOpen}
+          title='배송지 삭제'
+          content='선택한 배송지를 삭제하시겠습니까?'
+          buttonText='확인'
+          buttonAction={confirmDelete}
+          cancelText='취소'
+          cancelAction={() => setIsModalOpen(false)}
+        />
+      </div>
+      <div className='lg:hidden md:hidden'>
+        <GenericSheet
+          isOpen={isModalOpen}
+          setIsModalOpen={setIsModalOpen}
+          title='배송지 삭제'
+          content='선택한 배송지를 삭제하시겠습니까?'
+          buttonText='확인'
+          buttonAction={confirmDelete}
+          cancelText='취소'
+          cancelAction={() => setIsModalOpen(false)}
+        />
+      </div>
     </>
   );
 };

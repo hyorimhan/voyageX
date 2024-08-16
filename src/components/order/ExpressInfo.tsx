@@ -5,12 +5,14 @@ import AddressChangeModal from './AddressChangeModal';
 import { Address } from '@/types/userAddressType';
 import useExpressInfoStore from '@/zustand/store/useExpressInfoStore';
 import AddressInfo from './AddressInfo';
+import { useRouter } from 'next/navigation';
 
 interface ExpressInfoPropsType {
   addressList: Address[];
 }
 
 function ExpressInfo({ addressList }: ExpressInfoPropsType) {
+  const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { expressAddress, setExpressAddress } = useExpressInfoStore(
     (state) => state,
@@ -28,8 +30,14 @@ function ExpressInfo({ addressList }: ExpressInfoPropsType) {
           <span className='text-xl text-black-50 font-medium'>배송정보</span>
           <div>
             <button
-              className='bg-primary-400 rounded flex  items-center justify-center px-3 py-2 w-[89px] h-[33px] text-sm transition-colors duration-200 hover:bg-primary-200 active:bg-primary-300'
+              className='sm:hidden bg-primary-400 rounded flex  items-center justify-center px-3 py-2 w-[89px] h-[33px] text-sm transition-colors duration-200 hover:bg-primary-200 active:bg-primary-300'
               onClick={() => setIsModalOpen(true)}
+            >
+              배송지 변경
+            </button>
+            <button
+              className='md:hidden lg:hidden bg-primary-400 rounded flex  items-center justify-center px-3 py-2 w-[89px] h-[33px] text-sm transition-colors duration-200 hover:bg-primary-200 active:bg-primary-300'
+              onClick={() => router.push(`/mypage/address_list`)}
             >
               배송지 변경
             </button>
@@ -47,6 +55,7 @@ function ExpressInfo({ addressList }: ExpressInfoPropsType) {
       {isModalOpen && (
         <AddressChangeModal
           addressList={addressList}
+          isModalOpen={isModalOpen}
           setIsModalOpen={setIsModalOpen}
         />
       )}
