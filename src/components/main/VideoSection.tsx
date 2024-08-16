@@ -33,7 +33,7 @@ const VideoSection: React.FC<VideoSectionProps> = ({
         };
         checkVideoLoaded();
       }
-    }, 3500);
+    }, 1000);
   }, [setVideoLoaded]);
 
   return (
