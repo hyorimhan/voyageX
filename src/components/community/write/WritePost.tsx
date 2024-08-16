@@ -8,7 +8,6 @@ import { insertPost, uploadImage } from '@/services/community';
 import { TWritePost } from '@/types/communityType';
 import useAuthStore from '@/zustand/store/useAuth';
 import { useRouter } from 'next/navigation';
-import PostPen20px from '@/components/common/icons/20px/PostPenIcon20px';
 import toast from 'react-hot-toast';
 import dynamic from 'next/dynamic';
 import 'react-quill/dist/quill.snow.css';
