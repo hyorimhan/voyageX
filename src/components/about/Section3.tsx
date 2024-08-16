@@ -10,7 +10,7 @@ function Section3() {
         muted
         playsInline
         loop
-        className='absolute top-0 left-0  w-full sm:h-full object-cover'
+        className='absolute top-0 left-0  w-full h-full object-cover'
       />
       <div className='relative w-[1120px] sm:w-full mx-auto sm:p-3 '>
         <Scroll>
