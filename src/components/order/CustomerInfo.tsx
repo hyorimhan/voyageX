@@ -6,6 +6,7 @@ import CustomerChangeModal from './CustomerChangeModal';
 import useCustomerInfoStore from '@/zustand/store/useCustomrInfoStore';
 import useUpdateInfoStore from '@/zustand/store/useUpdateInfo';
 import useExpressInfoStore from '@/zustand/store/useExpressInfoStore';
+import CustomerChangeSheet from './CustomerChangeSheet';
 
 interface CustomerInfo {
   addressList: Address[];
@@ -82,35 +83,45 @@ function CustomerInfo({ addressList, user_email, isTour }: CustomerInfo) {
             </button>
           </div>
         </div>
-        <div className='flex flex-row justify-between'>
-          <div className='flex flex-row items-end sm:gap-2 md:gap-8 lg:gap-8 mb-1'>
-            <div className='flex flex-col gap-5 text-black-200 font-medium sm:text-sm sm:w-[70px]'>
-              <p>받는 분</p>
-              <p>휴대폰 번호</p>
-              <p>이메일 주소</p>
-            </div>
-            <div className='flex flex-col gap-5 text-black-50 sm:text-sm'>
-              <p>
-                {(customerInfo?.customerName ?? defaultAddress?.recipient) ||
-                  '이름을 입력해주세요'}
-              </p>
-              <p>
-                {(customerInfo?.customerPhone ?? defaultAddress?.phone) ||
-                  '휴대전화 번호를 입력해주세요.'}
-              </p>
-              <p>
-                {(customerInfo?.customerEmail ?? user_email) ||
-                  '이메일 주소를 입력해주세요.'}
-              </p>
-            </div>
+        <div className='grid grid-cols-[80px_minmax(0,1fr)] gap-x-4'>
+          <div className='grid grid-rows-[22px_22px_minmax(0,1fr)] gap-y-5 text-black-200 font-medium sm:text-sm'>
+            <p>받는 분</p>
+            <p>휴대폰 번호</p>
+            <p>이메일 주소</p>
+          </div>
+          <div className='grid grid-rows-[22px_22px_minmax(0,1fr)] gap-y-5 text-black-50 sm:text-sm'>
+            <p>
+              {(customerInfo?.customerName ?? defaultAddress?.recipient) ||
+                '이름을 입력해주세요'}
+            </p>
+            <p>
+              {(customerInfo?.customerPhone ?? defaultAddress?.phone) ||
+                '휴대전화 번호를 입력해주세요.'}
+            </p>
+            <p>
+              {(customerInfo?.customerEmail ?? user_email) ||
+                '이메일 주소를 입력해주세요.'}
+            </p>
           </div>
         </div>
       </div>
       {isModalOpen && (
-        <CustomerChangeModal
-          setIsModalOpen={setIsModalOpen}
-          updateCustomerInfo={updateCustomerInfo}
-        />
+        <>
+          <div className='sm:hidden'>
+            <CustomerChangeModal
+              isModalOpen={isModalOpen}
+              setIsModalOpen={setIsModalOpen}
+              updateCustomerInfo={updateCustomerInfo}
+            />
+          </div>
+          <div className='md:hidden lg:hidden'>
+            <CustomerChangeSheet
+              isModalOpen={isModalOpen}
+              setIsModalOpen={setIsModalOpen}
+              updateCustomerInfo={updateCustomerInfo}
+            />
+          </div>
+        </>
       )}
     </>
   );

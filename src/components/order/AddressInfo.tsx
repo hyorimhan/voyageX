@@ -7,13 +7,13 @@ interface AddressInfoPropsType {
 
 function AddressInfo({ expressAddress, defaultAddress }: AddressInfoPropsType) {
   return (
-    <div className='flex flex-row items-start gap-8 sm:gap-2'>
-      <div className='flex flex-col gap-5 text-black-200 font-medium sm:text-sm sm:w-[110px]'>
+    <div className='grid grid-cols-[80px_minmax(0,1fr)] gap-x-4'>
+      <div className='grid grid-rows-[22px_22px_minmax(0,1fr)] gap-y-5 text-black-200 font-medium sm:text-sm'>
         <p>받는 분</p>
         <p>휴대폰 번호</p>
         <p>배송지 정보</p>
       </div>
-      <div className='flex flex-col gap-5 text-black-50 sm:text-sm'>
+      <div className='grid grid-rows-[22px_22px_minmax(0,1fr)] gap-y-5 text-black-50 sm:text-sm'>
         <p className='font-medium'>
           {expressAddress?.recipient ?? defaultAddress?.recipient}
         </p>

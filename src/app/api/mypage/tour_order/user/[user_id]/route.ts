@@ -25,7 +25,6 @@ export async function GET(
       error: tourOrderError,
     });
   }
-  console.log('tourOrders => ', tourOrders);
 
   return NextResponse.json(tourOrders);
 }

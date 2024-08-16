@@ -8,8 +8,9 @@ function Section3() {
         src='https://dl.dropboxusercontent.com/scl/fi/g4sevf330uuy6cl0s6sws/3.mp4?rlkey=t3gjn9228bzw3svvymt8t5kam&st=noumfva3'
         autoPlay
         muted
+        playsInline
         loop
-        className='absolute top-0 left-0 object-cover sm:w-full sm:h-full'
+        className='absolute top-0 left-0  w-full sm:h-full object-cover'
       />
       <div className='relative w-[1120px] sm:w-full mx-auto sm:p-3 '>
         <Scroll>

@@ -36,7 +36,6 @@ export const POST = async (request: Request, { params }: ParamsType) => {
   if (prevCartItemError) {
     return NextResponse.json({ error: '장바구니 불러오기 실패' });
   }
-  console.log('prevCartItemId => ', prevCartItemId);
   if (prevCartItemId.length) {
     return NextResponse.json({ error: '이미 장바구니에 존재하는 상품입니다' });
   } else if (!prevCartItemId.length) {
@@ -71,23 +70,13 @@ export const PATCH = async (request: Request, { params }: ParamsType) => {
   const { user_id } = params;
   const { searchParams } = new URL(request.url);
   const cart_id = searchParams.get('cart_id');
-  const prev = searchParams.get('prev');
-  const task = searchParams.get('task');
-  if (!cart_id || !prev || !task)
+  const quantity = searchParams.get('quantity');
+  if (!cart_id || !quantity)
     return NextResponse.json({ error: '쿼리스트링을 확인해주세요.' });
-  if (task === 'increase') {
-    const { data, error } = await supabase
-      .from('cart')
-      .update({ quantity: +prev + 1 })
-      .match({ id: cart_id, user_id });
-    if (error) return NextResponse.json({ error });
-    return NextResponse.json(data);
-  } else if (task === 'decrease') {
-    const { data, error } = await supabase
-      .from('cart')
-      .update({ quantity: +prev - 1 })
-      .match({ id: cart_id, user_id });
-    if (error) return NextResponse.json({ error });
-    return NextResponse.json(data);
-  }
+  const { data, error } = await supabase
+    .from('cart')
+    .update({ quantity: +quantity })
+    .match({ id: cart_id, user_id });
+  if (error) return NextResponse.json({ error });
+  return NextResponse.json(data);
 };

@@ -82,7 +82,6 @@ function TourPaymentSuccess() {
         pay_method,
         installment,
       });
-      console.log('response => ', response);
     };
     postReceipt();
     return () => {

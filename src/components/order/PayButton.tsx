@@ -80,7 +80,6 @@ function PayButton({ totalPrice, isTour }: PayButtonPropsType) {
     };
 
     const orderInfo = JSON.stringify(currentOrder);
-    console.log(orderInfo);
     router.push(
       `/shop/payment/${orderId}?orderInfo=${orderInfo}&isTour=${isTour}`,
     );

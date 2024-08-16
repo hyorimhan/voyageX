@@ -55,7 +55,6 @@ function SignupForm() {
   const joinForm = async (data: formType) => {
     const response = await signUp(data);
 
-    console.log('Response from signUp:', response);
     if (response.message) {
       toast.success(response.message);
       router.replace('/login');
@@ -179,10 +178,11 @@ function SignupForm() {
           </div>
           <button
             type='submit'
-            disabled={!isValid}
-            className={`w-[473px] h-[58px]  sm:w-[335px] rounded-lg p-2 mt-5              ${
-              !isValid ? 'cursor-not-allowed bg-black-400' : 'bg-primary-600'
-            }`}
+            // disabled={!isValid}
+            className={
+              'w-[473px] h-[58px]  sm:w-[335px] rounded-lg p-2 mt-5 bg-primary-600'
+            }
+            // ${!isValid ? 'cursor-not-allowed bg-black-400' : 'bg-primary-600' }
           >
             가입하기
           </button>

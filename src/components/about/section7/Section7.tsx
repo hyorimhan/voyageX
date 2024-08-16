@@ -75,6 +75,7 @@ function Section7() {
         src='https://dl.dropboxusercontent.com/scl/fi/6uvmwh3uhakqil31qm997/15462800-uhd_3840_2160_30fps.mp4?rlkey=swn5a80slog5ysddvzfdjtkdx&st=bonxspqx'
         autoPlay
         muted
+        playsInline
         loop
         className='absolute top-0 left-0  object-cover w-full h-full'
       />

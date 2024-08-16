@@ -4,8 +4,10 @@ import { phoneValidate } from '@/utils/tourValidation';
 import useCustomerInfoStore from '@/zustand/store/useCustomrInfoStore';
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
+import CloseWhiteIcon24px from '../common/icons/24px/CloseWhiteIcon24px';
 
 interface CustomerChangeModalProps {
+  isModalOpen: boolean;
   setIsModalOpen: Dispatch<SetStateAction<boolean>>;
   updateCustomerInfo: (updateInfo: {
     customerName: string;
@@ -15,6 +17,7 @@ interface CustomerChangeModalProps {
 }
 
 function CustomerChangeModal({
+  isModalOpen,
   setIsModalOpen,
   updateCustomerInfo,
 }: CustomerChangeModalProps) {
@@ -55,23 +58,26 @@ function CustomerChangeModal({
     setIsModalOpen(false);
   };
 
+  useEffect(() => {
+    if (isModalOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+  }, [isModalOpen]);
+
   return (
     <section
       ref={modalBackground}
-      className='flex w-full h-full fixed top-0 left-0 justify-center bg-black-1000 bg-opacity-50 z-30'
+      className='flex w-full h-full fixed top-0 left-0 justify-center items-center bg-black-1000 bg-opacity-50 z-30'
       onClick={(e) => {
         if (e.target === modalBackground.current) setIsModalOpen(false);
       }}
     >
-      <div className='relative bg-black-800 w-1/3 sm:w-full sm:mx-5 md:w-2/3 h-[70%] sm:h-[80%] md:h-[600px] my-24 mx-auto rounded-lg'>
-        {/* <div className='relative bg-black-800 w-1/3 md:w-2/3 sm:w-2/3 h-[700px] md:h-[600px] sm:h-[600px] my-24 mx-auto rounded-lg'> */}
+      <div className='relative bg-black-800 w-[432px] h-[484px] rounded-lg p-8'>
         <div className='flex justify-end'>
-          <button
-            className='mr-11 mt-4 text-3xl bg-transparent sm:mr-4 sm:mt-1'
-            type='button'
-            onClick={() => setIsModalOpen(false)}
-          >
-            x
+          <button type='button' onClick={() => setIsModalOpen(false)}>
+            <CloseWhiteIcon24px />
           </button>
         </div>
         <form
@@ -80,45 +86,55 @@ function CustomerChangeModal({
             handleChangeCustomerInfo();
           }}
         >
-          <div className='flex flex-col items-center sm:w-full p-2  '>
-            <div className='flex flex-row justify-center sm:w-full p-2'>
-              <p className='text-xl'>주문자 정보</p>
-            </div>
-            <div className='flex flex-col sm:w-full w-2/3 sm:mx-2 gap-4'>
-              <label htmlFor='customerName'>이름*</label>
-              <input
-                id='customerName'
-                type='text'
-                placeholder=' 성함'
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                className='rounded h-16 sm:h-12 text-black-1000 p-1'
-              />
-              <label htmlFor='customerPhone'>휴대폰 번호*</label>
-              <input
-                id='customerPhone'
-                type='tel'
-                placeholder='010-1234-5678'
-                value={phone}
-                onChange={onChangePhone}
-                className='rounded h-16 sm:h-12 text-black-1000 p-1'
-              />
-              <label htmlFor='customerEmail'>이메일*</label>
-              <input
-                id='customerEmail'
-                type='email'
-                placeholder=' 이메일'
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                className='rounded h-16 sm:h-12 sm:w-full  text-black-1000 p-1'
-              />
+          <div className='flex flex-col items-center gap-8'>
+            <p className='text-xl text-white font-semibold'>주문자정보 변경</p>
+            <div className='flex flex-col gap-4 w-full'>
+              <div className='flex flex-col'>
+                <label htmlFor='customerName' className='text-black-200'>
+                  이름
+                </label>
+                <input
+                  id='customerName'
+                  type='text'
+                  placeholder=' 이름을 입력해주세요.'
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className='rounded h-12 w-full text-black-1000 p-4'
+                />
+              </div>
+              <div className='flex flex-col'>
+                <label htmlFor='customerPhone' className='text-black-200'>
+                  휴대폰 번호
+                </label>
+                <input
+                  id='customerPhone'
+                  type='tel'
+                  placeholder=' 010-1234-5678'
+                  value={phone}
+                  onChange={onChangePhone}
+                  className='rounded h-12 w-full text-black-1000 p-4'
+                />
+              </div>
+              <div className='flex flex-col'>
+                <label htmlFor='customerEmail' className='text-black-200'>
+                  이메일
+                </label>
+                <input
+                  id='customerEmail'
+                  type='email'
+                  placeholder=' 예) voyageX@gmail.com'
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  className='rounded h-12 w-full text-black-1000 p-4'
+                />
+              </div>
             </div>
             <button
               type='submit'
-              className='bg-primary-600 p-4 sm:mt-10 mt-16 w-2/3 sm:w-full  rounded-lg transition-colors duration-200 hover:bg-primary-400 active:bg-primary-500'
+              className='bg-primary-600 py-4 rounded-lg w-full transition-colors duration-200 hover:bg-primary-400 active:bg-primary-500'
             >
-              주문자 정보 변경
+              저장하기
             </button>
           </div>
         </form>

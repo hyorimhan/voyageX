@@ -8,8 +8,8 @@ import RenderTourGuid from '@/components/tour/tourDetail/tourTab/guideContents/R
 type GoodsDetailPageTabSelectorProps = {
   goodsRating?: number | undefined;
   goodsId: string;
-  contents: React.ReactNode;
-  guideContents?: React.ReactNode;
+  contents: React.ReactNode | string;
+  guideContents?: string | React.ReactNode;
   showTourGuideTab?: boolean;
   defaultTab?: 'Details' | 'Reviews' | 'TourGuide'; // 초기 탭 설정을 위한 prop 추가
 };

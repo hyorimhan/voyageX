@@ -2,14 +2,14 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
 type useLastSelectWishListStoreType = {
-  lastSelectTab: string;
-  setLastSelectTab: (lastSelectTab: string) => void;
+  lastSelectTab: 'LikedGoods' | 'MyCart';
+  setLastSelectTab: (lastSelectTab: 'LikedGoods' | 'MyCart') => void;
 };
 
 const useLastSelectWishListStore = create<useLastSelectWishListStoreType>()(
   persist(
     (set) => ({
-      lastSelectTab: 'likedGoods',
+      lastSelectTab: 'LikedGoods',
       setLastSelectTab: (lastSelectTab) => set({ lastSelectTab }),
     }),
     {
