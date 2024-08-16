@@ -4,7 +4,7 @@ function Section4() {
   return (
     <section className=' relative sm:w-full sm:h-screen sm:overflow-hidden lg:min-h-screen flex flex-col justify-center items-center '>
       <video
-        src='https://dl.dropboxusercontent.com/scl/fi/tdg9uxfik3oj3s2bdvecn/7664745-hd_1920_1080_25fps.mp4?rlkey=p59d4flvsgh4uclytlsowbue7&st=zgthsdij'
+        src='/videos/section4.mp4'
         autoPlay
         muted
         playsInline
@@ -29,14 +29,7 @@ function Section4() {
               </div>
 
               <div className='  lg:p-5'>
-                <div className='sm:hidden'>
-                  <p>
-                    여행상품 페이지에서는 토스 페이먼츠 API를 사용해 우주 여행
-                    상품을 결제할 수 있습니다. 장바구니 대신 찜 기능을 제공해
-                    상품을 저장할 수 있습니다.
-                  </p>
-                </div>
-                <div className='lg:hidden  sm:p-3'>
+                <div className=' sm:p-3'>
                   여행 상품 페이지에서는 다양한 우주 여행 상품을 탐색하고 구매할
                   수 있습니다. 상품 찜 기능과 리뷰 시스템을 갖추고 있으며, 토스
                   페이먼츠를 통한 간편 결제를 지원합니다.
@@ -47,11 +40,6 @@ function Section4() {
                 <div className='sm:hidden'>
                   굿즈샵 페이지에서는 로고가 들어간 다양한 우주 관련 굿즈를
                   구경하고, 토스 페이먼츠 API를 통해 결제할 수 있습니다.
-                </div>
-                <div className='lg:hidden  sm:p-3'>
-                  굿즈샵은 우주 테마의 상품을 판매하는 공간으로, 장바구니 기능과
-                  리뷰 시스템을 제공합니다. 결제는 토스 페이먼츠를 통해
-                  처리되며, 상품 정렬 기능으로 쇼핑 경험을 개선했습니다.
                 </div>
               </div>
 

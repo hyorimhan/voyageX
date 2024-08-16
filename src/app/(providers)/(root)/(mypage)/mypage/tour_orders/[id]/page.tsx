@@ -12,7 +12,7 @@ type Params = {
 const page = ({ params }: Params) => {
   return (
     <>
-      <div className='flex items-start justify-between'>
+      <div className='flex items-start justify-between sm:mt-8'>
         <div className='flex mb-4 gap-2'>
           <Link
             href={'/mypage/tour_orders'}
@@ -20,7 +20,7 @@ const page = ({ params }: Params) => {
           >
             <ArrowLeftIcon24px />
           </Link>
-          <p className='text-2xl font-semibold '>주문상세내역</p>
+          <p className='text-2xl font-semibold sm:text-xl'>주문상세내역</p>
         </div>
         <TourOrderDetailDeleteBtn order_id={params.id} />
       </div>

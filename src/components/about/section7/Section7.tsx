@@ -72,7 +72,7 @@ function Section7() {
   return (
     <section className='relative w-full h-full  '>
       <video
-        src='https://dl.dropboxusercontent.com/scl/fi/6uvmwh3uhakqil31qm997/15462800-uhd_3840_2160_30fps.mp4?rlkey=swn5a80slog5ysddvzfdjtkdx&st=bonxspqx'
+        src='/videos/section7.mp4'
         autoPlay
         muted
         playsInline

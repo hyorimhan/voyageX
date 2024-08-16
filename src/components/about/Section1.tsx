@@ -6,7 +6,7 @@ function Section1() {
   return (
     <section className='relative sm:w-full h-screen sm:overflow-hidden sm:mx-auto'>
       <video
-        src='https://dl.dropboxusercontent.com/scl/fi/9kb8lsbhizo1ioqn1jssr/7169896-hd_2048_1080_25fps.mp4?rlkey=yay53fjf8utdv38hfq3vbvyxy&st=s81tqoar'
+        src='/videos/section1.mp4'
         autoPlay
         muted
         loop
@@ -14,6 +14,7 @@ function Section1() {
         data-video
         className='absolute inset-0 w-full h-full object-cover'
       />
+
       <div className='relative z-10 flex h-full flex-col lg:w-[1120px] w-full mx-auto'>
         <Scroll>
           <div className='text-black-200 space-x-3 font-bookmyungjo sm:w-[300px] mx-auto mt-[200px] flex flex-col justify-center '>

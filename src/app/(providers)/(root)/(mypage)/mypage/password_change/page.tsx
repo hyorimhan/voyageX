@@ -42,7 +42,7 @@ const PasswordChangePage = () => {
     <div>
       <div className='flex mb-[49px] gap-2 sm:mb-[40px] sm:mt-8'>
         <Link
-          href={'mypage/side_bar'}
+          href={'/mypage/side_bar'}
           className='md:hidden lg:hidden self-center'
         >
           <ArrowLeftIcon24px />

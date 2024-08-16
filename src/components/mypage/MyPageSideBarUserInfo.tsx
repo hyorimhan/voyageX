@@ -41,7 +41,7 @@ const MyPageSideBarUserInfo = () => {
   const emailId = user?.email ? user.email.split('@')[0] : '비회원';
 
   return (
-    <div className='h-[60px] py-2 gap-1 flex flex-col sm:px-5 md:px-5'>
+    <div className='h-[60px] py-2 gap-1 flex flex-col sm:px-5 md:px-5 sm:gap-2'>
       <p className={`text-xl sm:text-[28px] ${orbitron.className}`}>
         {emailId}
       </p>
