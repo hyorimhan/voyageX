@@ -124,7 +124,7 @@ const Header = () => {
                 마이페이지
               </Link>
               <Link
-                href={'mypage/side_bar'}
+                href={'/mypage/side_bar'}
                 className='hover:text-gray-300 md:hidden lg:hidden'
               >
                 마이페이지

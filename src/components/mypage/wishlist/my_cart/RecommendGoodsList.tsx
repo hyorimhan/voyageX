@@ -66,10 +66,12 @@ const RecommendGoodsList = () => {
               </div>
               <div className='ml-1 flex flex-col'>
                 <p
-                  className='flex justify-start cursor-pointer text-sm whitespace-nowrap overflow-hidden text-ellipsis'
+                  className='flex justify-start cursor-pointer text-sm'
                   onClick={() => handleItemClick(item.id)}
                 >
-                  {item.goods_name}
+                  {item.goods_name.length > 20
+                    ? `${item.goods_name.slice(0, 20)}...`
+                    : item.goods_name}
                 </p>
                 <div className='flex justify-between items-end text-lg'>
                   <div className='flex flex-col'>

@@ -7,7 +7,7 @@ const GoodsOrdersPage = () => {
     <div>
       <div className='flex mb-9 gap-2 sm:mt-8'>
         <Link
-          href={'mypage/side_bar'}
+          href={'/mypage/side_bar'}
           className='md:hidden lg:hidden self-center'
         >
           <ArrowLeftIcon24px />

@@ -8,7 +8,7 @@ const TourOrdersPage = () => {
     <div>
       <div className='flex mb-14 gap-2 sm:mt-8 sm:mb-7'>
         <Link
-          href={'mypage/side_bar'}
+          href={'/mypage/side_bar'}
           className='self-center md:hidden lg:hidden'
         >
           <ArrowLeftIcon24px />
