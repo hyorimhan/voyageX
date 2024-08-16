@@ -42,9 +42,10 @@ const RecommendGoodsList = () => {
     <>
       <p className='text-xl font-semibold'>지금 인기있는 굿즈</p>
       <Swiper
-        modules={[Navigation, Pagination]}
+        modules={[Navigation, Autoplay, Pagination]}
         breakpoints={breakpoints}
         className='flex w-[836px] sm:w-[408px]'
+        autoplay={{ delay: 2000, disableOnInteraction: false }}
       >
         {goods?.map((item) => (
           <SwiperSlide key={item.id}>
@@ -65,7 +66,7 @@ const RecommendGoodsList = () => {
               </div>
               <div className='ml-1 flex flex-col'>
                 <p
-                  className='flex justify-start cursor-pointer text-sm'
+                  className='flex justify-start cursor-pointer text-sm whitespace-nowrap overflow-hidden text-ellipsis'
                   onClick={() => handleItemClick(item.id)}
                 >
                   {item.goods_name}
