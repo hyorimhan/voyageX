@@ -72,7 +72,7 @@ function Section7() {
   return (
     <section className='relative w-full h-full  '>
       <video
-        src='/videos/section7.mp4'
+        src='https://uvjnwqdttdhvwexypdhx.supabase.co/storage/v1/object/public/background/section7.mp4?t=2024-08-16T08%3A01%3A19.037Z'
         autoPlay
         muted
         playsInline

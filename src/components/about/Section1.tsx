@@ -6,7 +6,7 @@ function Section1() {
   return (
     <section className='relative sm:w-full h-screen sm:overflow-hidden sm:mx-auto'>
       <video
-        src='/videos/section1.mp4'
+        src='https://uvjnwqdttdhvwexypdhx.supabase.co/storage/v1/object/public/background/section1.mp4'
         autoPlay
         muted
         loop
