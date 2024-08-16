@@ -13,7 +13,7 @@ function OrderPageSection() {
   return (
     <>
       <h1
-        className={`sm:hidden border-b-[1px] border-white text-[28px] font-semibold text-white mt-16 py-4 ${orbitron.className}`}
+        className={`sm:hidden text-[28px] font-semibold text-white mt-16 py-4 ${orbitron.className}`}
       >
         GOODS SHOP
       </h1>

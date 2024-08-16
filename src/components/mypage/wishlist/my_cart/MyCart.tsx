@@ -63,7 +63,7 @@ function MyCart({ user_id }: WishListPropsType) {
       cartList.find((item) => item.id === id)?.quantity === 3 &&
       operator === '+'
     ) {
-      toast.error('한 번에 3개까지만 담을 수 있습니다!');
+      toast.error('한 번에 3개까지 구매가능합니다!');
     }
     setCartList((prev) =>
       prev.map((item) => {
