@@ -9,7 +9,6 @@ const supabase = createClient(
 export async function POST(req: NextRequest) {
   try {
     const { userId } = await req.json();
-    console.log(userId);
     if (!userId) {
       return NextResponse.json({ error: '유저 ID를 찾을 수 없습니다.' });
     }

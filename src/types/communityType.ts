@@ -19,6 +19,12 @@ export type TEditComment = Omit<Comment, 'created_at'>;
 
 export interface MyPost extends Post {
   comments: number;
+  likes: Array<{
+    id: string;
+    post_id: string;
+    user_id: string;
+    created_at: string;
+  }>;
 }
 
 export interface Community extends Post {

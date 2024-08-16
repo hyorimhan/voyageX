@@ -2,7 +2,7 @@
 
 import { login } from '@/services/auth';
 import { formType } from '@/types/authFormType';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { FieldErrors, useForm, useWatch } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import useAuthStore from '../../../zustand/store/useAuth';
@@ -14,7 +14,8 @@ import EyeOnIcon24px from '@/components/common/icons/24px/EyeOnIcon24px';
 import { orbitron } from '../../../../public/fonts/orbitron';
 
 function LoginForm() {
-  const router = useRouter();
+  // const searchParams = useSearchParams();
+
   const saveUser = useAuthStore((state) => state.saveUser);
 
   const {
@@ -50,7 +51,10 @@ function LoginForm() {
       toast.success(response.message);
 
       saveUser(response.user);
-      router.replace('/');
+      // router.replace('/');
+      // const redirectPath = searchParams.get('redirect') || '/';
+      // window.location.href = redirectPath;
+      window.location.href = '/';
 
       return;
     }
@@ -116,10 +120,11 @@ function LoginForm() {
         <div className='flex flex-col'>
           <button
             type='submit'
-            disabled={!isValid}
-            className={`  w-[473px] h-[58px] sm:w-[335px] font-semibold  rounded-lg p-2 mt-8 ${
-              !isValid ? 'cursor-not-allowed bg-black-400' : 'bg-primary-600'
-            }`}
+            // disabled={!isValid}
+            className={
+              ' w-[473px] h-[58px] sm:w-[335px] font-semibold  rounded-lg p-2 mt-8 bg-primary-600 '
+            }
+            // ${!isValid ? 'cursor-not-allowed bg-black-400' : 'bg-primary-600'}
           >
             로그인
           </button>

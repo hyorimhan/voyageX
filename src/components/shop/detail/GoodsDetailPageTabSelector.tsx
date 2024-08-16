@@ -8,9 +8,10 @@ import RenderTourGuid from '@/components/tour/tourDetail/tourTab/guideContents/R
 type GoodsDetailPageTabSelectorProps = {
   goodsRating?: number | undefined;
   goodsId: string;
-  contents: React.ReactNode;
-  guideContents?: React.ReactNode;
+  contents: React.ReactNode | string;
+  guideContents?: string | React.ReactNode;
   showTourGuideTab?: boolean;
+  defaultTab?: 'Details' | 'Reviews' | 'TourGuide'; // 초기 탭 설정을 위한 prop 추가
 };
 
 function GoodsDetailPageTabSelector({
@@ -19,8 +20,10 @@ function GoodsDetailPageTabSelector({
   contents,
   guideContents,
   showTourGuideTab = false,
+  defaultTab = 'Details', // defaultTab 기본값은 'Details'로 설정
 }: GoodsDetailPageTabSelectorProps) {
-  const [selectedTab, setSelectedTab] = useState('Details');
+  const [selectedTab, setSelectedTab] = useState(defaultTab);
+  const [reviewCount, setReviewCount] = useState(0);
 
   return (
     <>
@@ -44,7 +47,10 @@ function GoodsDetailPageTabSelector({
             onClick={() => setSelectedTab('Reviews')}
             className='text-lg w-full'
           >
-            리뷰
+            <div className='flex items-center justify-center gap-[9px]'>
+              <p>리뷰</p>
+              <p>{reviewCount}</p>
+            </div>
           </button>
         </div>
         <div className='flex w-full mt-[9px]'>
@@ -74,7 +80,11 @@ function GoodsDetailPageTabSelector({
         </div>
       </div>
       {selectedTab === 'Reviews' ? (
-        <RenderTabReviews goodsRating={goodsRating} goodsId={goodsId} />
+        <RenderTabReviews
+          goodsRating={goodsRating}
+          goodsId={goodsId}
+          setReviewCount={setReviewCount}
+        />
       ) : selectedTab === 'TourGuide' && showTourGuideTab ? (
         <RenderTourGuid contents={guideContents} />
       ) : (

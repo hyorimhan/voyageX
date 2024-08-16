@@ -20,7 +20,7 @@ const QuantityBtn = ({
   setQuantity,
 }: QuantityBtnProps) => {
   const handleIncrease = () => {
-    setQuantity((prevQuantity) => prevQuantity + 1);
+    setQuantity((prevQuantity) => (prevQuantity < 3 ? prevQuantity + 1 : 3));
   };
 
   const handleDecrease = () => {

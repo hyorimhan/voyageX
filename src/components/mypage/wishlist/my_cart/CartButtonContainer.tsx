@@ -6,18 +6,21 @@ import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 
 interface CartButtonContainerPropsType {
-  selectItems: CartListType[];
+  selectItemIds: string[];
+  cartList: CartListType[];
 }
 
-function CartButtonContainer({ selectItems }: CartButtonContainerPropsType) {
+function CartButtonContainer({
+  selectItemIds,
+  cartList,
+}: CartButtonContainerPropsType) {
   const router = useRouter();
   const { setGoodsOrderInfo } = useGoodsOrderStore((state) => state);
   const handleGoToPayPage = () => {
-    if (!selectItems.length) return toast.error('상품을 선택해주세요!');
-    const itemList = selectItems.map((item) => ({
-      quantity: item.quantity,
-      goods: item.goods,
-    }));
+    if (!selectItemIds.length) return toast.error('상품을 선택해주세요!');
+    const itemList = selectItemIds.map(
+      (itemId) => cartList.find((item) => item.id === itemId)!,
+    );
     setGoodsOrderInfo(itemList);
     router.push(`/shop/order`);
   };

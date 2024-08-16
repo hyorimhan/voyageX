@@ -11,6 +11,9 @@ const config: Config = {
       backgroundImage: {
         'custom-background': "url('/images/배경.png')",
       },
+      lineClamp: {
+        18: '18',
+      },
       opacity: {
         '60': '0.6',
       },
@@ -27,6 +30,8 @@ const config: Config = {
       fontFamily: {
         pretendard: ['var(--font-pretendard)'],
         yangpyeong: ["'Yangpyeong'", 'sans-serif'],
+        bookmyungjo: ['BookkMyungjo-Bd'],
+        yuna: ['JNE-Yuna-TTF-Regular'],
       },
       screens: {
         sm: { min: '320px', max: '768px' },
@@ -86,7 +91,7 @@ const config: Config = {
           900: '#00bbf9',
         },
         header: {
-          default: '#2D2D2D', //투명도 60%
+          default: '#1A1A1A', //투명도 60%
         },
       },
 

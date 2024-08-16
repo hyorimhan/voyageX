@@ -66,7 +66,15 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   const supabase = createClient();
   const newPost = await request.json();
-  const { data, error } = await supabase.from('posts').insert(newPost);
+
+  const { data, error } = await supabase.from('posts').insert({
+    title: newPost.title,
+    content: newPost.content,
+    category: newPost.category,
+    user_id: newPost.user_id,
+    image_url: newPost.image_url,
+  });
+
   if (error) return NextResponse.json(error);
   return NextResponse.json(data);
 }

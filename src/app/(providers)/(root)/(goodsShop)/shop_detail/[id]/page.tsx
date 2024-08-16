@@ -6,6 +6,9 @@ import FAQ from '@/components/shop/detail/FAQ';
 import GoodsDetailPageTabSelector from '@/components/shop/detail/GoodsDetailPageTabSelector';
 import GoodsInfo from '@/components/shop/detail/GoodsInfo';
 import { useGetGoodsItem } from '@/hooks/apis/goods.api';
+import { orbitron } from '../../../../../../../public/fonts/orbitron';
+import Image from 'next/image';
+import TopBtnMobile from '@/components/common/TopBtnMobile';
 
 type Params = {
   params: {
@@ -15,7 +18,6 @@ type Params = {
 
 const ShopDetailPage = ({ params }: Params) => {
   const { data: goods, isLoading, isError } = useGetGoodsItem(params.id);
-  const contents = '콘텐츠';
 
   if (isLoading) return <Loading />;
   if (isError) return <div>에러 발생</div>;
@@ -23,15 +25,30 @@ const ShopDetailPage = ({ params }: Params) => {
   return (
     <Page>
       <div className='sm:mx-5'>
-        <p className='text-xl '>GOODS SHOP</p>
-        <div className='border-b-[1px] border-solid border-white mt-3 mb-8'></div>
+        <p
+          className={`text-[28px] font-semibold mb-[55px] ${orbitron.className}`}
+        >
+          GOODS SHOP
+        </p>
         {goods && <GoodsInfo goods={goods} goods_id={params.id} />}
         <GoodsDetailPageTabSelector
           goodsRating={goods?.rating_avg}
           goodsId={params.id}
-          contents={contents}
+          contents={
+            <>
+              <Image
+                src={goods?.description}
+                alt='goods_detail'
+                width={1000}
+                height={500}
+              />
+            </>
+          }
+          defaultTab='Details'
         />
         <FAQ />
+
+        <TopBtnMobile size={'lg:text-3xl sm:text-2xl'} />
       </div>
     </Page>
   );

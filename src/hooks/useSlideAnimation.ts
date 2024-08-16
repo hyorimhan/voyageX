@@ -15,7 +15,7 @@ const useSlideAnimation = (
   planets: Planet[],
   currentSlide: number,
   visiblePlanetsCount: number,
-  planetsRef: React.RefObject<(HTMLDivElement | null)[]>
+  planetsRef: React.RefObject<(HTMLDivElement | null)[]>,
 ) => {
   useEffect(() => {
     const animatePlanets = () => {
