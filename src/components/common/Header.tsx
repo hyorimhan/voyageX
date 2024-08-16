@@ -1,11 +1,10 @@
 'use client';
 import useAuthStore from '@/zustand/store/useAuth';
-import React, { useEffect, useState, useTransition } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaBars } from 'react-icons/fa';
 import LogoutBtn from '@/components/auth/logout/LogoutBtn';
 // import { userLoginInfo } from '@/services/auth';
 import MyPageIcon24px from './icons/24px/MyPageIcon24px';
-import ShoppingBagIcon24px from './icons/24px/ShoppingBagIcon24px';
 import HeartDefaultIcon24px from './icons/24px/HeartDefaultIcon24px';
 import { useRouter } from 'next/navigation';
 // import Loading from './Loading';
@@ -14,6 +13,7 @@ import Image from 'next/image';
 import useLastSelectWishListStore from '@/zustand/store/useLastSelectWishListStore';
 import Link from 'next/link';
 import { userLoginInfo } from '@/services/auth';
+import { IoCardOutline } from 'react-icons/io5';
 
 const Header = () => {
   const user = useAuthStore((state) => state.user);
@@ -25,10 +25,12 @@ const Header = () => {
 
   const router = useRouter();
 
-  const handleLoginClick: React.MouseEventHandler<HTMLButtonElement> = (e) => {
-    e.preventDefault();
-    router.push('/login');
-  };
+  // const handleLoginClick = (href: string) => {
+  //   return (e: React.MouseEvent<HTMLButtonElement>) => {
+  //     e.preventDefault();
+  //     router.replace(href);
+  //   };
+  // };
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -89,7 +91,7 @@ const Header = () => {
               <HeartDefaultIcon24px />
             </Link>
             <Link href={'/mypage/goods_orders'} className='hover:text-gray-300'>
-              <ShoppingBagIcon24px />
+              <IoCardOutline className='w-6 h-6 text-gray-300' />
             </Link>
             <Link
               href={'/mypage/tour_orders'}
@@ -103,12 +105,13 @@ const Header = () => {
             {user ? (
               <LogoutBtn />
             ) : (
-              <button
-                onClick={handleLoginClick}
+              <Link
+                href={'/login'}
+                // onClick={() => handleLoginClick('/login')}
                 className='hover:text-gray-300'
               >
                 <span className=' hover:text-gray-300 w-[50px]'>로그인</span>
-              </button>
+              </Link>
             )}
             <button onClick={toggleMenu} className='lg:hidden '>
               <FaBars className='w-6 h-6' />
