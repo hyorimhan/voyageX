@@ -17,11 +17,11 @@ type AddressAddModalProps = {
   initialData?: any;
 };
 
-const AddressAddModal: React.FC<AddressAddModalProps> = ({
+const AddressAddModal = ({
   onClose,
   editMode,
   initialData,
-}) => {
+}: AddressAddModalProps) => {
   const {
     postcode,
     setPostcode,

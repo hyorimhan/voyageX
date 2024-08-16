@@ -13,9 +13,9 @@ interface Post {
   comments?: number;
 }
 
-const TopPostsSection: React.FC = () => {
-
-  const formatDate = (dateString: string) => { // 날짜 포맷팅
+const TopPostsSection = () => {
+  const formatDate = (dateString: string) => {
+    // 날짜 포맷팅
     const options: Intl.DateTimeFormatOptions = {
       year: 'numeric',
       month: '2-digit',
@@ -25,7 +25,7 @@ const TopPostsSection: React.FC = () => {
       hour12: false,
     };
     return new Date(dateString).toLocaleDateString('ko-KR', options);
-  }; 
+  };
 
   const { posts, loading, error } = useFetchTopPosts();
 
@@ -35,7 +35,9 @@ const TopPostsSection: React.FC = () => {
   return (
     <section className='section h-screen flex items-center justify-center relative'>
       <div className='w-full max-w-6xl mx-auto p-4'>
-        <h1 className={`text-4xl left-28 mb-8 mt-8 ${orbitron.className} font-semibold sm:text-2xl sm:font-medium sm:top-16`}>
+        <h1
+          className={`text-4xl left-28 mb-8 mt-8 ${orbitron.className} font-semibold sm:text-2xl sm:font-medium sm:top-16`}
+        >
           FREE BOARD
         </h1>
         <Link href='/community'>
@@ -51,12 +53,13 @@ const TopPostsSection: React.FC = () => {
             >
               <div className='flex flex-col justify-between h-full'>
                 <div>
-                  <Image 
+                  <Image
                     src={'/images/chips.png'}
                     alt='chips'
                     width={55}
                     height={28}
-                    className='mb-3'/>
+                    className='mb-3'
+                  />
                   <h2 className='text-base font-pretendard font-semibold mb-2 md:text-xl md:mb-4 '>
                     {post.title}
                   </h2>

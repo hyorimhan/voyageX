@@ -8,13 +8,13 @@ type ITextAreaProps = {
   setInvalidMsg: (msg: string) => void; // 새로운 prop 추가
 };
 
-const TextArea: React.FC<ITextAreaProps> = ({
+const TextArea = ({
   placeholder,
   value,
   onChange,
   invalidMsg,
   setInvalidMsg, // 새로운 prop 추가
-}) => {
+}: ITextAreaProps) => {
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
   const onInput: FormEventHandler<HTMLTextAreaElement> = (e) => {

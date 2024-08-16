@@ -21,10 +21,7 @@ type GoodsReviewsProps = {
   setReviewCount: (count: number) => void;
 };
 
-const GoodsReviews: React.FC<GoodsReviewsProps> = ({
-  goodsId,
-  setReviewCount,
-}) => {
+const GoodsReviews = ({ goodsId, setReviewCount }: GoodsReviewsProps) => {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
@@ -54,7 +51,7 @@ const GoodsReviews: React.FC<GoodsReviewsProps> = ({
     };
 
     fetchReviews();
-  }, [goodsId, setReviewCount]);
+  }, [goodsId, setReviewCount, supabase]);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);

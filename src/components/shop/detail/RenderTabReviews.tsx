@@ -8,11 +8,11 @@ type RenderTabReviewsProps = {
   setReviewCount: (count: number) => void;
 };
 
-const RenderTabReviews: React.FC<RenderTabReviewsProps> = ({
+const RenderTabReviews = ({
   goodsRating,
   goodsId,
   setReviewCount,
-}) => {
+}: RenderTabReviewsProps) => {
   const roundedStars = Math.round(goodsRating ?? 0);
   const fullStars = roundedStars;
   const emptyStars = 5 - roundedStars;

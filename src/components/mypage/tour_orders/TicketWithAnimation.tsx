@@ -5,9 +5,7 @@ type TicketWithAnimationProps = {
   children: React.ReactNode;
 };
 
-const TicketWithAnimation: React.FC<TicketWithAnimationProps> = ({
-  children,
-}) => {
+const TicketWithAnimation = ({ children }: TicketWithAnimationProps) => {
   return (
     <Tilt
       className='tilt-root'

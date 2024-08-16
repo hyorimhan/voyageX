@@ -20,12 +20,12 @@ type ReviewFormModallProps = {
   order_id?: string;
 };
 
-const ReviewFormModal: React.FC<ReviewFormModallProps> = ({
+const ReviewFormModal = ({
   onClose,
   goodsId,
   userId,
   order_id,
-}) => {
+}: ReviewFormModallProps) => {
   const queryClient = useQueryClient();
   const { data: prevReviewId } = useGetOrderedGoodsReviewId({
     order_id: order_id!,

@@ -1,6 +1,5 @@
 import React, { useRef, useEffect } from 'react';
 import { orbitron } from '../../../public/fonts/orbitron';
-import Image from 'next/image';
 import ScrollBtn from './ScrollBtn';
 
 type VideoSectionProps = {
@@ -12,14 +11,14 @@ type VideoSectionProps = {
   source: React.ReactNode;
 };
 
-const VideoSection: React.FC<VideoSectionProps> = ({
+const VideoSection = ({
   videoSrc,
   heading,
   subHeading,
   sectionRef,
   setVideoLoaded,
   source,
-}) => {
+}: VideoSectionProps) => {
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
   useEffect(() => {
