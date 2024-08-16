@@ -41,7 +41,7 @@ const TopPostsSection: React.FC = () => {
         <Link href='/community'>
           <p className='absolute top-60 right-8 sm:top-32 sm:right-4 '>MORE+</p>
         </Link>
-        <div className='grid grid-cols-2 gap-8 relative sm:grid-cols-1 sm:gap-4'>
+        <div className='grid grid-cols-2 gap-12 relative sm:grid-cols-1 sm:gap-4'>
           {posts.slice(0, 4).map((post: Post, index) => (
             <Link
               href={`/community/${post.id}`}
