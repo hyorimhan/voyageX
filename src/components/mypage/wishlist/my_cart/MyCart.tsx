@@ -42,10 +42,15 @@ function MyCart({ user_id }: WishListPropsType) {
 
   const handleDeleteItem = () => {
     const idList = JSON.stringify(selectItemIds);
-    const cleanedCartList = cartList.filter(
-      (item) => !selectItemIds.includes(item.id),
-    );
-    setCartList(cleanedCartList);
+    setCartList((prevCartList) => {
+      const updatedCartList = prevCartList.filter(
+        (item) => !selectItemIds.includes(item.id),
+      );
+      setSelectItemIds((prev) =>
+        prev.filter((id) => updatedCartList.some((item) => item.id === id)),
+      );
+      return updatedCartList;
+    });
     deleteCartItemMutate({ user_id, idList });
   };
 
@@ -103,8 +108,11 @@ function MyCart({ user_id }: WishListPropsType) {
     setTotalPrice(
       selectItemIds.reduce((total, itemId) => {
         const cartItem = cartList.find((item) => item.id === itemId);
+        if (!cartItem || !cartItem.goods || cartItem.quantity === undefined) {
+          return total;
+        }
         return total + cartItem?.goods.goods_price! * cartItem?.quantity!;
-      }, 0),
+      }, 0) ?? 0,
     );
   }, [selectItemIds, cartList]);
 
