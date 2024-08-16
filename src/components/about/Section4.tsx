@@ -4,7 +4,7 @@ function Section4() {
   return (
     <section className=' relative sm:w-full sm:h-screen sm:overflow-hidden lg:min-h-screen flex flex-col justify-center items-center '>
       <video
-        src='https://dl.dropboxusercontent.com/scl/fi/tdg9uxfik3oj3s2bdvecn/7664745-hd_1920_1080_25fps.mp4?rlkey=p59d4flvsgh4uclytlsowbue7&st=zgthsdij'
+        src='/videos/section4.mp4'
         autoPlay
         muted
         playsInline

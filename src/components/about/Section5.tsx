@@ -5,7 +5,7 @@ function Section5() {
   return (
     <section className='relative sm:w-full sm:h-screen md:w-full md:h-screen sm:overflow-hidden'>
       <video
-        src='https://dl.dropboxusercontent.com/scl/fi/zsby87svuoi9tk8l926o0/5299569-hd_1920_1080_24fps.mp4?rlkey=f6nyppd92bxxoqtra8d0qn0h6&st=qbrewd0v&dl=0'
+        src='/videos/section5.mp4'
         autoPlay
         muted
         playsInline
