@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 async function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className='font-pretendard select-none'>
+    <div className='font-pretendard select-none' style={{ zIndex: 1 }}>
       <Header />
       <Toaster />
       <main>{children}</main>
