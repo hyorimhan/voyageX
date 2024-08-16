@@ -1,6 +1,6 @@
 export default function BackgroundVideo() {
   return (
-    <div className='fixed inset-0 w-full h-full overflow-hidden pointer-events-none'>
+    <div className='fixed inset-0 w-full h-full overflow-hidden pointer-events-none opacity-50'>
       <video
         src='/videos/backgroundVideo.mp4'
         autoPlay
