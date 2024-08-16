@@ -50,6 +50,7 @@ const TourReviewModal = ({
     mutationFn: createTourReview,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['reviews'] });
+      queryClient.invalidateQueries({ queryKey: ['tourOrders', userId] });
       toast.success('리뷰를 작성했습니다.');
       onClose();
     },
@@ -59,6 +60,7 @@ const TourReviewModal = ({
     mutationFn: modifyTourReview,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['reviews'] });
+      queryClient.invalidateQueries({ queryKey: ['tourOrders', userId] });
       toast.success('리뷰를 수정했습니다.');
       onClose();
     },
@@ -96,8 +98,8 @@ const TourReviewModal = ({
 
   useEffect(() => {
     if (loadedReview) {
-      setReview(loadedReview?.review!);
-      setRating(loadedReview?.rating!);
+      setReview(loadedReview?.review ?? '');
+      setRating(loadedReview?.rating ?? 3);
     }
   }, [isPending, loadedReview]);
 
