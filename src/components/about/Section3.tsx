@@ -5,7 +5,7 @@ function Section3() {
   return (
     <section className=' relative min-h-screen sm:overflow-x-hidden flex flex-col items-center justify-center sm:w-full sm:h-screen sm:overflow-hidden'>
       <video
-        src='/videos/section3.mp4'
+        src='https://uvjnwqdttdhvwexypdhx.supabase.co/storage/v1/object/public/background/section3%20(2).mp4'
         autoPlay
         muted
         playsInline
