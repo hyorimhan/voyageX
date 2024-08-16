@@ -16,13 +16,12 @@ function GoodsItem({ item, user_id }: GoodsItemPropsType) {
   };
   return (
     <li className='w-full bg-black-1000'>
-      <div className='sm:w-[106px] sm:h-[106px]'>
+      <div className='relative sm:w-[160px] sm:h-[160px] md:w-[268px] md:h-[272px] lg:w-[268px] lg:h-[272px]'>
         <Image
           src={item.goods_img}
           alt={item.description}
-          width={268}
-          height={272}
-          className='rounded-lg cursor-pointer'
+          fill
+          className='absolute rounded-lg cursor-pointer w-full h-full'
           style={{ objectFit: 'cover' }}
           onClick={() => handleItemClick(item.id)}
         />
@@ -32,10 +31,15 @@ function GoodsItem({ item, user_id }: GoodsItemPropsType) {
       </div>
       <div className='flex flex-col'>
         <p
-          className='flex justify-start cursor-pointer font-medium'
+          className='flex justify-start cursor-pointer font-medium text-base'
           onClick={() => handleItemClick(item.id)}
         >
-          {item.goods_name}
+          <span className='md:hidden lg:hidden'>
+            {item.goods_name.length > 15
+              ? item.goods_name.slice(0, 15) + '...'
+              : item.goods_name}
+          </span>
+          <span className='sm:hidden'>{item.goods_name}</span>
         </p>
         <span className='text-base text-black-200 line-through'>
           {item.pre_price.toLocaleString()}원
