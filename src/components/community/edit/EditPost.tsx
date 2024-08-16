@@ -155,7 +155,7 @@ const EditPost = ({ postId }: { postId: string }) => {
           <div className='flex gap-2 text-sm'>
             <button
               type='submit'
-              className={`rounded-lg bg-primary-600 px-3 py-1 flex justify-center items-center gap-1 ${
+              className={`rounded-lg bg-primary-600 px-6 py-2 flex justify-center items-center gap-1 ${
                 isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
               }`}
               disabled={isSubmitting} // 제출 중이면 버튼 비활성화

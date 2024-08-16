@@ -7,10 +7,13 @@ import CategoryBadge from '../common/CategoryBadge';
 import Loading from '@/components/common/Loading';
 import Pagination from '@/components/common/Pagination';
 import { Community } from '@/types/communityType';
+import { useRouter } from 'next/navigation';
 
 const SearchResult = ({ searchValue }: { searchValue: string }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
+
+  const router = useRouter();
 
   const {
     data: searchData,
@@ -42,7 +45,17 @@ const SearchResult = ({ searchValue }: { searchValue: string }) => {
     );
 
   if (isError || searchedPosts.length === 0)
-    return <div>검색 결과가 없습니다.</div>;
+    return (
+      <div className='flex flex-col items-center gap-10 p-24'>
+        <div>검색 결과가 없습니다.</div>
+        <button
+          onClick={() => router.push('/community')}
+          className='mt-4 px-4 py-3 bg-transparent border-[1px] border-primary-600 text-white rounded-lg max-w-xs'
+        >
+          커뮤니티 메인으로 이동하기
+        </button>
+      </div>
+    );
 
   return (
     <div className='overflow-x-auto'>
