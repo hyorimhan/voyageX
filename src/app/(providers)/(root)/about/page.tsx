@@ -9,8 +9,6 @@ import Section5 from '@/components/about/Section5';
 import Section7 from '@/components/about/section7/Section7';
 import Section6 from '@/components/about/Section6';
 import Section8 from '@/components/about/section8/Section8';
-import TopBtnMobile from '@/components/common/TopBtnMobile';
-import TopBtn from '@/components/common/TopBtn';
 
 function AboutPage() {
   const { scrollYProgress } = useScroll();

@@ -5,7 +5,6 @@ import { tourList } from '../../../services/tour';
 import { useQuery } from '@tanstack/react-query';
 import Loading from '@/components/common/Loading';
 import TopBtnMobile from '@/components/common/TopBtnMobile';
-import TopBtn from '@/components/common/TopBtn';
 
 function TourDetail({ params }: tourProps) {
   const { id } = params;
@@ -34,8 +33,7 @@ function TourDetail({ params }: tourProps) {
   return (
     <>
       <DetailCard key={tour.id} tour={tour} />
-      <TopBtn size={80} />
-      <TopBtnMobile size={30} />
+      <TopBtnMobile size={'lg:text-3xl sm:text-2xl'} />
     </>
   );
 }
