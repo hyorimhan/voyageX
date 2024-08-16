@@ -42,9 +42,10 @@ const RecommendGoodsList = () => {
     <>
       <p className='text-xl font-semibold'>지금 인기있는 굿즈</p>
       <Swiper
-        modules={[Navigation, Pagination]}
+        modules={[Navigation, Autoplay, Pagination]}
         breakpoints={breakpoints}
         className='flex w-[836px] sm:w-[408px]'
+        autoplay={{ delay: 2000, disableOnInteraction: false }}
       >
         {goods?.map((item) => (
           <SwiperSlide key={item.id}>

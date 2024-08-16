@@ -45,9 +45,10 @@ const RecommendTourList = () => {
     <>
       <p className='text-xl font-semibold'>추천 여행상품</p>
       <Swiper
-        modules={[Navigation, Pagination]}
+        modules={[Navigation, Autoplay, Pagination]}
         breakpoints={breakpoints}
         className='flex w-[836px] sm:w-[408px]'
+        autoplay={{ delay: 2000, disableOnInteraction: false }}
       >
         {hotTours?.map((item) => (
           <SwiperSlide key={item.id}>
