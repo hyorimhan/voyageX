@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 import ArrowDownWhiteIcon20px from '../common/icons/20px/ArrowDownWhiteIcon20px';
 import ArrowUpWhiteIcon20px from '../common/icons/20px/ArrowUpWhiteIcon20px';
 
@@ -11,9 +11,25 @@ interface DropDownButtonPropsType {
 function DropDownButton(props: DropDownButtonPropsType) {
   const { categories, sortBy, setSortBy } = props;
   const [isActive, setIsActive] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickBackGround = (e: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(e.target as Node)
+      ) {
+        setIsActive(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickBackGround);
+    return () => {
+      document.removeEventListener('mousedown', handleClickBackGround);
+    };
+  }, []);
 
   return (
-    <div className='relative inline-block mb-[20px]'>
+    <div ref={dropdownRef} className='relative inline-block mb-[20px]'>
       <button
         type='button'
         className='text-black-50 font-medium text-lg cursor-pointer relative w-[120px] flex flex-row items-center mt-3 justify-between px-3 mb-[13px]'
