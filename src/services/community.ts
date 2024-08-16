@@ -53,7 +53,7 @@ export async function insertPost(newPost: TWritePost) {
 
 // 이미지 업로드 서비스 함수
 export async function uploadImage(content: string) {
-  const response = await fetch('/api/community/upload/', {
+  const response = await fetch('/api/community/upload', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -157,3 +157,12 @@ export async function getPagination(page: number, limit: number) {
   const data = await response.json();
   return data;
 }
+
+// src/services/community.ts
+export const getPosts = async (page = 1, limit = 10) => {
+  const response = await fetch(`/api/community?page=${page}&limit=${limit}`);
+  if (!response.ok) {
+    throw new Error('Failed to fetch posts');
+  }
+  return response.json();
+};

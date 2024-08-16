@@ -143,71 +143,60 @@ const EditPost = ({ postId }: { postId: string }) => {
   if (isError) return <div>Error</div>;
 
   return (
-    <Page>
-      <form onSubmit={handleSubmitWrite} className='flex flex-col gap-4'>
-        <div className='text-[24px] justify-between content-center flex'>
-          <div className='flex'>
-            <Link href='/community'>
-              <div>자유게시판</div>
-            </Link>
-            <div>ㅤ{'>'}ㅤ글쓰기</div>
-          </div>
-          <div className='flex gap-2 text-sm'>
-            <button
-              type='submit'
-              className={`rounded-lg bg-primary-600 px-6 py-2 flex justify-center items-center gap-1 ${
-                isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
-              }`}
-              disabled={isSubmitting} // 제출 중이면 버튼 비활성화
-            >
-              <PenIcon24px />
-              수정
-            </button>
-          </div>
-        </div>
+    <form onSubmit={handleSubmitWrite} className='flex flex-col gap-4'>
+      <div className='text-[24px] justify-between content-center flex mb-6'>
         <div className='flex'>
-          <DropDownButton
-            categories={categories}
-            sortBy={sortBy}
-            setSortBy={setSortBy}
-          />
-          <input
-            className='flex-grow h-[48px] rounded-[16px] text-white px-4 py-3 bg-black-800 focus:outline-none'
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            placeholder='제목을 입력해주세요.'
-            maxLength={60}
-          />
+          <Link href='/community'>
+            <div>자유게시판</div>
+          </Link>
+          <div>ㅤ{'>'}ㅤ글쓰기</div>
         </div>
-        <div className='bg-black-50 rounded-2xl'>
-          <ReactQuill
-            theme='snow'
-            value={content}
-            onChange={setContent}
-            modules={{
-              toolbar: {
-                container: [
-                  [{ header: [1, 2, 3, false] }],
-                  ['bold', 'italic', 'underline', 'strike'],
-                  ['blockquote'],
-                  [{ list: 'ordered' }, { list: 'bullet' }],
-                  [{ color: [] }, { background: [] }],
-                  [{ align: [] }, 'link', 'image'],
-                ],
-              },
-            }}
-            placeholder='내용을 입력해주세요.'
-            style={{
-              color: '#000000',
-              height: '100%',
-              minHeight: 500,
-              borderRadius: 20,
-              marginBottom: '6%',
-            }}
-          />
+        <div className='flex gap-2 text-sm'>
+          <button
+            type='submit'
+            className={`rounded-lg bg-primary-600 px-6 py-3 flex justify-center items-center gap-1 ${
+              isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
+            }`}
+            disabled={isSubmitting} // 제출 중이면 버튼 비활성화
+          >
+            {isSubmitting ? '수정 중...' : '수정'}
+          </button>
         </div>
-      </form>
-    </Page>
+      </div>
+      <div className='flex'>
+        <DropDownButton
+          categories={categories}
+          sortBy={sortBy}
+          setSortBy={setSortBy}
+        />
+        <input
+          className='flex-grow h-[48px] rounded-[16px] text-white px-4 py-3 bg-black-800 focus:outline-none'
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          placeholder='제목을 입력해주세요.'
+          maxLength={60}
+        />
+      </div>
+      <div>
+        <ReactQuill
+          theme='snow'
+          value={content}
+          onChange={setContent}
+          modules={{
+            toolbar: {
+              container: [
+                [{ header: [1, 2, 3, false] }],
+                ['bold', 'italic', 'underline', 'strike'],
+                ['blockquote'],
+                [{ list: 'ordered' }, { list: 'bullet' }],
+                [{ color: [] }, { background: [] }],
+                [{ align: [] }, 'link', 'image'],
+              ],
+            },
+          }}
+        />
+      </div>
+    </form>
   );
 };
 
