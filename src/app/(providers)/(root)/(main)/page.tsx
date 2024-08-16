@@ -91,7 +91,7 @@ const MainPage = () => {
   }}
   className="section h-screen flex flex-col items-center justify-center relative bg-center bg-cover bg-no-repeat transition-opacity duration-500 opacity-100"
   style={{
-    backgroundImage: 'url(/images/section2-bg.png)',
+    backgroundImage: 'url(/images/section2_bg.svg)',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
   }}
@@ -128,7 +128,7 @@ const MainPage = () => {
         const totalPlanets = planets.length;
         const angle = (index / totalPlanets) * 2 * Math.PI;
 
-        const xPos = 150 * Math.cos(angle) - 100;
+        const xPos = 150 * Math.cos(angle);
         const yPos = 0;
         const zPos = 150 * Math.sin(angle);
 
