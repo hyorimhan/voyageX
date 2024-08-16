@@ -30,7 +30,7 @@ const VideoSection: React.FC<VideoSectionProps> = ({
         };
         checkVideoLoaded();
       }
-    }, 5000);
+    }, 3500);
   }, [setVideoLoaded]);
 
   const scrollToTop = () => {
@@ -54,7 +54,7 @@ const VideoSection: React.FC<VideoSectionProps> = ({
       />
       <div className='absolute z-10 text-left top-48 sm:w-auto sm:text-left sm:left-8 sm:mt-12 md:left-40 lg:left-52 xl:left-28'>
         <h1
-          className={`${orbitron.className} text-6xl text-left font-medium sm:text-3xl sm:font-semibold`}
+          className={`${orbitron.className} text-6xl p-2 text-gradient text-left font-medium sm:text-3xl sm:font-semibold`}
         >
           {heading}
         </h1>
