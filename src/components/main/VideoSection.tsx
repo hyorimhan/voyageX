@@ -47,18 +47,19 @@ const VideoSection: React.FC<VideoSectionProps> = ({
         src={videoSrc}
         autoPlay
         loop
+        playsInline
         muted
       />
       <div className='absolute z-10 text-center top-48 sm:w-auto sm:text-left sm:left-12 sm:mt-16 md:left-40 lg:left-52 xl:left-64'>
         <h1
-          className={`${orbitron.className} text-gradient text-6xl font-medium sm:text-3xl sm:font-semibold`}
+          className={`${orbitron.className} text-gradient text-left pb-2 text-6xl font-medium sm:text-3xl sm:font-semibold`}
         >
           {heading}
         </h1>
-        <p className='text-black-50 p-4 text-3xl font-semibold sm:text-base'>
+        <p className='text-black-50 p-4 text-left text-3xl font-semibold sm:text-base'>
           {subHeading}
         </p>
-        <p className='text-black-50 p-4 font-medium text-2xl sm:text-xs sm:font-semibold'>
+        <p className='text-black-50 p-4 font-medium text-left text-2xl sm:text-xs sm:font-semibold'>
           우주 여행의 문을 여는 창구, Voyage X입니다.
           <br />
           상상으로 꿈꾸던 우주 여행을 현실로 만들어 드립니다.

@@ -1,36 +1,47 @@
-'use client';
-import React, { useEffect, useState } from 'react';
-import { GoMoveToTop } from 'react-icons/go';
+import Image from 'next/image';
+import { useEffect, useState } from 'react';
 
-function TopBtn() {
+interface topBtnProps {
+  size: number;
+}
+
+function TopBtn({ size }: topBtnProps) {
   const [showBtn, setShowBtn] = useState(false);
 
-  const scrollTop = () => {
-    window.scroll({
-      top: 0,
-      behavior: 'smooth',
-    });
-  };
-
   useEffect(() => {
-    const handleShowBtn = () => {
-      if (window.scrollY > 500) {
+    const handleTopBtn = () => {
+      if (window.scrollY > 300) {
         setShowBtn(true);
       } else {
         setShowBtn(false);
       }
     };
-    window.addEventListener('scroll', handleShowBtn);
-    return () => {
-      window.removeEventListener('scroll', handleShowBtn);
-    };
+    window.addEventListener('scroll', handleTopBtn);
+    return () => window.removeEventListener('scroll', handleTopBtn);
   }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
+
+  if (!showBtn) {
+    return null;
+  }
   return (
-    showBtn && (
-      <button onClick={scrollTop} className='absolute text-white'>
-        <GoMoveToTop />
-      </button>
-    )
+    <button
+      onClick={scrollToTop}
+      className=' fixed right-[5%] bottom-[50%] sm:hidden z-50  transition-all duration-300 ease-in-out animate-bounce '
+    >
+      <Image
+        src={'/icons/logo/logo1.svg'}
+        alt='voyage_x_logo'
+        width={size}
+        height={size}
+      />
+    </button>
   );
 }
 export default TopBtn;

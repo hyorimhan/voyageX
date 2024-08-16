@@ -11,6 +11,9 @@ const config: Config = {
       backgroundImage: {
         'custom-background': "url('/images/배경.png')",
       },
+      lineClamp: {
+        18: '18',
+      },
       opacity: {
         '60': '0.6',
       },

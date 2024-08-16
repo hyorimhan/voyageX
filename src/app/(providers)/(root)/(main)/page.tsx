@@ -175,7 +175,6 @@ const MainPage = () => {
             ➡️
           </button>
         </div>
-        <ScrollBtn />
       </section>
 
       <section

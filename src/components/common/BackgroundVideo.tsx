@@ -5,6 +5,7 @@ export default function BackgroundVideo() {
         src='/videos/backgroundVideo.mp4'
         autoPlay
         loop
+        playsInline
         muted
         suppressHydrationWarning
       ></video>
