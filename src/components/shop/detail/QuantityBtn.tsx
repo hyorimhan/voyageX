@@ -3,6 +3,7 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import MinusIcon20px from '@/components/common/icons/20px/MinusIcon20px';
 import PlusIcon20px from '@/components/common/icons/20px/PlusIcon20px';
+import toast from 'react-hot-toast';
 
 type QuantityBtnProps = {
   goodsPrice: number;
@@ -20,6 +21,7 @@ const QuantityBtn = ({
   setQuantity,
 }: QuantityBtnProps) => {
   const handleIncrease = () => {
+    if (quantity >= 3) return toast.error('한 번에 3개까지 구매가능합니다!');
     setQuantity((prevQuantity) => (prevQuantity < 3 ? prevQuantity + 1 : 3));
   };
 
