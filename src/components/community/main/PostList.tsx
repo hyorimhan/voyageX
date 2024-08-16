@@ -9,7 +9,6 @@ import CategoryBadge from '../common/CategoryBadge';
 import Loading from '@/components/common/Loading';
 import { useState, useEffect } from 'react';
 import Pagination from '@/components/common/Pagination';
-import TopLikedPosts from './TopLikedList';
 
 const PostList = () => {
   const { selectedCategory, setSelectedCategory } = useCategory();
@@ -111,7 +110,6 @@ const PostList = () => {
           onPageChange={handlePageChange}
         />
       )}
-      <TopLikedPosts />
     </div>
   );
 };
