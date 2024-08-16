@@ -1,6 +1,6 @@
 'use client';
 
-import { Dispatch, SetStateAction, useRef, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 import AddressesList from '../mypage/address_list/AddressList';
 import AddressAddModal from '../mypage/address_list/AddressAddModal';
 import { Address } from '@/types/userAddressType';
@@ -9,11 +9,13 @@ import AddressChangeButton from './AddressChangeButton';
 
 interface AddressChangeModalProps {
   addressList: Address[];
+  isModalOpen: boolean;
   setIsModalOpen: Dispatch<SetStateAction<boolean>>;
 }
 
 function AddressChangeModal({
   addressList,
+  isModalOpen,
   setIsModalOpen,
 }: AddressChangeModalProps) {
   const modalBackground = useRef(null);
@@ -39,6 +41,22 @@ function AddressChangeModal({
   const handleSelectAddress = (id: string) => {
     setSelectedAddressId((prev) => (prev === id ? null : id));
   };
+
+  useEffect(() => {
+    if (isModalOpen) {
+      document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+    }
+
+    return () => {
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.documentElement.style.overflow = '';
+    };
+  }, [isModalOpen]);
 
   return (
     <section

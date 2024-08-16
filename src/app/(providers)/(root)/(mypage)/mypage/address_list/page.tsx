@@ -7,10 +7,11 @@ import AddressAddSheet from '@/components/mypage/address_list/AddressAddSheet';
 import AddressesList from '@/components/mypage/address_list/AddressList';
 import { Address } from '@/types/userAddressType';
 import useAuthStore from '@/zustand/store/useAuth';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 const AddressListPage: React.FC = () => {
+  const router = useRouter();
   const [showAddressAddModal, setShowAddressAddModal] =
     useState<boolean>(false);
   const [editAddress, setEditAddress] = useState<Address | null>(null);
@@ -39,12 +40,12 @@ const AddressListPage: React.FC = () => {
     <div>
       <div className='flex flex-col'>
         <div className='flex mb-9 gap-2 sm:mt-8'>
-          <Link
-            href={'/mypage/side_bar'}
+          <button
             className='self-center md:hidden lg:hidden'
+            onClick={() => router.back()}
           >
             <ArrowLeftIcon24px />
-          </Link>
+          </button>
           <p className='text-2xl sm:text-xl'>배송지 관리</p>
         </div>
         {user && (
