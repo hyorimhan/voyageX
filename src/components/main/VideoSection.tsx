@@ -1,6 +1,5 @@
 import React, { useRef, useEffect } from 'react';
 import { orbitron } from '../../../public/fonts/orbitron';
-import Image from 'next/image';
 import ScrollBtn from './ScrollBtn';
 
 type VideoSectionProps = {
