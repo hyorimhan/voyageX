@@ -5,7 +5,7 @@ function Section3() {
   return (
     <section className=' relative min-h-screen sm:overflow-x-hidden flex flex-col items-center justify-center sm:w-full sm:h-screen sm:overflow-hidden'>
       <video
-        src='https://dl.dropboxusercontent.com/scl/fi/g4sevf330uuy6cl0s6sws/3.mp4?rlkey=t3gjn9228bzw3svvymt8t5kam&st=noumfva3'
+        src='/videos/section3.mp4'
         autoPlay
         muted
         playsInline

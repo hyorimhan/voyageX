@@ -5,15 +5,15 @@ import MainText from './MainText';
 function Section1() {
   return (
     <section className='relative sm:w-full h-screen sm:overflow-hidden sm:mx-auto'>
-      {/* <video
-        src='https://streamable.com/e/c7muu2?'
+      <video
+        src='/videos/section1.mp4'
         autoPlay
         muted
         loop
         playsInline
         data-video
         className='absolute inset-0 w-full h-full object-cover'
-      /> */}
+      />
 
       <div className='relative z-10 flex h-full flex-col lg:w-[1120px] w-full mx-auto'>
         <Scroll>
