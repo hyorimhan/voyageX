@@ -3,25 +3,24 @@
 import CheckBoxDefaultIcon24px from '@/components/common/icons/24px/CheckBoxDefaultIcon24px';
 import CheckBoxHoveredIcon24px from '@/components/common/icons/24px/CheckBoxHoveredIcon24px';
 import CheckBoxPressedIcon24px from '@/components/common/icons/24px/CheckBoxPressedIcon24px';
-import { CartListType } from '@/types/mypageType';
 import { Dispatch, SetStateAction, useState } from 'react';
 import toast from 'react-hot-toast';
 
 interface CartItemSelectorPropsType {
-  selectItems: CartListType[];
+  selectItemIds: string[];
   listLength: number;
   handleSelectAllItems: () => void;
   setIsDeleteOpen: Dispatch<SetStateAction<boolean>>;
 }
 
 function CartItemSelector({
-  selectItems,
+  selectItemIds,
   listLength,
   handleSelectAllItems,
   setIsDeleteOpen,
 }: CartItemSelectorPropsType) {
   const [isHovered, setIsHovered] = useState(false);
-  const isChecked = selectItems.length === listLength && listLength > 0;
+  const isChecked = selectItemIds.length === listLength && listLength > 0;
 
   const handleClick = () => {
     handleSelectAllItems();
@@ -44,17 +43,17 @@ function CartItemSelector({
         </button>
         <span className='flex gap-1 font-medium'>
           <p>전체</p>
-          {selectItems.length === listLength
+          {selectItemIds.length === listLength
             ? !listLength
               ? '선택 '
               : '해제 '
             : '선택 '}
-          ({selectItems ? selectItems.length : 0}/{listLength})
+          ({selectItemIds ? selectItemIds.length : 0}/{listLength})
         </span>
       </div>
       <button
         onClick={() => {
-          if (!selectItems.length) {
+          if (!selectItemIds.length) {
             return toast.error('상품을 선택해주세요');
           }
           setIsDeleteOpen(true);

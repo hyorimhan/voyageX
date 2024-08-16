@@ -18,11 +18,11 @@ function Terms() {
       <div className='mt-6 mb-52'>
         <ul
           className={`space-y-6 ${
-            readMore ? '' : 'line-clamp-6 overflow-hidden'
+            readMore ? '' : 'line-clamp-18 overflow-hidden'
           }`}
         >
           <ul className='space-y-2'>
-            <li>1. 서문</li>
+            <li className='text-lg'>1. 서문</li>
             <li>
               우주여행사는 고객에게 최상의 우주 여행 경험을 제공하는 것을 목표로
               합니다. 본 약관은 우주여행사와 고객 간의 계약 조건을 명시하며,
@@ -33,7 +33,7 @@ function Terms() {
 
           <ul>
             <ul className='space-y-2'>
-              <li>2. 계약의 성립</li>
+              <li className='text-lg'>2. 계약의 성립</li>
               <ul>
                 <li>2.1 예약 및 계약 절차</li>
                 <li>
@@ -56,7 +56,7 @@ function Terms() {
           </ul>
           <ul>
             <ul className='space-y-2'>
-              <li>3. 여행 요금 및 결제</li>
+              <li className='text-lg'>3. 여행 요금 및 결제</li>
               <ul>
                 <li>3.1 여행 요금의 구성</li>
                 <li>
@@ -84,7 +84,7 @@ function Terms() {
           </ul>
           <ul>
             <ul className='space-y-2'>
-              <li>4. 여행 일정 및 서비스</li>
+              <li className='text-lg'>4. 여행 일정 및 서비스</li>
               <ul>
                 <li>4.1 여행 일정 및 세부 내용</li>
                 <li>
@@ -113,7 +113,7 @@ function Terms() {
           </ul>
           <ul>
             <ul className='space-y-2'>
-              <li>5. 여행자의 의무</li>
+              <li className='text-lg'>5. 여행자의 의무</li>
               <ul>
                 <li>5.1 여행자의 건강 상태 및 적합성 확인</li>
                 <li>
@@ -140,7 +140,7 @@ function Terms() {
           </ul>
           <ul>
             <ul className='space-y-2'>
-              <li>6. 위험 및 책임 한계</li>
+              <li className='text-lg'>6. 위험 및 책임 한계</li>
               <ul>
                 <li>6.1 우주 여행의 고유한 위험성</li>
                 <li>
@@ -160,7 +160,7 @@ function Terms() {
           </ul>
           <ul>
             <ul className='space-y-2'>
-              <li>7. 취소 및 환불 정책</li>
+              <li className='text-lg'>7. 취소 및 환불 정책</li>
               <ul>
                 <li>7.1 여행사의 취소 정책</li>
                 <li>
@@ -185,7 +185,7 @@ function Terms() {
           </ul>
           <ul>
             <ul className='space-y-2'>
-              <li>8. 개인정보 보호</li>
+              <li className='text-lg'>8. 개인정보 보호</li>
               <ul>
                 <li>8.1 수집하는 개인정보의 항목</li>
                 <li>
@@ -212,7 +212,7 @@ function Terms() {
           </ul>
           <ul>
             <ul className='space-y-2'>
-              <li>9. 분쟁 해결</li>
+              <li className='text-lg'>9. 분쟁 해결</li>
               <ul>
                 <li>9.1 분쟁 발생 시 해결 절차</li>
                 <li>
@@ -231,7 +231,7 @@ function Terms() {
           </ul>
           <ul>
             <ul className='space-y-2'>
-              <li>10. 기타</li>
+              <li className='text-lg'>10. 기타</li>
               <ul>
                 <li>10.1 약관의 변경</li>
                 <li>

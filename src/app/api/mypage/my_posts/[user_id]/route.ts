@@ -15,7 +15,8 @@ export async function GET(
   const { data, error } = await supabase
     .from('posts')
     .select('*, likes(*)')
-    .eq('user_id', user_id);
+    .eq('user_id', user_id)
+    .order('created_at', { ascending: false });
 
   if (error) {
     return NextResponse.json({ error: '작성한 게시물을 불러올 수 없습니다.' });

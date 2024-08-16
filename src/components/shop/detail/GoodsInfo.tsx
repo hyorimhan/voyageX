@@ -100,7 +100,9 @@ const GoodsInfo = ({ goods, goods_id }: GoodsInfoProps) => {
           </div>
         </div>
         <div className='flex gap-1 flex-col font-bold'>
-          <p className='text-lg text-black-500'>{formattedPrice}원</p>
+          <p className='text-lg text-black-500 line-through'>
+            {goods.pre_price.toLocaleString()}원
+          </p>
           <div className='flex text-2xl font-bold'>
             <p className='text-error-900 mr-2'>{goods.discount}%</p>
             <p>{formattedPrice}원</p>
@@ -110,7 +112,7 @@ const GoodsInfo = ({ goods, goods_id }: GoodsInfoProps) => {
           <div className='border-t-[1px] border-black-700'></div>
           <div className='flex py-3 px-4 ga text-sm p-[18px]'>
             <p className=' w-[70px]'>배송정보</p>
-            <p>예약 출고 (2024. 08. 11 이내 출고)</p>
+            <p>예약 출고 (2024. 08. 30 이내 출고)</p>
           </div>
           <div className='border-t-[1px] border-black-700'></div>
           <div className='flex py-3 px-4 ga text-sm p-[18px]'>
@@ -125,7 +127,7 @@ const GoodsInfo = ({ goods, goods_id }: GoodsInfoProps) => {
           <div className='border-t-[1px] border-black-700'></div>
           <div className='flex py-3 px-4 ga text-sm p-[18px]'>
             <p className=' w-[70px]'>색상</p>
-            <p>RED</p>
+            <p>BLACK</p>
           </div>
           <div className='border-t-[1px] border-black-700'></div>
           <QuantityBtn

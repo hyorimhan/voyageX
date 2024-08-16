@@ -15,14 +15,14 @@ function GoodsItem({ item, user_id }: GoodsItemPropsType) {
     router.push(`/shop_detail/${id}`);
   };
   return (
-    <li key={item.id} className='w-full bg-black-1000'>
-      <div className='relative'>
+    <li className='w-full bg-black-1000'>
+      <div className='sm:w-[106px] sm:h-[106px]'>
         <Image
           src={item.goods_img}
           alt={item.description}
           width={268}
           height={272}
-          className='rounded-lg cursor-pointer h-[272px] w-[268px] sm:h-[230px] sm:w-[250px]'
+          className='rounded-lg cursor-pointer'
           style={{ objectFit: 'cover' }}
           onClick={() => handleItemClick(item.id)}
         />
@@ -30,7 +30,7 @@ function GoodsItem({ item, user_id }: GoodsItemPropsType) {
       <div className='bg-black-600 rounded-xl text-xs py-1 px-2 w-min flex text-nowrap mt-3 mb-[6px] text-black-50'>
         무료배송
       </div>
-      <div className='ml-1 flex flex-col'>
+      <div className='flex flex-col'>
         <p
           className='flex justify-start cursor-pointer font-medium'
           onClick={() => handleItemClick(item.id)}

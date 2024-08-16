@@ -48,7 +48,7 @@ function AddressChangeModal({
         if (e.target === modalBackground.current) setIsModalOpen(false);
       }}
     >
-      <div className='relative sm:w-full bg-black-800 rounded-lg  p-8 my-20 h-[650px]'>
+      <div className='relative sm:w-full bg-black-800 rounded-lg p-8 my-20 h-[650px]'>
         <div>
           <div className='flex flex-col'>
             <div className='flex flex-row justify-between items-start'>

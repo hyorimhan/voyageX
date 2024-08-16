@@ -33,25 +33,33 @@ const AddressForm = (initialData: any) => {
   };
 
   const handleAliasChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setAlias(value);
+    const rawValue = e.target.value;
+    const value = rawValue.replace(/\s/g, '');
 
-    if (value.length > 6) {
+    if (/\s/g.test(rawValue)) {
+      setAliasError('공백은 사용이 불가능 합니다.');
+    } else if (value.length > 6) {
       setAliasError('6글자 이내로 입력해주세요.');
     } else {
       setAliasError('');
     }
+
+    setAlias(value);
   };
 
   const handleRecipientChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setRecipient(value);
+    const rawValue = e.target.value;
+    const value = rawValue.replace(/\s/g, '');
 
-    if (/[^a-zA-Z가-힣\s]/.test(value)) {
+    if (/\s/g.test(rawValue)) {
+      setRecipientError('공백은 사용이 불가능 합니다.');
+    } else if (/[^a-zA-Z가-힣]/.test(value)) {
       setRecipientError('특수기호나 숫자를 사용할 수 없습니다.');
     } else {
       setRecipientError('');
     }
+
+    setRecipient(value);
   };
 
   return {

@@ -72,12 +72,17 @@ export const deleteCartItem = async (
   return response.data;
 };
 
-export const adjustQuantity = async (
-  adjustQuantityParams: adjustQuantityParamsType,
-) => {
-  const { user_id, cart_id, prev, task } = adjustQuantityParams;
+export const adjustQuantity = async ({
+  user_id,
+  cart_id,
+  quantity,
+}: {
+  user_id: string;
+  cart_id: string;
+  quantity: number;
+}) => {
   const response = await axios.patch(
-    `/api/goods/cart/${user_id}?cart_id=${cart_id}&prev=${prev}&task=${task}`,
+    `/api/goods/cart/${user_id}?cart_id=${cart_id}&quantity=${quantity}`,
   );
   return response.data;
 };
