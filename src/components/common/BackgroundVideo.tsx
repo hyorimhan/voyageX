@@ -1,6 +1,6 @@
 export default function BackgroundVideo() {
   return (
-    <div className='fixed top-0 left-0 w-full h-full -z-50'>
+    <div className='fixed inset-0 w-full h-full overflow-hidden pointer-events-none'>
       <video
         src='/videos/backgroundVideo.mp4'
         autoPlay
@@ -8,6 +8,7 @@ export default function BackgroundVideo() {
         playsInline
         muted
         suppressHydrationWarning
+        className='absolute top-0 left-0 w-full h-full object-cover'
       ></video>
       {/* <div className='absolute top-0 left-0 w-full h-full bg-black-1000 opacity-30'></div> */}
     </div>
