@@ -3,6 +3,7 @@
 import ArrowLeftIcon24px from '@/components/common/icons/24px/ArrowLeftIcon24px';
 import AddressActionsBtn from '@/components/mypage/address_list/AddressActionsBtn';
 import AddressAddModal from '@/components/mypage/address_list/AddressAddModal';
+import AddressAddSheet from '@/components/mypage/address_list/AddressAddSheet';
 import AddressesList from '@/components/mypage/address_list/AddressList';
 import { Address } from '@/types/userAddressType';
 import useAuthStore from '@/zustand/store/useAuth';
@@ -73,11 +74,23 @@ const AddressListPage: React.FC = () => {
         />
       )}
       {showAddressAddModal && (
-        <AddressAddModal
-          onClose={() => setShowAddressAddModal(false)}
-          editMode={!!editAddress}
-          initialData={editAddress}
-        />
+        <>
+          <div className='sm:hidden'>
+            <AddressAddModal
+              onClose={() => setShowAddressAddModal(false)}
+              editMode={!!editAddress}
+              initialData={editAddress}
+            />
+          </div>
+          <div className='md:hidden lg:hidden'>
+            <AddressAddSheet
+              showAddressAddModal={showAddressAddModal}
+              setShowAddressAddModal={setShowAddressAddModal}
+              editMode={!!editAddress}
+              initialData={editAddress}
+            />
+          </div>
+        </>
       )}
     </div>
   );
