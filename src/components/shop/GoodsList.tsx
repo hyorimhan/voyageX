@@ -18,14 +18,14 @@ function GoodsList() {
 
   return (
     <>
-      <div className='flex justify-end mt-5'>
+      <div className='flex justify-end mb-8'>
         <DropDownButton
           categories={shopCategories}
           sortBy={sortBy}
           setSortBy={setSortBy}
         />
       </div>
-      <ul className='text-black-50 mb-4 px-5 grid gap-x-4 gap-y-8 sm:grid-cols-[106px_106px] md:grid-cols-3 lg:grid-cols-4'>
+      <ul className='text-black-50 mb-4 grid gap-x-4 gap-y-8 sm:px-5 sm:grid-cols-[160px_160px] md:grid-cols-3 lg:grid-cols-[268px_268px_268px_268px]'>
         {goods?.map((item) => (
           <GoodsItem key={item.id} item={item} user_id={user?.id} />
         ))}
