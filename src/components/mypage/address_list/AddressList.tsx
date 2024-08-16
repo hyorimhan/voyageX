@@ -52,7 +52,7 @@ const AddressesList = ({
           onMouseEnter={() => setHoveredAddressId(address.id)}
           onMouseLeave={() => setHoveredAddressId(null)}
         >
-          <div className='flex text-center py-6 sm:flex-wrap sm:py-[16px]'>
+          <div className='flex text-center py-4 sm:flex-wrap sm:py-[16px]'>
             <button
               onClick={() => onSelectAddress(address.id)}
               className='w-[68px] flex justify-center items-center relative mr-[27px] sm:m-0 sm:w-fit'
@@ -73,14 +73,14 @@ const AddressesList = ({
                 </p>
               )}
             </div>
-            <div className='flex gap-[19px] items-center sm:flex-wrap sm:gap-0'>
+            <div className='flex items-center ml-2 sm:flex-wrap sm:gap-0'>
               <div className='w-[78px] flex flex-col text-center sm:hidden'>
                 {address.is_default && (
                   <p className='text-primary-200 text-[10px]'>기본배송지</p>
                 )}
                 <p className='text-sm text-center'>{address.alias}</p>
               </div>
-              <div className='text-left text-sm w-[363px] px-2 sm:text-xs sm:mt-2'>
+              <div className='text-left ml-5 text-sm w-[363px] px-2 sm:text-xs sm:mt-2'>
                 <p className='mb-1 md:hidden lg:hidden'>{address.recipient}</p>
                 <p className='mb-1 sm:mb-0'>({address.postcode})</p>
                 <p>
@@ -90,7 +90,7 @@ const AddressesList = ({
                   지번 : {address.oldAddress} {address.detailAddress}
                 </p>
               </div>
-              <div className='text-sm w-[173px] sm:flex sm:ml-2 sm:text-xs sm:w-full'>
+              <div className='text-sm ml-4 w-[173px] sm:flex sm:ml-2 sm:text-xs sm:w-full'>
                 <p className='mb-1 sm:hidden'>{address.recipient}</p>
                 <p>{address.phone}</p>
               </div>
