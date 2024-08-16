@@ -44,14 +44,12 @@ function LikedPlanetList({
     <ul className='text-black-50 mb-4 grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 mt-4'>
       {likedTours.length
         ? likedTours.map((item) => (
-            <>
-              <LikedPlanetItem
-                key={item.id}
-                user_id={user_id}
-                item={item}
-                handleGoToItem={handleGoToItem}
-              />
-            </>
+            <LikedPlanetItem
+              key={item.id}
+              user_id={user_id}
+              item={item}
+              handleGoToItem={handleGoToItem}
+            />
           ))
         : '찜한 투어가 없습니다!'}
     </ul>

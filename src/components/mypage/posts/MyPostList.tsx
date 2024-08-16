@@ -68,12 +68,17 @@ const MyPostList = () => {
                   </p>
                 </div>
               </div>
-              <p className='font-bold line-clamp-1'>{post.title}</p>
-              <div>
+              <Link
+                href={`/community/${post.id}`}
+                className='font-bold line-clamp-1'
+              >
+                {post.title}
+              </Link>
+              <Link href={`/community/${post.id}`}>
                 <p className='line-clamp-4 text-sm sm:text-xs'>
                   {post.content}
                 </p>
-              </div>
+              </Link>
             </div>
             <div className='border-b-[1px] border-solid border-black-700'></div>
           </div>

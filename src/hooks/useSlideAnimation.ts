@@ -54,10 +54,6 @@ const useSlideAnimation = (
             duration: 1,
             ease: 'power2.inOut',
           });
-
-          // 디버깅을 위한 로그 추가
-          const planet = planets[index]; // planets 배열의 요소 가져오기
-          const tourPrice: number | undefined = planet.price;
         }
       });
     };
