@@ -68,7 +68,7 @@ const MainPage = () => {
     <div>
       <Chatbot />
       <VideoSection
-        videoSrc='/videos/main11.mp4'
+        videoSrc=' https://dl.dropboxusercontent.com/scl/fi/qc5g3hr3d0uv7tkwzscrr/main11.mp4?rlkey=4aupyoz91ct7go0la75mrskdz&st=gzb6wz2k'
         heading='Voyage X'
         subHeading='상상을 현실로, 우주에서의 만남'
         sectionRef={{ current: sectionsRef.current[0] }} // sectionRef 타입 맞추기 위해 명시적 지정
@@ -302,8 +302,10 @@ const MainPage = () => {
         className='section section-bg h-screen flex flex-col items-center justify-center'
       >
         <TopPostsSection />
+        {/* <div>
+          <Footer />
+        </div> */}
       </section>
-      <Footer />
     </div>
   );
 };
