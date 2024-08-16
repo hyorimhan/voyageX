@@ -44,7 +44,7 @@ export const logout = async () => {
 
 // 카카오
 export const signInWithKakao = async () => {
-  const { data, error } = await supabase.auth.signInWithOAuth({
+  const { error } = await supabase.auth.signInWithOAuth({
     provider: 'kakao',
     options: {
       queryParams: {
@@ -53,7 +53,9 @@ export const signInWithKakao = async () => {
       },
     },
   });
-  if (data) {
+  const user = await userLoginInfo();
+
+  if (user) {
     toast.success('로그인 되었습니다');
   }
   if (error) {
@@ -63,7 +65,7 @@ export const signInWithKakao = async () => {
 
 // 구글
 export const signInWithGoogle = async () => {
-  const { data, error } = await supabase.auth.signInWithOAuth({
+  const { error } = await supabase.auth.signInWithOAuth({
     provider: 'google',
     options: {
       queryParams: {
@@ -71,7 +73,9 @@ export const signInWithGoogle = async () => {
       },
     },
   });
-  if (data) {
+  const user = await userLoginInfo();
+
+  if (user) {
     toast.success('로그인 되었습니다');
   }
   if (error) {
