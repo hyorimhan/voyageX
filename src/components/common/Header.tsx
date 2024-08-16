@@ -7,12 +7,11 @@ import LogoutBtn from '@/components/auth/logout/LogoutBtn';
 import MyPageIcon24px from './icons/24px/MyPageIcon24px';
 import ShoppingBagIcon24px from './icons/24px/ShoppingBagIcon24px';
 import HeartDefaultIcon24px from './icons/24px/HeartDefaultIcon24px';
-// import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 // import Loading from './Loading';
 import { orbitron } from '../../../public/fonts/orbitron';
 import Image from 'next/image';
 import useLastSelectWishListStore from '@/zustand/store/useLastSelectWishListStore';
-import { createClient } from '@/supabase/client';
 import Link from 'next/link';
 import { userLoginInfo } from '@/services/auth';
 
@@ -23,6 +22,13 @@ const Header = () => {
   // const router = useRouter();
   // const [isPending, startTransition] = useTransition();
   const { setLastSelectTab } = useLastSelectWishListStore((state) => state);
+
+  const router = useRouter();
+
+  const handleLoginClick: React.MouseEventHandler<HTMLButtonElement> = (e) => {
+    e.preventDefault();
+    router.push('/login');
+  };
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -97,9 +103,12 @@ const Header = () => {
             {user ? (
               <LogoutBtn />
             ) : (
-              <Link href={'/login'} className='hover:text-gray-300'>
+              <button
+                onClick={handleLoginClick}
+                className='hover:text-gray-300'
+              >
                 <span className=' hover:text-gray-300 w-[50px]'>로그인</span>
-              </Link>
+              </button>
             )}
             <button onClick={toggleMenu} className='lg:hidden '>
               <FaBars className='w-6 h-6' />
