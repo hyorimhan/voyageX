@@ -6,7 +6,7 @@ import { RiNotionFill } from 'react-icons/ri';
 
 const Footer = () => {
   return (
-    <footer className='bg-black bg-opacity-75  text-white py-6 relative z-20'>
+    <footer className='bg-black-900 bg-opacity-75 w-full text-white py-6 relative z-20'>
       <div className='container mx-auto px-6'>
         <div className='flex flex-col md:flex-row justify-between items-center'>
           <div className='text-center md:text-left mb-4 md:mb-0'>

@@ -65,7 +65,7 @@ function Popup() {
         popupTitle={'text-white text-center'}
         popupWidth={'w-[700px]'}
         popupContent={'flex-grow'}
-        popup={'h-[70%] sm:h-[550px]'}
+        popup={'h-[700px] sm:h-[550px]'}
         buttonText={'확인'}
         buttonAction={handleCloseModal}
         popupButton={

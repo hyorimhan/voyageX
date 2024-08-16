@@ -4,12 +4,12 @@ function Section4() {
   return (
     <section className=' relative sm:w-full sm:h-screen sm:overflow-hidden lg:min-h-screen flex flex-col justify-center items-center '>
       <video
-        src='https://dl.dropboxusercontent.com/scl/fi/tdg9uxfik3oj3s2bdvecn/7664745-hd_1920_1080_25fps.mp4?rlkey=p59d4flvsgh4uclytlsowbue7&st=zgthsdij'
+        src='/videos/section4.mp4'
         autoPlay
         muted
         playsInline
         loop
-        className='absolute top-0 left-0  w-full sm:h-full object-cover'
+        className='absolute top-0 left-0  w-full h-full object-cover'
       />
       <div className='relative'>
         <Scroll>
@@ -32,8 +32,8 @@ function Section4() {
                 <div className='sm:hidden'>
                   <p>
                     여행상품 페이지에서는 토스 페이먼츠 API를 사용해 우주 여행
-                    상품을 결제할 수 있습니다. 또한, 장바구니 대신 찜 기능을
-                    제공해 상품을 저장할 수 있습니다.
+                    상품을 결제할 수 있습니다. 장바구니 대신 찜 기능을 제공해
+                    상품을 저장할 수 있습니다.
                   </p>
                 </div>
                 <div className='lg:hidden  sm:p-3'>
@@ -47,11 +47,6 @@ function Section4() {
                 <div className='sm:hidden'>
                   굿즈샵 페이지에서는 로고가 들어간 다양한 우주 관련 굿즈를
                   구경하고, 토스 페이먼츠 API를 통해 결제할 수 있습니다.
-                  <div>
-                    장바구니에 원하는 만큼 상품을 담아 구매할 수 있으며,
-                    상품별로 리뷰를 조회하고 작성, 수정할 수 있습니다. 상품 정렬
-                    기능도 제공됩니다.
-                  </div>
                 </div>
                 <div className='lg:hidden  sm:p-3'>
                   굿즈샵은 우주 테마의 상품을 판매하는 공간으로, 장바구니 기능과
@@ -61,12 +56,7 @@ function Section4() {
               </div>
 
               <div className=' lg:p-5'>
-                <div className='sm:hidden'>
-                  커뮤니티 페이지에서는 우주 여행사 컨셉에 맞는 우주 관련
-                  커뮤니티 기능을 제공합니다. 페이지 네이션으로 여러 페이지를
-                  쉽게 오갈 수 있으며, 필터별로 글을 나눠 볼 수 있습니다.
-                </div>
-                <div className='lg:hidden sm:p-3'>
+                <div className=' sm:p-3'>
                   커뮤니티 페이지는 우주 애호가들의 소통 공간입니다. 주제별
                   필터링과 페이지네이션 기능으로 사용자 편의성을 높였습니다.
                 </div>

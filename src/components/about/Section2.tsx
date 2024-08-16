@@ -4,12 +4,12 @@ function Section2() {
   return (
     <section className='relative sm:w-full sm:h-screen sm:overflow-hidden '>
       <video
-        src='https://dl.dropboxusercontent.com/scl/fi/cg80z00lc001yjq4dhuf4/7649283-hd_1920_1080_30fps.mp4?rlkey=2yh286kl70zdea35bq53og5tj&st=5rrqtlxb'
+        src='/videos/section2.mp4'
         autoPlay
         muted
         loop
         playsInline
-        className='absolute top-0 left-0  w-full sm:h-full object-cover'
+        className='absolute inset-0 w-full h-full object-cover'
       />
       <div className='relative z-10 min-h-screen sm:h-screen flex flex-col justify-center sm:items-center'>
         <Scroll>
