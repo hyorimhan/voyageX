@@ -30,7 +30,7 @@ const WriteButton = () => {
       )}
       <button
         onClick={handleClickWrite}
-        className='flex items-center bg-primary-600 text-black-50 px-8 py-3 rounded-lg sm:text-sm sm:px-5 sm:py-2'
+        className='flex items-center bg-primary-600 text-black-50 px-4 py-3 rounded-lg sm:text-sm sm:px-5 sm:py-2 gap-2'
       >
         <PenIcon20px />
         글쓰기
