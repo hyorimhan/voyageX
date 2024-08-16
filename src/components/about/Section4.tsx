@@ -9,7 +9,7 @@ function Section4() {
         muted
         playsInline
         loop
-        className='absolute top-0 left-0  w-full sm:h-full object-cover'
+        className='absolute top-0 left-0  w-full h-full object-cover'
       />
       <div className='relative'>
         <Scroll>

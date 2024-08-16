@@ -15,19 +15,21 @@ function AboutPage() {
 
   return (
     <>
-      <motion.div
-        className='fixed z-50 top-0 right-0 left-0 h-[10px] bg-primary-300 origin-top-left'
-        style={{ scaleX: scrollYProgress }}
-      />
+      <div className='flex flex-col min-h-screen'>
+        <motion.div
+          className='fixed z-50 top-0 right-0 left-0 h-[10px] bg-primary-300 origin-top-left'
+          style={{ scaleX: scrollYProgress }}
+        />
 
-      <Section1 />
-      <Section2 />
-      <Section3 />
-      <Section4 />
-      <Section5 />
-      <Section6 />
-      <Section7 />
-      <Section8 />
+        <Section1 />
+        <Section2 />
+        <Section3 />
+        <Section4 />
+        <Section5 />
+        <Section6 />
+        <Section7 />
+        <Section8 />
+      </div>
     </>
   );
 }
