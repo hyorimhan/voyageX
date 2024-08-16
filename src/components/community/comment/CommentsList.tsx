@@ -140,7 +140,7 @@ const CommentList = ({
               {userId === comment.user_id ? (
                 <div className='flex gap-2 pt-8 items-center'>
                   <PostWriterIcon />
-                  우주인
+                  익명의 우주인
                   <div className='flex px-2 py-1 bg-black-50 rounded-3xl font-bold text-black-1000 text-xs items-center justify-center'>
                     작성자
                   </div>
@@ -148,7 +148,7 @@ const CommentList = ({
               ) : (
                 <div className='flex gap-2 pt-8'>
                   <CommentWriterIcon />
-                  외계인
+                  익명의 외계인
                 </div>
               )}
               <div>{comment.content}</div>

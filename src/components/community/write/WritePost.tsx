@@ -107,8 +107,8 @@ const WritePost = () => {
     }
 
     const plainTextContent = content.replace(/<[^>]*>?/gm, '').trim(); // HTML 태그 제거 후 순수 텍스트 추출
-    if (plainTextContent.length < 10) {
-      return toast.error('내용은 최소 10글자 이상 입력해야 합니다.');
+    if (plainTextContent.length < 5) {
+      return toast.error('내용은 최소 5글자 이상 입력해야 합니다.');
     }
 
     if (isSubmitting) return;

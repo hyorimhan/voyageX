@@ -34,9 +34,12 @@ function DetailDate() {
           <div className='flex sm:flex-wrap sm:w-full '>
             <div className='mx-auto sm:mr-0  md:w-64 sm:w-full lg:w-[440px] my-auto cursor-pointer '>
               {view ? (
-                <span className='ml-6'>{selectDepart}</span>
+                <span className='sm:ml-7'>{selectDepart}</span>
               ) : (
-                <> {selectDepart}</>
+                <>
+                  {' '}
+                  <span>{selectDepart}</span>
+                </>
               )}
             </div>
             <div className='sm:absolute sm:right-10 mr-3'>
@@ -56,13 +59,13 @@ function DetailDate() {
                 className='transition md:mx-auto w-full lg:flex  md:w-[700px] h-11 border-t border-t-black-500 items-center bg-black-800 hover:bg-black-700'
                 onClick={() => selectDate(date.depart_date!, date.arrive_date!)}
               >
-                <div className='lg:w-1/2 lg:truncate '>
+                <div className='lg:w-full lg:truncate '>
                   {date.depart_date} 12:30
                   <span className='lg:hidden '>{` ~ `}</span>
                 </div>
                 <div className='sm:hidden md:hidden'>~</div>
 
-                <div className='lg:w-1/2  lg:truncate '>
+                <div className='lg:w-full  lg:truncate '>
                   {date.arrive_date} 19:30
                 </div>
               </button>

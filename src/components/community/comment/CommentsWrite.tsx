@@ -52,7 +52,7 @@ const CommentsWrite = ({
             htmlFor='comment'
             className='absolute top-3 left-5 text-sm text-gray-200 ml-5'
           >
-            {userId === user?.id ? '우주인' : '외계인'}
+            {userId === user?.id ? '익명의 우주인' : '익명의 외계인'}
           </label>
           <textarea
             id='comment'

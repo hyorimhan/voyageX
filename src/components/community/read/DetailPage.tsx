@@ -68,7 +68,7 @@ const DetailPage = ({ params }: { params: { postId: string } }) => {
             <div className='flex flex-col gap-2'>
               <div className='flex gap-2 items-center'>
                 <PostWriterIcon />
-                <div>우주인</div>
+                <div>익명의 우주인</div>
               </div>
               <div className='text-black-400'>
                 {new Date(post.created_at).toLocaleDateString()}
