@@ -20,7 +20,7 @@ export const getPlanetsList = async (): Promise<Planet[]> => {
     throw error;
   }
 
-  return (planets ?? []).map((planet) => {
+  return (planets ?? []).map(planet => {
     const tour = planet.tours?.[0];
     const price = tour?.price ?? 0;
 

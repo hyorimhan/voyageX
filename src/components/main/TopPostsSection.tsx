@@ -35,18 +35,19 @@ const TopPostsSection: React.FC = () => {
   return (
     <section className='section h-screen flex items-center justify-center relative'>
       <div className='w-full max-w-6xl mx-auto p-4'>
-        <h1 className={`text-4xl left-28 mb-8 mt-8 ${orbitron.className} font-semibold`}>
+        <h1 className={`text-4xl left-28 mb-8 mt-8 ${orbitron.className} font-semibold sm:text-2xl sm:font-medium sm:top-16`}>
           FREE BOARD
         </h1>
         <Link href='/community'>
-          <p className='absolute top-60 right-8'>MORE+</p>
+          <p className='absolute top-60 right-8 sm:top-32 sm:right-4 '>MORE+</p>
         </Link>
-        <div className='grid grid-cols-2 gap-8 relative'>
-          {posts.map((post: Post) => (
+        <div className='grid grid-cols-2 gap-8 relative sm:grid-cols-1 sm:gap-4'>
+          {posts.slice(0, 4).map((post: Post, index) => (
             <Link
               href={`/community/${post.id}`}
               key={post.id}
-              className='p-6 md:p-8 rounded-md block bg-black text-white hover:bg-gray-700 transition-colors'
+              className={`p-4 rounded-md block bg-black text-white hover:bg-gray-700 transition-colors
+              ${index >= 2 ? 'sm:hidden' : ''}`}
             >
               <div className='flex flex-col justify-between h-full'>
                 <div>
@@ -80,6 +81,7 @@ const TopPostsSection: React.FC = () => {
               alt='Center Star'
               width={1200}
               height={1200}
+              className='sm:hidden'
             />
           </div>
         </div>
