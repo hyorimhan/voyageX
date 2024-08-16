@@ -9,7 +9,7 @@ export default function BackgroundVideo() {
         muted
         suppressHydrationWarning
       ></video>
-      <div className='absolute top-0 left-0 w-full h-full bg-black-1000 opacity-30'></div>
+      {/* <div className='absolute top-0 left-0 w-full h-full bg-black-1000 opacity-30'></div> */}
     </div>
   );
 }
