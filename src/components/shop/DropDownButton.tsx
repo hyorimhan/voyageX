@@ -16,14 +16,14 @@ function DropDownButton(props: DropDownButtonPropsType) {
     <div className='relative inline-block mb-[20px]'>
       <button
         type='button'
-        className='text-black-50 font-medium text-lg cursor-pointer relative w-40 flex flex-row items-center mt-3 justify-center px-3 mb-[13px]'
+        className='text-black-50 font-medium text-lg cursor-pointer relative w-[120px] flex flex-row items-center mt-3 justify-between px-3 mb-[13px]'
         onClick={() => setIsActive((prev) => !prev)}
       >
         {categories[sortBy]}
         {isActive ? <ArrowUpWhiteIcon20px /> : <ArrowDownWhiteIcon20px />}
       </button>
       <ul
-        className={`text-white cursor-pointer w-40 absolute border border-black-200 shadow-lg transition-all duration-300 ease-out overflow-hidden rounded`}
+        className={`text-white cursor-pointer w-[120px] absolute border border-black-200 shadow-lg transition-all duration-300 ease-out overflow-hidden rounded`}
         style={{
           zIndex: 1000,
           maxHeight: isActive
@@ -36,7 +36,7 @@ function DropDownButton(props: DropDownButtonPropsType) {
           Object.entries(categories).map(([key, value]) => (
             <li
               key={key}
-              className='cursor-pointer text-sm text-black-1000 bg-black-50 border border-black-100 hover:bg-black-200 flex items-center justify-center'
+              className='cursor-pointer text-sm text-black-1000 bg-black-50 border border-black-100 hover:bg-black-200 flex items-center justify-start px-4'
               style={{ height: '3rem' }}
               onClick={() => {
                 setSortBy(key);
