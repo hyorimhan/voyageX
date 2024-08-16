@@ -28,7 +28,7 @@ const modalVariants = {
   },
   exit: {
     opacity: 0,
-    y: '10%',
+    y: '100%',
   },
 };
 
@@ -36,6 +36,7 @@ const modalTransition = {
   type: 'spring',
   stiffness: 500,
   damping: 50,
+  duration: 0.4,
 };
 
 function CustomerChangeSheet({
@@ -78,20 +79,23 @@ function CustomerChangeSheet({
   useEffect(() => {
     if (isModalOpen) {
       document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
     }
+
+    return () => {
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.documentElement.style.overflow = '';
+    };
   }, [isModalOpen]);
 
   return (
     <AnimatePresence>
       <motion.section
         className='fixed inset-0 flex items-end justify-center bg-black-1000 bg-opacity-75 z-30'
-        variants={modalVariants}
-        initial='hidden'
-        animate='visible'
-        exit='exit'
-        transition={modalTransition}
         onClick={(e) => {
           if (e.target === e.currentTarget) setIsModalOpen(false);
         }}
@@ -100,6 +104,9 @@ function CustomerChangeSheet({
           className='bg-black-800 w-full rounded-t-lg p-8 transform'
           variants={modalVariants}
           transition={modalTransition}
+          initial='hidden'
+          animate='visible'
+          exit='exit'
         >
           <div className='flex justify-end'>
             <button type='button' onClick={() => setIsModalOpen(false)}>

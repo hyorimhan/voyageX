@@ -25,7 +25,7 @@ function GoodsList() {
           setSortBy={setSortBy}
         />
       </div>
-      <ul className='text-black-50 mb-4 grid gap-x-4 gap-y-8 sm:px-5 sm:grid-cols-[160px_160px] md:grid-cols-3 lg:grid-cols-[268px_268px_268px_268px]'>
+      <ul className='text-black-50 mb-4 grid gap-x-4 gap-y-8 sm:px-5 sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:grid-cols-3 lg:grid-cols-4'>
         {goods?.map((item) => (
           <GoodsItem key={item.id} item={item} user_id={user?.id} />
         ))}
