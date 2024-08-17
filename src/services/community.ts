@@ -2,6 +2,7 @@ import {
   MyPost,
   TEditComment,
   TEditPost,
+  TopPost,
   TPagination,
   TWriteComment,
   TWritePost,
@@ -158,11 +159,10 @@ export async function getPagination(page: number, limit: number) {
   return data;
 }
 
-// src/services/community.ts
-export const getPosts = async (page = 1, limit = 10) => {
-  const response = await fetch(`/api/community?page=${page}&limit=${limit}`);
+export async function getTopLikedPosts() {
+  const response = await fetch('/api/community/top-liked');
   if (!response.ok) {
-    throw new Error('Failed to fetch posts');
+    throw new Error('Failed to fetch top liked posts');
   }
   return response.json();
-};
+}

@@ -7,11 +7,31 @@ export async function GET(
 ) {
   const { category } = params;
   const supabase = createClient();
+
+  const { searchParams } = new URL(request.url);
+  const page = parseInt(searchParams.get('page') || '1', 10);
+  const limit = parseInt(searchParams.get('limit') || '10', 10);
+  const offset = (page - 1) * limit;
+
+  // 총 게시글 수 가져오기
+  const { count: total, error: totalError } = await supabase
+    .from('posts')
+    .select('*', { count: 'exact', head: true })
+    .eq('category', category);
+
+  if (totalError || total === null) {
+    return NextResponse.json(
+      { error: totalError?.message || 'Total count retrieval failed' },
+      { status: 500 },
+    );
+  }
+
   const { data: posts, error } = await supabase
     .from('posts')
     .select('*')
     .eq('category', category)
-    .order('created_at', { ascending: false });
+    .order('created_at', { ascending: false })
+    .range(offset, offset + limit - 1);
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
@@ -39,6 +59,8 @@ export async function GET(
 
   return NextResponse.json({
     posts: postsDetails,
-    total: postsDetails.length,
+    total,
+    page,
+    totalPages: Math.ceil(total / limit),
   });
 }
