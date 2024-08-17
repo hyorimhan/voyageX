@@ -13,10 +13,10 @@ export async function POST(request: NextRequest) {
   // Base64 이미지를 버퍼로 변환
   const buffer = Buffer.from(image.split(',')[1], 'base64');
 
-  // 이미지 용량 제한 (1MB = 1 * 1024 * 1024 bytes
-  const MAX_SIZE = 1 * 1024 * 1024;
+  // 이미지 용량 제한 (3MB = 1 * 1024 * 1024 bytes
+  const MAX_SIZE = 3 * 1024 * 1024;
   if (buffer.length > MAX_SIZE) {
-    return NextResponse.json({ error: '1MB 용량 제한' }, { status: 413 });
+    return NextResponse.json({ error: '3MB 용량 제한' }, { status: 413 });
   }
 
   // Supabase Storage에 업로드

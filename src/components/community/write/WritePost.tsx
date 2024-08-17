@@ -81,9 +81,9 @@ const WritePost = () => {
 
             if (error instanceof Error) {
               if (error.message.includes('413')) {
-                toast.error('이미지 용량이 1MB를 초과했습니다.');
+                toast.error('이미지 용량이 3MB를 초과했습니다.');
               } else {
-                toast.error('이미지 업로드에 실패했습니다.');
+                toast.error('이미지 용량이 3MB를 초과했습니다.');
               }
             } else {
               toast.error('알 수 없는 오류가 발생했습니다.');
@@ -105,7 +105,7 @@ const WritePost = () => {
       return toast.error('제목은 최소 2글자 이상이어야 합니다.');
     }
 
-    const plainTextContent = content.replace(/<[^>]*>?/gm, '').trim(); // HTML 태그 제거 후 순수 텍스트 추출
+    const plainTextContent = content.replace(/<[^>]*>?/gm, '').trim();
     if (plainTextContent.length < 5) {
       return toast.error('내용은 최소 5글자 이상 입력해야 합니다.');
     }

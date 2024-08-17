@@ -7,17 +7,31 @@ import { Community } from '@/types/communityType';
 import { useCategory } from '@/zustand/store/useCategory';
 import CategoryBadge from '../common/CategoryBadge';
 import Loading from '@/components/common/Loading';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import Pagination from '@/components/common/Pagination';
+import TopLikedList from './TopLikedList';
+
+const ITEMS_PER_PAGE = 10;
 
 const PostList = () => {
   const { selectedCategory, setSelectedCategory } = useCategory();
   const [currentPage, setCurrentPage] = useState(1);
-  const ITEMS_PER_PAGE = 10;
 
   useEffect(() => {
     setSelectedCategory('All');
   }, [setSelectedCategory]);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [selectedCategory]);
+
+  const fetchPosts = useCallback(() => {
+    if (selectedCategory === 'All') {
+      return getPostAll(currentPage, ITEMS_PER_PAGE);
+    } else {
+      return getPostByCategory(selectedCategory, currentPage, ITEMS_PER_PAGE);
+    }
+  }, [selectedCategory, currentPage]);
 
   const {
     data: postData,
@@ -30,27 +44,16 @@ const PostList = () => {
     totalPages: number;
   }>({
     queryKey: ['post', selectedCategory, currentPage],
-    queryFn: () => {
-      if (selectedCategory === 'All') {
-        return getPostAll(currentPage, ITEMS_PER_PAGE);
-      } else {
-        return getPostByCategory(selectedCategory, currentPage, ITEMS_PER_PAGE);
-      }
-    },
+    queryFn: fetchPosts,
   });
 
-  const handlePageChange = (page: number) => {
+  const handlePageChange = useCallback((page: number) => {
     setCurrentPage(page);
-  };
+  }, []);
 
-  if (isPending)
-    return (
-      <div>
-        <Loading />
-      </div>
-    );
+  const posts = useMemo(() => postData?.posts || [], [postData?.posts]);
 
-  const posts = postData?.posts || [];
+  if (isPending) return <Loading />;
   if (isError) return <div>error</div>;
 
   return (
@@ -73,6 +76,7 @@ const PostList = () => {
             댓글
           </span>
         </div>
+        <TopLikedList />
         {posts.length > 0 ? (
           posts.map((post) => (
             <Link href={post.id} key={post.id}>

@@ -38,3 +38,12 @@ export interface TPagination<T> {
   page: number;
   totalPages: number;
 }
+
+export type TopPost = {
+  id: string;
+  title: string;
+  category: string;
+  created_at: string;
+  user_id: string;
+  likes_count: number;
+};
