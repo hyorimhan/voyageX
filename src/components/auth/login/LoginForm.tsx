@@ -2,7 +2,6 @@
 
 import { login } from '@/services/auth';
 import { formType } from '@/types/authFormType';
-import { useRouter, useSearchParams } from 'next/navigation';
 import { FieldErrors, useForm, useWatch } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import useAuthStore from '../../../zustand/store/useAuth';
@@ -12,6 +11,7 @@ import { emailValidate, passwordValidate } from '../AuthValidate';
 import EyeOffIcon24px from '../../common/icons/24px/EyeOffIcon24px';
 import EyeOnIcon24px from '@/components/common/icons/24px/EyeOnIcon24px';
 import { orbitron } from '../../../../public/fonts/orbitron';
+import { IoCardOutline } from 'react-icons/io5';
 
 function LoginForm() {
   // const searchParams = useSearchParams();
@@ -40,29 +40,38 @@ function LoginForm() {
 
   const loginForm = async (data: formType) => {
     const response = await login(data);
-
     if (response.error) {
       toast.error(response.error);
       reset();
       return;
     }
 
-    if (response.message) {
-      toast.success(response.message);
+    if (response.user) {
+      toast.success('로그인에 성공했습니다');
 
       saveUser(response.user);
-      // router.replace('/');
-      // const redirectPath = searchParams.get('redirect') || '/';
-      // window.location.href = redirectPath;
       window.location.href = '/';
 
+      return;
+    } else {
+      toast.error('로그인에 실패했습니다');
+    }
+  };
+
+  const loginError = (errors: FieldErrors<formType>) => {
+    if (errors.email?.message) {
+      toast.error(errors.email.message);
+      return;
+    }
+    if (errors.password?.message) {
+      toast.error(errors.password.message);
       return;
     }
   };
 
   return (
     <div className='flex flex-col items-end justify-center'>
-      <form onSubmit={handleSubmit(loginForm)}>
+      <form onSubmit={handleSubmit(loginForm, loginError)}>
         <div
           className={`text-center text-2xl font-medium my-4 ${orbitron.className} `}
         >
