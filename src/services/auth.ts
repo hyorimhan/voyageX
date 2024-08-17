@@ -68,6 +68,7 @@ export const signInWithGoogle = async () => {
       queryParams: {
         access_type: 'offline',
       },
+      redirectTo: `${window.location.origin}/api/auth/google`,
     },
   });
 
