@@ -49,8 +49,9 @@ export const signInWithKakao = async () => {
     options: {
       queryParams: {
         access_type: 'offline',
-        prompt: 'consent',
+        prompt: 'login',
       },
+      redirectTo: `${window.location.origin}/api/auth/kakao`,
     },
   });
 
