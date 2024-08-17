@@ -64,12 +64,11 @@ const TopPostsSection = () => {
                     {post.title}
                   </h2>
                   <p className='text-black-300 mb-4 text-sm md:text-base'>
-                    {post.content.replace(/<\/?p>|<\/?img[^>]*>/g, '').length >
-                    120
+                    {post.content.replace(/<\/?[^>]+(>|$)/g, '').length > 120
                       ? `${post.content
-                          .replace(/<\/?p>|<\/?img[^>]*>/g, '')
+                          .replace(/<\/?[^>]+(>|$)/g, '')
                           .substring(0, 120)}...`
-                      : post.content.replace(/<\/?p>|<\/?img[^>]*>/g, '')}
+                      : post.content.replace(/<\/?[^>]+(>|$)/g, '')}
                   </p>
                 </div>
                 <div className='text-black-50 flex justify-between items-center mt-auto text-xs md:text-sm'>
