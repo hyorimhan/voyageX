@@ -76,7 +76,7 @@ const MyPostList = () => {
               </Link>
               <Link href={`/community/${post.id}`}>
                 <p className='line-clamp-4 text-sm sm:text-xs'>
-                  {post.content}
+                  {post.content.replace(/<\/?p>|<\/?img[^>]*>/g, '')}
                 </p>
               </Link>
             </div>

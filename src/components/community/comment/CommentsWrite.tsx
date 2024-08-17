@@ -29,8 +29,8 @@ const CommentsWrite = ({
 
     if (!user) return toast.error('로그인 후 이용하실 수 있습니다.');
 
-    if (!/^(?!\s*$).{5,}$/.test(content)) {
-      return toast.error('댓글은 최소 5글자 이상이어야 합니다.');
+    if (!/^(?!\s*$).{2,}$/.test(content)) {
+      return toast.error('댓글은 최소 2글자 이상이어야 합니다.');
     }
 
     const newComment = {
