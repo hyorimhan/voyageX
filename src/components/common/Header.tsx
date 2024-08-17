@@ -42,7 +42,7 @@ const Header = () => {
       saveUser(userInfo);
     };
     loginInfo();
-  }, []);
+  }, [saveUser]);
 
   return (
     <>
