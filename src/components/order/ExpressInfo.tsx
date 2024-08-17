@@ -33,13 +33,13 @@ function ExpressInfo({ addressList }: ExpressInfoPropsType) {
               className='sm:hidden bg-primary-400 rounded flex  items-center justify-center px-3 py-2 w-[89px] h-[33px] text-sm transition-colors duration-200 hover:bg-primary-200 active:bg-primary-300'
               onClick={() => setIsModalOpen(true)}
             >
-              배송지 변경
+              {defaultAddress ? '배송지 변경' : '배송지 입력'}
             </button>
             <button
               className='md:hidden lg:hidden bg-primary-400 rounded flex  items-center justify-center px-3 py-2 w-[89px] h-[33px] text-sm transition-colors duration-200 hover:bg-primary-200 active:bg-primary-300'
               onClick={() => router.push(`/mypage/address_list`)}
             >
-              배송지 변경
+              {defaultAddress ? '배송지 변경' : '배송지 입력'}
             </button>
           </div>
         </div>
