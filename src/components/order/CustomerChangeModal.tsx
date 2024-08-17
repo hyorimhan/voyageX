@@ -95,7 +95,9 @@ function CustomerChangeModal({
           }}
         >
           <div className='flex flex-col items-center gap-8'>
-            <p className='text-xl text-white font-semibold'>주문자정보 변경</p>
+            {!customerInfo?.customerName || !customerInfo?.customerPhone
+              ? '주문자정보 입력'
+              : '주문자정보 변경'}
             <div className='flex flex-col gap-4 w-full'>
               <div className='flex flex-col'>
                 <label htmlFor='customerName' className='text-black-200'>
@@ -117,7 +119,7 @@ function CustomerChangeModal({
                 <input
                   id='customerPhone'
                   type='tel'
-                  placeholder=' 010-1234-5678'
+                  placeholder='-를 제외하고 입력해주세요.'
                   value={phone}
                   onChange={onChangePhone}
                   className='rounded h-12 w-full text-black-1000 p-4'

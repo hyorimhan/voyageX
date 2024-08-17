@@ -6,7 +6,6 @@ import LogoutBtn from '@/components/auth/logout/LogoutBtn';
 // import { userLoginInfo } from '@/services/auth';
 import MyPageIcon24px from './icons/24px/MyPageIcon24px';
 import HeartDefaultIcon24px from './icons/24px/HeartDefaultIcon24px';
-import { useRouter } from 'next/navigation';
 // import Loading from './Loading';
 import { orbitron } from '../../../public/fonts/orbitron';
 import Image from 'next/image';
@@ -22,15 +21,6 @@ const Header = () => {
   // const router = useRouter();
   // const [isPending, startTransition] = useTransition();
   const { setLastSelectTab } = useLastSelectWishListStore((state) => state);
-
-  const router = useRouter();
-
-  // const handleLoginClick = (href: string) => {
-  //   return (e: React.MouseEvent<HTMLButtonElement>) => {
-  //     e.preventDefault();
-  //     router.replace(href);
-  //   };
-  // };
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
