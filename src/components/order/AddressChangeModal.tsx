@@ -6,6 +6,7 @@ import AddressAddModal from '../mypage/address_list/AddressAddModal';
 import { Address } from '@/types/userAddressType';
 import useAuthStore from '@/zustand/store/useAuth';
 import AddressChangeButton from './AddressChangeButton';
+import CloseWhiteIcon24px from '../common/icons/24px/CloseWhiteIcon24px';
 
 interface AddressChangeModalProps {
   addressList: Address[];
@@ -61,17 +62,23 @@ function AddressChangeModal({
   return (
     <section
       ref={modalBackground}
-      className='flex w-full sm:px-5 h-full fixed top-0 left-0 justify-center bg-black-1000 bg-opacity-50 z-30'
+      className='flex w-full h-full fixed top-0 left-0 justify-center bg-black-1000 bg-opacity-50 z-30'
       onClick={(e) => {
         if (e.target === modalBackground.current) setIsModalOpen(false);
       }}
     >
-      <div className='relative sm:w-full bg-black-800 rounded-lg p-8 my-20 h-[650px]'>
+      <div className='relative bg-black-800 rounded-lg py-8 px-14 my-auto h-[650px]'>
         <div>
-          <div className='flex flex-col'>
-            <div className='flex flex-row justify-between items-start'>
-              <p className='text-2xl mb-9'>배송지 관리</p>
-              <button onClick={() => setIsModalOpen(false)}>X</button>
+          <div className='flex flex-col gap-4'>
+            <div className='flex flex-col'>
+              <div className='flex justify-end'>
+                <button onClick={() => setIsModalOpen(false)}>
+                  <CloseWhiteIcon24px />
+                </button>
+              </div>
+              <div className='flex justify-center'>
+                <p className='text-xl font-semibold'>배송지 변경</p>
+              </div>
             </div>
             {user && (
               <AddressChangeButton
