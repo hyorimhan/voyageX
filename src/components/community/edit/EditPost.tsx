@@ -87,9 +87,9 @@ const EditPost = ({ postId }: { postId: string }) => {
 
             if (error instanceof Error) {
               if (error.message.includes('413')) {
-                toast.error('이미지 용량이 1MB를 초과했습니다.');
+                toast.error('이미지 용량이 3MB를 초과했습니다.');
               } else {
-                toast.error('이미지 용량이 1MB를 초과했습니다.');
+                toast.error('이미지 용량이 3MB를 초과했습니다.');
               }
             } else {
               toast.error('알 수 없는 오류가 발생했습니다.');
