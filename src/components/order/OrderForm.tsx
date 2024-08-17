@@ -26,7 +26,7 @@ function OrderForm({ user, isTour }: OrderFormPropsType) {
   if (isError) return <div>에러</div>;
   if (isPending) return <Loading />;
   return (
-    <>
+    <div className='mb-28'>
       <div className='grid grid-cols-[minmax(0,1fr)_minmax(0,0.5fr)] md:grid-cols-1 md:mx-5 md:mb-20 sm:mb-20 sm:grid-cols-1 sm:mx-5 gap-x-10'>
         <div className='mt-1'>
           <div className='mt-5 w-full'>
@@ -60,7 +60,7 @@ function OrderForm({ user, isTour }: OrderFormPropsType) {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

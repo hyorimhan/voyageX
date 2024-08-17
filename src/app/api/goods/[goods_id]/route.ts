@@ -10,7 +10,7 @@ export const GET = async (request: Request, { params }: ParamsType) => {
   const { goods_id } = params;
 
   if (!goods_id) {
-    return NextResponse.json({ error: '유저 ID를 찾을 수 없습니다.' });
+    return NextResponse.json({ error: '굿즈 ID를 찾을 수 없습니다.' });
   }
 
   const { data, error } = await supabase
