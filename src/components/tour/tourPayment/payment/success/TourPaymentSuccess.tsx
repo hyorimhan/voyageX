@@ -2,22 +2,18 @@
 
 import useAuthStore from '@/zustand/store/useAuth';
 import useCustomerInfoStore from '@/zustand/store/useCustomrInfoStore';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import toast from 'react-hot-toast';
 import axios from 'axios';
 import useTourOrderInfoStore from '@/zustand/store/useTourOrderInfoStore';
-import OrderedTourInfo from './OrderedTourInfo';
-import PriceInfo from '@/components/order/payment/success/PriceInfo';
-import AfterPayButtons from './AfterPayButtons';
-import PayMethodInfo from '@/components/order/payment/success/PayMethodInfo';
 import { createTourReceipt } from '@/services/pay';
-import OrderedTourInfoMobile from './OrderedTourInfoMobile';
+import usePayResultStore from '@/zustand/store/usePayResultStore';
+import Loading from '@/components/common/Loading';
 
 function TourPaymentSuccess() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [result, setResult] = useState<any>();
 
   const secretKey = process.env.NEXT_PUBLIC_TOSS_SECRET_KEY!;
   const orderId = searchParams.get('orderId')!;
@@ -28,6 +24,7 @@ function TourPaymentSuccess() {
   const { user } = useAuthStore((state) => state);
   const { customerInfo } = useCustomerInfoStore((state) => state);
   const { tourOrder, setTourOrder } = useTourOrderInfoStore((state) => state);
+  const { payResult, setPayResult } = usePayResultStore((state) => state);
 
   useEffect(() => {
     if (!orderId || !paymentKey || !amount || !authKey) {
@@ -50,27 +47,29 @@ function TourPaymentSuccess() {
             },
           },
         );
-        setResult(confirm.data);
+        setPayResult(confirm.data);
       } catch (error) {
-        console.error(error);
+        // console.error(error);
       }
     };
-    getOrderConfirm();
+    if (!payResult) {
+      getOrderConfirm();
+    }
   });
 
   useEffect(() => {
-    if (!result || !user) return;
+    if (!payResult || !user) return;
     const postReceipt = async () => {
       let pay_method: string = '';
       let installment: number = 0;
-      if (result.card) {
-        pay_method = result.method;
-        installment = result.card.installmentPlanMonths;
-      } else if (result.easyPay) {
-        pay_method = `${result.easyPay.provider} ${result.method}`;
+      if (payResult.card) {
+        pay_method = payResult.method;
+        installment = payResult.card.installmentPlanMonths;
+      } else if (payResult.easyPay) {
+        pay_method = `${payResult.easyPay.provider} ${payResult.method}`;
       }
 
-      const response = await createTourReceipt({
+      await createTourReceipt({
         user_id: user.id,
         order_id: orderId,
         tour_id: tourOrder?.tour_id!,
@@ -84,11 +83,9 @@ function TourPaymentSuccess() {
       });
     };
     postReceipt();
-    return () => {
-      setTourOrder(null);
-    };
+    router.push(`/tour/payment/success/result`);
   }, [
-    result,
+    payResult,
     customerInfo,
     orderId,
     setTourOrder,
@@ -98,52 +95,22 @@ function TourPaymentSuccess() {
     tourOrder?.qr_code,
     tourOrder?.tour_id,
     user,
+    router,
   ]);
 
-  if (!result || !tourOrder)
-    return (
-      <div className='w-full'>
-        <div className='w-1/2 h-[700px] my-auto mx-auto flex flex-col items-center justify-center'>
-          <p>화면이 지속된다면</p>
-          <p>홈 화면으로 돌아가주세요.</p>
-          <button
-            className='border-2 rounded-lg p-2 hover:brightness-150 cursor-pointer transition-colors duration-200 hover:bg-white hover:text-black-1000 hover:font-extrabold'
-            onClick={() => router.replace('/')}
-          >
-            돌아가기
-          </button>
-        </div>
-      </div>
-    );
-
   return (
-    <div className='md:mx-5 sm:mx-5'>
-      <div className='flex md:grid sm:grid md:grid-cols-1 sm:grid-cols-1 mt-[128px] mb-10 items-center justify-between'>
-        <div className=' max-full'>
-          <div className='text-4xl font-semibold sm:text-xl border-white text-white'>
-            주문이 완료되었습니다
-          </div>
-        </div>
-        <div>
-          <div className='sm:mb-5 md:mb-8 lg:mb-8 lg:hidden sm:mt-5 md:mt-4 sm:text-sm'>
-            주문상품 번호{' '}
-            <span className='font-semibold'>{result.orderId}</span>
-          </div>
-          <AfterPayButtons orderId={result.orderId} />
-        </div>
-      </div>
-      <div className='mb-8 sm:hidden md:hidden'>
-        주문상품 번호 {result.orderId}
-      </div>
-      <div className='sm:hidden'>
-        <OrderedTourInfo tourOrder={tourOrder} />
-      </div>
-      <div className='md:hidden lg:hidden'>
-        <OrderedTourInfoMobile tourOrder={tourOrder} />
-      </div>
-      <div className='sm:mt-5 md:mt-8 lg:mt-8 mx-auto max-w-[1120px] flex sm:flex-col sm:gap-5 md:flex-wrap lg:flex-wrap md:gap-8 lg:gap-8 sm:mb-20 md:mb-10 lg:mb-10'>
-        <PriceInfo amount={+amount} />
-        <PayMethodInfo result={result} />
+    <div className='w-full'>
+      <div className='w-1/2 h-[700px] my-auto mx-auto flex flex-col items-center justify-center'>
+        <Loading />
+        <p>결제가 진행중입니다.</p>
+        <p>화면이 지속된다면</p>
+        <p>홈 화면으로 돌아가주세요.</p>
+        <button
+          className='border-2 rounded-lg p-2 hover:brightness-150 cursor-pointer transition-colors duration-200 hover:bg-white hover:text-black-1000 hover:font-extrabold'
+          onClick={() => router.replace('/')}
+        >
+          돌아가기
+        </button>
       </div>
     </div>
   );
