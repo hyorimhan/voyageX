@@ -1,5 +1,7 @@
+import { PayResult } from '@/types/payResultType';
+
 interface PayMethodInfoPropsType {
-  result: any;
+  result: PayResult;
 }
 
 function PayMethodInfo({ result }: PayMethodInfoPropsType) {
