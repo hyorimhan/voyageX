@@ -149,3 +149,8 @@ body {
   color: white;
   opacity: 1;
 }
+
+.swiper-container {
+  overflow: visible !important;
+  padding-right: 100px;
+}
