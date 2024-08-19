@@ -1,3 +1,5 @@
+'use client';
+
 import { createClient } from '@/supabase/client';
 import { useEffect, useState } from 'react';
 
@@ -16,6 +18,8 @@ type FetchTopPostsResult = {
   error: string | null;
 };
 
+const supabase = createClient();
+
 const useFetchTopPosts = (): FetchTopPostsResult => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -24,23 +28,22 @@ const useFetchTopPosts = (): FetchTopPostsResult => {
   useEffect(() => {
     const fetchTopPosts = async () => {
       try {
-        const supabase = createClient();
         const { data, error } = await supabase
           .from('posts')
           .select('*')
+          .order('created_at', { ascending: false })
           .limit(4);
 
-        if (error) {
-          setError(error.message);
-          return;
-        }
-        setPosts(data);
-      } catch (error) {
-        setError((error as Error).message);
+        if (error) throw error;
+        
+        setPosts(data || []);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'An unknown error occurred');
       } finally {
         setLoading(false);
       }
     };
+
     fetchTopPosts();
   }, []);
 
