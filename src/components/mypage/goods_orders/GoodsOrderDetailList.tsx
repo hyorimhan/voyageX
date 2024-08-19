@@ -149,7 +149,7 @@ const GoodsOrderDetailList = ({ order_id }: GoodsOrderDetailListProps) => {
             <p>{(totalOrderPrice + totalExpressCost).toLocaleString()} 원</p>
           </div>
         </div>
-        <div className='flex gap-8 flex-wrap sm:gap-6'>
+        <div className='flex gap-8 flex-wrap mb-5 sm:gap-6'>
           <div className='flex p-5 flex-col border-[1px] border-black-300 rounded-md w-[489px] sm:w-full'>
             <p className='h-9 border-b-[1px] border-black-700 text-xl'>
               배송 정보
