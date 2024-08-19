@@ -1,5 +1,7 @@
 import { createClient } from '@/supabase/client';
 import { formType } from '@/types/authFormType';
+import useAuthStore from '@/zustand/store/useAuth';
+import axios from 'axios';
 import toast from 'react-hot-toast';
 
 const supabase = createClient();

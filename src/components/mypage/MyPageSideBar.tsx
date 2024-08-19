@@ -1,14 +1,36 @@
 'use client';
 
-import { useTransition } from 'react';
+import { useEffect, useState, useTransition } from 'react';
 import Loading from '../common/Loading';
 import { useRouter, usePathname } from 'next/navigation';
 import MyPageSideBarUserInfo from './MyPageSideBarUserInfo';
+import useAuthStore from '@/zustand/store/useAuth';
 
 const MyPageSideBar = () => {
+  const [isSocialLogin, setIsSocialLogin] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
   const pathname = usePathname();
+
+  const provider = useAuthStore(
+    (state) => state.user?.identities?.[0].provider,
+  );
+
+  useEffect(() => {
+    if (provider) {
+      const checkProvider = async () => {
+        if (provider === 'kakao' || provider === 'google') {
+          setIsSocialLogin(true);
+        }
+        setIsLoading(false);
+      };
+
+      checkProvider();
+    } else {
+      setIsLoading(false);
+    }
+  }, [provider]);
 
   const handleLinkClick = (href: string) => {
     startTransition(() => {
@@ -23,6 +45,10 @@ const MyPageSideBar = () => {
       ? 'text-sm font-semibold border-b-[1px] text-start'
       : 'text-sm';
   };
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <div>
@@ -42,12 +68,14 @@ const MyPageSideBar = () => {
           >
             굿즈샵 주문/배송조회
           </button>
-          <button
-            onClick={() => handleLinkClick('/mypage/password_change')}
-            className={getButtonClassName('/mypage/password_change')}
-          >
-            비밀번호 변경
-          </button>
+          {!isSocialLogin && (
+            <button
+              onClick={() => handleLinkClick('/mypage/password_change')}
+              className={getButtonClassName('/mypage/password_change')}
+            >
+              비밀번호 변경
+            </button>
+          )}
           <button
             onClick={() => handleLinkClick('/mypage/address_list')}
             className={getButtonClassName('/mypage/address_list')}
