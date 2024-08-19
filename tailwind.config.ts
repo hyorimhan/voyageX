@@ -93,6 +93,9 @@ const config: Config = {
         header: {
           default: '#1A1A1A', //투명도 60%
         },
+        backdrop: {
+          custom: 'var(--Backdrop, rgba(18, 18, 18, 0.70))',
+        },
       },
 
       keyframes: {
