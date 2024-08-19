@@ -160,7 +160,6 @@ const AddressAddSheet = ({
       }
     } catch (error) {
       toast.error('주소 저장에 실패했습니다.');
-      console.log(error);
     }
   };
 
