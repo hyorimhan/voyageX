@@ -5,7 +5,6 @@ import { getGoodsOrderDetail } from '@/services/goods';
 import { GoodsOrdersType } from '@/types/goods';
 import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 type GoodsOrderDetailListProps = {
@@ -94,20 +93,20 @@ const GoodsOrderDetailList = ({ order_id }: GoodsOrderDetailListProps) => {
           </div>
           <div className='border-b-[1px] border-solid border-black-700 mt-3'></div>
           {goodsOrdersDetail.map((item, index) => (
-            <Link
-              key={index}
-              href={`/shop_detail/${item.goods_id}`}
-              className='mt-4 flex'
-            >
+            <div key={index} className='mt-4 flex'>
               <Image
                 src={item.goods.goods_img}
                 alt={item.goods.description}
                 height={104}
                 width={104}
-                className='object-cover'
+                className='object-cover cursor-pointer'
+                onClick={() => router.push(`/shop_detail/${item.goods_id}`)}
               />
               <div className='ml-[18px] flex justify-between w-full'>
-                <div className='flex flex-col gap-2 justify-center sm:hidden'>
+                <div
+                  className='flex flex-col gap-2 justify-center sm:hidden cursor-pointer'
+                  onClick={() => router.push(`/shop_detail/${item.goods_id}`)}
+                >
                   <p>Voyage X</p>
                   <p className='text-lg'>{item.goods.goods_name}</p>
                   <div className='flex gap-2 items-center'>
@@ -130,7 +129,7 @@ const GoodsOrderDetailList = ({ order_id }: GoodsOrderDetailListProps) => {
                   <p className='text-sm self-center'>{item.state}</p>
                 </div>
               </div>
-            </Link>
+            </div>
           ))}
         </div>
         <div className='flex flex-col border-[1px] border-black-300 rounded-lg p-5'>
