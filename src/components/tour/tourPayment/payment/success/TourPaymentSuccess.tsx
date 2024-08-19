@@ -48,9 +48,7 @@ function TourPaymentSuccess() {
           },
         );
         setPayResult(confirm.data);
-      } catch (error) {
-        // console.error(error);
-      }
+      } catch (error) {}
     };
     if (!payResult) {
       getOrderConfirm();
