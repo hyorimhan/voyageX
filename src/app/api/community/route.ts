@@ -1,60 +1,85 @@
 import { createClient } from '@/supabase/server';
 import { NextRequest, NextResponse } from 'next/server';
 
+interface Post {
+  id: string;
+  title: string;
+  content: string;
+  category: string;
+  user_id: string;
+  image_url: string | null;
+  created_at: string;
+}
+
+interface CountResult {
+  id: string;
+  comments: { count: number }[];
+  likes: { count: number }[];
+}
+
 export async function GET(request: NextRequest) {
   const supabase = createClient();
 
-  // 10진수, 문자열을 정수로 변환, page는 해당 페이지, limit은 해당 페이지에 보여줄 리스트 개수
   const { searchParams } = new URL(request.url);
   const page = parseInt(searchParams.get('page') || '1', 10);
   const limit = parseInt(searchParams.get('limit') || '10', 10);
   const offset = (page - 1) * limit;
 
-  // 총 게시글 수 가져오기
-  const { count: total, error: totalError } = await supabase
-    .from('posts')
-    .select('*', { count: 'exact', head: true });
+  const [totalResult, postsResult] = await Promise.all([
+    supabase.from('posts').select('*', { count: 'exact', head: true }),
+    supabase
+      .from('posts')
+      .select('id, title, content, category, user_id, image_url, created_at')
+      .order('created_at', { ascending: false })
+      .range(offset, offset + limit - 1),
+  ]);
 
-  if (totalError || total === null) {
+  const total = totalResult.count;
+  const posts = postsResult.data as Post[] | null;
+
+  if (!posts || total === null) {
     return NextResponse.json(
-      { error: totalError?.message || 'Total count retrieval failed' },
+      { error: 'Failed to fetch posts' },
       { status: 500 },
     );
   }
 
-  // 페이지네이션 데이터 가져오기
-  const { data: posts, error: postsError } = await supabase
+  const { data: counts } = await supabase
     .from('posts')
-    .select('*')
-    .order('created_at', { ascending: false })
-    .range(offset, offset + limit - 1);
+    .select(
+      `
+      id,
+      comments:comments(count),
+      likes:likes(count)
+    `,
+    )
+    .in(
+      'id',
+      posts.map((post) => post.id),
+    );
 
-  if (postsError) {
-    return NextResponse.json({ error: postsError.message }, { status: 500 });
+  if (!counts) {
+    return NextResponse.json(
+      { error: 'Failed to fetch counts' },
+      { status: 500 },
+    );
   }
 
-  // 각 게시물에 대해 댓글 수와 좋아요 수를 추가로 가져오기
-  const postsWithCounts = await Promise.all(
-    posts.map(async (post) => {
-      const { count: commentsCount } = await supabase
-        .from('comments')
-        .select('*', { count: 'exact', head: true })
-        .eq('post_id', post.id);
-
-      const { count: likesCount } = await supabase
-        .from('likes')
-        .select('*', { count: 'exact', head: true })
-        .eq('post_id', post.id);
-
-      return {
-        ...post,
-        comments: commentsCount || 0,
-        likes: likesCount || 0,
+  const countsMap: Record<string, { comments: number; likes: number }> =
+    counts.reduce((acc, curr: CountResult) => {
+      acc[curr.id] = {
+        comments: curr.comments[0]?.count || 0,
+        likes: curr.likes[0]?.count || 0,
       };
-    }),
-  );
+      return acc;
+    }, {} as Record<string, { comments: number; likes: number }>);
 
-  // 데이터 반환
+  const postsWithCounts = posts.map((post) => ({
+    ...post,
+    comments: countsMap[post.id]?.comments || 0,
+    likes: countsMap[post.id]?.likes || 0,
+  }));
+
   return NextResponse.json({
     posts: postsWithCounts,
     total,
