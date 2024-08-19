@@ -72,13 +72,13 @@ const AddressActionsBtn = ({
       </div>
       <div className='flex items-center gap-2 text-black-50 md:hidden lg:hidden'>
         <button
-          className='bg-transparent border-primary-400 border-[1px] py-2 px-3 rounded-md text-xs hover:bg-primary-200 hover:text-primary-700 active:bg-primary-300 active:text-primary-700 w-full'
+          className='bg-primary-400 py-2 px-3 rounded-md text-xs hover:bg-primary-200 active:bg-primary-300 w-2/3'
           onClick={handleSetDefaultAddress}
         >
           기본 배송지 등록
         </button>
         <button
-          className='bg-primary-400 py-2 px-3 rounded-md text-xs hover:bg-primary-200 active:bg-primary-300 w-full'
+          className='bg-transparent border-primary-400 border-[1px] py-2 px-3 rounded-md text-xs hover:bg-primary-200 hover:text-primary-700 active:bg-primary-300 active:text-primary-700 w-1/3'
           onClick={handleAddressAddClick}
         >
           새 배송지 추가
