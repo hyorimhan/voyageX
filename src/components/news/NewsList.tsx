@@ -177,7 +177,7 @@ export default function NewsList() {
                   className='object-cover object-center sm:object-[center_left_50px]'
                 />
               </div>
-              <div className='flex flex-col gap-2 justify-start sm:gap-2 w-[70%]'>
+              <div className='flex flex-col gap-2 justify-start sm:gap-2 w-[90%]'>
                 <div className='flex flex-col gap-3 sm:gap-2'>
                   <p className='text-base group-hover:underline lg:group-hover:font-semibold sm:text-sm sm:order-2 order-1 flex items-center'>
                     {item.title}
