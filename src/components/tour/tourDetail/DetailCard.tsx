@@ -17,13 +17,16 @@ import DetailDate from './DetailDate';
 import { useTourDate } from '@/zustand/store/useTourDate';
 import toast from 'react-hot-toast';
 import ShareLink from '@/components/common/ShareLink';
+import { useGetTourReviews } from '@/hooks/apis/review.api';
+import Loading from '@/components/common/Loading';
 
 function DetailCard({ tour }: { tour: Tour }) {
   const user = useAuthStore((state) => state.user);
   const TourDate = useTourDate((state) => state.tourDate);
   const setTourDateReset = useTourDate((state) => state.setTourDateReset);
   const { setTourOrder } = useTourOrderInfoStore((state) => state);
-
+  const { data: tourReviews, isPending } = useGetTourReviews(tour.id);
+  console.log('tourRating => ', tour.rating_avg);
   const router = useRouter();
 
   const handleGoToPayPage = () => {
@@ -47,6 +50,8 @@ function DetailCard({ tour }: { tour: Tour }) {
 
     router.push(`/tour/payment/`);
   };
+
+  if (isPending) return <Loading />;
   return (
     <>
       <div
@@ -136,7 +141,7 @@ function DetailCard({ tour }: { tour: Tour }) {
       <div className='md:mx-5 sm:mx-5'>
         <GoodsDetailPageTabSelector
           goodsRating={tour?.rating_avg}
-          goodsId={tour.id}
+          goodsReviews={tourReviews}
           contents={<TourContents tour={tour} />}
           showTourGuideTab={true}
           guideContents={<GuideContents />}
