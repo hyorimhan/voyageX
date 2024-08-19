@@ -14,6 +14,7 @@ import { getPlanetsList } from '@/services/plants';
 import Loading from '@/components/common/Loading';
 import Chatbot from '@/components/chatbot/Chatbot';
 import { orbitron } from '../../../../../public/fonts/orbitron';
+import TopBtn from '@/components/common/TopBtn';
 
 const MainPage = () => {
   const sectionsRef = useRef<(HTMLDivElement | null)[]>([]);
@@ -302,9 +303,7 @@ const MainPage = () => {
         className='section section-bg h-screen flex flex-col items-center justify-center'
       >
         <TopPostsSection />
-        {/* <div>
-          <Footer />
-        </div> */}
+        <TopBtn />
       </section>
       <Footer />
     </div>

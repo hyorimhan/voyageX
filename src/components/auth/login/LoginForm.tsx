@@ -12,10 +12,11 @@ import EyeOffIcon24px from '../../common/icons/24px/EyeOffIcon24px';
 import EyeOnIcon24px from '@/components/common/icons/24px/EyeOnIcon24px';
 import { orbitron } from '../../../../public/fonts/orbitron';
 import { IoCardOutline } from 'react-icons/io5';
+import { useRouter } from 'next/navigation';
 
 function LoginForm() {
   // const searchParams = useSearchParams();
-
+  const router = useRouter();
   const saveUser = useAuthStore((state) => state.saveUser);
 
   const {

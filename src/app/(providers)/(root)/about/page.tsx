@@ -6,6 +6,7 @@ import Section2 from '@/components/about/Section2';
 import Section3 from '@/components/about/Section3';
 import Section4 from '@/components/about/Section4';
 import Section5 from '@/components/about/section5/Section5';
+import TopBtn from '@/components/common/TopBtn';
 
 function AboutPage() {
   const { scrollYProgress } = useScroll();
@@ -23,6 +24,7 @@ function AboutPage() {
         <Section3 />
         <Section4 />
         <Section5 />
+        <TopBtn />
       </div>
     </>
   );

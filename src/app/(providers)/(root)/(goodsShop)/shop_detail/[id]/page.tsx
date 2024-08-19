@@ -8,8 +8,8 @@ import GoodsInfo from '@/components/shop/detail/GoodsInfo';
 import { useGetGoodsItem } from '@/hooks/apis/goods.api';
 import { orbitron } from '../../../../../../../public/fonts/orbitron';
 import Image from 'next/image';
-import TopBtnMobile from '@/components/common/TopBtnMobile';
 import { useGetGoodsReviews } from '@/hooks/apis/review.api';
+import TopBtn from '@/components/common/TopBtn';
 
 type Params = {
   params: {
@@ -57,8 +57,7 @@ const ShopDetailPage = ({ params }: Params) => {
           defaultTab='Details'
         />
         <FAQ />
-
-        <TopBtnMobile size={'lg:text-3xl sm:text-2xl'} />
+        <TopBtn />
       </div>
     </Page>
   );

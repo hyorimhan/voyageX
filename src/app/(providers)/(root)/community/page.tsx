@@ -4,6 +4,7 @@ import PostList from '@/components/community/main/PostList';
 import WriteButton from '@/components/community/main/WriteButton';
 import { orbitron } from '../../../../../public/fonts/orbitron';
 import Link from 'next/link';
+import TopBtn from '@/components/common/TopBtn';
 
 const CommunityPage = () => {
   return (
