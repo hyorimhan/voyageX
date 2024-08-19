@@ -1,11 +1,20 @@
 import {
   getGoodsReview,
+  getGoodsReviews,
   getOrderedGoodsReviewId,
   getOrderedTourReviewId,
   getTourReview,
+  getTourReviews,
 } from '@/services/review';
 import { Tables } from '@/types/supabase';
 import { useQuery } from '@tanstack/react-query';
+
+export const useGetGoodsReviews = (goods_id: string) => {
+  return useQuery({
+    queryKey: ['review', goods_id],
+    queryFn: () => getGoodsReviews(goods_id),
+  });
+};
 
 export const useGetGoodsReview = ({
   user_id,
@@ -32,6 +41,13 @@ export const useGetOrderedGoodsReviewId = ({
   return useQuery<{ review_id: string }>({
     queryKey: ['reviews', order_id, goods_id],
     queryFn: () => getOrderedGoodsReviewId({ order_id, goods_id }),
+  });
+};
+
+export const useGetTourReviews = (tour_id: string) => {
+  return useQuery({
+    queryKey: ['review', tour_id],
+    queryFn: () => getTourReviews(tour_id),
   });
 };
 

@@ -1,5 +1,10 @@
 import axios from 'axios';
 
+export const getGoodsReviews = async (goods_id: string) => {
+  const response = await axios.get(`/api/review/goods/goods/${goods_id}`);
+  return response.data;
+};
+
 export const getGoodsReview = async ({
   user_id,
   goods_id,
@@ -72,6 +77,11 @@ export const modifyGoodsReview = async ({
     rating,
     review,
   });
+  return response.data;
+};
+
+export const getTourReviews = async (goods_id: string) => {
+  const response = await axios.get(`/api/review/tour/tour/${goods_id}`);
   return response.data;
 };
 

@@ -5,12 +5,15 @@ import { getGoodsOrderDetail } from '@/services/goods';
 import { GoodsOrdersType } from '@/types/goods';
 import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 type GoodsOrderDetailListProps = {
   order_id: string;
 };
 
 const GoodsOrderDetailList = ({ order_id }: GoodsOrderDetailListProps) => {
+  const router = useRouter();
   const {
     data: goodsOrdersDetail,
     error,
@@ -92,36 +95,38 @@ const GoodsOrderDetailList = ({ order_id }: GoodsOrderDetailListProps) => {
           <div className='border-b-[1px] border-solid border-black-700 mt-3'></div>
           {goodsOrdersDetail.map((item, index) => (
             <div key={index} className='mt-4 flex'>
-              <Image
-                src={item.goods.goods_img}
-                alt={item.goods.description}
-                height={119}
-                width={104}
-              />
-              <div className='ml-[18px] flex justify-between w-full'>
-                <div className='flex flex-col gap-2 justify-center sm:hidden'>
-                  <p>우주</p>
-                  <p className='text-lg'>{item.goods.goods_name}</p>
-                  <div className='flex gap-2 items-center'>
-                    <p>{item.goods.goods_price.toLocaleString()}원</p>
-                    <p>|</p>
-                    <p>수량 {item.quantity}개</p>
+              <Link href={`/shop_detail/${item.goods_id}`}>
+                <Image
+                  src={item.goods.goods_img}
+                  alt={item.goods.description}
+                  height={119}
+                  width={104}
+                />
+                <div className='ml-[18px] flex justify-between w-full'>
+                  <div className='flex flex-col gap-2 justify-center sm:hidden'>
+                    <p>우주</p>
+                    <p className='text-lg'>{item.goods.goods_name}</p>
+                    <div className='flex gap-2 items-center'>
+                      <p>{item.goods.goods_price.toLocaleString()}원</p>
+                      <p>|</p>
+                      <p>수량 {item.quantity}개</p>
+                    </div>
+                  </div>
+                  <div className='flex flex-col gap-1 justify-center'>
+                    <p className='text-sm'>우주</p>
+                    <p className='text-sm'>{item.goods.goods_name}</p>
+                    <p className='text-xs text-black-200'>
+                      수량 {item.quantity}개
+                    </p>
+                    <div className='items-center mt-5 font-semibold'>
+                      <p>{item.goods.goods_price.toLocaleString()}원</p>
+                    </div>
+                  </div>
+                  <div className='flex flex-col w-[122px] justify-center gap-2 border-l-[1px] px-4 sm:hidden'>
+                    <p className='text-sm self-center'>{item.state}</p>
                   </div>
                 </div>
-                <div className='flex flex-col gap-1 justify-center'>
-                  <p className='text-sm'>우주</p>
-                  <p className='text-sm'>{item.goods.goods_name}</p>
-                  <p className='text-xs text-black-200'>
-                    수량 {item.quantity}개
-                  </p>
-                  <div className='items-center mt-5 font-semibold'>
-                    <p>{item.goods.goods_price.toLocaleString()}원</p>
-                  </div>
-                </div>
-                <div className='flex flex-col w-[122px] justify-center gap-2 border-l-[1px] px-4 sm:hidden'>
-                  <p className='text-sm self-center'>{item.state}</p>
-                </div>
-              </div>
+              </Link>
             </div>
           ))}
         </div>
