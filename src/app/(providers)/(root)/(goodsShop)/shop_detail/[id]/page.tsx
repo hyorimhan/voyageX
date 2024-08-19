@@ -9,6 +9,7 @@ import { useGetGoodsItem } from '@/hooks/apis/goods.api';
 import { orbitron } from '../../../../../../../public/fonts/orbitron';
 import Image from 'next/image';
 import TopBtnMobile from '@/components/common/TopBtnMobile';
+import { useGetGoodsReviews } from '@/hooks/apis/review.api';
 
 type Params = {
   params: {
@@ -17,10 +18,19 @@ type Params = {
 };
 
 const ShopDetailPage = ({ params }: Params) => {
-  const { data: goods, isLoading, isError } = useGetGoodsItem(params.id);
+  const {
+    data: goods,
+    isLoading,
+    isError: goodsError,
+  } = useGetGoodsItem(params.id);
+  const {
+    data: goodsReviews,
+    isPending,
+    isError: reviewError,
+  } = useGetGoodsReviews(params.id);
 
-  if (isLoading) return <Loading />;
-  if (isError) return <div>에러 발생</div>;
+  if (isLoading || isPending) return <Loading />;
+  if (goodsError || reviewError) return <div>에러 발생</div>;
 
   return (
     <Page>
@@ -33,7 +43,7 @@ const ShopDetailPage = ({ params }: Params) => {
         {goods && <GoodsInfo goods={goods} goods_id={params.id} />}
         <GoodsDetailPageTabSelector
           goodsRating={goods?.rating_avg}
-          goodsId={params.id}
+          goodsReviews={goodsReviews}
           contents={
             <>
               <Image

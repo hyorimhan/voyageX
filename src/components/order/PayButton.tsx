@@ -10,6 +10,7 @@ import useExpressInfoStore from '@/zustand/store/useExpressInfoStore';
 import useGoodsOrderStore from '@/zustand/store/useGoodsOrderInfoStore';
 import TermsAndConditions from './TermsAndConditions';
 import { termsAndConditionsList } from '@/constants/shop';
+import usePayResultStore from '@/zustand/store/usePayResultStore';
 interface PayButtonPropsType {
   totalPrice: number;
   isTour: boolean;
@@ -22,6 +23,7 @@ function PayButton({ totalPrice, isTour }: PayButtonPropsType) {
   const { goodsOrderInfo } = useGoodsOrderStore((state) => state);
   const { tourOrder } = useTourOrderInfoStore((state) => state);
   const { customerInfo } = useCustomerInfoStore((state) => state);
+  const { setPayResult } = usePayResultStore((state) => state);
 
   const handleClickPayButton = () => {
     if (!customerInfo?.customerName.trim()) {
@@ -57,6 +59,7 @@ function PayButton({ totalPrice, isTour }: PayButtonPropsType) {
         toast.error('상품을 다시 선택해주세요!');
         return;
       } else {
+        setPayResult(null);
         orderName = `${goodsOrderInfo[0].goods.goods_name} ${goodsOrderInfo[0].quantity}개 등 총 ${goodsOrderInfo.length}건`;
       }
     }
