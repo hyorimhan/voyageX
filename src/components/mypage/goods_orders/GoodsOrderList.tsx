@@ -116,14 +116,14 @@ const GoodsOrderList = () => {
                       alt={order.goods.description}
                       width={104}
                       height={104}
-                      className='sm:hidden'
+                      className='sm:hidden object-cover'
                     />
                     <Image
                       src={order.goods.goods_img}
                       alt={order.goods.description}
                       width={104}
                       height={104}
-                      className='md:hidden lg:hidden'
+                      className='md:hidden lg:hidden object-cover'
                     />
                   </div>
                   <div className='gap-2 flex flex-col sm:gap-1'>
