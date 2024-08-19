@@ -61,11 +61,14 @@ function SuccessPayment() {
       const postReceipt = async () => {
         let pay_method: string = '';
         let installment: number = 0;
-        if (payResult.card) {
+        if (payResult.card && !payResult.easyPay) {
           pay_method = payResult.method;
           installment = payResult.card.installmentPlanMonths;
-        } else if (payResult.easyPay) {
+        } else if (payResult.easyPay && !payResult.card) {
           pay_method = `${payResult.easyPay.provider} ${payResult.method}`;
+        } else if (payResult.card && payResult.easyPay) {
+          pay_method = `${payResult.easyPay.provider} ${payResult.method}`;
+          installment = payResult.card.installmentPlanMonths;
         }
 
         await createOrderReceipt({

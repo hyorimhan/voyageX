@@ -3,7 +3,6 @@
 import GenericModal from '@/components/common/GenericModal';
 import ArrowLeftIcon24px from '@/components/common/icons/24px/ArrowLeftIcon24px';
 import PasswordChangeInput from '@/components/mypage/password_change/PasswordChangeInput';
-
 import useChangePassword from '@/hooks/useChangePassword';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -19,6 +18,9 @@ const PasswordChangePage = () => {
     isSuccessModalOpen,
     handleChangePassword,
     closeModal,
+    setCurrentPasswordError, // Setter 함수 사용
+    setNewPasswordError, // Setter 함수 사용
+    setConfirmNewPasswordError, // Setter 함수 사용
   } = useChangePassword();
 
   const onSubmit = async () => {
@@ -55,7 +57,10 @@ const PasswordChangePage = () => {
           placeholder='비밀번호를 입력해주세요.'
           type='password'
           value={currentPassword}
-          onChange={(e) => setCurrentPassword(e.target.value)}
+          onChange={(e) => {
+            setCurrentPassword(e.target.value);
+            setCurrentPasswordError('');
+          }}
           error={currentPasswordError}
         />
         <PasswordChangeInput
@@ -63,7 +68,10 @@ const PasswordChangePage = () => {
           placeholder='신규 비밀번호를 입력해주세요.'
           type='password'
           value={newPassword}
-          onChange={(e) => setNewPassword(e.target.value)}
+          onChange={(e) => {
+            setNewPassword(e.target.value);
+            setNewPasswordError('');
+          }}
           error={newPasswordError}
         />
         <PasswordChangeInput
@@ -71,7 +79,10 @@ const PasswordChangePage = () => {
           placeholder='신규 비밀번호를 다시 입력해주세요.'
           type='password'
           value={confirmNewPassword}
-          onChange={(e) => setConfirmNewPassword(e.target.value)}
+          onChange={(e) => {
+            setConfirmNewPassword(e.target.value);
+            setConfirmNewPasswordError('');
+          }}
           error={confirmNewPasswordError}
         />
         <GenericModal

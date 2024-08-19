@@ -73,6 +73,9 @@ const useChangePassword = () => {
     isSuccessModalOpen,
     handleChangePassword,
     closeModal,
+    setCurrentPasswordError,
+    setNewPasswordError,
+    setConfirmNewPasswordError,
   };
 };
 

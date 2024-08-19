@@ -56,7 +56,7 @@ const AddressChangeButton = ({
       await resetDefaultAddressMutation.mutateAsync(userId);
       await setDefaultAddressMutation.mutateAsync(selectedAddressId);
     } catch (error) {
-      console.error('기본 배송지 설정 오류', error);
+      toast.error('기본 배송지 설정에 실패했습니다.');
     }
   };
 

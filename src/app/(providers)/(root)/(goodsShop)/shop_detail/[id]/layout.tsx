@@ -20,7 +20,6 @@ export const generateMetadata = async ({
     .eq('id', id)
     .single();
   if (error || !data) {
-    console.error(error);
     throw error;
   }
   return {
