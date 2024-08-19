@@ -59,50 +59,80 @@ function SuccessPayment() {
     };
     if (!payResult) {
       getOrderConfirm();
+    } else {
+      const postReceipt = async () => {
+        let pay_method: string = '';
+        let installment: number = 0;
+        if (payResult.card) {
+          pay_method = payResult.method;
+          installment = payResult.card.installmentPlanMonths;
+        } else if (payResult.easyPay) {
+          pay_method = `${payResult.easyPay.provider} ${payResult.method}`;
+        }
+
+        await createOrderReceipt({
+          user_id: user!.id,
+          order_id: orderId,
+          goodsList: goodsOrderInfo!,
+          customer: customerInfo!,
+          pay_method,
+          installment,
+          address: expressAddress?.address!,
+          old_address: expressAddress?.oldAddress!,
+          detail_address: expressAddress?.detailAddress!,
+          postcode: expressAddress?.postcode!,
+        });
+      };
+      postReceipt();
+      router.push(`/shop/payment/success/result`);
+      return () => {
+        const ids = goodsOrderInfo?.map((item) => item.goods.id);
+        deleteCartItemByGoodsId({ user_id: user!.id, ids: ids! });
+      };
     }
   });
 
-  useEffect(() => {
-    if (!payResult || !user) return;
-    const postReceipt = async () => {
-      let pay_method: string = '';
-      let installment: number = 0;
-      if (payResult.card) {
-        pay_method = payResult.method;
-        installment = payResult.card.installmentPlanMonths;
-      } else if (payResult.easyPay) {
-        pay_method = `${payResult.easyPay.provider} ${payResult.method}`;
-      }
+  // useEffect(() => {
+  //   if (!payResult || !user) return;
+  //   const postReceipt = async () => {
+  //     let pay_method: string = '';
+  //     let installment: number = 0;
+  //     if (payResult.card) {
+  //       pay_method = payResult.method;
+  //       installment = payResult.card.installmentPlanMonths;
+  //     } else if (payResult.easyPay) {
+  //       pay_method = `${payResult.easyPay.provider} ${payResult.method}`;
+  //     }
 
-      await createOrderReceipt({
-        user_id: user.id,
-        order_id: orderId,
-        goodsList: goodsOrderInfo!,
-        customer: customerInfo!,
-        pay_method,
-        installment,
-        address: expressAddress?.address!,
-        old_address: expressAddress?.oldAddress!,
-        detail_address: expressAddress?.detailAddress!,
-        postcode: expressAddress?.postcode!,
-      });
-    };
-    postReceipt();
-    router.push(`/shop/payment/success/result`);
-    return () => {
-      const ids = goodsOrderInfo?.map((item) => item.goods.id);
-      deleteCartItemByGoodsId({ user_id: user.id, ids: ids! });
-    };
-  }, [
-    payResult,
-    customerInfo,
-    expressAddress,
-    goodsOrderInfo,
-    orderId,
-    setGoodsOrderInfo,
-    user,
-    router,
-  ]);
+  //     await createOrderReceipt({
+  //       user_id: user.id,
+  //       order_id: orderId,
+  //       goodsList: goodsOrderInfo!,
+  //       customer: customerInfo!,
+  //       pay_method,
+  //       installment,
+  //       address: expressAddress?.address!,
+  //       old_address: expressAddress?.oldAddress!,
+  //       detail_address: expressAddress?.detailAddress!,
+  //       postcode: expressAddress?.postcode!,
+  //     });
+  //   };
+  //   postReceipt();
+  //   router.push(`/shop/payment/success/result`);
+  //   return () => {
+  //     const ids = goodsOrderInfo?.map((item) => item.goods.id);
+  //     deleteCartItemByGoodsId({ user_id: user.id, ids: ids! });
+  //   };
+  // }, [
+  //   payResult,
+  //   customerInfo,
+  //   expressAddress,
+  //   goodsOrderInfo,
+  //   orderId,
+  //   setGoodsOrderInfo,
+  //   user,
+  //   router,
+  // ]);
   return (
     <div className='w-full'>
       <div className='w-1/2 h-[700px] my-auto mx-auto flex flex-col items-center justify-center'>
