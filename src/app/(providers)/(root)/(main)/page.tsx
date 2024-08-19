@@ -113,7 +113,7 @@ const MainPage = () => {
   <div className='scroll-container h-full w-full relative flex items-center justify-center'>
     <button
       onClick={handlePrevSlide}
-      className='absolute left-52 sm:left-6 z-10 p-2 top-1/2 -translate-y-1/2'
+      className='absolute left-56 sm:left-6 z-10 p-2 top-1/2 -translate-y-1/2'
       style={{
         background: "url('/images/left.png') no-repeat center",
         width: '48px',
@@ -149,7 +149,7 @@ const MainPage = () => {
                 planetsRef.current[index] = el as HTMLDivElement;
               }}
               data-id={planet.id}
-              className={`absolute w-32 h-32 sm:w-24 sm:h-24 transform-gpu transition-opacity duration-500 ${
+              className={`absolute w-36 h-36 sm:w-24 sm:h-24 transform-gpu transition-opacity duration-500 ${
                 isVisible ? 'opacity-100' : 'opacity-0'
               }`}
               style={{
