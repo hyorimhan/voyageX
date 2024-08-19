@@ -10,6 +10,7 @@ import Loading from '@/components/common/Loading';
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import Pagination from '@/components/common/Pagination';
 import TopLikedList from './TopLikedList';
+import TopBtn from '@/components/common/TopBtn';
 
 const ITEMS_PER_PAGE = 10;
 
@@ -114,6 +115,7 @@ const PostList = () => {
           onPageChange={handlePageChange}
         />
       )}
+      <TopBtn />
     </div>
   );
 };

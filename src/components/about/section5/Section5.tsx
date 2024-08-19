@@ -1,8 +1,6 @@
-import React from 'react';
 import Scroll from '@/components/about/Scroll';
 import { orbitron } from '../../../../public/fonts/orbitron';
 import SectionSwiper from './SectionSwiper';
-import FixedTopBtn from './FixedTopBtn';
 
 function Section5() {
   return (
@@ -27,7 +25,6 @@ function Section5() {
               <SectionSwiper />
             </div>
           </div>
-          <FixedTopBtn />
         </Scroll>
       </div>
     </section>
