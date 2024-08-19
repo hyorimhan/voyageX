@@ -11,6 +11,7 @@ type InputProps = {
   value: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   error: string;
+  onClearError?: () => void;
 };
 
 const PasswordChangeInput = ({
@@ -20,11 +21,19 @@ const PasswordChangeInput = ({
   value,
   onChange,
   error,
+  onClearError = () => {},
 }: InputProps) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const toggleShowPassword = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
+  };
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (error) {
+      onClearError();
+    }
+    onChange(e);
   };
 
   return (
@@ -40,7 +49,7 @@ const PasswordChangeInput = ({
           placeholder={placeholder}
           type={showPassword ? 'text' : type}
           value={value}
-          onChange={onChange}
+          onChange={handleChange}
         />
         <button
           type='button'

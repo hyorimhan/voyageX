@@ -9,7 +9,7 @@ interface ModalProps {
 const Modal = ({ onClose, children }: ModalProps) => {
   return (
     <div className='fixed inset-0 flex items-center justify-center bg-black-1000 bg-opacity-50 z-40'>
-      <div className='relative border-solid border-[38px] rounded-lg border-white w-2/6 h-3/4 bg-white'>
+      <div className='relative border-solid border-[38px] rounded-lg border-white w-2/6 h-3/4 bg-white sm:w-[360px] sm:border-x-[10px] sm:h-5/6'>
         <button
           onClick={onClose}
           className='absolute -top-9 -right-3 p-2 text-lg z-50 text-black-1000'

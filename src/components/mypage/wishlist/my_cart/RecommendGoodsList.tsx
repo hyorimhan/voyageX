@@ -40,7 +40,7 @@ const RecommendGoodsList = () => {
 
   return (
     <>
-      <p className='text-xl font-semibold'>지금 인기있는 굿즈</p>
+      <p className='text-xl font-semibold mt-14'>지금 인기있는 굿즈</p>
       <Swiper
         modules={[Navigation, Autoplay, Pagination]}
         breakpoints={breakpoints}
