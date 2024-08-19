@@ -26,7 +26,6 @@ function DetailCard({ tour }: { tour: Tour }) {
   const setTourDateReset = useTourDate((state) => state.setTourDateReset);
   const { setTourOrder } = useTourOrderInfoStore((state) => state);
   const { data: tourReviews, isPending } = useGetTourReviews(tour.id);
-  console.log('tourRating => ', tour.rating_avg);
   const router = useRouter();
 
   const handleGoToPayPage = () => {
