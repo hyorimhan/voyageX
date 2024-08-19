@@ -2,7 +2,6 @@ import {
   MyPost,
   TEditComment,
   TEditPost,
-  TopPost,
   TPagination,
   TWriteComment,
   TWritePost,
