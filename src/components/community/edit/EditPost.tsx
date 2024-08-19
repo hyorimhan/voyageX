@@ -1,8 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import PenIcon24px from '../../common/icons/24px/PenIcon24px';
-import Page from '@/components/pages/Page';
 import { useEffect, useState } from 'react';
 import DropDownButton from '@/components/shop/DropDownButton';
 import { useMutation, useQuery } from '@tanstack/react-query';
@@ -52,13 +50,7 @@ const EditPost = ({ postId }: { postId: string }) => {
 
   const { mutate: submitPost } = useMutation({
     mutationFn: async (editPost: TEditPost) => {
-      const processedContent = await handleImageUpload(content);
-
-      const postToSubmit = {
-        ...editPost,
-        content: processedContent,
-      };
-      await updatePost(postToSubmit);
+      await updatePost(editPost);
     },
     onSuccess: () => {
       setIsSubmitting(false);
@@ -73,15 +65,27 @@ const EditPost = ({ postId }: { postId: string }) => {
 
   const handleImageUpload = async (rawContent: string) => {
     let processedContent = rawContent;
+    let imageUrls = [];
 
     const imageTags = rawContent.match(/<img[^>]+src="data:image\/[^">]+"/g);
+
     if (imageTags) {
+      if (imageTags.length > 1) {
+        toast.error('이미지는 한 장만 업로드할 수 있습니다.');
+        throw new Error('너무 많은 이미지 업로드');
+      }
+
       for (const imgTag of imageTags) {
         const base64Src = imgTag.match(/src="([^"]+)"/)?.[1];
         if (base64Src) {
+          if (imageUrls.length > 0) {
+            toast.error('이미지는 한 장만 업로드할 수 있습니다.');
+            throw new Error('너무 많은 이미지 업로드');
+          }
           try {
             const imageUrl = await uploadImage(base64Src);
             processedContent = processedContent.replace(base64Src, imageUrl);
+            imageUrls.push(imageUrl);
           } catch (error) {
             console.error('이미지 업로드 실패:', error);
 
@@ -89,7 +93,7 @@ const EditPost = ({ postId }: { postId: string }) => {
               if (error.message.includes('413')) {
                 toast.error('이미지 용량이 3MB를 초과했습니다.');
               } else {
-                toast.error('이미지 용량이 3MB를 초과했습니다.');
+                toast.error('이미지 업로드에 실패했습니다.');
               }
             } else {
               toast.error('알 수 없는 오류가 발생했습니다.');
@@ -100,7 +104,8 @@ const EditPost = ({ postId }: { postId: string }) => {
         }
       }
     }
-    return processedContent;
+
+    return { processedContent, imageUrls };
   };
 
   const handleSubmitWrite = async (e: React.FormEvent) => {
@@ -110,9 +115,9 @@ const EditPost = ({ postId }: { postId: string }) => {
       return toast.error('제목은 최소 2글자 이상이어야 합니다.');
     }
 
-    const plainTextContent = content.replace(/<[^>]*>?/gm, '').trim(); // HTML 태그 제거 후 순수 텍스트 추출
-    if (plainTextContent.length < 10) {
-      return toast.error('내용은 최소 10글자 이상 입력해야 합니다.');
+    const plainTextContent = content.replace(/<[^>]*>?/gm, '').trim();
+    if (plainTextContent.length < 5) {
+      return toast.error('내용은 최소 5글자 이상 입력해야 합니다.');
     }
 
     if (isSubmitting) return;
@@ -120,17 +125,25 @@ const EditPost = ({ postId }: { postId: string }) => {
     setIsSubmitting(true);
 
     try {
-      const editPost = {
+      const { processedContent, imageUrls } = await handleImageUpload(content);
+
+      if (imageUrls.length > 1) {
+        setIsSubmitting(false);
+        return toast.error('이미지는 한 장만 업로드할 수 있습니다.');
+      }
+
+      const editPost: TEditPost = {
         title: title.trim(),
-        content: content.trim(),
+        content: processedContent,
         category: sortBy,
         user_id: user?.id as string,
         id: postId,
-        image_url: post?.image_url || '',
+        image_url: imageUrls[0] || post?.image_url || null,
       };
       await submitPost(editPost);
     } catch (error) {
       console.error('글 수정 중 오류 발생:', error);
+      setIsSubmitting(false);
     }
   };
 
