@@ -7,12 +7,13 @@ import {
 import { Comment, TEditComment } from '@/types/communityType';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import React, { useState } from 'react';
-import CommentsWrite from './CommentsWrite';
 import useAuthStore from '@/zustand/store/useAuth';
 import CommentWriterIcon from '../ProfileImages/CommentWriter';
 import Loading from '@/components/common/Loading';
 import PostWriterIcon from '../ProfileImages/PostWriter';
 import toast from 'react-hot-toast';
+import CommentsWrite from './CommentsWrite';
+import GenericModal from '@/components/common/GenericModal';
 
 const CommentList = ({
   postId,
@@ -26,6 +27,12 @@ const CommentList = ({
 
   const [editMode, setEditMode] = useState<string | null>(null);
   const [newContent, setNewContent] = useState('');
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [commentToDelete, setCommentToDelete] = useState<string | null>(null);
+
+  const isContentValid = (content: string) => {
+    return content.split('\n').some((line) => line.trim().length >= 2);
+  };
 
   const {
     data: comments = [],
@@ -38,9 +45,23 @@ const CommentList = ({
 
   const { mutate: removeComment } = useMutation({
     mutationFn: (id: string) => deleteComments(id),
+    onMutate: async (deletedCommentId) => {
+      await queryClient.cancelQueries({ queryKey: ['comments', postId] });
+      const previousComments = queryClient.getQueryData<Comment[]>([
+        'comments',
+        postId,
+      ]);
+      queryClient.setQueryData(['comments', postId], (old: Comment[] = []) =>
+        old.filter((comment) => comment.id !== deletedCommentId),
+      );
+      return { previousComments };
+    },
+    onError: (_, __, context) => {
+      queryClient.setQueryData(['comments', postId], context?.previousComments);
+      toast.error('댓글 삭제에 실패했습니다.');
+    },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ['comments', postId] });
-      queryClient.invalidateQueries({ queryKey: ['post', postId] });
     },
     onSuccess: () => {
       toast.success('댓글이 삭제되었습니다.');
@@ -49,8 +70,29 @@ const CommentList = ({
 
   const { mutate: editComment } = useMutation({
     mutationFn: (editComment: TEditComment) => updateComment(editComment),
-    onSuccess: () => {
+    onMutate: async (updatedComment) => {
+      await queryClient.cancelQueries({ queryKey: ['comments', postId] });
+      const previousComments = queryClient.getQueryData<Comment[]>([
+        'comments',
+        postId,
+      ]);
+      queryClient.setQueryData(['comments', postId], (old: Comment[] = []) =>
+        old.map((comment) =>
+          comment.id === updatedComment.id
+            ? { ...comment, ...updatedComment }
+            : comment,
+        ),
+      );
+      return { previousComments };
+    },
+    onError: (_, __, context) => {
+      queryClient.setQueryData(['comments', postId], context?.previousComments);
+      toast.error('댓글 수정에 실패했습니다.');
+    },
+    onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ['comments', postId] });
+    },
+    onSuccess: () => {
       setEditMode(null);
       setNewContent('');
       toast.success('댓글이 수정되었습니다.');
@@ -58,7 +100,16 @@ const CommentList = ({
   });
 
   const handleClickDelete = (id: string) => {
-    removeComment(id);
+    setCommentToDelete(id);
+    setIsDeleteModalOpen(true);
+  };
+
+  const confirmDelete = () => {
+    if (commentToDelete) {
+      removeComment(commentToDelete);
+      setIsDeleteModalOpen(false);
+      setCommentToDelete(null);
+    }
   };
 
   const handleClickEdit = (comment: Comment) => {
@@ -68,7 +119,24 @@ const CommentList = ({
 
   const handleSaveEdit = (id: string) => {
     if (!user) return;
-    editComment({ id, content: newContent, post_id: postId, user_id: user.id });
+
+    if (!isContentValid(newContent)) {
+      toast.error('댓글은 최소 2글자 이상이어야 합니다.');
+      return;
+    }
+
+    const processedContent = newContent
+      .split('\n')
+      .map((line) => line.trim())
+      .filter(Boolean)
+      .join('\n');
+
+    editComment({
+      id,
+      content: processedContent,
+      post_id: postId,
+      user_id: user.id,
+    });
   };
 
   if (isPending)
@@ -79,7 +147,6 @@ const CommentList = ({
     );
 
   if (isError) return <div>Error</div>;
-
   return (
     <div className='flex flex-col gap-y-5'>
       {comments.map((comment) => (
@@ -171,6 +238,15 @@ const CommentList = ({
         </div>
       ))}
       <CommentsWrite postId={postId} userId={userId} />
+      <GenericModal
+        isOpen={isDeleteModalOpen}
+        title='댓글 삭제'
+        content='정말로 이 댓글을 삭제하시겠습니까?'
+        buttonText='삭제'
+        buttonAction={confirmDelete}
+        cancelText='취소'
+        cancelAction={() => setIsDeleteModalOpen(false)}
+      />
     </div>
   );
 };

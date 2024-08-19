@@ -5,12 +5,15 @@ import { useQuery } from '@tanstack/react-query';
 import { getTourOrderDetail } from '@/services/tour';
 import { TourOrderType } from '@/types/tour';
 import Loading from '@/components/common/Loading';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 type TourOrderDetailListProps = {
   order_id: string;
 };
 
 const TourOrderDetailList = ({ order_id }: TourOrderDetailListProps) => {
+  const router = useRouter();
   const {
     data: order,
     isLoading,
@@ -58,7 +61,7 @@ const TourOrderDetailList = ({ order_id }: TourOrderDetailListProps) => {
   };
 
   return (
-    <div className='flex flex-col'>
+    <div className='flex flex-col mb-5'>
       <div className='flex gap-2 sm:text-sm sm:justify-between'>
         <div className='flex'>
           <p>주문일자</p>
@@ -81,11 +84,16 @@ const TourOrderDetailList = ({ order_id }: TourOrderDetailListProps) => {
             <Image
               src={order.planet.planet_img}
               alt={order.planet.description}
-              height={119}
+              height={104}
               width={104}
+              className='object-cover cursor-pointer'
+              onClick={() => router.push(`/tour/${order.tour_id}`)}
             />
             <div className='ml-[18px] flex justify-between w-full'>
-              <div className='flex flex-col justify-center sm:hidden'>
+              <Link
+                href={`/tour/${order.tour_id}`}
+                className='flex flex-col justify-center sm:hidden'
+              >
                 <p className='text-sm'>6박 7일 패키지</p>
                 <div className='text-lg font-semibold flex gap-2 mt-1'>
                   <p className='text-lg font-semibold'>{order.planet.name}</p>
@@ -96,7 +104,7 @@ const TourOrderDetailList = ({ order_id }: TourOrderDetailListProps) => {
                   <p>|</p>
                   <p>수량 1개</p>
                 </div>
-              </div>
+              </Link>
               <div className='flex flex-col justify-center md:hidden lg:hidden'>
                 <div className='flex text-sm'>
                   <p>{order.planet.name}</p>

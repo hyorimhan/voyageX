@@ -29,7 +29,7 @@ const CommentsWrite = ({
 
     if (!user) return toast.error('로그인 후 이용하실 수 있습니다.');
 
-    if (!/^(?!\s*$).{2,}$/.test(content)) {
+    if (content.replace(/\s/g, '').length < 2) {
       return toast.error('댓글은 최소 2글자 이상이어야 합니다.');
     }
 

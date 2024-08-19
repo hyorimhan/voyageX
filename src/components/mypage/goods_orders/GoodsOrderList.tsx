@@ -110,24 +110,32 @@ const GoodsOrderList = () => {
                   </button>
                 </div>
                 <div className='flex gap-5 items-center'>
-                  <div className=' flex mt-2 h-[104px] sm:h-[104px] '>
+                  <Link
+                    href={`/shop_detail/${order.goods_id}`}
+                    className=' flex mt-2 h-[104px] sm:h-[104px] '
+                  >
                     <Image
                       src={order.goods.goods_img}
                       alt={order.goods.description}
                       width={104}
                       height={104}
-                      className='sm:hidden'
+                      className='sm:hidden object-cover'
                     />
                     <Image
                       src={order.goods.goods_img}
                       alt={order.goods.description}
                       width={104}
                       height={104}
-                      className='md:hidden lg:hidden'
+                      className='md:hidden lg:hidden object-cover'
                     />
-                  </div>
+                  </Link>
                   <div className='gap-2 flex flex-col sm:gap-1'>
-                    <p className='sm:text-sm'>{order.goods.goods_name}</p>
+                    <Link
+                      href={`/shop_detail/${order.goods_id}`}
+                      className='sm:text-sm'
+                    >
+                      {order.goods.goods_name}
+                    </Link>
                     <p className='font-semibold text-xl sm:text-lg'>
                       {order.goods.goods_price.toLocaleString()}원
                     </p>
