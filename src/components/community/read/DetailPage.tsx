@@ -42,8 +42,8 @@ const DetailPage = ({ params }: { params: { postId: string } }) => {
   const sanitizedContent = DOMPurify.sanitize(post.content);
 
   return (
-    <>
-      <div className='flex justify-between mb-14 mt-26'>
+    <div className='sm:p-5'>
+      <div className='flex justify-between mb-14 mt-26 '>
         <h1
           className={`text-[36px] font-bold text-white ${orbitron.className}`}
         >
@@ -99,7 +99,7 @@ const DetailPage = ({ params }: { params: { postId: string } }) => {
         <CommentList postId={postId} userId={post.user_id} />
         <PostButtons postId={post.id} userId={post.user_id} />
       </div>
-    </>
+    </div>
   );
 };
 

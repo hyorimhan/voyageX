@@ -5,10 +5,9 @@ import HeartDefaultIcon20px from '@/components/common/icons/20px/HeartDefaultIco
 import HeartPressedIcon20px from '@/components/common/icons/20px/HeartPressedIcon20px';
 import Loading from '@/components/common/Loading';
 import toast from 'react-hot-toast';
-import {
-  useGetIsLikedPostByUser,
-  useToggleLikePost,
-} from '@/hooks/apis/community.api';
+import { useToggleLikePost } from '@/hooks/apis/community.api';
+import { useQueryClient } from '@tanstack/react-query';
+import { useGetIsLikedPostByUser } from '@/hooks/apis/community.api 2';
 
 interface PostHeartsProps {
   post_id: string;
@@ -17,6 +16,7 @@ interface PostHeartsProps {
 }
 
 function PostHearts({ post_id, user_id, size = 'large' }: PostHeartsProps) {
+  const queryClient = useQueryClient();
   const {
     data: isLiked,
     isError,
@@ -28,7 +28,18 @@ function PostHearts({ post_id, user_id, size = 'large' }: PostHeartsProps) {
   const handleToggleLike = () => {
     if (!user_id) return toast.error('로그인 해주세요!');
     if (isLiked === undefined) return;
-    likeMutate(isLiked);
+
+    queryClient.setQueryData(['post', post_id], (oldData: any) => ({
+      ...oldData,
+    }));
+
+    likeMutate(isLiked, {
+      onError: () => {
+        queryClient.setQueryData(['post', post_id], (oldData: any) => ({
+          ...oldData,
+        }));
+      },
+    });
   };
 
   if (isPending) return <Loading />;
