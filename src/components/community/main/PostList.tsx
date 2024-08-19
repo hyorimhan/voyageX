@@ -57,7 +57,7 @@ const PostList = () => {
   if (isError) return <div>error</div>;
 
   return (
-    <div className='overflow-x-auto'>
+    <div className='overflow-x-auto sm:p-5'>
       <div className='flex flex-col'>
         <div className='flex mb-[10px] border-b-[0.4px] border-white text-center gap-x-4 sm:gap-x-1'>
           <span className='flex-none w-32 p-2 text-lg font-normal text-white sm:hidden'>
