@@ -13,6 +13,7 @@ import Loading from '@/components/common/Loading';
 import PostWriterIcon from '../ProfileImages/PostWriter';
 import toast from 'react-hot-toast';
 import CommentsWrite from './CommentsWrite';
+import GenericModal from '@/components/common/GenericModal';
 
 const CommentList = ({
   postId,
@@ -26,6 +27,8 @@ const CommentList = ({
 
   const [editMode, setEditMode] = useState<string | null>(null);
   const [newContent, setNewContent] = useState('');
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [commentToDelete, setCommentToDelete] = useState<string | null>(null);
 
   const isContentValid = (content: string) => {
     return content.split('\n').some((line) => line.trim().length >= 2);
@@ -53,7 +56,7 @@ const CommentList = ({
       );
       return { previousComments };
     },
-    onError: (err, deletedCommentId, context) => {
+    onError: (_, __, context) => {
       queryClient.setQueryData(['comments', postId], context?.previousComments);
       toast.error('댓글 삭제에 실패했습니다.');
     },
@@ -82,7 +85,7 @@ const CommentList = ({
       );
       return { previousComments };
     },
-    onError: (err, updatedComment, context) => {
+    onError: (_, __, context) => {
       queryClient.setQueryData(['comments', postId], context?.previousComments);
       toast.error('댓글 수정에 실패했습니다.');
     },
@@ -97,7 +100,16 @@ const CommentList = ({
   });
 
   const handleClickDelete = (id: string) => {
-    removeComment(id);
+    setCommentToDelete(id);
+    setIsDeleteModalOpen(true);
+  };
+
+  const confirmDelete = () => {
+    if (commentToDelete) {
+      removeComment(commentToDelete);
+      setIsDeleteModalOpen(false);
+      setCommentToDelete(null);
+    }
   };
 
   const handleClickEdit = (comment: Comment) => {
@@ -226,6 +238,15 @@ const CommentList = ({
         </div>
       ))}
       <CommentsWrite postId={postId} userId={userId} />
+      <GenericModal
+        isOpen={isDeleteModalOpen}
+        title='댓글 삭제'
+        content='정말로 이 댓글을 삭제하시겠습니까?'
+        buttonText='삭제'
+        buttonAction={confirmDelete}
+        cancelText='취소'
+        cancelAction={() => setIsDeleteModalOpen(false)}
+      />
     </div>
   );
 };
