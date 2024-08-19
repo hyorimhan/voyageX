@@ -66,21 +66,21 @@ const AddressesList = ({
               )}
             </button>
             <div className='flex gap-1 self-center ml-2 text-center md:hidden lg:hidden'>
-              <p className='text-xs text-center'>{address.alias}</p>
+              <p className='text-xs text-center sm:text-xs'>{address.alias}</p>
               {address.is_default && (
                 <p className='text-primary-200 text-[10px] sm:self-end'>
                   기본배송지
                 </p>
               )}
             </div>
-            <div className='flex items-center ml-2 sm:flex-wrap sm:gap-0'>
+            <div className='flex items-center ml-2 sm:flex-wrap sm:gap-0 sm:ml-0'>
               <div className='w-[78px] flex flex-col text-center sm:hidden'>
                 {address.is_default && (
                   <p className='text-primary-200 text-[10px]'>기본배송지</p>
                 )}
                 <p className='text-sm text-center'>{address.alias}</p>
               </div>
-              <div className='text-left ml-5 text-sm w-[363px] px-2 sm:text-xs sm:mt-2'>
+              <div className='text-left text-sm w-[363px] px-2 sm:text-xs sm:mt-2 sm:w-full'>
                 <p className='mb-1 md:hidden lg:hidden'>{address.recipient}</p>
                 <p className='mb-1 sm:mb-0'>({address.postcode})</p>
                 <p>
