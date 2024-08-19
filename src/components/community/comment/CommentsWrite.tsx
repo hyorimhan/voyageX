@@ -29,8 +29,8 @@ const CommentsWrite = ({
 
     if (!user) return toast.error('로그인 후 이용하실 수 있습니다.');
 
-    if (!/^(?!\s*$).{5,}$/.test(content)) {
-      return toast.error('댓글은 최소 5글자 이상이어야 합니다.');
+    if (content.replace(/\s/g, '').length < 2) {
+      return toast.error('댓글은 최소 2글자 이상이어야 합니다.');
     }
 
     const newComment = {
@@ -52,7 +52,7 @@ const CommentsWrite = ({
             htmlFor='comment'
             className='absolute top-3 left-5 text-sm text-gray-200 ml-5'
           >
-            {userId === user?.id ? '우주인' : '외계인'}
+            {userId === user?.id ? '익명의 우주인' : '익명의 외계인'}
           </label>
           <textarea
             id='comment'

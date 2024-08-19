@@ -20,12 +20,12 @@ type TourReviewModalProps = {
   order_id?: string;
 };
 
-const TourReviewModal: React.FC<TourReviewModalProps> = ({
+const TourReviewModal = ({
   onClose,
   tourId,
   userId,
   order_id,
-}) => {
+}: TourReviewModalProps) => {
   const queryClient = useQueryClient();
   const { data: prevReviewId } = useGetOrderedTourReviewId({
     order_id: order_id!,
@@ -50,6 +50,7 @@ const TourReviewModal: React.FC<TourReviewModalProps> = ({
     mutationFn: createTourReview,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['reviews'] });
+      queryClient.invalidateQueries({ queryKey: ['tourOrders', userId] });
       toast.success('리뷰를 작성했습니다.');
       onClose();
     },
@@ -59,6 +60,7 @@ const TourReviewModal: React.FC<TourReviewModalProps> = ({
     mutationFn: modifyTourReview,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['reviews'] });
+      queryClient.invalidateQueries({ queryKey: ['tourOrders', userId] });
       toast.success('리뷰를 수정했습니다.');
       onClose();
     },
@@ -96,8 +98,8 @@ const TourReviewModal: React.FC<TourReviewModalProps> = ({
 
   useEffect(() => {
     if (loadedReview) {
-      setReview(loadedReview?.review!);
-      setRating(loadedReview?.rating!);
+      setReview(loadedReview?.review ?? '');
+      setRating(loadedReview?.rating ?? 3);
     }
   }, [isPending, loadedReview]);
 

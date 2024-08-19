@@ -2,59 +2,17 @@
 
 import StarFalseIcon24px from '@/components/common/icons/24px/StarFalseIcon24px';
 import StarTrueIcon24px from '@/components/common/icons/24px/StarTrueIcon24px';
-import Loading from '@/components/common/Loading';
-import { createClient } from '@/supabase/client';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Pagination from '@/components/common/Pagination';
-
-type Review = {
-  id: string;
-  user_id: string;
-  rating: number;
-  review: string;
-  created_at: string;
-  user: { email: string };
-};
+import { Review } from '@/types/reviewType';
 
 type GoodsReviewsProps = {
-  goodsId: string;
-  setReviewCount: (count: number) => void;
+  goodsReviews: Review[];
 };
 
-const GoodsReviews: React.FC<GoodsReviewsProps> = ({
-  goodsId,
-  setReviewCount,
-}) => {
-  const [reviews, setReviews] = useState<Review[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState(false);
-  const supabase = createClient();
+const GoodsReviews = ({ goodsReviews }: GoodsReviewsProps) => {
   const [currentPage, setCurrentPage] = useState(1);
   const ITEMS_PER_PAGE = 6;
-
-  useEffect(() => {
-    const fetchReviews = async () => {
-      try {
-        const { data, error } = await supabase
-          .from('goods_reviews')
-          .select('*, user:users(email)')
-          .eq('goods_id', goodsId);
-
-        if (error) {
-          setIsError(true);
-        } else {
-          setReviews(data as Review[]);
-          setReviewCount(data.length);
-        }
-      } catch (error) {
-        setIsError(true);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchReviews();
-  }, [goodsId, setReviewCount]);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -62,16 +20,16 @@ const GoodsReviews: React.FC<GoodsReviewsProps> = ({
 
   const indexOfLastReview = currentPage * ITEMS_PER_PAGE;
   const indexOfFirstReview = indexOfLastReview - ITEMS_PER_PAGE;
-  const currentReviews = reviews.slice(indexOfFirstReview, indexOfLastReview);
-  const totalPages = Math.ceil(reviews.length / ITEMS_PER_PAGE);
-
-  if (isLoading) return <Loading />;
-  if (isError) return <div>에러 발생</div>;
+  const currentReviews = goodsReviews.slice(
+    indexOfFirstReview,
+    indexOfLastReview,
+  );
+  const totalPages = Math.ceil(goodsReviews.length / ITEMS_PER_PAGE);
 
   return (
     <>
       <div className='flex py-7 w-full flex-col mt-11 text-xs mb-[148px]'>
-        <p className='text-2xl'>리뷰 ({reviews.length})</p>
+        <p className='text-2xl'>리뷰 ({goodsReviews.length})</p>
         {currentReviews.length > 0 ? (
           currentReviews.map((review) => (
             <div
@@ -91,7 +49,10 @@ const GoodsReviews: React.FC<GoodsReviewsProps> = ({
                     ),
                   )}
                 </p>
-                <p>{review.user?.email.split('@')[0]}</p>
+                <p>
+                  {review.user?.email.split('@')[0] ??
+                    '우주 미아 (탈퇴한 유저)'}
+                </p>
               </div>
               <div>
                 <p className='text-sm'>{review.review}</p>

@@ -15,8 +15,8 @@ function GoodsItem({ item, user_id }: GoodsItemPropsType) {
     router.push(`/shop_detail/${id}`);
   };
   return (
-    <li className='w-full bg-black-1000'>
-      <div className='relative sm:w-[160px] sm:h-[160px] md:w-[268px] md:h-[272px] lg:w-[268px] lg:h-[272px]'>
+    <li className='min-w-[160px] max-w-[268px] bg-black-1000'>
+      <div className='relative w-full sm:h-[160px] md:h-[268px] lg:h-[268px]'>
         <Image
           src={item.goods_img}
           alt={item.description}
@@ -34,33 +34,27 @@ function GoodsItem({ item, user_id }: GoodsItemPropsType) {
           className='flex justify-start cursor-pointer font-medium text-base'
           onClick={() => handleItemClick(item.id)}
         >
-          <span className='md:hidden lg:hidden'>
-            {item.goods_name.length > 15
-              ? item.goods_name.slice(0, 15) + '...'
-              : item.goods_name}
+          <span className='whitespace-nowrap overflow-hidden text-ellipsis'>
+            {item.goods_name}
           </span>
-          <span className='sm:hidden'>{item.goods_name}</span>
         </p>
         <span className='text-base text-black-200 line-through'>
           {item.pre_price.toLocaleString()}원
         </span>
-        <div className='flex justify-between items-end'>
+        <div className='w-full'>
           <div className='flex flex-col'>
-            <div className='flex'>
+            <div className='flex items-center'>
               <p className='text-error-900 text-xl mr-2 font-semibold'>
                 {item.discount}%
               </p>
-              <p className='text-xl font-semibold sm:text-sm'>{`${item.goods_price.toLocaleString()}원`}</p>
+              <p className='text-xl font-semibold'>{`${item.goods_price.toLocaleString()}원`}</p>
             </div>
-            <div className='flex flex-row gap-2'>
+            <div className='flex flex-row justify-between'>
               <Stars ratingAvg={item.rating_avg} />
-              <div className='sm:block lg:hidden sm:ml-auto'>
+              <div className='sm:ml-auto'>
                 <Hearts goods_id={item.id} user_id={user_id} />
               </div>
             </div>
-          </div>
-          <div className='flex flex-row sm:hidden justify-between items-center'>
-            <Hearts goods_id={item.id} user_id={user_id} />
           </div>
         </div>
       </div>

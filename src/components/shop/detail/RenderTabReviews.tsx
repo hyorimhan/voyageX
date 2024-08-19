@@ -1,18 +1,18 @@
 import StarFalseIcon24px from '@/components/common/icons/24px/StarFalseIcon24px';
 import StarTrueIcon24px from '@/components/common/icons/24px/StarTrueIcon24px';
 import GoodsReviews from './GoodsReviews';
+import { Review } from '@/types/reviewType';
+import GoodsReviewsMobile from './GoodsReviewsMobile';
 
 type RenderTabReviewsProps = {
   goodsRating: number | undefined;
-  goodsId: string;
-  setReviewCount: (count: number) => void;
+  goodsReviews: Review[];
 };
 
-const RenderTabReviews: React.FC<RenderTabReviewsProps> = ({
+const RenderTabReviews = ({
   goodsRating,
-  goodsId,
-  setReviewCount,
-}) => {
+  goodsReviews,
+}: RenderTabReviewsProps) => {
   const roundedStars = Math.round(goodsRating ?? 0);
   const fullStars = roundedStars;
   const emptyStars = 5 - roundedStars;
@@ -33,7 +33,12 @@ const RenderTabReviews: React.FC<RenderTabReviewsProps> = ({
           <p className='text-2xl text-black-400 ml-1 font-bold'>/5.0</p>
         </div>
       </div>
-      <GoodsReviews goodsId={goodsId} setReviewCount={setReviewCount} />
+      <div className='sm:hidden'>
+        <GoodsReviews goodsReviews={goodsReviews} />
+      </div>
+      <div className='md:hidden lg:hidden'>
+        <GoodsReviewsMobile goodsReviews={goodsReviews} />
+      </div>
     </>
   );
 };

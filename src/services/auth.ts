@@ -53,13 +53,10 @@ export const signInWithKakao = async () => {
         access_type: 'offline',
         prompt: 'login',
       },
+      redirectTo: `${window.location.origin}/api/auth/kakao`,
     },
   });
-  const user = await userLoginInfo();
 
-  if (user) {
-    toast.success('로그인 되었습니다');
-  }
   if (error) {
     toast.error(error.message);
   }
@@ -73,13 +70,10 @@ export const signInWithGoogle = async () => {
       queryParams: {
         access_type: 'offline',
       },
+      redirectTo: `${window.location.origin}/api/auth/google`,
     },
   });
-  const user = await userLoginInfo();
 
-  if (user) {
-    toast.success('로그인 되었습니다');
-  }
   if (error) {
     toast.error(error.message);
   }

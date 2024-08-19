@@ -4,10 +4,11 @@ import RenderTabReviews from './RenderTabReviews';
 import RenderTabGoodsDetail from './RenderTabGoodsDetail';
 import { useState } from 'react';
 import RenderTourGuid from '@/components/tour/tourDetail/tourTab/guideContents/RenderTourGuid';
+import { Review } from '@/types/reviewType';
 
 type GoodsDetailPageTabSelectorProps = {
-  goodsRating?: number | undefined;
-  goodsId: string;
+  goodsRating: number | undefined;
+  goodsReviews: Review[];
   contents: React.ReactNode | string;
   guideContents?: string | React.ReactNode;
   showTourGuideTab?: boolean;
@@ -16,14 +17,13 @@ type GoodsDetailPageTabSelectorProps = {
 
 function GoodsDetailPageTabSelector({
   goodsRating,
-  goodsId,
+  goodsReviews,
   contents,
   guideContents,
   showTourGuideTab = false,
   defaultTab = 'Details', // defaultTab 기본값은 'Details'로 설정
 }: GoodsDetailPageTabSelectorProps) {
   const [selectedTab, setSelectedTab] = useState(defaultTab);
-  const [reviewCount, setReviewCount] = useState(0);
 
   return (
     <>
@@ -49,7 +49,7 @@ function GoodsDetailPageTabSelector({
           >
             <div className='flex items-center justify-center gap-[9px]'>
               <p>리뷰</p>
-              <p>{reviewCount}</p>
+              <p>{goodsReviews.length}</p>
             </div>
           </button>
         </div>
@@ -82,8 +82,7 @@ function GoodsDetailPageTabSelector({
       {selectedTab === 'Reviews' ? (
         <RenderTabReviews
           goodsRating={goodsRating}
-          goodsId={goodsId}
-          setReviewCount={setReviewCount}
+          goodsReviews={goodsReviews}
         />
       ) : selectedTab === 'TourGuide' && showTourGuideTab ? (
         <RenderTourGuid contents={guideContents} />

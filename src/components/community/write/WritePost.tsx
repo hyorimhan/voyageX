@@ -8,7 +8,6 @@ import { insertPost, uploadImage } from '@/services/community';
 import { TWritePost } from '@/types/communityType';
 import useAuthStore from '@/zustand/store/useAuth';
 import { useRouter } from 'next/navigation';
-import PostPen20px from '@/components/common/icons/20px/PostPenIcon20px';
 import toast from 'react-hot-toast';
 import dynamic from 'next/dynamic';
 import 'react-quill/dist/quill.snow.css';
@@ -82,9 +81,9 @@ const WritePost = () => {
 
             if (error instanceof Error) {
               if (error.message.includes('413')) {
-                toast.error('이미지 용량이 1MB를 초과했습니다.');
+                toast.error('이미지 용량이 3MB를 초과했습니다.');
               } else {
-                toast.error('이미지 업로드에 실패했습니다.');
+                toast.error('이미지 용량이 3MB를 초과했습니다.');
               }
             } else {
               toast.error('알 수 없는 오류가 발생했습니다.');
@@ -106,9 +105,9 @@ const WritePost = () => {
       return toast.error('제목은 최소 2글자 이상이어야 합니다.');
     }
 
-    const plainTextContent = content.replace(/<[^>]*>?/gm, '').trim(); // HTML 태그 제거 후 순수 텍스트 추출
-    if (plainTextContent.length < 10) {
-      return toast.error('내용은 최소 10글자 이상 입력해야 합니다.');
+    const plainTextContent = content.replace(/<[^>]*>?/gm, '').trim();
+    if (plainTextContent.length < 5) {
+      return toast.error('내용은 최소 5글자 이상 입력해야 합니다.');
     }
 
     if (isSubmitting) return;
@@ -139,7 +138,7 @@ const WritePost = () => {
 
   return (
     <form onSubmit={handleSubmitWrite} className='flex flex-col gap-4'>
-      <div className='text-[24px] justify-between content-center flex mb-16'>
+      <div className='text-[24px] justify-between content-center flex mb-6'>
         <div className='flex'>
           <Link href='/community'>
             <div>자유게시판</div>
@@ -149,12 +148,11 @@ const WritePost = () => {
         <div className='flex gap-2 text-sm'>
           <button
             type='submit'
-            className={`rounded-lg bg-primary-600 px-6 py-2 flex justify-center items-center gap-1 ${
+            className={`rounded-lg bg-primary-600 px-6 py-3 flex justify-center items-center gap-1 ${
               isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
             }`}
             disabled={isSubmitting} // 제출 중이면 버튼 비활성화
           >
-            <PostPen20px />
             {isSubmitting ? '등록 중...' : '등록'}
           </button>
         </div>
@@ -189,11 +187,6 @@ const WritePost = () => {
                 [{ align: [] }, 'link', 'image'],
               ],
             },
-          }}
-          placeholder='내용을 입력해주세요.'
-          style={{
-            color: '#000000',
-            marginBottom: '6%',
           }}
         />
       </div>

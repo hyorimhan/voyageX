@@ -13,11 +13,11 @@ function AddressInfo({ expressAddress, customerInfo }: AddressInfoPropsType) {
       </div>
       <div className='mt-4 flex'>
         <div className='w-[80px] text-black-200'>받는 분 </div>
-        {customerInfo.customerName}
+        {customerInfo?.customerName}
       </div>
       <div className='flex my-5'>
         <div className='w-[80px] text-black-200'>휴대폰 번호</div>
-        {customerInfo.customerPhone}
+        {customerInfo?.customerPhone}
       </div>
       <div className='flex flex-row flex-nowrap'>
         <div className='w-[80px] text-black-200'>

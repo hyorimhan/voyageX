@@ -29,6 +29,7 @@ function TourList() {
       >
         <TourRouter url='/' />
       </div>
+
       <Popup />
       <div className='lg:hidden md:hidden mx-5 sm:mt-8 mb-5 '>
         <Swiper

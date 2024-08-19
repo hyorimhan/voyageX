@@ -5,12 +5,14 @@ import { getGoodsOrderDetail } from '@/services/goods';
 import { GoodsOrdersType } from '@/types/goods';
 import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 type GoodsOrderDetailListProps = {
   order_id: string;
 };
 
 const GoodsOrderDetailList = ({ order_id }: GoodsOrderDetailListProps) => {
+  const router = useRouter();
   const {
     data: goodsOrdersDetail,
     error,
@@ -95,12 +97,17 @@ const GoodsOrderDetailList = ({ order_id }: GoodsOrderDetailListProps) => {
               <Image
                 src={item.goods.goods_img}
                 alt={item.goods.description}
-                height={119}
+                height={104}
                 width={104}
+                className='object-cover cursor-pointer'
+                onClick={() => router.push(`/shop_detail/${item.goods_id}`)}
               />
               <div className='ml-[18px] flex justify-between w-full'>
-                <div className='flex flex-col gap-2 justify-center sm:hidden'>
-                  <p>우주</p>
+                <div
+                  className='flex flex-col gap-2 justify-center sm:hidden cursor-pointer'
+                  onClick={() => router.push(`/shop_detail/${item.goods_id}`)}
+                >
+                  <p>Voyage X</p>
                   <p className='text-lg'>{item.goods.goods_name}</p>
                   <div className='flex gap-2 items-center'>
                     <p>{item.goods.goods_price.toLocaleString()}원</p>
@@ -108,8 +115,8 @@ const GoodsOrderDetailList = ({ order_id }: GoodsOrderDetailListProps) => {
                     <p>수량 {item.quantity}개</p>
                   </div>
                 </div>
-                <div className='flex flex-col gap-1 justify-center'>
-                  <p className='text-sm'>우주</p>
+                <div className='flex flex-col gap-1 justify-center md:hidden lg:hidden'>
+                  <p className='text-sm'>Voyage X</p>
                   <p className='text-sm'>{item.goods.goods_name}</p>
                   <p className='text-xs text-black-200'>
                     수량 {item.quantity}개

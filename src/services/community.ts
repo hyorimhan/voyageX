@@ -53,7 +53,7 @@ export async function insertPost(newPost: TWritePost) {
 
 // 이미지 업로드 서비스 함수
 export async function uploadImage(content: string) {
-  const response = await fetch('/api/community/upload/', {
+  const response = await fetch('/api/community/upload', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -156,4 +156,12 @@ export async function getPagination(page: number, limit: number) {
 
   const data = await response.json();
   return data;
+}
+
+export async function getTopLikedPosts() {
+  const response = await fetch('/api/community/top-liked');
+  if (!response.ok) {
+    throw new Error('Failed to fetch top liked posts');
+  }
+  return response.json();
 }

@@ -1,40 +1,25 @@
 'use client';
 import useAuthStore from '@/zustand/store/useAuth';
-import React, { useEffect, useState, useTransition } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaBars } from 'react-icons/fa';
 import LogoutBtn from '@/components/auth/logout/LogoutBtn';
-// import { userLoginInfo } from '@/services/auth';
 import MyPageIcon24px from './icons/24px/MyPageIcon24px';
-import ShoppingBagIcon24px from './icons/24px/ShoppingBagIcon24px';
 import HeartDefaultIcon24px from './icons/24px/HeartDefaultIcon24px';
-// import { useRouter } from 'next/navigation';
-// import Loading from './Loading';
 import { orbitron } from '../../../public/fonts/orbitron';
 import Image from 'next/image';
 import useLastSelectWishListStore from '@/zustand/store/useLastSelectWishListStore';
-import { createClient } from '@/supabase/client';
 import Link from 'next/link';
-import { userLoginInfo } from '@/services/auth';
+
+import ShoppingBagIcon24px from './icons/24px/ShoppingBagIcon24px';
 
 const Header = () => {
   const user = useAuthStore((state) => state.user);
-  const saveUser = useAuthStore((state) => state.saveUser);
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  // const router = useRouter();
-  // const [isPending, startTransition] = useTransition();
   const { setLastSelectTab } = useLastSelectWishListStore((state) => state);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
-
-  useEffect(() => {
-    const loginInfo = async () => {
-      const userInfo = await userLoginInfo();
-      saveUser(userInfo);
-    };
-    loginInfo();
-  }, []);
 
   return (
     <>
@@ -82,7 +67,11 @@ const Header = () => {
             >
               <HeartDefaultIcon24px />
             </Link>
-            <Link href={'/mypage/goods_orders'} className='hover:text-gray-300'>
+            <Link
+              href={'/wishlist'}
+              className='hover:text-gray-300'
+              onClick={() => setLastSelectTab('MyCart')}
+            >
               <ShoppingBagIcon24px />
             </Link>
             <Link
@@ -97,7 +86,11 @@ const Header = () => {
             {user ? (
               <LogoutBtn />
             ) : (
-              <Link href={'/login'} className='hover:text-gray-300'>
+              <Link
+                href={'/login'}
+                // onClick={() => handleLoginClick('/login')}
+                className='hover:text-gray-300'
+              >
                 <span className=' hover:text-gray-300 w-[50px]'>로그인</span>
               </Link>
             )}

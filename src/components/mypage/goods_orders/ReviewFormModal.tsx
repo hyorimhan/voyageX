@@ -20,12 +20,12 @@ type ReviewFormModallProps = {
   order_id?: string;
 };
 
-const ReviewFormModal: React.FC<ReviewFormModallProps> = ({
+const ReviewFormModal = ({
   onClose,
   goodsId,
   userId,
   order_id,
-}) => {
+}: ReviewFormModallProps) => {
   const queryClient = useQueryClient();
   const { data: prevReviewId } = useGetOrderedGoodsReviewId({
     order_id: order_id!,
@@ -50,6 +50,7 @@ const ReviewFormModal: React.FC<ReviewFormModallProps> = ({
     mutationFn: createGoodsReview,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['reviews'] });
+      queryClient.invalidateQueries({ queryKey: ['goodsOrders', userId] });
       toast.success('리뷰를 작성했습니다.');
       onClose();
     },
@@ -59,6 +60,7 @@ const ReviewFormModal: React.FC<ReviewFormModallProps> = ({
     mutationFn: modifyGoodsReview,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['reviews'] });
+      queryClient.invalidateQueries({ queryKey: ['goodsOrders', userId] });
       toast.success('리뷰를 수정했습니다.');
       onClose();
     },
@@ -97,8 +99,8 @@ const ReviewFormModal: React.FC<ReviewFormModallProps> = ({
 
   useEffect(() => {
     if (loadedReview) {
-      setReview(loadedReview?.review!);
-      setRating(loadedReview?.rating!);
+      setReview(loadedReview?.review ?? '');
+      setRating(loadedReview?.rating ?? 3);
     }
   }, [isPending, loadedReview]);
 
@@ -133,7 +135,7 @@ const ReviewFormModal: React.FC<ReviewFormModallProps> = ({
                   ? '그저 그래요'
                   : rating === 1
                   ? '별로에요'
-                  : ''}
+                  : '불러오는 중'}
               </p>
             </div>
           </div>
