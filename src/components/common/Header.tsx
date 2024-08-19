@@ -25,26 +25,6 @@ const Header = () => {
     <>
       <header className='bg-header-default  h-16 flex fixed z-20 top-0 items-center justify-between px-4 w-full mx-auto'>
         <div className='max-w-[1120px] mx-auto flex justify-between items-center w-full bg-black-900'>
-          <nav className='hidden lg:flex bg-black-900 items-center space-x-5 w-[310px]'>
-            <Link href={'/tour'} className='hover:text-gray-300'>
-              여행 상품
-            </Link>
-            <Link href={'/shop'} className='hover:text-gray-300'>
-              굿즈샵
-            </Link>
-            <Link href={'/community'} className='hover:text-gray-300'>
-              자유게시판
-            </Link>
-            {/* <button
-              className='hover:text-gray-300'
-              onClick={() => handleLinkClick('/address_list')}
-            >
-              뉴스
-            </button> */}
-            <Link href={'/about'} className='hover:text-gray-300'>
-              ABOUT US
-            </Link>
-          </nav>
           <div
             className={`flex items-center justify-center ${orbitron.className}`}
           >
@@ -57,7 +37,25 @@ const Header = () => {
               />
             </Link>
           </div>
-          <div className='flex items-center justify-end w-[310px] gap-4'>
+          <nav className='hidden lg:flex bg-black-900 items-center justify-center space-x-7 w-[390px]'>
+            <Link href={'/tour'} className='hover:text-gray-300'>
+              여행 상품
+            </Link>
+            <Link href={'/shop'} className='hover:text-gray-300'>
+              굿즈샵
+            </Link>
+            <Link href={'/community'} className='hover:text-gray-300'>
+              자유게시판
+            </Link>
+            <Link href={'/news'} className='hover:text-gray-300'>
+              뉴스
+            </Link>
+            <Link href={'/about'} className='hover:text-gray-300'>
+              ABOUT US
+            </Link>
+          </nav>
+
+          <div className='flex items-center justify-end  gap-4'>
             <Link
               href={'/wishlist'}
               className='hover:text-gray-300'
