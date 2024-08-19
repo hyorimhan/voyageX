@@ -58,7 +58,7 @@ const TourOrderDetailList = ({ order_id }: TourOrderDetailListProps) => {
   };
 
   return (
-    <div className='flex flex-col'>
+    <div className='flex flex-col mb-5'>
       <div className='flex gap-2 sm:text-sm sm:justify-between'>
         <div className='flex'>
           <p>주문일자</p>

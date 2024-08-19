@@ -69,10 +69,7 @@ function Popup() {
         buttonText={'확인'}
         buttonAction={handleCloseModal}
         popupButton={
-          <div
-            onClick={(e) => e.stopPropagation()}
-            className='flex items-center '
-          >
+          <div className='flex items-center '>
             <CheckBox checked={checkModalBtn} onChange={handleChange} />
             <label htmlFor='checkbox' className='p-2'>
               오늘 하루 보지 않기

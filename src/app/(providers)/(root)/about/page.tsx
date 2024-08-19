@@ -5,10 +5,9 @@ import Section1 from '@/components/about/Section1';
 import Section2 from '@/components/about/Section2';
 import Section3 from '@/components/about/Section3';
 import Section4 from '@/components/about/Section4';
-import Section5 from '@/components/about/Section5';
-import Section7 from '@/components/about/section7/Section7';
-import Section6 from '@/components/about/Section6';
+
 import Section8 from '@/components/about/section8/Section8';
+import Section5 from '@/components/about/section5/Section5';
 
 function AboutPage() {
   const { scrollYProgress } = useScroll();
@@ -26,8 +25,7 @@ function AboutPage() {
         <Section3 />
         <Section4 />
         <Section5 />
-        <Section6 />
-        <Section7 />
+
         <Section8 />
       </div>
     </>

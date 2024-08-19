@@ -11,6 +11,7 @@ const config: Config = {
       backgroundImage: {
         'custom-background': "url('/images/배경.png')",
       },
+
       lineClamp: {
         18: '18',
       },
@@ -104,9 +105,14 @@ const config: Config = {
             transform: 'rotateZ(350deg) perspective(800px) rotateY(360deg)',
           },
         },
+        'gradient': {
+          '0%, 100%': { backgroundPosition: '100% 50%' },
+          '50%': { backgroundPosition: '10% 50%' },
+        },
       },
       animation: {
         'rotate-axis': 'rotate-axis 10s linear infinite',
+        'gradient': 'gradient 3s ease-in infinite',
       },
       transformOrigin: {
         'preserve-3d': 'transform-style: preserve-3d',
