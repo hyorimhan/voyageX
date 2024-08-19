@@ -96,7 +96,7 @@ const MainPage = () => {
         }}
       >
         <p
-          className={`absolute top-32 left-4 text-white text-4xl font-semibold fade-text ${orbitron.className} sm:text-2xl sm:font-medium sm:top-24`}
+          className={`absolute top-40 left-20 text-white text-4xl font-semibold fade-text ${orbitron.className} sm:text-2xl sm:font-medium sm:top-24`}
         >
           <span className='hidden sm:inline'>
             Let&apos;s Find <br className='sm:block hidden' /> Popular Planets!
