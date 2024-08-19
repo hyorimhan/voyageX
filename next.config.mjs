@@ -31,6 +31,11 @@ const nextConfig = {
         hostname: 'science.nasa.gov',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'images-assets.nasa.gov',
+        pathname: '/**',
+      },
     ],
   },
   eslint: {
