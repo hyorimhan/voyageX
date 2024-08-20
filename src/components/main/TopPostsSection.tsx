@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Loading from '../common/Loading';
 import { orbitron } from '../../../public/fonts/orbitron';
+import { HotPostBadge } from '../community/common/HotPostBadge';
 
 interface Post {
   id: string;
@@ -33,7 +34,7 @@ const TopPostsSection = () => {
   return (
     <section className='w-full h-full flex flex-col items-center justify-start pt-40 md:pt-60'>
       <div className='w-full max-w-7xl mx-auto px-4 mb-20 md:mb-32'>
-        <div className='flex justify-between items-center'>
+        <div className='flex justify-between  items-center'>
           <h1
             className={`text-4xl ${orbitron.className} font-semibold sm:text-2xl sm:font-medium`}
           >
@@ -44,7 +45,7 @@ const TopPostsSection = () => {
           </Link>
         </div>
       </div>
-      
+
       <div className='w-full max-w-7xl mx-auto px-8'>
         <div className='grid grid-cols-2 gap-12 relative sm:grid-cols-1 sm:gap-8'>
           {posts.slice(0, 4).map((post: Post, index) => (
@@ -56,13 +57,10 @@ const TopPostsSection = () => {
             >
               <div className='flex flex-col justify-between h-full'>
                 <div>
-                  <Image
-                    src={'/images/chips.png'}
-                    alt='chips'
-                    width={55}
-                    height={28}
-                    className='mb-3'
-                  />
+                  <div className='mb-3'>
+                    <HotPostBadge />
+                  </div>
+
                   <h2 className='text-base font-pretendard font-semibold mb-2 md:text-xl md:mb-4'>
                     {post.title}
                   </h2>
@@ -77,7 +75,8 @@ const TopPostsSection = () => {
                 <div className='text-black-50 flex justify-between items-center mt-auto text-xs md:text-sm'>
                   <span>{formatDate(post.created_at)}</span>
                   <span>
-                    좋아요 {post.likes} 댓글 {post.comments}
+                    좋아요 {post.likes}
+                    댓글 {post.comments}
                   </span>
                 </div>
               </div>
