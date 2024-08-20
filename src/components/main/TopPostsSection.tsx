@@ -33,8 +33,8 @@ const TopPostsSection = () => {
 
   return (
     <section className='w-full h-full flex flex-col items-center justify-start pt-40 md:pt-60'>
-      <div className='w-full max-w-7xl mx-auto px-4 mb-20 md:mb-32'>
-        <div className='flex justify-between  items-center'>
+      <div className=' lg:mb-20 md:mb-32 w-full lg:max-w-[1120px]'>
+        {/* <div className='flex justify-between  items-center '>
           <h1
             className={`text-4xl ${orbitron.className} font-semibold sm:text-2xl sm:font-medium`}
           >
@@ -43,16 +43,27 @@ const TopPostsSection = () => {
           <Link href='/community'>
             <p className='text-lg sm:text-base hover:underline'>MORE+</p>
           </Link>
+        </div> */}
+        <div className='w-full lg:max-w-[1120px] mx-auto'>
+          <div className='flex mb-12  justify-between  items-center'>
+            <h2
+              className={`text-4xl sm:text-2xl font-semibold sm:font-medium text-white ${orbitron.className} top-20`}
+            >
+              FREE BOARD
+            </h2>
+            <Link href='/news' className='text-white '>
+              MORE +
+            </Link>
+          </div>
         </div>
       </div>
-
-      <div className='w-full max-w-7xl mx-auto px-8'>
-        <div className='grid grid-cols-2 gap-12 relative sm:grid-cols-1 sm:gap-8'>
+      <div className='lg:max-w-[1120px] w-full mx-auto px-8'>
+        <div className='grid grid-cols-2 gap-12 relative sm:grid-cols-1 sm:gap-8 lg:w-[1120px] mx-auto'>
           {posts.slice(0, 4).map((post: Post, index) => (
             <Link
               href={`/community/${post.id}`}
               key={post.id}
-              className={`p-8 rounded-md block bg-black text-white hover:bg-gray-700 transition-colors
+              className={`p-8 rounded-md block bg-black  text-white hover:bg-gray-700 transition-colors
               ${index >= 2 ? 'sm:hidden' : ''}`}
             >
               <div className='flex flex-col justify-between h-full'>
