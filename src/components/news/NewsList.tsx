@@ -12,17 +12,7 @@ import { Pagination as SwiperPagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import OpenNewTabIcon16px from '../common/icons/16px/OpenNewTabIcon16px';
-
-interface NewsItem {
-  id: number;
-  title: string;
-  link: string;
-  image: string;
-  description: string;
-  read_time: number;
-  category: string;
-  created_at: string;
-}
+import { NewsItem } from '@/types/newsType';
 
 export default function NewsList() {
   const [topThree, setTopThree] = useState<NewsItem[]>([]);
@@ -158,7 +148,7 @@ export default function NewsList() {
               </SwiperSlide>
             ))}
           </Swiper>
-          <div className=' translate translate-y-12'>
+          <div className='translate translate-y-12'>
             <div className='swiper-pagination'></div>
           </div>
         </div>
@@ -185,7 +175,7 @@ export default function NewsList() {
                       <OpenNewTabIcon16px />
                     </div>
                   </p>
-                  <div className='flex flex-row gap-1 sm:order-1 order-2 items-center'>
+                  <div className='flex flex-row gap-1 items-center'>
                     <Badge type='category' content={item.category} />
                     <Badge type='read_time' content={item.read_time} />
                     <div className='ml-auto opacity-0 group-hover:opacity-100 lg:hidden md:hidden'>

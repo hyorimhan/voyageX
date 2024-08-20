@@ -45,6 +45,9 @@ const NewsSection: React.FC = () => {
     fetchNews();
   }, []);
 
+  if (isLoading)
+    return <div className='text-white text-center'>Loading...</div>;
+  if (error) return <div className='text-red-500 text-center'>{error}</div>;
   if (isLoading) return <div className='text-white text-center'>Loading...</div>;
   if (error) return <div className='text-red-500 text-center'>{error}</div>;
 
@@ -86,6 +89,10 @@ const NewsSection: React.FC = () => {
                 </h3>
                 <p className='text-gray-300 text-sm sm:text-xs line-clamp-3 sm:line-clamp-2'>
                   {item.description}
+                <p className='text-gray-300 text-sm line-clamp-3 flex-grow'>
+                  {item.description.length > 150
+                    ? `${item.description.substring(0, 150)}...`
+                    : item.description}
                 </p>
               </div>
             </div>

@@ -23,16 +23,15 @@ const WriteButton = () => {
       {user && (
         <button
           onClick={handleClickMyPost}
-          className='bg-black-1000 text-black-50 px-3 py-3 rounded-lg border-primary-600 border-[1px] sm:hidden'
+          className='bg-black-1000 text-black-50 px-3 py-3 rounded-lg border-primary-600 border-[1px] hidden'
         >
           내가 쓴 글 보러가기
         </button>
       )}
       <button
         onClick={handleClickWrite}
-        className='flex items-center bg-primary-600 text-black-50 px-4 py-3 rounded-lg sm:text-sm sm:px-5 sm:py-2 gap-2'
+        className='flex items-center bg-primary-600 text-black-50 px-4 py-3 rounded-lg sm:text-base sm:px-4 sm:py-3 gap-2 '
       >
-        <PenIcon20px />
         글쓰기
       </button>
     </div>
