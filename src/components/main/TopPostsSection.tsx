@@ -31,7 +31,7 @@ const TopPostsSection = () => {
   if (error) return <div>{error}</div>;
 
   return (
-    <section className='section min-h-screen flex flex-col items-center justify-start pt-40 md:pt-60 relative'>
+    <section className='w-full h-full flex flex-col items-center justify-start pt-40 md:pt-60'>
       <div className='w-full max-w-7xl mx-auto px-4 mb-20 md:mb-32'>
         <div className='flex justify-between items-center'>
           <h1

@@ -15,6 +15,7 @@ import Loading from '@/components/common/Loading';
 import Chatbot from '@/components/chatbot/Chatbot';
 import { orbitron } from '../../../../../public/fonts/orbitron';
 import TopBtn from '@/components/common/TopBtn';
+import NewsSection from '@/components/main/NewsSection';
 
 const MainPage = () => {
   const sectionsRef = useRef<(HTMLDivElement | null)[]>([]);
@@ -66,7 +67,7 @@ const MainPage = () => {
   if (tourError) return <div>Error: {tourError.message}</div>;
 
   return (
-    <div>
+    <div className='relative'>
       <Chatbot />
       <VideoSection
         videoSrc='https://uvjnwqdttdhvwexypdhx.supabase.co/storage/v1/object/public/background/mainvideo%20(2).mp4?t=2024-08-16T07%3A58%3A43.247Z'
@@ -299,10 +300,19 @@ const MainPage = () => {
         ref={(el) => {
           sectionsRef.current[3] = el as HTMLDivElement;
         }}
-        className='section section-bg h-screen flex flex-col items-center justify-center'
+        className='section section-bg min-h-screen flex flex-col items-center justify-center relative mb-10'
       >
         <TopPostsSection />
         <TopBtn />
+      </section>
+      <section
+        ref={(el) => {
+          sectionsRef.current[4] = el as HTMLDivElement
+        }}
+        className='section min-h-screen bg-black-1000 bg-opacity-100'
+      >
+        <NewsSection/>
+
       </section>
       <Footer />
     </div>

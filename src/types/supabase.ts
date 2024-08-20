@@ -56,6 +56,39 @@ export type Database = {
           },
         ];
       };
+      news: {
+        Row: {
+          id: number;
+          title: string;
+          link: string;
+          description: string;
+          read_time: number;
+          category: string;
+          image: string;
+          created_at: string;
+        };
+        Insert: {
+          id?: number;
+          title: string;
+          link: string;
+          description: string;
+          read_time: number;
+          category: string;
+          image: string;
+          created_at?: string;
+        };
+        Update: {
+          id?: number;
+          title?: string;
+          link?: string;
+          description?: string;
+          read_time?: number;
+          category?: string;
+          image?: string;
+          created_at?: string;
+        };
+        Relationships: [];
+      };
       cart: {
         Row: {
           created_at: string;
