@@ -127,7 +127,7 @@ const GoodsInfo = ({ goods, goods_id }: GoodsInfoProps) => {
           <div className='border-t-[1px] border-black-700'></div>
           <div className='flex py-3 px-4 ga text-sm p-[18px]'>
             <p className=' w-[70px]'>색상</p>
-            <p>BLACK</p>
+            <p>{goods.color}</p>
           </div>
           <div className='border-t-[1px] border-black-700'></div>
           <QuantityBtn
