@@ -1,6 +1,6 @@
 'use client';
 import useAuthStore from '@/zustand/store/useAuth';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { FaBars } from 'react-icons/fa';
 import LogoutBtn from '@/components/auth/logout/LogoutBtn';
 import MyPageIcon24px from './icons/24px/MyPageIcon24px';
@@ -16,10 +16,23 @@ const Header = () => {
   const user = useAuthStore((state) => state.user);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const { setLastSelectTab } = useLastSelectWishListStore((state) => state);
+  const menuRef = useRef<HTMLElement>(null);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
+
+  useEffect(() => {
+    const handleClickBackGround = (e: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickBackGround);
+    return () => {
+      document.removeEventListener('mousedown', handleClickBackGround);
+    };
+  }, []);
 
   return (
     <>
@@ -98,7 +111,10 @@ const Header = () => {
           </div>
 
           {isOpen && (
-            <nav className='md:hidden flex flex-col items-center absolute top-16 left-0 w-full bg-header-default bg-opacity-60 space-y-4 py-4'>
+            <nav
+              ref={menuRef}
+              className='md:hidden flex flex-col items-center absolute top-16 left-0 w-full bg-header-default bg-opacity-60 space-y-4 py-4'
+            >
               <Link
                 href={'/tour'}
                 className='hover:text-gray-300'
@@ -118,7 +134,14 @@ const Header = () => {
                 className='hover:text-gray-300'
                 onClick={() => setIsOpen(false)}
               >
-                커뮤니티
+                자유게시판
+              </Link>
+              <Link
+                href={'/news'}
+                className='hover:text-gray-300'
+                onClick={() => setIsOpen(false)}
+              >
+                뉴스
               </Link>
               <Link
                 href={'/mypage/tour_orders'}
