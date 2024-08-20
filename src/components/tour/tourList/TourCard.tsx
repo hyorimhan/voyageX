@@ -8,7 +8,7 @@ import { orbitron } from '../../../../public/fonts/orbitron';
 function TourCard({ tour }: { tour: Tour }) {
   return (
     <Link href={`/tour/${tour.id}`}>
-      <div className='relative w-88 h-[491px] group overflow-hidden border-[1px] border-black-500 rounded-lg shadow-md lg:hover:scale-105'>
+      <div className='relative w-88 h-[491px] group    overflow-hidden border-[1px] border-black-500 rounded-lg shadow-md lg:hover:scale-105'>
         <Image
           src={tour.planets?.planet_img!}
           alt={tour.planets?.name!}

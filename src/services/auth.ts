@@ -1,6 +1,5 @@
 import { createClient } from '@/supabase/client';
 import { formType } from '@/types/authFormType';
-import useAuthStore from '@/zustand/store/useAuth';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
@@ -8,40 +7,20 @@ const supabase = createClient();
 
 // 회원가입
 export const signUp = async ({ email, password }: formType) => {
-  const response = await fetch('/api/auth/signup', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ email, password }),
-  });
-
-  const responseData = await response.json();
-  return responseData;
+  const response = await axios.post('/api/auth/signup', { email, password });
+  return response.data;
 };
 
 // 로그인
 export const login = async ({ email, password }: formType) => {
-  const response = await fetch('/api/auth/login', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ email, password }),
-  });
-
-  const responseData = await response.json();
-
-  return responseData;
+  const response = await axios.post('/api/auth/login', { email, password });
+  return response.data;
 };
 
 // 로그아웃
 export const logout = async () => {
-  const response = await fetch('/api/auth/logout', {
-    method: 'DELETE',
-  });
-  const responseData = await response.json();
-  return responseData;
+  const response = await axios.delete('/api/auth/logout');
+  return response.data;
 };
 
 // 카카오
@@ -141,21 +120,18 @@ export const updatePassword = async ({
 
 // 회원 탈퇴
 export const deleteUser = async (userId: string) => {
-  const response = await fetch('/api/auth/deleteUser', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ userId }),
-  });
-
-  const responseData = await response.json();
-
-  if (response.ok) {
-    toast.success('회원탈퇴가 완료되었습니다.');
-  } else {
-    toast.error(responseData.error || '회원탈퇴 중 오류가 발생했습니다.');
+  try {
+    const response = await axios.post('/api/auth/deleteUser', { userId });
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      toast.error(
+        error.response?.data.console.error ||
+          '회원 탈퇴 중 오류가 발생했습니다',
+      );
+    } else {
+      toast.error('알 수 없는 오류가 발생했습니다');
+    }
+    throw error;
   }
-
-  return responseData;
 };
