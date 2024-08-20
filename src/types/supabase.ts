@@ -179,6 +179,7 @@ export type Database = {
           like_count: number;
           pre_price: number;
           rating_avg: number;
+          color: string;
         };
         Insert: {
           created_at?: string;

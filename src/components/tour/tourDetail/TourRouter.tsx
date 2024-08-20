@@ -13,14 +13,6 @@ function TourRouter({ url }: { url: string }) {
         router.replace(`${url}`);
       }}
     >
-      <div className='-rotate-90 lg:hidden'>
-        <Image
-          src={'/icons/24px/left_arrow.svg'}
-          alt='arrow'
-          width={24}
-          height={24}
-        />
-      </div>
       <div
         className={`sm:mx-5  sm:text-3xl md:text-4xl lg:text-4xl font-semibold text-white mb-4 ${orbitron.className}`}
       >

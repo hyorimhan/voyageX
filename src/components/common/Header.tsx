@@ -1,6 +1,6 @@
 'use client';
 import useAuthStore from '@/zustand/store/useAuth';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { FaBars } from 'react-icons/fa';
 import LogoutBtn from '@/components/auth/logout/LogoutBtn';
 import MyPageIcon24px from './icons/24px/MyPageIcon24px';
@@ -16,14 +16,27 @@ const Header = () => {
   const user = useAuthStore((state) => state.user);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const { setLastSelectTab } = useLastSelectWishListStore((state) => state);
+  const menuRef = useRef<HTMLElement>(null);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
+  useEffect(() => {
+    const handleClickBackGround = (e: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickBackGround);
+    return () => {
+      document.removeEventListener('mousedown', handleClickBackGround);
+    };
+  }, []);
+
   return (
     <>
-      <header className='bg-header-default  h-16 flex fixed z-20 top-0 items-center justify-between px-4 w-full mx-auto'>
+      <header className='bg-header-default h-16 flex fixed z-20 top-0 items-center justify-between px-4 w-full mx-auto'>
         <div className='max-w-[1120px] mx-auto flex justify-between items-center w-full bg-black-900'>
           <div
             className={`flex items-center justify-center ${orbitron.className}`}
@@ -37,7 +50,7 @@ const Header = () => {
               />
             </Link>
           </div>
-          <nav className='hidden lg:flex bg-black-900 items-center justify-center space-x-7 w-[390px]'>
+          <nav className='sm:hidden md:flex lg:flex bg-black-900 items-center justify-center space-x-7 w-[390px]'>
             <Link href={'/tour'} className='hover:text-gray-300'>
               여행 상품
             </Link>
@@ -55,7 +68,7 @@ const Header = () => {
             </Link>
           </nav>
 
-          <div className='flex items-center justify-end  gap-4'>
+          <div className='flex items-center justify-end gap-4'>
             <Link
               href={'/wishlist'}
               className='hover:text-gray-300'
@@ -92,31 +105,55 @@ const Header = () => {
                 <span className=' hover:text-gray-300 w-[50px]'>로그인</span>
               </Link>
             )}
-            <button onClick={toggleMenu} className='lg:hidden '>
+            <button onClick={toggleMenu} className='lg:hidden md:hidden'>
               <FaBars className='w-6 h-6' />
             </button>
           </div>
 
           {isOpen && (
-            <nav className='md:hidden flex flex-col items-center absolute top-16 left-0 w-full bg-header-default bg-opacity-60 space-y-4 py-4'>
-              <Link href={'/tour'} className='hover:text-gray-300'>
+            <nav
+              ref={menuRef}
+              className='md:hidden flex flex-col items-center absolute top-16 left-0 w-full bg-header-default bg-opacity-60 space-y-4 py-4'
+            >
+              <Link
+                href={'/tour'}
+                className='hover:text-gray-300'
+                onClick={() => setIsOpen(false)}
+              >
                 여행 상품
               </Link>
-              <Link href={'/shop'} className='hover:text-gray-300'>
+              <Link
+                href={'/shop'}
+                className='hover:text-gray-300'
+                onClick={() => setIsOpen(false)}
+              >
                 굿즈샵
               </Link>
-              <Link href={'/community'} className='hover:text-gray-300'>
-                커뮤니티
+              <Link
+                href={'/community'}
+                className='hover:text-gray-300'
+                onClick={() => setIsOpen(false)}
+              >
+                자유게시판
+              </Link>
+              <Link
+                href={'/news'}
+                className='hover:text-gray-300'
+                onClick={() => setIsOpen(false)}
+              >
+                뉴스
               </Link>
               <Link
                 href={'/mypage/tour_orders'}
                 className='hover:text-gray-300 sm:hidden'
+                onClick={() => setIsOpen(false)}
               >
                 마이페이지
               </Link>
               <Link
                 href={'/mypage/side_bar'}
                 className='hover:text-gray-300 md:hidden lg:hidden'
+                onClick={() => setIsOpen(false)}
               >
                 마이페이지
               </Link>

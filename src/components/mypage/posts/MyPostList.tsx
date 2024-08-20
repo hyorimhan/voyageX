@@ -22,7 +22,6 @@ const MyPostList = () => {
     queryFn: () => getMyPosts(user_id),
   });
 
-  console.log(posts);
 
   if (isLoading) return <Loading />;
   if (isError || !posts || posts.length === 0) {
@@ -68,17 +67,12 @@ const MyPostList = () => {
                   </p>
                 </div>
               </div>
-              <Link
-                href={`/community/${post.id}`}
-                className='font-bold line-clamp-1'
-              >
-                {post.title}
-              </Link>
-              <Link href={`/community/${post.id}`}>
+              <p className='font-bold line-clamp-1'>{post.title}</p>
+              <div>
                 <p className='line-clamp-4 text-sm sm:text-xs'>
-                  {post.content.replace(/<\/?[^>]+(>|$)/g, '')}
+                  {post.content}
                 </p>
-              </Link>
+              </div>
             </div>
             <div className='border-b-[1px] border-solid border-black-700'></div>
           </div>
