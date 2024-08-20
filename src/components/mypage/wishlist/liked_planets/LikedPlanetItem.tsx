@@ -21,7 +21,7 @@ function LikedPlanetItem({
         alt={item.planet_id}
         width={268}
         height={272}
-        className='rounded-lg cursor-pointer h-[272px] w-[268px] p-4 border-[2px] border-black-600 bg-transparent'
+        className='object-scale-down rounded-lg cursor-pointer h-[272px] w-[268px] p-4 border-[2px] border-black-600 bg-transparent'
         onClick={() => handleGoToItem(item.id)}
       />
       <div className='mb-4 justify-center flex flex-col gap-[6px] mt-3'>
