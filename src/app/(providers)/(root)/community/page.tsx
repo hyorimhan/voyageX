@@ -7,14 +7,14 @@ import CommunitySearch from '@/components/community/main/CommunitySearch';
 
 const CommunityPage = () => {
   return (
-    <div>
-      <div className='flex justify-between mb-14 mt-26 sm:flex-col sm:w-full sm:gap-7 sm:p-5 sm:mb-4 sm:items-center md:flex-col md:w-full md:gap-7 md:p-5 md:mb-4 md:items-center'>
-        <h1
-          className={`text-[36px] font-bold text-white text-left ${orbitron.className} sm:text-left`}
-        >
-          <Link href='/community'>FREE BOARD</Link>
-        </h1>
-        <div className='w-max'>
+    <div className='flex flex-col justify-between mb-14 mt-26 sm:w-full sm:gap-7 sm:p-5 sm:mb-4 md:p-11 md:mb-6 md:mt-16 lg:mb-14'>
+      <h1
+        className={`text-[36px] font-bold text-white text-left ${orbitron.className} sm:text-left`}
+      >
+        <Link href='/community'>FREE BOARD</Link>
+      </h1>
+      <div className='flex justify-end items-center sm:w-full'>
+        <div className='w-full'>
           <CommunitySearch />
         </div>
       </div>
