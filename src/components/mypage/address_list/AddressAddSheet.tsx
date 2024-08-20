@@ -244,17 +244,19 @@ const AddressAddSheet = ({
             />
             <div>
               <label className='text-black-200 text-sm'>배송주소*</label>
-              <div className='flex flex-col gap-2'>
-                <div className='flex gap-3 items-center justify-evenly'>
-                  <AddressAddModalInput
-                    placeholder={''}
-                    label=''
-                    value={postcode}
-                    readOnly
-                    disabled
-                  />
+              <div className='flex flex-col gap-2 w-full'>
+                <div className='flex gap-3 items-center'>
+                  <div className='flex-grow'>
+                    <AddressAddModalInput
+                      placeholder={''}
+                      label=''
+                      value={postcode}
+                      readOnly
+                      disabled
+                    />
+                  </div>
                   <button
-                    className='bg-white text-black-1000 rounded-lg w-[125px] flex h-[48px] text-sm justify-center items-center'
+                    className='bg-white mt-0.5 text-black-1000 rounded-lg w-[125px] flex h-[48px] text-sm justify-center items-center'
                     onClick={() => setShowAddressSearchModal(true)}
                   >
                     우편번호 찾기
