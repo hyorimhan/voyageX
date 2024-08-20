@@ -12,7 +12,7 @@ type GoodsDetailPageTabSelectorProps = {
   contents: React.ReactNode | string;
   guideContents?: string | React.ReactNode;
   showTourGuideTab?: boolean;
-  defaultTab?: 'Details' | 'Reviews' | 'TourGuide'; // 초기 탭 설정을 위한 prop 추가
+  defaultTab?: 'Details' | 'Reviews' | 'TourGuide';
 };
 
 function GoodsDetailPageTabSelector({
@@ -21,7 +21,7 @@ function GoodsDetailPageTabSelector({
   contents,
   guideContents,
   showTourGuideTab = false,
-  defaultTab = 'Details', // defaultTab 기본값은 'Details'로 설정
+  defaultTab = 'Details',
 }: GoodsDetailPageTabSelectorProps) {
   const [selectedTab, setSelectedTab] = useState(defaultTab);
 
