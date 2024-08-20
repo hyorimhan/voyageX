@@ -11,7 +11,8 @@ export const GET = async (request: Request, { params }: ParamsType) => {
   const { data, error } = await supabase
     .from('goods_reviews')
     .select('*, user:users(email)')
-    .eq('goods_id', goods_id);
+    .eq('goods_id', goods_id)
+    .order('created_at', { ascending: false });
   if (error) return NextResponse.json({ error });
   return NextResponse.json(data);
 };
