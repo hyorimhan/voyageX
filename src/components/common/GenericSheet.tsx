@@ -71,7 +71,7 @@ const GenericSheet = ({
           exit='exit'
           className={`bg-black-800 ${popupWidth} w-full rounded-t-lg flex flex-col items-center px-5 pt-14 pb-9 ${popup}`}
         >
-          <div className={`text-xl mb-5 ${popupTitle}`}>{title}</div>
+          <div className={`text-lg mb-5 ${popupTitle}`}>{title}</div>
           <div className={`text-sm mb-7 text-center ${popupContent} `}>
             {content}
           </div>

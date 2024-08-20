@@ -215,7 +215,7 @@ const Header = () => {
                 NEWS <span>&gt;</span>
               </Link>
               <Link
-                href={'/mypage'}
+                href={'/mypage/side_bar'}
                 className={`text-white text-xl flex justify-between items-center py-2 border-b border-gray-700 ${orbitron.className}`}
                 onClick={() => setIsOpen(false)}
               >

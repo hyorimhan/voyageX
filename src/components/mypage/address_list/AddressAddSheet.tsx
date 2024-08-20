@@ -216,7 +216,7 @@ const AddressAddSheet = ({
                 <CloseIcon32px />
               </button>
             </div>
-            <p className='text-2xl text-center'>
+            <p className='text-lg text-center'>
               {editMode ? '배송지 수정' : '배송지 추가'}
             </p>
           </div>
