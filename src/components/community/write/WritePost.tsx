@@ -137,8 +137,11 @@ const WritePost = () => {
   };
 
   return (
-    <form onSubmit={handleSubmitWrite} className='flex flex-col gap-4 m-6'>
-      <div className='text-[24px] justify-between content-center flex mb-6 mt-7'>
+    <form
+      onSubmit={handleSubmitWrite}
+      className='flex flex-col gap-4 m-6 sm:m-4'
+    >
+      <div className='text-[24px] sm:text-lg items-center justify-between content-center flex mb-6 mt-7'>
         <div className='flex'>
           <Link href='/community'>
             <div>자유게시판</div>
@@ -151,20 +154,20 @@ const WritePost = () => {
             className={`rounded-lg bg-primary-600 px-6 py-3 flex justify-center items-center gap-1 ${
               isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
             }`}
-            disabled={isSubmitting} // 제출 중이면 버튼 비활성화
+            disabled={isSubmitting}
           >
             {isSubmitting ? '등록 중...' : '등록'}
           </button>
         </div>
       </div>
-      <div className='flex'>
+      <div className='flex flex-wrap gap-2'>
         <DropDownButton
           categories={categories}
           sortBy={sortBy}
           setSortBy={setSortBy}
         />
         <input
-          className='flex-grow h-[48px] rounded-[16px] text-white px-4 py-3 bg-black-800 focus:outline-none'
+          className='flex-grow h-[48px] rounded-[16px] text-white px-4 py-3 bg-black-800 focus:outline-none min-w-[150px]'
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder='제목을 입력해주세요.'
