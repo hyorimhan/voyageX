@@ -10,6 +10,7 @@ import { orbitron } from '../../../../../../../public/fonts/orbitron';
 import Image from 'next/image';
 import { useGetGoodsReviews } from '@/hooks/apis/review.api';
 import TopBtn from '@/components/common/TopBtn';
+import Link from 'next/link';
 
 type Params = {
   params: {
@@ -35,11 +36,12 @@ const ShopDetailPage = ({ params }: Params) => {
   return (
     <Page>
       <div className='sm:mx-5'>
-        <p
+        <Link
+          href={'/shop'}
           className={`text-[28px] font-semibold mb-[55px] ${orbitron.className}`}
         >
           GOODS SHOP
-        </p>
+        </Link>
         {goods && <GoodsInfo goods={goods} goods_id={params.id} />}
         <GoodsDetailPageTabSelector
           goodsRating={goods?.rating_avg}
