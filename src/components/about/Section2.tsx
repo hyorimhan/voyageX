@@ -1,19 +1,10 @@
 import Scroll from './Scroll';
-import BackgroundVideo from '../common/BackgroundVideo';
 import Image from 'next/image';
 import { orbitron } from '../../../public/fonts/orbitron';
 
 function Section2() {
   return (
-    <section className='relative sm:w-full sm:h-screen sm:overflow-hidden '>
-      {/* <video
-        src='https://uvjnwqdttdhvwexypdhx.supabase.co/storage/v1/object/public/background/section2%20(2).mp4'
-        autoPlay
-        muted
-        loop
-        playsInline
-        className='absolute inset-0 w-full h-full object-cover'
-      /> */}
+    <section className='relative sm:w-full min-h-screen sm:overflow-hidden '>
       <video
         src='/videos/backgroundVideo.mp4'
         autoPlay
@@ -24,18 +15,18 @@ function Section2() {
       />
 
       {/* <div className='relative z-10 min-h-screen sm:h-screen flex flex-col justify-center sm:items-center'> */}
-      <div className='relative  min-h-screen h-full  mx-auto  z-10  md:h-full flex flex-col justify-center   bg-black-800 bg-opacity-20'>
+      <div className='relative h-full min-h-screen  mx-auto  z-10  md:h-full flex flex-col justify-center   bg-black-900 bg-opacity-50'>
         <Scroll>
-          <div className=' text-[20px] sm:w-full w-[1120px] mx-auto grid grid-cols-3'>
-            <div className='w-[335px] relative h-[491px] rounded-2xl  '>
+          <div className=' text-[20px] sm:w-full w-[1120px] mx-auto  grid-cols-3 sm:gap-6  gap-[57.5px] grid sm:flex flex-col items-center  sm:grid-cols-1 sm:my-16 '>
+            <div className='w-[335px] relative h-[491px] sm:h-[235px] overflow-hidden rounded-2xl  '>
               <Image
                 src={'/images/about/voyageX.svg'}
                 alt='voyageX'
                 fill
                 className='object-cover '
               />
-              <div className='absolute text-center mt-[175px]  '>
-                <div className='w-[335px]'>
+              <div className='absolute text-center lg:mt-[175px] inset-0 sm:h-[235px] '>
+                <div className='w-[335px] sm:h-[235px] sm:flex sm:flex-col sm:justify-center sm:items-center'>
                   <p
                     className={`font-semibold text-[28px] ${orbitron.className}`}
                   >
@@ -50,15 +41,15 @@ function Section2() {
                 </div>
               </div>
             </div>
-            <div className='w-[335px] relative h-[491px] rounded-2xl  '>
+            <div className='w-[335px] relative h-[491px]  overflow-hidden sm:h-[235px]  rounded-2xl  '>
               <Image
                 src={'/images/about/vision.svg'}
                 alt='voyageX'
                 fill
                 className='object-cover'
               />
-              <div className='absolute text-center mt-[175px]  '>
-                <div className='w-[335px]'>
+              <div className='absolute text-center lg:mt-[175px] inset-0  '>
+                <div className='w-[335px]   sm:h-[235px] sm:flex sm:flex-col sm:justify-center sm:items-center'>
                   <p
                     className={`font-semibold text-[28px] ${orbitron.className}`}
                   >
@@ -73,15 +64,15 @@ function Section2() {
                 </div>
               </div>
             </div>
-            <div className='w-[335px] relative h-[491px] rounded-2xl  '>
+            <div className='w-[335px] relative h-[491px] overflow-hidden  sm:h-[235px]  rounded-2xl  '>
               <Image
                 src={'/images/about/mission.svg'}
                 alt='voyageX'
                 fill
                 className='object-cover'
               />
-              <div className='absolute text-center mt-[175px]  '>
-                <div className='w-[335px]'>
+              <div className='absolute text-center lg:mt-[175px] inset-0  '>
+                <div className='w-[335px] sm:h-[235px] sm:flex sm:flex-col sm:justify-center sm:items-center '>
                   <p
                     className={`font-semibold text-[28px] ${orbitron.className}`}
                   >

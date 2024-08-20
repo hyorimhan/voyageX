@@ -8,8 +8,9 @@ import GoodsInfo from '@/components/shop/detail/GoodsInfo';
 import { useGetGoodsItem } from '@/hooks/apis/goods.api';
 import { orbitron } from '../../../../../../../public/fonts/orbitron';
 import Image from 'next/image';
-import TopBtnMobile from '@/components/common/TopBtnMobile';
 import { useGetGoodsReviews } from '@/hooks/apis/review.api';
+import TopBtn from '@/components/common/TopBtn';
+import Link from 'next/link';
 
 type Params = {
   params: {
@@ -35,11 +36,12 @@ const ShopDetailPage = ({ params }: Params) => {
   return (
     <Page>
       <div className='sm:mx-5'>
-        <p
+        <Link
+          href={'/shop'}
           className={`text-[28px] font-semibold mb-[55px] ${orbitron.className}`}
         >
           GOODS SHOP
-        </p>
+        </Link>
         {goods && <GoodsInfo goods={goods} goods_id={params.id} />}
         <GoodsDetailPageTabSelector
           goodsRating={goods?.rating_avg}
@@ -57,8 +59,7 @@ const ShopDetailPage = ({ params }: Params) => {
           defaultTab='Details'
         />
         <FAQ />
-
-        <TopBtnMobile size={'lg:text-3xl sm:text-2xl'} />
+        <TopBtn />
       </div>
     </Page>
   );

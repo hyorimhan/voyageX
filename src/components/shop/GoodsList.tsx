@@ -18,7 +18,7 @@ function GoodsList() {
 
   return (
     <>
-      <div className='flex justify-end mb-8'>
+      <div className='flex justify-end '>
         <DropDownButton
           categories={shopCategories}
           sortBy={sortBy}

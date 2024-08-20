@@ -12,7 +12,7 @@ function TourOrderPageSection() {
   return (
     <>
       <h1
-        className={`sm:hidden text-[28px] font-semibold text-white mt-16 py-4 ${orbitron.className}`}
+        className={`sm:hidden text-[28px] font-semibold text-white mt-16 py-4`}
       >
         여행상품 결제
       </h1>

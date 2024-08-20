@@ -32,14 +32,14 @@ function DropDownButton(props: DropDownButtonPropsType) {
     <div ref={dropdownRef} className='relative inline-block mb-[20px]'>
       <button
         type='button'
-        className='text-black-50 font-medium text-lg cursor-pointer relative w-[120px] flex flex-row items-center mt-3 justify-between px-3 mb-[13px]'
+        className='text-black-50 font-medium text-sm cursor-pointer relative w-[120px] flex flex-row items-center mt-3 justify-between px-3 mb-[13px]'
         onClick={() => setIsActive((prev) => !prev)}
       >
         {categories[sortBy]}
         {isActive ? <ArrowUpWhiteIcon20px /> : <ArrowDownWhiteIcon20px />}
       </button>
       <ul
-        className={`text-white cursor-pointer w-[120px] absolute border border-black-200 shadow-lg transition-all duration-300 ease-out overflow-hidden rounded`}
+        className={`text-white cursor-pointer text-sm w-[120px] absolute border border-black-200 shadow-lg transition-all duration-300 ease-out overflow-hidden rounded`}
         style={{
           zIndex: 1000,
           maxHeight: isActive
