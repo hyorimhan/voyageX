@@ -64,7 +64,7 @@ const NewsSearchResult = ({ searchValue }: { searchValue: string }) => {
   return (
     <div>
       <h2 className='text-2xl font-bold mb-4'>
-        "{searchValue}"에 대한 검색 결과
+        &quot;{searchValue}`&quot;에 대한 검색 결과
       </h2>
       <div className='flex flex-col gap-5'>
         {searchedNews.map((item) => (

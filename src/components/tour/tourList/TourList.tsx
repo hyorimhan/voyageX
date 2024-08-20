@@ -31,7 +31,7 @@ function TourList() {
       </div>
 
       <Popup />
-      <div className='lg:hidden md:hidden mx-5 sm:mt-8 mb-5 '>
+      <div className='lg:hidden md:hidden mx-5 sm:mt-8 mb-5'>
         <Swiper
           loop={true}
           spaceBetween={30}
