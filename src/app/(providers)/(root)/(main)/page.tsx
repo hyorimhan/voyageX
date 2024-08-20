@@ -15,6 +15,7 @@ import Loading from '@/components/common/Loading';
 import Chatbot from '@/components/chatbot/Chatbot';
 import { orbitron } from '../../../../../public/fonts/orbitron';
 import TopBtn from '@/components/common/TopBtn';
+import NewsSection from '@/components/main/NewsSection';
 
 const MainPage = () => {
   const sectionsRef = useRef<(HTMLDivElement | null)[]>([]);
@@ -66,7 +67,7 @@ const MainPage = () => {
   if (tourError) return <div>Error: {tourError.message}</div>;
 
   return (
-    <div>
+    <div className='relative'>
       <Chatbot />
       <VideoSection
         videoSrc='https://uvjnwqdttdhvwexypdhx.supabase.co/storage/v1/object/public/background/mainvideo%20(2).mp4?t=2024-08-16T07%3A58%3A43.247Z'
@@ -97,12 +98,11 @@ const MainPage = () => {
         }}
       >
         <p
-          className={`absolute top-32 left-4 text-white text-4xl font-semibold fade-text ${orbitron.className} sm:text-2xl sm:font-medium sm:top-24`}
+          className={`absolute top-40 left-20 text-white text-4xl font-semibold fade-text ${orbitron.className} sm:text-2xl sm:font-medium sm:top-24 sm:left-8`}
         >
           <span className='hidden sm:inline'>
             Let&apos;s Find <br className='sm:block hidden' /> Popular Planets!
           </span>
-
           <span className='sm:hidden'>Let&apos;s Find Popular Planets!</span>
         </p>
 
@@ -115,11 +115,11 @@ const MainPage = () => {
         <div className='scroll-container h-full w-full relative flex items-center justify-center'>
           <button
             onClick={handlePrevSlide}
-            className='absolute left-2 sm:left-4 z-10 p-2'
+            className='absolute left-56 sm:left-6 z-10 p-2 top-1/2 -translate-y-1/2'
             style={{
               background: "url('/images/left.png') no-repeat center",
-              width: '40px',
-              height: '40px',
+              width: '48px',
+              height: '48px',
               backgroundSize: 'contain',
             }}
           ></button>
@@ -151,7 +151,7 @@ const MainPage = () => {
                       planetsRef.current[index] = el as HTMLDivElement;
                     }}
                     data-id={planet.id}
-                    className={`absolute w-20 h-20 sm:w-24 sm:h-24 transform-gpu transition-opacity duration-500 ${
+                    className={`absolute w-36 h-36 sm:w-24 sm:h-24 transform-gpu transition-opacity duration-500 ${
                       isVisible ? 'opacity-100' : 'opacity-0'
                     }`}
                     style={{
@@ -187,11 +187,11 @@ const MainPage = () => {
           </div>
           <button
             onClick={handleNextSlide}
-            className='absolute right-2 sm:right-4 z-10 p-2'
+            className='absolute right-44 sm:right-6 z-10 p-2 top-1/2 -translate-y-1/2'
             style={{
               background: "url('/images/right.png') no-repeat center",
-              width: '40px',
-              height: '40px',
+              width: '48px',
+              height: '48px',
               backgroundSize: 'contain',
             }}
           ></button>
@@ -300,9 +300,17 @@ const MainPage = () => {
         ref={(el) => {
           sectionsRef.current[3] = el as HTMLDivElement;
         }}
-        className='section section-bg h-screen flex flex-col items-center justify-center'
+        className='section section-bg min-h-screen flex flex-col items-center justify-center relative mb-10'
       >
         <TopPostsSection />
+      </section>
+      <section
+        ref={(el) => {
+          sectionsRef.current[4] = el as HTMLDivElement;
+        }}
+        className='section min-h-screen bg-black-1000 bg-opacity-100'
+      >
+        <NewsSection />
         <TopBtn />
       </section>
       <Footer />

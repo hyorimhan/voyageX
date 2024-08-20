@@ -35,10 +35,12 @@ const useFetchTopPosts = (): FetchTopPostsResult => {
           .limit(4);
 
         if (error) throw error;
-        
+
         setPosts(data || []);
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'An unknown error occurred');
+        setError(
+          err instanceof Error ? err.message : 'An unknown error occurred',
+        );
       } finally {
         setLoading(false);
       }
