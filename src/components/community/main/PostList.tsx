@@ -77,6 +77,7 @@ const PostList = () => {
             댓글
           </span>
         </div>
+        <TopLikedList />
         {posts.length > 0 ? (
           posts.map((post) => (
             <Link href={post.id} key={post.id}>
