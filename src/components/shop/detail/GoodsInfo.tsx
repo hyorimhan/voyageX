@@ -92,7 +92,7 @@ const GoodsInfo = ({ goods, goods_id }: GoodsInfoProps) => {
           className='sm:w-[335px] sm:mx-auto'
         />
       </div>
-      <div className='lg:ml-14 sm:mx-5 flex flex-col text-2xl flex-grow'>
+      <div className='lg:ml-14 flex flex-col text-2xl flex-grow'>
         <div className='mb-4 flex justify-between items-start'>
           <div className='sm:mt-8 sm:flex sm:ml-auto w-full lg:flex'>
             <p className='w-full '>{goods.goods_name}</p>
