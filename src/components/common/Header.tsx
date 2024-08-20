@@ -95,7 +95,7 @@ const Header = () => {
           <div className='flex items-center justify-end gap-4'>
             <Link
               href={'/wishlist'}
-              className='text-white hover:text-gray-300 sm:hidden md:block'
+              className='text-white hover:text-gray-300 md:block'
               onClick={() => setLastSelectTab('LikedGoods')}
             >
               <HeartDefaultIcon24px />
