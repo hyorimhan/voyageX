@@ -169,7 +169,7 @@ const Header = () => {
                     className='flex gap-1 text-center'
                     onClick={() => setLastSelectTab('LikedGoods')}
                   >
-                    찜<p>{likeCount}</p>
+                    🤍<p>{likeCount}</p>
                   </Link>
                 </div>
               </div>
