@@ -1,11 +1,7 @@
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
-interface topBtnProps {
-  size: number;
-}
-
-function TopBtn({ size }: topBtnProps) {
+function TopBtn() {
   const [showBtn, setShowBtn] = useState(false);
 
   useEffect(() => {
@@ -33,13 +29,13 @@ function TopBtn({ size }: topBtnProps) {
   return (
     <button
       onClick={scrollToTop}
-      className=' fixed right-[5%] bottom-[50%] sm:hidden z-50  transition-all duration-300 ease-in-out animate-bounce '
+      className=' fixed right-[5%] sm:right-[1%] bottom-[20%]  z-50  transition-all duration-300 ease-in-out animate-bounce '
     >
       <Image
-        src={'/icons/logo/logo1.svg'}
+        src={'/icons/TopBtn.svg'}
         alt='voyage_x_logo'
-        width={size}
-        height={size}
+        width={56}
+        height={56}
       />
     </button>
   );
