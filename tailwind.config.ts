@@ -8,10 +8,6 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        'custom-background': "url('/images/배경.png')",
-      },
-
       lineClamp: {
         18: '18',
       },
