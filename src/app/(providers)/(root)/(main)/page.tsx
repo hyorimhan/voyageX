@@ -80,6 +80,7 @@ const MainPage = () => {
             href={
               'https://kr.freepik.com/free-video/traveling-through-star-fields-space-distant-galaxy-2_179468#fromView=search&page=1&position=0&uuid=4946a633-a12e-4230-a49f-07ec1569be25'
             }
+            className='text-black-500'
           >
             Designed by Freepik
           </Link>
@@ -97,22 +98,37 @@ const MainPage = () => {
           backgroundPosition: 'center',
         }}
       >
-        <p
-          className={`absolute top-40 left-20 text-white text-4xl font-semibold fade-text ${orbitron.className} sm:text-2xl sm:font-medium sm:top-24 sm:left-8`}
-        >
-          <span className='hidden sm:inline'>
-            Let&apos;s Find <br className='sm:block hidden' /> Popular Planets!
-          </span>
-          <span className='sm:hidden'>Let&apos;s Find Popular Planets!</span>
-        </p>
-
-        <Link href='/tour'>
-          <p className='absolute top-36 right-20 sm:right-6 z-10 sm:text-xs sm:top-36 text-lg font-normal underline'>
-            MORE+
+        <div className='lg:hidden'>
+          <p
+            className={` absolute top-40 left-20 text-white text-4xl font-semibold fade-text ${orbitron.className} sm:text-2xl sm:font-medium sm:top-24 sm:left-8`}
+          >
+            <span className='hidden sm:inline'>
+              Let&apos;s Find <br className='sm:block hidden' /> Popular
+              Planets!
+            </span>
+            <span className='sm:hidden'>Let&apos;s Find Popular Planets!</span>
           </p>
-        </Link>
 
-        <div className='scroll-container h-full w-full relative flex items-center justify-center'>
+          <Link href='/tour'>
+            <p className='absolute top-36 right-20 sm:right-6 z-10 sm:text-xs sm:top-36 text-lg font-normal underline'>
+              MORE+
+            </p>
+          </Link>
+        </div>
+
+        <div className=' sm:h-full sm:scroll-container lg:min-h-screen w-full relative flex lg:flex-col items-center justify-center'>
+          <div className='flex  justify-between absolute top-20   items-center lg:w-[1120px]'>
+            <div className='flex justify-between items-center w-full'>
+              <h2
+                className={`text-4xl sm:text-2xl font-semibold sm:font-medium text-white ${orbitron.className} top-20`}
+              >
+                Let&apos;s Find Popular Planets!
+              </h2>
+              <Link href='/news' className='text-white '>
+                MORE +
+              </Link>
+            </div>
+          </div>
           <button
             onClick={handlePrevSlide}
             className='absolute left-56 sm:left-6 z-10 p-2 top-1/2 -translate-y-1/2'
@@ -123,7 +139,7 @@ const MainPage = () => {
               backgroundSize: 'contain',
             }}
           ></button>
-          <div className='slider-container relative flex items-center justify-center'>
+          <div className='slider-container   relative flex items-center justify-center'>
             {planets.map((planet, index) => {
               const totalPlanets = planets.length;
               const angle = (index / totalPlanets) * 2 * Math.PI;
@@ -204,96 +220,113 @@ const MainPage = () => {
         }}
         className='section section-bg h-screen flex flex-col items-center justify-center transition-opacity duration-500'
       >
-        <h1
-          className={`text-4xl absolute font-semibold top-40 left-20 ${
-            orbitron.className
-          } transition-opacity duration-500 ${
-            videoLoaded ? 'opacity-100' : 'opacity-0'
-          }
-    sm:text-2xl sm:font-medium sm:top-16 sm:left-4`}
-        >
-          GOODS SHOP
-        </h1>
-        <Link href='/shop'>
-          <p
-            className={`absolute top-48 right-20 underline transition-opacity duration-500 ${
+        {/* <div className='lg:hidden '>
+          <h1
+            className={`text-4xl absolute font-semibold top-40 left-20 ${
+              orbitron.className
+            } transition-opacity duration-500 ${
               videoLoaded ? 'opacity-100' : 'opacity-0'
-            } sm:top-16 sm:right-4`}
+            }
+    sm:text-2xl sm:font-medium sm:top-16 sm:left-4`}
           >
-            MORE+
-          </p>
-        </Link>
+            GOODS SHOP
+          </h1>
+          <Link href='/shop'>
+            <p
+              className={`absolute top-48 right-20 underline transition-opacity duration-500 ${
+                videoLoaded ? 'opacity-100' : 'opacity-0'
+              } sm:top-16 sm:right-4`}
+            >
+              MORE+
+            </p>
+          </Link>
+        </div> */}
 
-        {goodsError && <p className='text-red-500'>{goodsError.message}</p>}
-        {goodsLoading ? (
-          <div>
-            <Loading />
+        <div className='lg:w-full lg:max-w-[1120px] '>
+          <div className='flex justify-between items-center lg:mb-12 '>
+            <h2
+              className={`text-4xl sm:text-2xl font-semibold sm:font-medium text-white ${orbitron.className} top-20`}
+            >
+              GOODS SHOP
+            </h2>
+            <Link href='/news' className='text-white '>
+              MORE +
+            </Link>
           </div>
-        ) : (
-          <ul className='grid grid-cols-3 gap-4 p-4 sm:grid-cols-2 sm:gap-2'>
-            {goods?.slice(0, 4).map((item, index) => (
-              <li
-                key={item.id}
-                className={`p-4 rounded shadow ${
-                  index < 1 && 'hidden sm:block'
-                } sm:w-full sm:h-auto list-none`}
-              >
-                <Link href={`shop_detail/${item.id}`} className='flex flex-col'>
-                  <div className=''>
-                    <Image
-                      src={item.goods_img}
-                      alt={item.goods_name}
-                      width={320}
-                      height={360}
-                      className='object-cover w-full h-72 sm:h-32'
-                    />
-                    <div className='mt-4 sm:mt-2'>
-                      <p className='bg-black-600 text-black-50 text-xs px-2 py-1 rounded-full mb-2 inline-block'>
-                        무료 배송
-                      </p>
-                      <h2 className='text-base sm:text-xs font-medium text-white break-words'>
-                        {item.goods_name}
-                      </h2>
-                      <p className='text-black-200 line-through sm:text-xs'>
-                        {item.pre_price.toLocaleString()}원
-                      </p>
-                      <p className='text-sm sm:text-base sm:font-semibold'>
-                        <span className='text-red-500 text-xl'>
-                          {item.discount}%
-                        </span>{' '}
-                        <span className='text-white text-xl'>
-                          {item.goods_price.toLocaleString()}원
-                        </span>
-                      </p>
+          {goodsError && <p className='text-red-500'>{goodsError.message}</p>}
+          {goodsLoading ? (
+            <div>
+              <Loading />
+            </div>
+          ) : (
+            <ul className='grid grid-cols-3 gap-4 p-4 sm:grid-cols-2 sm:gap-2'>
+              {goods?.slice(0, 4).map((item, index) => (
+                <li
+                  key={item.id}
+                  className={`p-4 rounded shadow ${
+                    index < 1 && 'hidden sm:block'
+                  } sm:w-full sm:h-auto list-none`}
+                >
+                  <Link
+                    href={`shop_detail/${item.id}`}
+                    className='flex flex-col'
+                  >
+                    <div className=''>
+                      <Image
+                        src={item.goods_img}
+                        alt={item.goods_name}
+                        width={320}
+                        height={360}
+                        className='object-cover w-full h-72 sm:h-32'
+                      />
+                      <div className='mt-4 sm:mt-2'>
+                        <p className='bg-black-600 text-black-50 text-xs px-2 py-1 rounded-full mb-2 inline-block'>
+                          무료 배송
+                        </p>
+                        <h2 className='text-base sm:text-xs font-medium text-white break-words'>
+                          {item.goods_name}
+                        </h2>
+                        <p className='text-black-200 line-through sm:text-xs'>
+                          {item.pre_price.toLocaleString()}원
+                        </p>
+                        <p className='text-sm sm:text-base sm:font-semibold'>
+                          <span className='text-red-500 text-xl'>
+                            {item.discount}%
+                          </span>{' '}
+                          <span className='text-white text-xl'>
+                            {item.goods_price.toLocaleString()}원
+                          </span>
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                  <div className='flex items-center justify-between mt-2'>
-                    <span className='flex items-center'>
-                      <Image
-                        src='/icons/20px/star_true.svg'
-                        alt='star icon'
-                        width={16}
-                        height={16}
-                        className='mr-1'
-                      />
-                      {Number(item.rating_avg).toFixed(1)}
-                    </span>
-                    <span className='flex items-center'>
-                      <Image
-                        src='/icons/20px/heart_default.svg'
-                        alt='heart icon'
-                        width={16}
-                        height={16}
-                        className='mr-1'
-                      />
-                      {item.like_count}
-                    </span>
-                  </div>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        )}
+                    <div className='flex items-center justify-between mt-2'>
+                      <span className='flex items-center'>
+                        <Image
+                          src='/icons/20px/star_true.svg'
+                          alt='star icon'
+                          width={16}
+                          height={16}
+                          className='mr-1'
+                        />
+                        {Number(item.rating_avg).toFixed(1)}
+                      </span>
+                      <span className='flex items-center'>
+                        <Image
+                          src='/icons/20px/heart_default.svg'
+                          alt='heart icon'
+                          width={16}
+                          height={16}
+                          className='mr-1'
+                        />
+                        {item.like_count}
+                      </span>
+                    </div>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
       </section>
 
       <section

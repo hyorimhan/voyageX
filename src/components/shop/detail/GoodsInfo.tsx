@@ -1,6 +1,5 @@
 'use client';
 
-import ShareIcon32px from '@/components/common/icons/32px/ShareIcon32px';
 import Image from 'next/image';
 import QuantityBtn from './QuantityBtn';
 import useAuthStore from '@/zustand/store/useAuth';
@@ -89,10 +88,10 @@ const GoodsInfo = ({ goods, goods_id }: GoodsInfoProps) => {
           alt={goods.description}
           width={497}
           height={497}
-          className='sm:w-[335px] sm:mx-auto'
+          className='sm:w-full'
         />
       </div>
-      <div className='lg:ml-14 sm:mx-5 flex flex-col text-2xl flex-grow'>
+      <div className='lg:ml-14 flex flex-col text-2xl flex-grow'>
         <div className='mb-4 flex justify-between items-start'>
           <div className='sm:mt-8 sm:flex sm:ml-auto w-full lg:flex'>
             <p className='w-full '>{goods.goods_name}</p>
@@ -122,7 +121,7 @@ const GoodsInfo = ({ goods, goods_id }: GoodsInfoProps) => {
           <div className='border-t-[1px] border-black-700'></div>
           <div className='flex py-3 px-4 ga text-sm p-[18px]'>
             <p className=' w-[70px]'>사이즈</p>
-            <p>FREE</p>
+            <p>{goods.size}</p>
           </div>
           <div className='border-t-[1px] border-black-700'></div>
           <div className='flex py-3 px-4 ga text-sm p-[18px]'>

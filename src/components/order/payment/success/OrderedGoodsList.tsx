@@ -18,18 +18,14 @@ function OrderedGoodsList({ goodsOrderInfo }: OrderedGoodsInfoPropsType) {
         )}개`}</span>
       </div>
       <div className='sm:hidden'>
-        {goodsOrderInfo.map((item, index) =>
-          index < 2 ? (
-            <OrderedGoodsItem key={item.goods.id} item={item} />
-          ) : null,
-        )}
+        {goodsOrderInfo.map((item) => (
+          <OrderedGoodsItem key={item.goods.id} item={item} />
+        ))}
       </div>
       <div className='md:hidden lg:hidden'>
-        {goodsOrderInfo.map((item, index) =>
-          index < 2 ? (
-            <OrderedGoodsItemMobile key={item.goods.id} item={item} />
-          ) : null,
-        )}
+        {goodsOrderInfo.map((item) => (
+          <OrderedGoodsItemMobile key={item.goods.id} item={item} />
+        ))}
       </div>
     </div>
   );

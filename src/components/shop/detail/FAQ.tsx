@@ -45,9 +45,9 @@ const FAQ = () => {
   ];
 
   return (
-    <div className='mb-[215px] sm:mx-5'>
+    <div className='mb-[215px]'>
       <div className='w-full text-center text-3xl mb-[61px]'>
-        <div className='flex text-2xl gap-2 font-bold sm:mx-5'>
+        <div className='flex text-2xl gap-2 font-bold'>
           <p>자주 묻는 질문</p>
           <p>FAQ</p>
         </div>

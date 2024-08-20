@@ -52,26 +52,30 @@ const AddressesList = ({
           onMouseEnter={() => setHoveredAddressId(address.id)}
           onMouseLeave={() => setHoveredAddressId(null)}
         >
-          <div className='flex text-center py-4 sm:flex-wrap sm:py-[16px]'>
-            <button
-              onClick={() => onSelectAddress(address.id)}
-              className='w-[68px] flex justify-center items-center relative mr-[27px] sm:m-0 sm:w-fit'
-            >
-              {selectedAddressId === address.id ? (
-                <RadioPressedIcon24px />
-              ) : hoveredAddressId === address.id ? (
-                <RadioHoveredIcon24px />
-              ) : (
-                <RadioDefaultIcon24px />
-              )}
-            </button>
-            <div className='flex gap-1 self-center ml-2 text-center md:hidden lg:hidden'>
-              <p className='text-xs text-center sm:text-xs'>{address.alias}</p>
-              {address.is_default && (
-                <p className='text-primary-200 text-[10px] sm:self-end'>
-                  기본배송지
+          <div className='flex sm:flex-col text-center py-4 sm:flex-wrap sm:py-[16px]'>
+            <div className='flex'>
+              <button
+                onClick={() => onSelectAddress(address.id)}
+                className='w-[68px] flex justify-center items-center relative mr-[27px] sm:m-0 sm:w-fit'
+              >
+                {selectedAddressId === address.id ? (
+                  <RadioPressedIcon24px />
+                ) : hoveredAddressId === address.id ? (
+                  <RadioHoveredIcon24px />
+                ) : (
+                  <RadioDefaultIcon24px />
+                )}
+              </button>
+              <div className='flex gap-1 self-center ml-2 text-center md:hidden lg:hidden'>
+                <p className='text-xs text-center sm:text-xs'>
+                  {address.alias}
                 </p>
-              )}
+                {address.is_default && (
+                  <p className='text-primary-200 text-[10px] sm:self-end'>
+                    기본배송지
+                  </p>
+                )}
+              </div>
             </div>
             <div className='flex items-center ml-2 sm:flex-wrap sm:gap-0 sm:ml-0'>
               <div className='w-[78px] flex flex-col text-center sm:hidden'>
