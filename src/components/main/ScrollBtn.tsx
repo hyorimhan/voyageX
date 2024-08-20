@@ -10,7 +10,7 @@ function ScrollBtn() {
   return (
     <button
       onClick={scrollToTop}
-      className='absolute mx-auto cursor-pointer bottom-3 transform -translate-x-1/2 animate-bounce z-20'
+      className='absolute mx-auto cursor-pointer bottom-3 transform -translate-x-1/2 animate-bounce z-10'
     >
       <Image
         src='/images/scroll-text.png'
