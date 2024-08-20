@@ -92,8 +92,8 @@ function AddressChangeModal({
               />
             )}
           </div>
-          <div className='flex gap-4 w-full text-center mt-6 justify-end'>
-            <p className='w-[78px]'>주소별칭</p>
+          <div className='flex gap-3 w-full text-center mt-6 justify-end'>
+            <p className='w-[56px]'>주소별칭</p>
             <p className='w-[363px]'>배송주소</p>
             <p className='w-[173px]'>받는 분 / 연락처</p>
             <p className='w-[79px]'>관리</p>

@@ -26,9 +26,7 @@ function SuccessPayment() {
   const { user } = useAuthStore((state) => state);
   const { expressAddress } = useExpressInfoStore((state) => state);
   const { customerInfo } = useCustomerInfoStore((state) => state);
-  const { goodsOrderInfo, setGoodsOrderInfo } = useGoodsOrderStore(
-    (state) => state,
-  );
+  const { goodsOrderInfo } = useGoodsOrderStore((state) => state);
   const { payResult, setPayResult } = usePayResultStore((state) => state);
 
   useEffect(() => {
