@@ -51,20 +51,20 @@ const ShopDetailPage = ({ params }: Params) => {
           goodsReviews={goodsReviews}
           contents={
             selectedGoods ? (
-              <div className='self-center'>
+              <div className='sm:w-full md:w-1/2 md:mx-auto lg:w-1/2 lg:mx-auto flex flex-col justify-center items-center'>
                 {goods?.wearing_shot && (
                   <Image
                     src={`${goods?.wearing_shot}`}
                     alt={selectedGoods.제품명}
-                    width={1120}
-                    height={500}
+                    width={560}
+                    height={250}
                   />
                 )}
                 <Image
-                  src={`/${selectedGoods.detailImg}`}
+                  src={`${goods.goods_detail_img}`}
                   alt={selectedGoods.제품명}
-                  width={1120}
-                  height={500}
+                  width={560}
+                  height={250}
                 />
                 <div className='mt-8 mb-8 flex flex-col'>
                   <p className='text-xl mb-2'>제품명</p>
