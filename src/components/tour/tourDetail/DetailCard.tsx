@@ -55,18 +55,18 @@ function DetailCard({ tour }: { tour: Tour }) {
   return (
     <>
       <div
-        className={` mb-12 sm:mt-16 md:mt-16 mt-[132px] sm:ml-5 md:ml-5 ${orbitron.className} font-semibold text-[28px]`}
+        className={` mb-12 sm:mt-16 md:mt-16 sm:ml-5 md:ml-5 ${orbitron.className} font-semibold text-[28px]`}
       >
         <TourRouter url={'/tour'} />
       </div>
       <div className='grid grid-cols-2 md:grid-cols-1 sm:grid-cols-1'>
-        <div className='sm:mx-[47.5px]'>
+        <div className='sm:w-[335px] sm:p-[27.5px] mx-auto mb-[10px]'>
           <Image
             src={tour.planets?.planet_img!}
             alt={tour.planets?.name!}
             width={500}
             height={500}
-            className='md:mx-auto sm:mx-auto
+            className='md:mx-auto
             '
           />
         </div>
