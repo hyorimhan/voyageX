@@ -38,13 +38,15 @@ const ShopDetailPage = ({ params }: Params) => {
 
   return (
     <Page>
-      <div className='sm:mx-5'>
-        <Link
-          href={'/shop'}
-          className={`text-[28px] font-semibold mb-[55px] ${orbitron.className}`}
-        >
-          GOODS SHOP
-        </Link>
+      <div className='sm:mx-5 sm:mt-[102px]'>
+        <div className='mb-[55px] sm:mb-5'>
+          <Link
+            href={'/shop'}
+            className={`text-[28px] font-semibold ${orbitron.className}`}
+          >
+            GOODS SHOP
+          </Link>
+        </div>
         {goods && <GoodsInfo goods={goods} goods_id={params.id} />}
         <GoodsDetailPageTabSelector
           goodsRating={goods?.rating_avg}
@@ -54,10 +56,10 @@ const ShopDetailPage = ({ params }: Params) => {
               <>
                 <div className='sm:w-full md:w-1/2 md:mx-auto lg:w-[660px] lg:mx-auto flex flex-col justify-center items-center mt-[247px]'>
                   <div className='flex flex-col items-center'>
-                    <p className='text-4xl font-yangpyeong'>
+                    <p className='text-4xl font-yangpyeong sm:text-3xl'>
                       {selectedGoods.제품명}
                     </p>
-                    <p className='text-2xl mt-7 text-center'>
+                    <p className='text-2xl mt-7 text-center sm:text-xl'>
                       {selectedGoods.제품소개.split('\n').map((line, index) => (
                         <span key={index}>
                           {line}
@@ -67,10 +69,10 @@ const ShopDetailPage = ({ params }: Params) => {
                     </p>
                   </div>
                   <div className='mt-[100px] mb-20'>
-                    <p className='text-primary-200 text-[28px] mb-4'>
+                    <p className='text-primary-200 text-[28px] mb-4 sm:text-2xl'>
                       STYLE GUIDE
                     </p>
-                    <p className='mb-4 text-2xl flex flex-col'>
+                    <p className='mb-4 text-2xl flex flex-col sm:text-xl'>
                       {selectedGoods.사용예시.split('\n').map((line, index) => (
                         <span
                           key={index}
@@ -90,8 +92,8 @@ const ShopDetailPage = ({ params }: Params) => {
                   />
                 </div>
                 <ul className='mt-[100px] mb-[100px] w-[600px] mx-auto list-disc sm:w-full sm:px-5'>
-                  <p className='text-2xl mb-6'>제품 상세 사양</p>
-                  <p className='mb-[42px] text-xl'>
+                  <p className='text-2xl mb-6 sm:text-xl'>제품 상세 사양</p>
+                  <p className='mb-[42px] text-xl sm:text-lg'>
                     {selectedGoods.상세사양.split('\n').map((line, index) => (
                       <li key={index}>
                         {line}
@@ -99,8 +101,8 @@ const ShopDetailPage = ({ params }: Params) => {
                       </li>
                     ))}
                   </p>
-                  <p className='text-2xl mb-6'>주의 사항</p>
-                  <p className='mb-[42px] text-xl'>
+                  <p className='text-2xl mb-6 sm:text-xl'>주의 사항</p>
+                  <p className='mb-[42px] text-xl sm:text-lg'>
                     {selectedGoods.주의사항.split('\n').map((line, index) => (
                       <li key={index}>
                         {line}
@@ -108,8 +110,8 @@ const ShopDetailPage = ({ params }: Params) => {
                       </li>
                     ))}
                   </p>
-                  <p className='text-2xl mb-6 '>구매 시 주의 사항</p>
-                  <li className='text-xl mb-2 list-outside'>
+                  <p className='text-2xl mb-6 sm:text-xl'>구매 시 주의 사항</p>
+                  <li className='text-xl mb-2 list-outside sm:text-lg'>
                     {selectedGoods['구매 시 주의사항']}
                   </li>
                 </ul>
