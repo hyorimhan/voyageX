@@ -19,6 +19,7 @@ import toast from 'react-hot-toast';
 import ShareLink from '@/components/common/ShareLink';
 import { useGetTourReviews } from '@/hooks/apis/review.api';
 import Loading from '@/components/common/Loading';
+import { HiOutlineXMark } from 'react-icons/hi2';
 
 function DetailCard({ tour }: { tour: Tour }) {
   const user = useAuthStore((state) => state.user);
@@ -78,13 +79,11 @@ function DetailCard({ tour }: { tour: Tour }) {
               <ShareLink />
             </div>
           </div>
-
           <div className='text-sm mb-8 font-medium'>{tour.tag}</div>
           <div className='text-lg mb-[12px] font-semibold'>6박 7일 패키지</div>
           <div className='text-2xl mb-[32px] font-medium'>
             {tour.price?.toLocaleString()}원
           </div>
-
           <DetailInfo
             title={
               <span className='hidden sm:block  sm:whitespace-nowrap'>
@@ -97,39 +96,47 @@ function DetailCard({ tour }: { tour: Tour }) {
           <DetailInfo title={'출발지'} description={'대전, 한국'} />
           <DetailInfo title={'우주선 명'} description={`${tour.spaceship}`} />
           <DetailInfo title={'우주선 코드'} description={`${tour.ship_code}`} />
-
           {TourDate.departDate && (
-            <div className='h-[84px] lg:pt-3 mt-10 sm:pt-3 grid-cols-2 pl-2 bg-black-800 border-b border-b-white'>
+            <div className='h-[84px] p-3 mt-10  grid-cols-2  bg-black-800 border-b border-b-white'>
               <div className='flex'>
                 <div>
-                  <div className='mb-2'>
+                  <div className='mb-2 sm:text-sm '>
                     {tour.planets?.name} 6박 7일 패키지 ㅣ 1매
-                    <span className='text-black-300 text-sm'>
+                    <span className='text-black-300 text-xs'>
                       (수량 1인 1매 한정*)
                     </span>
                   </div>
-                  <div>
+                  <div className='sm:text-sm'>
                     {`${TourDate.departDate} ~
                   ${TourDate.arriveDate}`}
                   </div>
                 </div>
-                <button
-                  className='ml-auto mr-5'
-                  onClick={() => setTourDateReset()}
-                >
-                  x
-                </button>
+                <div className='ml-auto text-right '>
+                  <button onClick={() => setTourDateReset()}>
+                    <HiOutlineXMark size={20} />
+                  </button>
+                  <div className='sm:text-sm'>
+                    {tour.price.toLocaleString()}원
+                  </div>
+                </div>
               </div>
             </div>
           )}
 
+          <div className='flex justify-end items-center mt-4'>
+            <span className='mr-4 text-sm'>총 상품금액</span>
+            <span className='text-xl font-semibold sm:text-lg'>
+              {TourDate.departDate ? tour.price.toLocaleString() : '0'}원
+            </span>
+          </div>
+
           <div className='flex md:justify-center items-center gap-4 sm:justify-center'>
-            <div className=' w-[53px] h-[53px] flex p-2 rounded-lg items-center border-2 justify-center border-solid border-primary-400 mt-8'>
+            <div className=' w-[53px] h-[53px] flex p-2 rounded-lg items-center border-2 justify-center border-solid border-primary-400 mt-4'>
               <TourHearts tour_id={tour.id} user_id={user?.id} />
             </div>
             <button
               onClick={handleGoToPayPage}
-              className=' w-[487px] bg-primary-600 rounded-lg justify-center flex items-center mt-8 font-semibold sm:w-[266px] h-[53px]'
+              className=' w-[487px] bg-primary-600 rounded-lg justify-center flex items-center mt-4 font-semibold sm:w-[266px] h-[53px]'
             >
               구매하기
             </button>
