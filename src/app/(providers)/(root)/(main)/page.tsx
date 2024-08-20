@@ -15,6 +15,7 @@ import Loading from '@/components/common/Loading';
 import Chatbot from '@/components/chatbot/Chatbot';
 import { orbitron } from '../../../../../public/fonts/orbitron';
 import TopBtn from '@/components/common/TopBtn';
+import NewsSection from '@/components/main/NewsSection';
 
 const MainPage = () => {
   const sectionsRef = useRef<(HTMLDivElement | null)[]>([]);
@@ -66,7 +67,7 @@ const MainPage = () => {
   if (tourError) return <div>Error: {tourError.message}</div>;
 
   return (
-    <div>
+    <div className='relative'>
       <Chatbot />
       <VideoSection
         videoSrc='https://uvjnwqdttdhvwexypdhx.supabase.co/storage/v1/object/public/background/mainvideo%20(2).mp4?t=2024-08-16T07%3A58%3A43.247Z'
@@ -85,118 +86,117 @@ const MainPage = () => {
         }
       />
 
-      <section
-        ref={(el) => {
-          sectionsRef.current[1] = el as HTMLDivElement;
-        }}
-        className='section h-screen flex flex-col items-center justify-center relative bg-center bg-cover bg-no-repeat transition-opacity duration-500 opacity-100'
-        style={{
-          backgroundImage: 'url(/images/section2_bg.svg)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-      >
-        <p
-          className={`absolute top-32 left-4 text-white text-4xl font-semibold fade-text ${orbitron.className} sm:text-2xl sm:font-medium sm:top-24`}
-        >
-          <span className='hidden sm:inline'>
-            Let&apos;s Find <br className='sm:block hidden' /> Popular Planets!
-          </span>
+<section
+  ref={(el) => {
+    sectionsRef.current[1] = el as HTMLDivElement;
+  }}
+  className='section h-screen flex flex-col items-center justify-center relative bg-center bg-cover bg-no-repeat transition-opacity duration-500 opacity-100'
+  style={{
+    backgroundImage: 'url(/images/section2_bg.svg)',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+  }}
+>
+  <p
+    className={`absolute top-40 left-20 text-white text-4xl font-semibold fade-text ${orbitron.className} sm:text-2xl sm:font-medium sm:top-24 sm:left-8`}
+  >
+    <span className='hidden sm:inline'>
+      Let&apos;s Find <br className='sm:block hidden' /> Popular Planets!
+    </span>
+    <span className='sm:hidden'>Let&apos;s Find Popular Planets!</span>
+  </p>
 
-          <span className='sm:hidden'>Let&apos;s Find Popular Planets!</span>
-        </p>
+  <Link href='/tour'>
+    <p className='absolute top-36 right-20 sm:right-6 z-10 sm:text-xs sm:top-36 text-lg font-normal underline'>
+      MORE+
+    </p>
+  </Link>
 
-        <Link href='/tour'>
-          <p className='absolute top-36 right-20 sm:right-6 z-10 sm:text-xs sm:top-36 text-lg font-normal underline'>
-            MORE+
-          </p>
-        </Link>
+  <div className='scroll-container h-full w-full relative flex items-center justify-center'>
+    <button
+      onClick={handlePrevSlide}
+      className='absolute left-56 sm:left-6 z-10 p-2 top-1/2 -translate-y-1/2'
+      style={{
+        background: "url('/images/left.png') no-repeat center",
+        width: '48px',
+        height: '48px',
+        backgroundSize: 'contain',
+      }}
+    ></button>
+    <div className='slider-container relative flex items-center justify-center'>
+      {planets.map((planet, index) => {
+        const totalPlanets = planets.length;
+        const angle = (index / totalPlanets) * 2 * Math.PI;
 
-        <div className='scroll-container h-full w-full relative flex items-center justify-center'>
-          <button
-            onClick={handlePrevSlide}
-            className='absolute left-2 sm:left-4 z-10 p-2'
-            style={{
-              background: "url('/images/left.png') no-repeat center",
-              width: '40px',
-              height: '40px',
-              backgroundSize: 'contain',
-            }}
-          ></button>
-          <div className='slider-container relative flex items-center justify-center'>
-            {planets.map((planet, index) => {
-              const totalPlanets = planets.length;
-              const angle = (index / totalPlanets) * 2 * Math.PI;
+        const xPos = 150 * Math.cos(angle);
+        const yPos = 0;
+        const zPos = 150 * Math.sin(angle);
 
-              const xPos = 150 * Math.cos(angle);
-              const yPos = 0;
-              const zPos = 150 * Math.sin(angle);
+        const isVisible =
+          (index >= currentSlide &&
+            index < currentSlide + visiblePlanetsCount) ||
+          (index < currentSlide &&
+            index + planets.length < currentSlide + visiblePlanetsCount);
 
-              const isVisible =
-                (index >= currentSlide &&
-                  index < currentSlide + visiblePlanetsCount) ||
-                (index < currentSlide &&
-                  index + planets.length < currentSlide + visiblePlanetsCount);
+        const isActive =
+          index ===
+          (currentSlide + Math.floor(visiblePlanetsCount / 2)) %
+            planets.length;
 
-              const isActive =
-                index ===
-                (currentSlide + Math.floor(visiblePlanetsCount / 2)) %
-                  planets.length;
-
-              return (
-                <Link href={`/tour/${planet.id}`} key={index} passHref>
-                  <div
-                    key={index}
-                    ref={(el) => {
-                      planetsRef.current[index] = el as HTMLDivElement;
-                    }}
-                    data-id={planet.id}
-                    className={`absolute w-20 h-20 sm:w-24 sm:h-24 transform-gpu transition-opacity duration-500 ${
-                      isVisible ? 'opacity-100' : 'opacity-0'
-                    }`}
-                    style={{
-                      transform: `translate3d(${xPos}px, ${yPos}px, ${zPos}px) scale(${
-                        isActive ? 1.5 : 1
-                      })`,
-                      transformOrigin: 'center center',
-                      zIndex: isActive ? 10 : 0,
-                      opacity: isVisible ? (isActive ? 1 : 0.5) : 0,
-                    }}
-                  >
-                    <Image
-                      src={planet.planet_img}
-                      alt={`Planet ${index + 1}`}
-                      fill
-                      sizes='100vw'
-                      objectFit='contain'
-                    />
-                    {isActive && (
-                      <div className='text-center absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-full w-max'>
-                        <p>{planet.name}</p>
-                        <p>
-                          {planet.price
-                            ? `₩${planet.price.toLocaleString()}`
-                            : 'Price Does Not Exist'}
-                        </p>
-                      </div>
-                    )}
-                  </div>
-                </Link>
-              );
-            })}
-          </div>
-          <button
-            onClick={handleNextSlide}
-            className='absolute right-2 sm:right-4 z-10 p-2'
-            style={{
-              background: "url('/images/right.png') no-repeat center",
-              width: '40px',
-              height: '40px',
-              backgroundSize: 'contain',
-            }}
-          ></button>
-        </div>
-      </section>
+        return (
+          <Link href={`/tour/${planet.id}`} key={index} passHref>
+            <div
+              key={index}
+              ref={(el) => {
+                planetsRef.current[index] = el as HTMLDivElement;
+              }}
+              data-id={planet.id}
+              className={`absolute w-36 h-36 sm:w-24 sm:h-24 transform-gpu transition-opacity duration-500 ${
+                isVisible ? 'opacity-100' : 'opacity-0'
+              }`}
+              style={{
+                transform: `translate3d(${xPos}px, ${yPos}px, ${zPos}px) scale(${
+                  isActive ? 1.5 : 1
+                })`,
+                transformOrigin: 'center center',
+                zIndex: isActive ? 10 : 0,
+                opacity: isVisible ? (isActive ? 1 : 0.5) : 0,
+              }}
+            >
+              <Image
+                src={planet.planet_img}
+                alt={`Planet ${index + 1}`}
+                fill
+                sizes='100vw'
+                objectFit='contain'
+              />
+              {isActive && (
+                <div className='text-center absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-full w-max'>
+                  <p>{planet.name}</p>
+                  <p>
+                    {planet.price
+                      ? `₩${planet.price.toLocaleString()}`
+                      : 'Price Does Not Exist'}
+                  </p>
+                </div>
+              )}
+            </div>
+          </Link>
+        );
+      })}
+    </div>
+    <button
+      onClick={handleNextSlide}
+      className='absolute right-44 sm:right-6 z-10 p-2 top-1/2 -translate-y-1/2'
+      style={{
+        background: "url('/images/right.png') no-repeat center",
+        width: '48px',
+        height: '48px',
+        backgroundSize: 'contain',
+      }}
+    ></button>
+  </div>
+</section>
 
       <section
         ref={(el) => {
@@ -300,10 +300,19 @@ const MainPage = () => {
         ref={(el) => {
           sectionsRef.current[3] = el as HTMLDivElement;
         }}
-        className='section section-bg h-screen flex flex-col items-center justify-center'
+        className='section section-bg min-h-screen flex flex-col items-center justify-center relative mb-10'
       >
         <TopPostsSection />
         <TopBtn />
+      </section>
+      <section
+        ref={(el) => {
+          sectionsRef.current[4] = el as HTMLDivElement
+        }}
+        className='section min-h-screen bg-black-1000 bg-opacity-100'
+      >
+        <NewsSection/>
+
       </section>
       <Footer />
     </div>
