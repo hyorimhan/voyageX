@@ -21,20 +21,22 @@ function CommunitySearch() {
   };
 
   return (
-    <form className='relative' onSubmit={handleSearch}>
-      <input
-        className='w-[336px] h-[48px] rounded-[30px] text-white px-4 py-3 bg-black-800 pr-14 focus:outline-none'
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        placeholder='검색어'
-      />
-      <button
-        type='submit'
-        className='absolute right-3 top-1/2 transform -translate-y-1/2 text-white cursor-pointer'
-      >
-        <TbSearch size={24} />
-      </button>
-    </form>
+    <div>
+      <form className='relative w-full' onSubmit={handleSearch}>
+        <input
+          className='w-full h-[48px] rounded-[30px] text-white px-4 py-3 bg-black-800 pr-14 focus:outline-none'
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder='검색어'
+        />
+        <button
+          type='submit'
+          className='absolute right-3 top-1/2 transform -translate-y-1/2 text-white cursor-pointer'
+        >
+          <TbSearch size={24} />
+        </button>
+      </form>
+    </div>
   );
 }
 
