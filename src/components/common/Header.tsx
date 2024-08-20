@@ -23,7 +23,7 @@ const Header = () => {
 
   return (
     <>
-      <header className='bg-header-default  h-16 flex fixed z-20 top-0 items-center justify-between px-4 w-full mx-auto'>
+      <header className='bg-header-default h-16 flex fixed z-20 top-0 items-center justify-between px-4 w-full mx-auto'>
         <div className='max-w-[1120px] mx-auto flex justify-between items-center w-full bg-black-900'>
           <div
             className={`flex items-center justify-center ${orbitron.className}`}
@@ -37,7 +37,7 @@ const Header = () => {
               />
             </Link>
           </div>
-          <nav className='hidden lg:flex bg-black-900 items-center justify-center space-x-7 w-[390px]'>
+          <nav className='sm:hidden md:flex lg:flex bg-black-900 items-center justify-center space-x-7 w-[390px]'>
             <Link href={'/tour'} className='hover:text-gray-300'>
               여행 상품
             </Link>
@@ -55,7 +55,7 @@ const Header = () => {
             </Link>
           </nav>
 
-          <div className='flex items-center justify-end  gap-4'>
+          <div className='flex items-center justify-end gap-4'>
             <Link
               href={'/wishlist'}
               className='hover:text-gray-300'
@@ -92,7 +92,7 @@ const Header = () => {
                 <span className=' hover:text-gray-300 w-[50px]'>로그인</span>
               </Link>
             )}
-            <button onClick={toggleMenu} className='lg:hidden '>
+            <button onClick={toggleMenu} className='lg:hidden md:hidden'>
               <FaBars className='w-6 h-6' />
             </button>
           </div>
