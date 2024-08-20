@@ -51,7 +51,7 @@ const QuantityBtn = ({
       </div>
 
       <div className='flex items-baseline gap-4 ml-auto justify-end mt-5'>
-        <p className='text-sm'>총 상품금액</p>
+        <p className='text-sm self-center'>총 상품금액</p>
         <p className='text-xl'>{totalPrice.toLocaleString()}원</p>
       </div>
     </div>

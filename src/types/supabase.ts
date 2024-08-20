@@ -180,6 +180,7 @@ export type Database = {
           pre_price: number;
           rating_avg: number;
           color: string;
+          size: string;
         };
         Insert: {
           created_at?: string;
