@@ -1,10 +1,9 @@
 import Filter from '@/components/community/main/Filter';
-import Search from '@/components/community/main/Search';
 import PostList from '@/components/community/main/PostList';
 import WriteButton from '@/components/community/main/WriteButton';
 import { orbitron } from '../../../../../public/fonts/orbitron';
 import Link from 'next/link';
-import TopBtn from '@/components/common/TopBtn';
+import CommunitySearch from '@/components/community/main/CommunitySearch';
 
 const CommunityPage = () => {
   return (
@@ -16,7 +15,7 @@ const CommunityPage = () => {
           <Link href='/community'>FREE BOARD</Link>
         </h1>
         <div className='w-max'>
-          <Search />
+          <CommunitySearch />
         </div>
       </div>
       <div className='flex justify-between items-center mb-11 sm:flex-col sm:gap-8'>

@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 
-function Search() {
+function CommunitySearch() {
   const [search, setSearch] = useState('');
 
   const router = useRouter();
@@ -38,4 +38,4 @@ function Search() {
   );
 }
 
-export default Search;
+export default CommunitySearch;
