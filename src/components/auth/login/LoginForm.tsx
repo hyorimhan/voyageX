@@ -132,7 +132,7 @@ function LoginForm() {
             type='submit'
             // disabled={!isValid}
             className={
-              ' w-[473px] h-[58px] sm:w-[335px] font-semibold  rounded-lg p-2 mt-8 bg-primary-600 '
+              ' w-[473px] h-[58px] sm:w-[335px] font-semibold  rounded-lg p-2 mt-8 bg-primary-600 duration-200 hover:bg-primary-400 active:bg-primary-500 '
             }
             // ${!isValid ? 'cursor-not-allowed bg-black-400' : 'bg-primary-600'}
           >
@@ -140,7 +140,7 @@ function LoginForm() {
           </button>
           <Link
             href={'/signup'}
-            className='bg-primary-100  w-[473px] h-[58px]  font-semibold sm:w-[335px] rounded-lg p-2 mt-3 flex justify-center items-center text-primary-700'
+            className='bg-primary-100 text-primary-700 duration-200 hover:bg-primary-50 hover:text-primary-500 active:bg-primary-200 active:text-primary-700  w-[473px] h-[58px]  font-semibold sm:w-[335px] rounded-lg p-2 mt-3 flex justify-center items-center '
           >
             이메일로 회원가입
           </Link>
