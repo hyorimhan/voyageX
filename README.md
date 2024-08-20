@@ -1,62 +1,33 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<p align="center"><img src="https://github.com/user-attachments/assets/9e47338f-f3d6-4f79-8228-e02917eeadb8" width ="300"></p>
+<p align="center"><img src="https://github.com/user-attachments/assets/994c00bb-9157-4fce-8d56-3a05f4060026" width ="300"></p>
 
-## Getting Started
+<br>
 
-First, run the development server:
+<p align="center">우주 여행에 대한 다양한 정보와 여행 상품 및 굿즈를 결제할 수 있는 웹페이지<p>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+<br>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# 프로젝트 소개
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+<p align="center"><img src="https://github.com/user-attachments/assets/3e640b91-5526-44d7-8d79-2bcf4fbbe5bd" width ="1000"></p>
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+> 내일 배움 캠프 React 5기 A-11조 10심히 1하조<br/>
+> 프로젝트 기간 : 프로젝트 기간 : 2024.07.15(화) ~ 2024.08.22(수)
 
-## Learn More
+<br/>
 
-To learn more about Next.js, take a look at the following resources:
+# 배포주소 및 시연영상
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+> 배포 링크 : https://voyage-x.vercel.app/<br/>
+> 시연 연상 : -
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+# 팀 소개
 
-## Deploy on Vercel
+<br>
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-
-작업 타입
-
-작업내용
-✨ update  
-해당 파일에 새로운 기능이 생김
-🎉 add
-없던 파일을 생성함, 초기 세팅
-🐛 bugfix
-버그 수정
-♻️ refactor
-코드 리팩토링
-🩹 fix
-코드 수정
-🚚 move
-파일 옮김/정리
-🔥 del
-기능/파일을 삭제
-🍻 test
-테스트 코드를 작성
-💄 style
-css
-🙈 gitfix
-gitignore 수정
-🔨script
-package.json 변경(npm 설치 등)
+|                                                                  이성찬                                                                  |                                                                   한효림                                                                    |                                                                    김휘진                                                                     |                                                                   유수지                                                                   |                                                                     정현욱                                                                     |                                                                  김모아                                                                  |
+| :--------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------: |
+| <p align="center"><img src="https://github.com/user-attachments/assets/51d7e78e-5ea6-4afb-8ae4-881f4b1ee482" style="width:250px;"/></p>  |   <p align="center"><img src="https://github.com/user-attachments/assets/a7370cfd-87a7-4bae-976f-d6e7f6214ee1" style="width:190px;"/></p>   |    <p align="center"><img src="https://github.com/user-attachments/assets/d3895d5f-e28e-4dae-b59e-5ebf4e7dd383" style="width:250px;"/></p>    |  <p align="center"><img src="https://github.com/user-attachments/assets/afd98ed1-9fb1-4ca8-848a-0c5bcdec9373" style="width:250px;"/></p>   |    <p align="center"><img src="https://github.com/user-attachments/assets/a1d1207f-b9d4-4f02-9c11-eed1afaf9d06" style="width:250px; "/></p>    | <p align="center"><img src="https://github.com/user-attachments/assets/3fe03201-0472-4ed2-a044-1f32355c6f2c" style="width:215px; "/></p> |
+|                                                                   리더                                                                   |                                                                   부리더                                                                    |                                                                     팀원                                                                      |                                                                    팀원                                                                    |                                                                      팀원                                                                      |                                                               UI/UX 디자인                                                               |
+|                                                            커뮤니티<br> 뉴스                                                             |                                                   로그인/회원가입<br>여행상품<br>ABOUT US                                                   |                                                                     메인                                                                      |                                                            굿즈샵<br>마이페이지                                                            |                                                          굿즈샵<br>마이페이지<br>결제                                                          |                                                               총괄 디자인                                                                |
+| <a href="https://github.com/SNGCHN"><img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub" style="width:30px"/></a> | <a href="https://github.com/hyorimhan"><img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub" style="width:30px"/></a> | <a href="https://github.com/hwijinkim22"><img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub" style="width:30px"/></a> | <a href="https://github.com/suzy0504"><img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub" style="width:30px"/></a> | <a href="https://github.com/ghastlymouse"><img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub" style="width:30px"/></a> |                                                                    -                                                                     |
