@@ -1,21 +1,36 @@
 'use client';
 
+import { useQuery } from '@tanstack/react-query';
+import { getTopLikedPosts } from '@/services/community';
 import useFetchTopPosts from '@/hooks/useFetchTopPosts';
 import Link from 'next/link';
 import Image from 'next/image';
 import Loading from '../common/Loading';
 import { orbitron } from '../../../public/fonts/orbitron';
+import { Community } from '@/types/communityType';
+import { HotPostBadge } from '../community/common/HotPostBadge';
 
-interface Post {
-  id: string;
-  title: string;
-  content: string;
-  created_at: string;
-  likes?: number;
-  comments?: number;
+interface Post extends Community {
+  likes: number;
+  comments: number;
 }
 
 const TopPostsSection = () => {
+  const {
+    data: topLikedPosts,
+    isPending: isLikedPostsPending,
+    isError: isLikedPostsError,
+  } = useQuery<Post[]>({
+    queryKey: ['topLikedPosts'],
+    queryFn: getTopLikedPosts,
+  });
+
+  const {
+    posts: topPostsContent,
+    loading: isContentLoading,
+    error: contentError,
+  } = useFetchTopPosts();
+
   const formatDate = (dateString: string) => {
     const options: Intl.DateTimeFormatOptions = {
       year: 'numeric',
@@ -25,10 +40,16 @@ const TopPostsSection = () => {
     return new Date(dateString).toLocaleDateString('ko-KR', options);
   };
 
-  const { posts, loading, error } = useFetchTopPosts();
+  if (isLikedPostsPending || isContentLoading) return <Loading />;
+  if (isLikedPostsError || contentError || !topLikedPosts)
+    return <div>핫 게시글을 불러오는 데 실패했습니다.</div>;
 
-  if (loading) return <Loading />;
-  if (error) return <div>{error}</div>;
+  const sortedTopPosts = topLikedPosts.slice(0, 4).map((likedPost) => {
+    const fullPost = topPostsContent.find(
+      (contentPost) => contentPost.id === likedPost.id,
+    );
+    return { ...likedPost, ...fullPost };
+  });
 
   return (
     <section className='w-full h-full flex flex-col items-center justify-start pt-40 md:pt-60'>
@@ -44,10 +65,10 @@ const TopPostsSection = () => {
           </Link>
         </div>
       </div>
-      
+
       <div className='w-full max-w-7xl mx-auto px-8'>
         <div className='grid grid-cols-2 gap-12 relative sm:grid-cols-1 sm:gap-8'>
-          {posts.slice(0, 4).map((post: Post, index) => (
+          {sortedTopPosts.map((post, index) => (
             <Link
               href={`/community/${post.id}`}
               key={post.id}
@@ -55,29 +76,24 @@ const TopPostsSection = () => {
               ${index >= 2 ? 'sm:hidden' : ''}`}
             >
               <div className='flex flex-col justify-between h-full'>
-                <div>
-                  <Image
-                    src={'/images/chips.png'}
-                    alt='chips'
-                    width={55}
-                    height={28}
-                    className='mb-3'
-                  />
+                <div className='mb-5'>
+                  <HotPostBadge />
                   <h2 className='text-base font-pretendard font-semibold mb-2 md:text-xl md:mb-4'>
                     {post.title}
                   </h2>
                   <p className='text-black-300 mb-4 text-sm md:text-base'>
-                    {post.content.replace(/<\/?[^>]+(>|$)/g, '').length > 120
-                      ? `${post.content
-                          .replace(/<\/?[^>]+(>|$)/g, '')
-                          .substring(0, 120)}...`
-                      : post.content.replace(/<\/?[^>]+(>|$)/g, '')}
+                    {post.content
+                      ? post.content
+                          .replace(/<[^>]*>?/gm, '')
+                          .substring(0, 120) +
+                        (post.content.length > 120 ? '...' : '')
+                      : '내용이 없습니다.'}
                   </p>
                 </div>
                 <div className='text-black-50 flex justify-between items-center mt-auto text-xs md:text-sm'>
                   <span>{formatDate(post.created_at)}</span>
                   <span>
-                    좋아요 {post.likes} 댓글 {post.comments}
+                    좋아요 {post.likes || 0} 댓글 수 {post.comments || 0}
                   </span>
                 </div>
               </div>

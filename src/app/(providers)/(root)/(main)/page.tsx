@@ -216,7 +216,7 @@ const MainPage = () => {
         </h1>
         <Link href='/shop'>
           <p
-            className={`absolute top-48 right-20 underline transition-opacity duration-500 ${
+            className={`absolute top-36 text-lg right-20 underline transition-opacity duration-500 ${
               videoLoaded ? 'opacity-100' : 'opacity-0'
             } sm:top-16 sm:right-4`}
           >

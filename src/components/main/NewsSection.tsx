@@ -34,8 +34,8 @@ const NewsSection: React.FC = () => {
         .limit(3);
 
       if (error) {
-        console.error('Error fetching news:', error);
-        setError('Failed to fetch news. Please try again later.');
+        console.error('News Error:', error);
+        setError('News Error!');
       } else {
         setNewsItems(data || []);
       }
@@ -45,46 +45,47 @@ const NewsSection: React.FC = () => {
     fetchNews();
   }, []);
 
-  if (isLoading) return <div className="text-white text-center">Loading...</div>;
-  if (error) return <div className="text-red-500 text-center">{error}</div>;
+  if (isLoading) return <div className='text-white text-center'>Loading...</div>;
+  if (error) return <div className='text-red-500 text-center'>{error}</div>;
 
   return (
     <section
-      className="w-full min-h-screen flex flex-col items-center justify-center bg-cover bg-center bg-no-repeat"
-      style={{ backgroundImage: 'url(/images/section5-bg.png)' }}
+      className='w-full min-h-screen flex flex-col items-center justify-center bg-cover bg-center bg-no-repeat bg-black sm:justify-start sm:pt-20'
+      style={{ backgroundImage: 'url(/images/section5-bg2.png)' }}
     >
-      <div className="w-full max-w-7xl">
-        <div className="flex justify-between items-center mb-12">
-          <h2 className={`text-4xl text-white ${orbitron.className} top-20`}>NEWS</h2>
-          <Link href="/news" className="text-white underline">
+      <div className='w-full max-w-7xl px-10 mb-72 sm:mb-10'>
+        <div className='flex justify-between items-center mb-8'>
+          <h2 className={`text-4xl sm:text-2xl text-white ${orbitron.className}`}>NEWS</h2>
+          <Link href='/news' className='text-lg sm:text-base hover:underline text-white'>
             MORE +
           </Link>
         </div>
 
-        <div className="grid grid-cols-3 md:grid-cols-1 gap-8">
-          {newsItems.map((item) => (
-            <div key={item.id} className="bg-black bg-opacity-50 rounded-lg overflow-hidden flex flex-col">
-              <div className="relative aspect-w-16 aspect-h-9">
+        <div className='grid grid-cols-3 sm:grid-cols-1 gap-6'>
+          {newsItems.map((item, index) => (
+            <div
+              key={item.id}
+              className={`bg-black bg-opacity-50 rounded-lg overflow-hidden ${
+                index === 2 ? 'sm:hidden' : ''
+              }`}
+            >
+              <div className='relative w-full h-40 sm:h-36'>
                 <Image
                   src={item.image}
                   alt={item.title}
-                  layout="responsive"
-                  width={320}
-                  height={190}
-                  objectFit="cover"
+                  layout='fill'
+                  objectFit='cover'
                 />
               </div>
-              <div className="p-4 text-left flex-grow flex flex-col">
-                <p className="text-gray-400 text-sm mb-2">
+              <div className='p-4 sm:p-3 text-left'>
+                <p className='text-gray-400 text-xs mb-2 font-medium'>
                   {new Date(item.created_at).toLocaleDateString()}
                 </p>
-                <h3 className="text-white text-xl font-semibold mb-3 line-clamp-2">
+                <h3 className='text-white text-lg sm:text-base font-semibold mb-2 line-clamp-2'>
                   {item.title}
                 </h3>
-                <p className="text-gray-300 text-sm line-clamp-3 flex-grow">
-                  {item.description.length > 150 
-                    ? `${item.description.substring(0, 150)}...` 
-                    : item.description}
+                <p className='text-gray-300 text-sm sm:text-xs line-clamp-3 sm:line-clamp-2'>
+                  {item.description}
                 </p>
               </div>
             </div>
