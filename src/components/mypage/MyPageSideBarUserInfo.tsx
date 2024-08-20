@@ -10,11 +10,13 @@ import { userLoginInfo } from '@/services/auth';
 import { getLikeLength } from '@/services/mypage';
 import Link from 'next/link';
 import { orbitron } from '../../../public/fonts/orbitron';
+import useLastSelectWishListStore from '@/zustand/store/useLastSelectWishListStore';
 
 const MyPageSideBarUserInfo = () => {
   const user = useAuthStore((state) => state.user);
   const saveUser = useAuthStore((state) => state.saveUser);
   const [likeCount, setLikeCount] = useState(0);
+  const { setLastSelectTab } = useLastSelectWishListStore();
 
   useEffect(() => {
     userLoginInfo().then((res) => {
@@ -51,7 +53,11 @@ const MyPageSideBarUserInfo = () => {
           <p>{postCount}</p>
         </Link>
         <p>|</p>
-        <Link href={'/wishlist'} className='flex gap-1 text-center'>
+        <Link
+          href={'/wishlist'}
+          className='flex gap-1 text-center'
+          onClick={() => setLastSelectTab('LikedGoods')}
+        >
           <HeartWhiteIcon16px />
           <p>{likeCount}</p>
         </Link>
