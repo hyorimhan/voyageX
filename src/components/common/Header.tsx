@@ -118,7 +118,14 @@ const Header = () => {
                 className='hover:text-gray-300'
                 onClick={() => setIsOpen(false)}
               >
-                커뮤니티
+                자유게시판
+              </Link>
+              <Link
+                href={'/news'}
+                className='hover:text-gray-300'
+                onClick={() => setIsOpen(false)}
+              >
+                뉴스
               </Link>
               <Link
                 href={'/mypage/tour_orders'}
