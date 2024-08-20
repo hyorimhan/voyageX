@@ -148,7 +148,7 @@ export default function NewsList() {
               </SwiperSlide>
             ))}
           </Swiper>
-          <div className=' translate translate-y-12'>
+          <div className='translate translate-y-12'>
             <div className='swiper-pagination'></div>
           </div>
         </div>

@@ -60,43 +60,48 @@ const PostList = () => {
   return (
     <div className='overflow-x-auto sm:p-1'>
       <div className='flex flex-col'>
-        <div className='flex mb-[10px] border-b-[0.4px] border-white text-center gap-x-4 sm:gap-x-1'>
+        <div className='flex border-b-[0.4px] border-white text-center gap-x-4 sm:gap-x-1 sm:pr-1'>
           <span className='flex-none w-32 p-2 text-lg font-normal text-white sm:hidden'>
             카테고리
           </span>
-          <span className='flex-grow p-2 text-lg font-normal text-white sm:text-sm sm:flex-grow sm:items-center'>
+          <span className='flex-grow p-2 text-lg font-normal text-white sm:text-xs sm:flex-grow sm:items-center'>
             제목
           </span>
-          <span className='flex-none w-32 p-2 text-lg font-normal text-white sm:text-sm sm:w-20 sm:flex-grow-0 sm:whitespace-nowrap sm:flex sm:items-center sm:justify-center'>
+          <span className='flex-none w-32 p-2 text-lg font-normal text-white sm:text-xs sm:w-14 sm:flex-grow-0 sm:whitespace-nowrap sm:flex sm:items-center sm:justify-end'>
             작성일
           </span>
-          <span className='flex-none w-20 p-2 text-lg font-normal text-white sm:text-sm sm:w-14 sm:flex-grow-0 sm:whitespace-nowrap sm:flex sm:items-center sm:justify-center'>
+          <span className='flex-none w-20 p-2 text-lg font-normal text-white sm:text-xs sm:w-10 sm:flex-grow-0 sm:whitespace-nowrap sm:flex sm:items-center '>
             좋아요
           </span>
-          <span className='flex-none w-20 p-2 text-lg font-normal text-white sm:text-sm sm:w-14 sm:flex-grow-0 sm:whitespace-nowrap sm:flex sm:items-center sm:justify-center'>
+          <span className='flex-none w-20 p-2 text-lg font-normal text-white sm:text-xs sm:w-10 sm:flex-grow-0 sm:whitespace-nowrap sm:flex sm:items-center '>
             댓글
           </span>
         </div>
-        <TopLikedList />
         {posts.length > 0 ? (
           posts.map((post) => (
             <Link href={post.id} key={post.id}>
-              <div className='flex py-4 gap-x-4 items-center group sm:gap-x-1 sm:border-b-[1px] border-black-700'>
-                <div className='flex flex-grow sm:flex-col sm:items-start sm:w-full sm:justify-between'>
-                  <span className='flex-none w-32 p-2 text-center sm:w-auto transition sm:-translate-y-2'>
+              <div className='flex py-4 gap-x-4 items-center group sm:gap-x-1 sm:border-b-[1px] border-black-700 sm:py-4 sm:pr-1'>
+                <div className='flex flex-grow items-center sm:flex-col sm:items-start sm:w-full sm:justify-between'>
+                  <span className='flex-none w-32 p-2 text-center sm:w-auto sm:p-0 sm:mb-1'>
                     <CategoryBadge category={post.category} />
                   </span>
-                  <span className='flex-grow p-2 overflow-hidden text-ellipsis group-hover:underline lg:group-hover:font-semibold sm:ml-1 sm:mb-4 sm:text-left sm:text-sm sm:flex-grow sm:-translate-y-3'>
+                  <span className='flex-grow p-2 overflow-hidden text-ellipsis whitespace-nowrap group-hover:underline lg:group-hover:font-semibold sm:p-0 sm:text-xs sm:w-full communitysm:max-w-[120px] sm:max-w-[190px] md:max-w-[230px]'>
                     {post.title}
                   </span>
                 </div>
-                <span className='flex-none w-32 p-2 text-center sm:text-sm sm:w-20 sm:flex-grow-0 sm:whitespace-nowrap sm:flex sm:items-center sm:justify-center'>
-                  {new Date(post.created_at).toLocaleDateString()}
+                <span className='flex-none w-32 p-2 text-center sm:text-xs sm:w-14 sm:flex-grow-0 sm:whitespace-nowrap sm:flex sm:items-center sm:justify-end sm:p-0 sm:pt-8'>
+                  {new Date(post.created_at)
+                    .toLocaleDateString('ko-KR', {
+                      year: '2-digit',
+                      month: 'numeric',
+                      day: 'numeric',
+                    })
+                    .replace(/\.\s/g, '.')}
                 </span>
-                <span className='flex-none w-20 p-2 text-center sm:text-sm sm:w-14 sm:flex-grow-0 sm:whitespace-nowrap sm:flex sm:items-center sm:justify-center'>
+                <span className='flex-none w-20 p-2 text-center sm:text-xs sm:w-10 sm:flex-grow-0 sm:whitespace-nowrap sm:flex sm:items-center sm:justify-center sm:p-0 sm:pt-8'>
                   {post.likes}
                 </span>
-                <span className='flex-none w-20 p-2 text-center sm:text-sm sm:w-14 sm:flex-grow-0 sm:whitespace-nowrap sm:flex sm:items-center sm:justify-center'>
+                <span className='flex-none w-20 p-2 text-center sm:text-xs sm:w-10 sm:flex-grow-0 sm:whitespace-nowrap sm:flex sm:items-center sm:justify-center sm:p-0 sm:pt-8'>
                   {post.comments}
                 </span>
               </div>
