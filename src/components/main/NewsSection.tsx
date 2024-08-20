@@ -72,7 +72,7 @@ const NewsSection: React.FC = () => {
                 index === 2 ? 'sm:hidden' : ''
               }`}
             >
-              <div className='relative w-full h-40 sm:h-36'>
+              <div className='relative w-full h-48 sm:h-36'>
                 <Image
                   src={item.image}
                   alt={item.title}
@@ -80,16 +80,15 @@ const NewsSection: React.FC = () => {
                   objectFit='cover'
                 />
               </div>
-              <div className='p-4 sm:p-3 text-left'>
-                <p className='text-gray-400 text-xs mb-2 font-medium'>
+              <div className='p-4 sm:p-3 text-left gap-4'>
+                <p className='text-black-100 text-xs mb-2 font-medium'>
                   {new Date(item.created_at).toLocaleDateString()}
                 </p>
                 <h3 className='text-white text-lg sm:text-base font-semibold mb-2 line-clamp-2'>
                   {item.title}
                 </h3>
-                <p className='text-gray-300 text-sm sm:text-xs line-clamp-3 sm:line-clamp-2'>
-                  {item.description}
-                <p className='text-gray-300 text-sm line-clamp-3 flex-grow'>
+
+                <p className='text-gray-100 text-sm line-clamp-3 flex-grow'>
                   {item.description.length > 150
                     ? `${item.description.substring(0, 150)}...`
                     : item.description}

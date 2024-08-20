@@ -97,22 +97,30 @@ const MainPage = () => {
           backgroundPosition: 'center',
         }}
       >
-        <div className='lg:hidden'>
+        <div className='sm:block hidden'>
           <p
-            className={` absolute top-40 left-20 text-white text-4xl font-semibold fade-text ${orbitron.className} sm:text-2xl sm:font-medium sm:top-24 sm:left-8`}
+            className={`absolute top-24 left-8 text-white text-2xl font-medium ${orbitron.className}`}
           >
-            <span className='hidden sm:inline'>
-              Let&apos;s Find <br className='sm:block hidden' /> Popular
-              Planets!
-            </span>
-            <span className='sm:hidden'>Let&apos;s Find Popular Planets!</span>
+            Let&apos;s Find <br /> Popular Planets!
           </p>
-
           <Link href='/tour'>
-            <p className='absolute top-36 right-20 sm:right-6 z-10 sm:text-xs sm:top-36 text-lg font-normal underline'>
+            <p className='absolute top-36 right-6 z-10 text-xs font-normal underline'>
               MORE+
             </p>
           </Link>
+        </div>
+
+        <div className='sm:hidden flex flex-col items-center justify-center w-full'>
+          <div className='flex justify-between items-center w-full max-w-7xl px-4'>
+            <h2
+              className={`text-4xl font-semibold text-white ${orbitron.className}`}
+            >
+              Let&apos;s Find Popular Planets!
+            </h2>
+            <Link href='/tour' className='text-white text-lg hover:underline'>
+              MORE +
+            </Link>
+          </div>
         </div>
 
         <div className=' sm:h-full sm:scroll-container lg:min-h-screen w-full relative flex lg:flex-col items-center justify-center'>
