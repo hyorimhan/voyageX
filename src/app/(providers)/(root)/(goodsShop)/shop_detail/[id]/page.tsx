@@ -31,7 +31,6 @@ const ShopDetailPage = ({ params }: Params) => {
     isError: reviewError,
   } = useGetGoodsReviews(params.id);
 
-  // goodsDetails 배열에서 params.id와 일치하는 항목 찾기
   const selectedGoods = goodsDetails.find((item) => item.id === params.id);
 
   if (isLoading || isPending) return <Loading />;
