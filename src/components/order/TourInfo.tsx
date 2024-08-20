@@ -5,6 +5,7 @@ import { Dispatch, SetStateAction, useEffect } from 'react';
 import toast from 'react-hot-toast';
 import Image from 'next/image';
 import useTourOrderInfoStore from '@/zustand/store/useTourOrderInfoStore';
+import Link from 'next/link';
 
 interface TourInfoPropsType {
   setTotalPrice: Dispatch<SetStateAction<number>>;
@@ -29,27 +30,29 @@ function TourInfo({ setTotalPrice }: TourInfoPropsType) {
         <span className='text-lg'>총 1개</span>
       </div>
       <div>
-        <div className='flex items-center justify-start gap-[18px]'>
-          <div className='w-[104px] h-[104px]'>
-            <Image
-              src={tourOrder?.planet_img!}
-              alt={tourOrder?.planet_name!}
-              width={104}
-              height={104}
-            />
-          </div>
-          <div className='flex flex-col gap-3'>
-            <div className='flex flex-col gap-1'>
-              <p className='text-sm'>6박 7일 패키지</p>
-              <p className='font-semibold text-lg'>{`${tourOrder?.planet_name} ${tourOrder?.eng_name}`}</p>
+        <Link href={`/tour/${tourOrder?.tour_id}`}>
+          <div className='flex items-center justify-start gap-[18px]'>
+            <div className='w-[104px] h-[104px]'>
+              <Image
+                src={tourOrder?.planet_img!}
+                alt={tourOrder?.planet_name!}
+                width={104}
+                height={104}
+              />
             </div>
-            <div className='flex flex-row gap-2 sm:w-full'>
-              <p>{`${tourOrder?.price.toLocaleString()}원`}</p>
-              <p>{' | '}</p>
-              <p>수량 1개</p>
+            <div className='flex flex-col gap-3'>
+              <div className='flex flex-col gap-1'>
+                <p className='text-sm'>6박 7일 패키지</p>
+                <p className='font-semibold text-lg'>{`${tourOrder?.planet_name} ${tourOrder?.eng_name}`}</p>
+              </div>
+              <div className='flex flex-row gap-2 sm:w-full'>
+                <p>{`${tourOrder?.price.toLocaleString()}원`}</p>
+                <p>{' | '}</p>
+                <p>수량 1개</p>
+              </div>
             </div>
           </div>
-        </div>
+        </Link>
       </div>
     </div>
   );
