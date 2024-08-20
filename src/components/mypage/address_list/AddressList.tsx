@@ -52,7 +52,7 @@ const AddressesList = ({
           onMouseEnter={() => setHoveredAddressId(address.id)}
           onMouseLeave={() => setHoveredAddressId(null)}
         >
-          <div className='flex flex-col text-center py-4 sm:flex-wrap sm:py-[16px]'>
+          <div className='flex sm:flex-col text-center py-4 sm:flex-wrap sm:py-[16px]'>
             <div className='flex'>
               <button
                 onClick={() => onSelectAddress(address.id)}
