@@ -58,8 +58,7 @@ const MyPageSideBarUserInfo = () => {
           className='flex gap-1 text-center'
           onClick={() => setLastSelectTab('LikedGoods')}
         >
-          <HeartWhiteIcon16px />
-          <p>{likeCount}</p>
+          찜<p>{likeCount}</p>
         </Link>
       </div>
     </div>

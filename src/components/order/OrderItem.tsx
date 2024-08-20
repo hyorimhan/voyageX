@@ -1,5 +1,6 @@
 import { ItemToBuyType } from '@/types/goods';
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface OrderItemPropsType {
   item: ItemToBuyType;
@@ -8,7 +9,10 @@ interface OrderItemPropsType {
 function OrderItem({ item }: OrderItemPropsType) {
   return (
     <div className='mb-3'>
-      <div className='flex items-center justify-start gap-4'>
+      <Link
+        href={`/shop_detail/${item.goods.id}`}
+        className='flex items-center justify-start gap-4'
+      >
         <div className='w-[104px] h-[104px]'>
           <Image
             src={item.goods.goods_img}
@@ -28,7 +32,7 @@ function OrderItem({ item }: OrderItemPropsType) {
             <span>{`수량 ${item.quantity}개`}</span>
           </div>
         </div>
-      </div>
+      </Link>
     </div>
   );
 }
