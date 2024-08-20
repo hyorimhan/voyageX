@@ -16,11 +16,9 @@ interface CartItemPropsType {
   handleAdjustItemQuantity: ({
     id,
     operator,
-    quantity,
   }: {
     id: string;
     operator: string;
-    quantity: number;
   }) => void;
 }
 
@@ -75,7 +73,6 @@ function CartItemMobile({
                 handleAdjustItemQuantity({
                   id: item.id,
                   operator: '-',
-                  quantity: item.quantity,
                 })
               }
             >
@@ -87,7 +84,6 @@ function CartItemMobile({
                 handleAdjustItemQuantity({
                   id: item.id,
                   operator: '+',
-                  quantity: item.quantity,
                 })
               }
             >
