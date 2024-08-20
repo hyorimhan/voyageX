@@ -99,24 +99,38 @@ const Header = () => {
 
           {isOpen && (
             <nav className='md:hidden flex flex-col items-center absolute top-16 left-0 w-full bg-header-default bg-opacity-60 space-y-4 py-4'>
-              <Link href={'/tour'} className='hover:text-gray-300'>
+              <Link
+                href={'/tour'}
+                className='hover:text-gray-300'
+                onClick={() => setIsOpen(false)}
+              >
                 여행 상품
               </Link>
-              <Link href={'/shop'} className='hover:text-gray-300'>
+              <Link
+                href={'/shop'}
+                className='hover:text-gray-300'
+                onClick={() => setIsOpen(false)}
+              >
                 굿즈샵
               </Link>
-              <Link href={'/community'} className='hover:text-gray-300'>
+              <Link
+                href={'/community'}
+                className='hover:text-gray-300'
+                onClick={() => setIsOpen(false)}
+              >
                 커뮤니티
               </Link>
               <Link
                 href={'/mypage/tour_orders'}
                 className='hover:text-gray-300 sm:hidden'
+                onClick={() => setIsOpen(false)}
               >
                 마이페이지
               </Link>
               <Link
                 href={'/mypage/side_bar'}
                 className='hover:text-gray-300 md:hidden lg:hidden'
+                onClick={() => setIsOpen(false)}
               >
                 마이페이지
               </Link>
