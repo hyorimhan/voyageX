@@ -12,7 +12,7 @@ function SectionSwiper() {
     {
       imgSrc: '/images/member/chan.png',
       name: '이성찬',
-      tasks: '커뮤니티',
+      tasks: '커뮤니티 • 뉴스',
       icon: (
         <Link href={'https://github.com/SNGCHN'}>
           <IoLogoGithub size={30} className='hover:text-black-600' />
@@ -22,7 +22,12 @@ function SectionSwiper() {
     {
       imgSrc: '/images/member/rim.png',
       name: '한효림',
-      tasks: '회원가입 • 로그인 • 여행 상품 • ABOUT US',
+      tasks: (
+        <div>
+          <p>회원가입 • ABOUT US </p>
+          <p>• 여행 상품 • 로그인 </p>
+        </div>
+      ),
       icon: (
         <Link href={'https://github.com/hyorimhan'}>
           <IoLogoGithub size={30} className='hover:text-black-600' />
@@ -32,7 +37,12 @@ function SectionSwiper() {
     {
       imgSrc: '/images/member/jeong.png',
       name: '정현욱',
-      tasks: '굿즈샵 • 마이페이지 • 결제',
+      tasks: (
+        <div>
+          <p>굿즈샵 </p>
+          <p>• 마이페이지 • 결제 </p>
+        </div>
+      ),
       icon: (
         <Link href={'https://github.com/ghastlymouse'}>
           <IoLogoGithub size={30} className='hover:text-black-600' />
@@ -73,29 +83,61 @@ function SectionSwiper() {
 
   return (
     <>
-      <Swiper
-        slidesPerView={3}
-        centeredSlides={true}
-        spaceBetween={30}
-        loop={true}
-        autoplay={{
-          delay: 3000,
-          disableOnInteraction: false,
-        }}
-        modules={[Autoplay]}
-      >
-        {member.map(({ imgSrc, name, tasks, icon }) => (
-          <SwiperSlide key={name}>
-            <Card
-              member={imgSrc}
-              key={name}
-              name={name}
-              tasks={tasks}
-              icon={icon}
-            />
-          </SwiperSlide>
-        ))}
-      </Swiper>
+      <div className='sm:hidden'>
+        <Swiper
+          slidesPerView={3}
+          centeredSlides={true}
+          spaceBetween={30}
+          loop={true}
+          autoplay={{
+            delay: 3000,
+            disableOnInteraction: false,
+          }}
+          modules={[Autoplay]}
+        >
+          {member.map(({ imgSrc, name, tasks, icon }) => (
+            <SwiperSlide key={name}>
+              <div className='py-10 px-4'>
+                <Card
+                  member={imgSrc}
+                  key={name}
+                  name={name}
+                  tasks={tasks}
+                  icon={icon}
+                />
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
+
+      <div className='lg:hidden'>
+        <Swiper
+          slidesPerView={1}
+          centeredSlides={true}
+          spaceBetween={30}
+          loop={true}
+          autoplay={{
+            delay: 3000,
+            disableOnInteraction: false,
+          }}
+          modules={[Autoplay]}
+        >
+          {member.map(({ imgSrc, name, tasks, icon }) => (
+            <SwiperSlide key={name}>
+              <div className='py-10 px-4'>
+                <Card
+                  member={imgSrc}
+                  key={name}
+                  name={name}
+                  tasks={tasks}
+                  icon={icon}
+                />
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
     </>
   );
 }

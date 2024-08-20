@@ -31,7 +31,7 @@ const TopLikedList = () => {
                   <span className='flex-none w-32 p-2 text-center sm:w-auto transition sm:-translate-y-2 '>
                     <HotPostBadge />
                   </span>
-                  <span className='flex-grow p-2 overflow-hidden text-ellipsis group-hover:underline sm:ml-1 sm:mb-4 sm:text-left sm:text-sm sm:flex-grow sm:-translate-y-3'>
+                  <span className='flex-grow p-2 overflow-hidden text-ellipsis group-hover:underline lg:group-hover:font-semibold sm:ml-1 sm:mb-4 sm:text-left sm:text-sm sm:flex-grow sm:-translate-y-3'>
                     {post.title}
                   </span>
                 </div>

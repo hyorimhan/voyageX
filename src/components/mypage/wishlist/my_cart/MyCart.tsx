@@ -57,11 +57,9 @@ function MyCart({ user_id }: WishListPropsType) {
   const handleAdjustItemQuantity = ({
     id,
     operator,
-    quantity,
   }: {
     id: string;
     operator: string;
-    quantity: number;
   }) => {
     if (!selectItemIds.includes(id)) setSelectItemIds((prev) => [...prev, id]);
     if (

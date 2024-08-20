@@ -3,7 +3,7 @@ import { orbitron } from '../../../public/fonts/orbitron';
 
 function Section4() {
   return (
-    <section className=' relative sm:w-full sm:h-screen sm:overflow-hidden lg:min-h-screen flex flex-col justify-center items-center '>
+    <section className=' relative sm:w-full sm:h-full sm:overflow-hidden lg:min-h-screen flex flex-col justify-center items-center '>
       <video
         src='https://uvjnwqdttdhvwexypdhx.supabase.co/storage/v1/object/public/background/section6%20(2).mp4?t=2024-08-16T08%3A01%3A10.130Z'
         autoPlay
@@ -12,17 +12,17 @@ function Section4() {
         loop
         className='absolute top-0 left-0  w-full h-full object-cover'
       />
-      <div className='relative  min-h-screen h-full  w-full mx-auto  z-10  md:h-full flex flex-col justify-center   bg-black-800 bg-opacity-20'>
+      <div className='relative  min-h-screen h-full  w-full mx-auto  z-10  md:h-full flex flex-col justify-center   bg-black-900 bg-opacity-70'>
         <div className='relative'>
           <Scroll>
-            <div className='text-center text-[20px] sm:text-sm w-[1120px] mx-auto'>
+            <div className='text-center text-[20px] sm:text-sm w-[1120px] sm:w-[335px] mx-auto'>
               <div
-                className={`${orbitron.className} mb-8 text-[28px] font-semibold sm:text-lg text-left`}
+                className={`${orbitron.className} sm:mt-5 mb-8 text-[28px] font-semibold sm:text-lg text-left`}
               >
                 PAGE FEATURES
               </div>
 
-              <div className='grid grid-cols-3 gap-y-10'>
+              <div className='grid grid-cols-3 gap-y-10 sm:grid-cols-1'>
                 <div className='h-[200px] w-[335px] '>
                   <div
                     className=' rounded-full text-[16px] py-3 animate-gradient bg-gradient-to-r from-primary-800 via-primary-500 to-primary-400 font-semibold'
@@ -121,7 +121,7 @@ function Section4() {
                   >
                     로그인 및 회원가입
                   </div>
-                  <div className='mt-4 relative '>
+                  <div className='mt-4 relative'>
                     <div className='bg-black-900 inset-0 opacity-50 absolute rounded-2xl'></div>
                     <div className='text-sm font-medium h-[141px] relative flex flex-col justify-center '>
                       <p>로그인 및 회원가입에서는</p>
