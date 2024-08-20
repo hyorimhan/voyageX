@@ -17,7 +17,6 @@ import { getLikeLength } from '@/services/mypage';
 
 const Header = () => {
   const user = useAuthStore((state) => state.user);
-  const saveUser = useAuthStore((state) => state.saveUser);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const { setLastSelectTab } = useLastSelectWishListStore((state) => state);
   const menuRef = useRef<HTMLElement>(null);
@@ -26,12 +25,6 @@ const Header = () => {
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
-
-  useEffect(() => {
-    userLoginInfo().then((res) => {
-      saveUser(res);
-    });
-  }, [saveUser]);
 
   useEffect(() => {
     if (user?.id) {
@@ -102,7 +95,7 @@ const Header = () => {
           <div className='flex items-center justify-end gap-4'>
             <Link
               href={'/wishlist'}
-              className='text-white hover:text-gray-300 hidden md:block'
+              className='text-white hover:text-gray-300 sm:hidden md:block'
               onClick={() => setLastSelectTab('LikedGoods')}
             >
               <HeartDefaultIcon24px />
