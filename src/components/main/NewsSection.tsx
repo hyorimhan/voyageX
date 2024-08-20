@@ -54,7 +54,7 @@ const NewsSection: React.FC = () => {
       className='w-full sm:px-5 min-h-screen flex flex-col items-center justify-center bg-cover bg-center bg-no-repeat'
       style={{ backgroundImage: 'url(/images/section5-bg.png)' }}
     >
-      <div className='w-full max-w-7xl'>
+      <div className='w-full max-w-[1120px]'>
         <div className='flex justify-between items-center mb-12'>
           <h2
             className={`text-4xl sm:text-2xl font-semibold sm:font-medium text-white ${orbitron.className} top-20`}

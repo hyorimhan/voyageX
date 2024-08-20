@@ -9,7 +9,10 @@ interface PlanetSectionProps {
   videoLoaded: boolean;
 }
 
-const PlanetSection: React.FC<PlanetSectionProps> = ({ planets, videoLoaded }) => {
+const PlanetSection: React.FC<PlanetSectionProps> = ({
+  planets,
+  videoLoaded,
+}) => {
   return (
     <section
       className='section h-screen flex flex-col items-center justify-center relative bg-center bg-cover bg-no-repeat transition-opacity duration-500 opacity-100'
