@@ -54,14 +54,14 @@ const NewsSection: React.FC = () => {
       className='w-full sm:px-5 min-h-screen flex flex-col items-center justify-center bg-cover bg-center bg-no-repeat'
       style={{ backgroundImage: 'url(/images/section5-bg.png)' }}
     >
-      <div className='w-full max-w-[1120px]'>
+      <div className='lg:w-full lg:max-w-[1120px]'>
         <div className='flex justify-between items-center mb-12'>
           <h2
             className={`text-4xl sm:text-2xl font-semibold sm:font-medium text-white ${orbitron.className} top-20`}
           >
             NEWS
           </h2>
-          <Link href='/news' className='text-white '>
+          <Link href='/news' className='text-white sm:underline '>
             MORE +
           </Link>
         </div>
@@ -73,17 +73,19 @@ const NewsSection: React.FC = () => {
               className='bg-black bg-opacity-50 rounded-lg overflow-hidden flex flex-col'
             >
               <div className='relative aspect-w-16 aspect-h-9'>
-                <Image
-                  src={item.image}
-                  alt={item.title}
-                  layout='responsive'
-                  width={320}
-                  height={190}
-                  objectFit='cover'
-                />
+                <Link href={`/news`}>
+                  <Image
+                    src={item.image}
+                    alt={item.title}
+                    layout='responsive'
+                    width={320}
+                    height={190}
+                    objectFit='cover'
+                  />
+                </Link>
               </div>
               <div className='p-4 text-left flex-grow flex flex-col'>
-                <p className='text-gray-400 text-sm mb-2'>
+                <p className='text-gray-100 text-sm mb-2'>
                   {new Date(item.created_at).toLocaleDateString()}
                 </p>
                 <h3 className='text-white text-xl font-semibold mb-3 line-clamp-2'>
