@@ -180,7 +180,7 @@ function SignupForm() {
             type='submit'
             // disabled={!isValid}
             className={
-              'w-[473px] h-[58px]  sm:w-[335px] rounded-lg p-2 mt-5 bg-primary-600'
+              'w-[473px] h-[58px]  sm:w-[335px] rounded-lg p-2 mt-5 bg-primary-600 duration-200 hover:bg-primary-400 active:bg-primary-500'
             }
             // ${!isValid ? 'cursor-not-allowed bg-black-400' : 'bg-primary-600' }
           >

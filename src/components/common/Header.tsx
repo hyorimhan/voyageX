@@ -12,8 +12,11 @@ import Link from 'next/link';
 import ShoppingBagIcon24px from './icons/24px/ShoppingBagIcon24px';
 import { useQuery } from '@tanstack/react-query';
 import { getMyPosts } from '@/services/community';
-import { userLoginInfo } from '@/services/auth';
+import { logout, userLoginInfo } from '@/services/auth';
 import { getLikeLength } from '@/services/mypage';
+import toast from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
+import useUpdateInfoStore from '@/zustand/store/useUpdateInfo';
 
 const Header = () => {
   const user = useAuthStore((state) => state.user);
@@ -21,6 +24,9 @@ const Header = () => {
   const { setLastSelectTab } = useLastSelectWishListStore((state) => state);
   const menuRef = useRef<HTMLElement>(null);
   const [likeCount, setLikeCount] = useState(0);
+  const router = useRouter();
+  const { saveUser } = useAuthStore((state) => state);
+  const { setUpdateInfo } = useUpdateInfoStore((state) => state);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -40,6 +46,25 @@ const Header = () => {
     queryFn: () => getMyPosts(user?.id),
     enabled: !!user?.id,
   });
+
+  const logoutFunc = async () => {
+    if (!user) {
+      toast.error('이미 로그아웃 되었습니다');
+      return;
+    }
+    const response = await logout();
+    if (response.message) {
+      toast.success(response.message);
+    }
+
+    saveUser(null);
+    setUpdateInfo({
+      customerName: '',
+      customerPhone: '',
+      customerEmail: '',
+    });
+    router.replace('/');
+  };
 
   useEffect(() => {
     if (isOpen) {
@@ -109,7 +134,13 @@ const Header = () => {
             </Link>
             <Link
               href={'/mypage/tour_orders'}
-              className='text-white hover:text-gray-300 cursor-pointer'
+              className='text-white hover:text-gray-300 cursor-pointer sm:hidden'
+            >
+              <MyPageIcon24px />
+            </Link>
+            <Link
+              href={'/mypage/side_bar'}
+              className='text-white hover:text-gray-300 cursor-pointer md:hidden lg:hidden'
             >
               <MyPageIcon24px />
             </Link>
@@ -162,30 +193,30 @@ const Header = () => {
                     className='flex gap-1 text-center'
                     onClick={() => setLastSelectTab('LikedGoods')}
                   >
-                    🤍<p>{likeCount}</p>
+                    찜<p>{likeCount}</p>
                   </Link>
                 </div>
               </div>
             ) : (
               <div className='flex gap-4 mb-8'>
                 <Link
-                  href='/login'
-                  className={`bg-purple-800 text-black-50 px-6 py-2 rounded w-1/2 font-bold text-center ${orbitron.className}`}
-                  onClick={() => setIsOpen(false)}
-                >
-                  LOG IN
-                </Link>
-                <Link
                   href='/signup'
-                  className={`border border-purple-300 text-black-50 px-6 py-2 rounded w-1/2 font-bold text-center ${orbitron.className}`}
+                  className={`border border-primary-400 bg-transparent transition-colors duration-200 hover:bg-primary-200 hover:text-black-1000 active:bg-primary-300 text-black-50 px-6 py-2 rounded w-1/2 font-bold text-center ${orbitron.className}`}
                   onClick={() => setIsOpen(false)}
                 >
                   SIGN UP
                 </Link>
+                <Link
+                  href='/login'
+                  className={`bg-primary-600 duration-200 hover:bg-primary-400 active:bg-primary-500 text-black-50 px-6 py-2 rounded w-1/2 font-bold text-center ${orbitron.className}`}
+                  onClick={() => setIsOpen(false)}
+                >
+                  LOG IN
+                </Link>
               </div>
             )}
 
-            <nav className='flex flex-col space-y-4'>
+            <nav className='flex flex-col gap-4'>
               <Link
                 href={'/shop'}
                 className={`text-white text-xl flex justify-between items-center py-2 border-b border-gray-700 ${orbitron.className}`}
@@ -215,12 +246,22 @@ const Header = () => {
                 NEWS <span>&gt;</span>
               </Link>
               <Link
-                href={'/mypage'}
+                href={'/mypage/side_bar'}
                 className={`text-white text-xl flex justify-between items-center py-2 border-b border-gray-700 ${orbitron.className}`}
                 onClick={() => setIsOpen(false)}
               >
                 MY PAGE <span>&gt;</span>
               </Link>
+              <button
+                onClick={logoutFunc}
+                className={`${
+                  user ? 'flex' : 'hidden'
+                } mt-12 text-white text-base font-semibold justify-center items-center py-3 border-[1.5px] rounded-lg border-primary-400 bg-transparent transition-colors duration-200 hover:bg-primary-200 hover:text-black-1000 active:bg-primary-300 ${
+                  orbitron.className
+                }`}
+              >
+                LOG OUT
+              </button>
             </nav>
           </div>
         </div>
