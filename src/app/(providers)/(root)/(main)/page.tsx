@@ -80,6 +80,7 @@ const MainPage = () => {
             href={
               'https://kr.freepik.com/free-video/traveling-through-star-fields-space-distant-galaxy-2_179468#fromView=search&page=1&position=0&uuid=4946a633-a12e-4230-a49f-07ec1569be25'
             }
+            className='text-black-500'
           >
             Designed by Freepik
           </Link>

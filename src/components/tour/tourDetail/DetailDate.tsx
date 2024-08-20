@@ -36,10 +36,7 @@ function DetailDate() {
               {view ? (
                 <span className='sm:ml-7'>{selectDepart}</span>
               ) : (
-                <>
-                  {' '}
-                  <span>{selectDepart}</span>
-                </>
+                <span>{selectDepart}</span>
               )}
             </div>
             <div className='sm:absolute sm:right-10 mr-3'>

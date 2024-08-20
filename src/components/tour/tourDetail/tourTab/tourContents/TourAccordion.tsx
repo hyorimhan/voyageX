@@ -2,7 +2,6 @@ import { Accordion, AccordionItem } from '@szhsin/react-accordion';
 import TourDetailContents from './TourDetailContents';
 import { tourSchedule } from '@/services/tour';
 import { Tour, TourSchedule } from '@/types/tourPropsType';
-import Loading from '@/components/common/Loading';
 import { useQuery } from '@tanstack/react-query';
 import AccordionImg from './AccordionImg';
 import Image from 'next/image';
@@ -12,10 +11,6 @@ function TourAccordion({ tour }: { tour: Tour }) {
     queryKey: ['schedule', tour.id],
     queryFn: () => tourSchedule(tour.id),
   });
-
-  // if (isLoading) {
-  //   return <Loading />;
-  // }
 
   return (
     <Accordion allowMultiple className='mt-6 mb-60 md:mx-5'>

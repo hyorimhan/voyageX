@@ -9,7 +9,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Autoplay } from 'swiper/modules';
+import { Navigation } from 'swiper/modules';
 import { Pagination as SwiperPagination } from 'swiper/modules';
 import TourRouter from '../tourDetail/TourRouter';
 import Popup from '@/components/common/Popup';
@@ -36,13 +36,12 @@ function TourList() {
         <Swiper
           loop={true}
           spaceBetween={30}
-          navigation={true}
           pagination={{
             clickable: true,
             el: '.swiper-pagination',
             type: 'bullets',
           }}
-          modules={[Navigation, Autoplay, SwiperPagination]}
+          modules={[SwiperPagination]}
         >
           {tours?.map((tour) => (
             <SwiperSlide key={tour.id}>

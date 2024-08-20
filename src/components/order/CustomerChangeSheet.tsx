@@ -120,7 +120,7 @@ function CustomerChangeSheet({
             }}
           >
             <div className='flex flex-col items-center gap-8 w-full'>
-              <div>
+              <div className='text-lg'>
                 {!customerInfo?.customerName || !customerInfo?.customerPhone
                   ? '주문자정보 입력'
                   : '주문자정보 변경'}

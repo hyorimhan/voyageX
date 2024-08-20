@@ -3,7 +3,7 @@ import TourAccordion from './TourAccordion';
 
 function TourContents({ tour }: { tour: Tour }) {
   return (
-    <div className='md:mx-5 sm:mx-5'>
+    <div>
       <div className='mt-12 text-2xl font-semibold'>
         {tour.planets?.name} 여행 패키지 일정
       </div>
