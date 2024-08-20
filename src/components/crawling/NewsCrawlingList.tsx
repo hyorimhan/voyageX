@@ -4,15 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import axios from 'axios';
-
-interface NewsItem {
-  title: string;
-  link: string;
-  image: string;
-  description: string;
-  read_time: number;
-  category: string;
-}
+import { NewsItem } from '@/types/newsType';
 
 const NewsCrawlingList: React.FC = () => {
   const [newsItems, setNewsItems] = useState<NewsItem[]>([]);
