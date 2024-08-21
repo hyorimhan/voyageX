@@ -86,7 +86,7 @@ const NewsSection: React.FC = () => {
                 />
               </div>
               <div className='sm:p-3 text-left gap-4'>
-                <p className='text-black-100 text-xs mb-2 font-medium'>
+                <p className='text-black-100 text-xs mb-2 mt-2 font-medium'>
                   {new Date(item.created_at).toLocaleDateString()}
                 </p>
                 <h3 className='text-white text-lg sm:text-base font-semibold mb-2 line-clamp-2'>
