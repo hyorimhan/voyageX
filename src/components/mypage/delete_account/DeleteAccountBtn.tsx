@@ -7,6 +7,10 @@ import { deleteUser } from '@/services/auth';
 import useAuthStore from '@/zustand/store/useAuth';
 import toast from 'react-hot-toast';
 import useUpdateInfoStore from '@/zustand/store/useUpdateInfo';
+import useExpressInfoStore from '@/zustand/store/useExpressInfoStore';
+import useGoodsOrderStore from '@/zustand/store/useGoodsOrderInfoStore';
+import useTourOrderInfoStore from '@/zustand/store/useTourOrderInfoStore';
+import usePayResultStore from '@/zustand/store/usePayResultStore';
 
 type DeleteAccountBtnProps = {
   buttonText: string;
@@ -16,7 +20,11 @@ const DeleteAccountBtn = ({ buttonText }: DeleteAccountBtnProps) => {
   const [isChecked, setIsChecked] = useState(false);
   const router = useRouter();
   const user = useAuthStore((state) => state.user);
-  const { setUpdateInfo } = useUpdateInfoStore((state) => state);
+  const { setUpdateInfo } = useUpdateInfoStore();
+  const { setExpressAddress } = useExpressInfoStore();
+  const { setGoodsOrderInfo } = useGoodsOrderStore();
+  const { setTourOrder } = useTourOrderInfoStore();
+  const { setPayResult } = usePayResultStore();
 
   const handleDeleteAccount = async () => {
     if (user) {
@@ -31,6 +39,10 @@ const DeleteAccountBtn = ({ buttonText }: DeleteAccountBtnProps) => {
           customerPhone: '',
           customerEmail: '',
         });
+        setExpressAddress(null);
+        setGoodsOrderInfo(null);
+        setTourOrder(null);
+        setPayResult(null);
         toast.success('회원탈퇴완료');
         router.replace('/');
       }
