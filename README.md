@@ -37,6 +37,8 @@
 
 # 기술 스택📚
 
+<br><br>
+
 <div align="center"> 
   <img src="https://img.shields.io/badge/Yarn-2C8EBB?style=for-the-badge&logo=yarn&logoColor=white">
   <img src="https://img.shields.io/badge/Typescript-3178C6?style=for-the-badge&logo=Typescript&logoColor=white"/>
@@ -54,6 +56,8 @@
 <br>
 
 # 기술적 의사결정🗣️
+
+<br><br>
 
 <div style="display: flex; align-items: center;"><img src="https://github.com/user-attachments/assets/2b321c83-c25e-43bc-9c2d-f62273c2d9dd" width="20px" style="vertical-align: middle; margin-right: 5px;" /> <strong>TypeScript</strong> </div>
 코드의 안전성과 신뢰성을 높이고 코드에서 오류를 미리 잡아줘서, 프로그램이 더 안전하게 작동하고 여러 사람들이 협업하는 프로젝트에서 발생할 수 있는 오류를 줄여줄 수 있는 좋은 도구라 생각되어 선택했습니다.
@@ -107,7 +111,7 @@ Quill 에디터를 사용 시에 html을 사용하게 되는데, 이 때, innerH
 
 # 화면 구성 및 주요 기술 ‍💻
 
-#### 메인 페이지
+### 메인 페이지
 
 <details><summary></summary><p align="center"><img src="https://github.com/user-attachments/assets/8f2ea0d4-f0f4-4c7a-a510-c72ad779965f" width ="500"></p>
 
@@ -125,7 +129,11 @@ Quill 에디터를 사용 시에 html을 사용하게 되는데, 이 때, innerH
 
 </details>
 
-#### 여행상품 페이지
+### 여행상품 페이지
+
+<details><summary></summary>
+
+<br>
 
 - 토스 페이먼츠 api를 사용한 우주 여행 상품 결제 기능
 
@@ -136,8 +144,11 @@ Quill 에디터를 사용 시에 html을 사용하게 되는데, 이 때, innerH
 - 상품 구매 후 리뷰 남길 수 있는 기능
 
 - 장바구니 대신 찜을 사용해 저장
+</details>
 
-#### 굿즈샵 페이지
+### 굿즈샵 페이지
+
+<details><summary></summary></details>
 
 - 토스 페이먼츠 api 이용한 결제 기능
 
@@ -148,3 +159,19 @@ Quill 에디터를 사용 시에 html을 사용하게 되는데, 이 때, innerH
 - 구매한 상품별로 리뷰 조회 / 작성 / 수정 기능, 한 번에 여러 개의 상품을 사도 상품별로 리뷰 작성 / 수정 가능, 재구매한 상품도 리뷰 작성 / 수정 가능
 
 - 상품 정렬 기능
+
+### 자유 게시판
+
+<details><summary></summary></details>
+
+### 뉴스 페이지
+
+<details><summary></summary></details>
+
+### 마이 페이지
+
+<details><summary></summary></details>
+
+### ABOUT US
+
+<details><summary></summary></details>
