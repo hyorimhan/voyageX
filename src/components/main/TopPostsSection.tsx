@@ -61,7 +61,10 @@ const TopPostsSection = () => {
             >
               FREE BOARD
             </h2>
-            <Link href='/community' className='text-white text-lg sm:text-xs hover:underline'>
+            <Link
+              href='/community'
+              className='text-white text-lg sm:text-xs hover:underline'
+            >
               MORE +
             </Link>
           </div>
@@ -90,13 +93,13 @@ const TopPostsSection = () => {
                           .replace(/<[^>]*>?/gm, '')
                           .substring(0, 120) +
                         (post.content.length > 120 ? '...' : '')
-                      : '내용이 없습니다.'}
+                      : '상세 글 보기'}
                   </p>
                 </div>
                 <div className='text-black-50 flex justify-between items-center mt-auto text-xs md:text-sm'>
                   <span>{formatDate(post.created_at)}</span>
                   <span>
-                    좋아요 {post.likes}  댓글 {post.comments}
+                    좋아요 {post.likes} 댓글 {post.comments}
                   </span>
                 </div>
               </div>
