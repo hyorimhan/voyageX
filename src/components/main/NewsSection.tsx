@@ -45,19 +45,26 @@ const NewsSection: React.FC = () => {
     fetchNews();
   }, []);
 
-  if (isLoading) return <div className='text-white text-center'>Loading...</div>;
+  if (isLoading)
+    return <div className='text-white text-center'>Loading...</div>;
   if (error) return <div className='text-red-500 text-center'>{error}</div>;
-
 
   return (
     <section
-      className='w-full min-h-screen flex flex-col items-center justify-center bg-cover bg-center bg-no-repeat bg-black sm:justify-start sm:pt-20'
+      className='w-full min-h-screen  flex flex-col  items-center justify-center bg-cover bg-center bg-no-repeat bg-black sm:justify-start sm:pt-20'
       style={{ backgroundImage: 'url(/images/section5-bg2.png)' }}
     >
-      <div className='lg:w-full lg:max-w-[1120px] px-10 mb-72 sm:mb-10'>
+      <div className='lg:w-full lg:max-w-[1120px] mt-[15%] px-5 mb-72 sm:mb-10'>
         <div className='flex justify-between items-center mb-8'>
-          <h2 className={`text-4xl sm:text-2xl font-semibold text-white ${orbitron.className}`}>NEWS</h2>
-          <Link href='/news' className='text-lg sm:text-xs hover:underline text-white sm:right-0'>
+          <h2
+            className={`text-4xl sm:text-2xl  font-semibold text-white ${orbitron.className}`}
+          >
+            NEWS
+          </h2>
+          <Link
+            href='/news'
+            className='text-lg sm:text-xs  text-white sm:right-0'
+          >
             MORE +
           </Link>
         </div>
