@@ -56,8 +56,8 @@ const NewsSection: React.FC = () => {
     >
       <div className='lg:w-full lg:max-w-[1120px] px-10 mb-72 sm:mb-10'>
         <div className='flex justify-between items-center mb-8'>
-          <h2 className={`text-4xl sm:text-2xl text-white ${orbitron.className}`}>NEWS</h2>
-          <Link href='/news' className='text-lg sm:text-base hover:underline text-white'>
+          <h2 className={`text-4xl sm:text-2xl font-semibold text-white ${orbitron.className}`}>NEWS</h2>
+          <Link href='/news' className='text-lg sm:text-xs hover:underline text-white sm:right-0'>
             MORE +
           </Link>
         </div>
