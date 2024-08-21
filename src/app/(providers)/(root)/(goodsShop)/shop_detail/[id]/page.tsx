@@ -11,7 +11,7 @@ import Image from 'next/image';
 import { useGetGoodsReviews } from '@/hooks/apis/review.api';
 import TopBtn from '@/components/common/TopBtn';
 import Link from 'next/link';
-import goodsDetails from '@/utils/goods_details';
+import goodsDetails, { GoodsDetails } from '@/utils/goods_details';
 
 type Params = {
   params: {
@@ -31,7 +31,9 @@ const ShopDetailPage = ({ params }: Params) => {
     isError: reviewError,
   } = useGetGoodsReviews(params.id);
 
-  const selectedGoods = goodsDetails.find((item) => item.id === params.id);
+  const selectedGoods: GoodsDetails | undefined = goodsDetails.find(
+    (item) => item.id === params.id,
+  );
 
   if (isLoading || isPending) return <Loading />;
   if (goodsError || reviewError) return <div>에러 발생</div>;
@@ -101,15 +103,33 @@ const ShopDetailPage = ({ params }: Params) => {
                       </li>
                     ))}
                   </p>
-                  <p className='text-2xl mb-6 sm:text-xl'>주의 사항</p>
-                  <p className='mb-[42px] text-xl sm:text-lg'>
-                    {selectedGoods.주의사항.split('\n').map((line, index) => (
-                      <li key={index}>
-                        {line}
-                        <br />
-                      </li>
-                    ))}
+                  <p className='text-2xl mb-6 sm:text-xl'>
+                    {selectedGoods.사용방법 ? '사용방법' : '주의 사항'}
                   </p>
+                  <ol
+                    className='mb-[42px] text-xl sm:text-lg list-decimal'
+                    start={1}
+                  >
+                    {selectedGoods.사용방법
+                      ? selectedGoods.사용방법
+                          .split('\n')
+                          .map((line, index) => (
+                            <li key={index}>
+                              {line}
+                              <br />
+                            </li>
+                          ))
+                      : selectedGoods.주의사항
+                      ? selectedGoods.주의사항
+                          .split('\n')
+                          .map((line, index) => (
+                            <li key={index}>
+                              {line}
+                              <br />
+                            </li>
+                          ))
+                      : null}
+                  </ol>
                   <p className='text-2xl mb-6 sm:text-xl'>구매 시 주의 사항</p>
                   <li className='text-xl mb-2 list-outside sm:text-lg'>
                     {selectedGoods['구매 시 주의사항']}
