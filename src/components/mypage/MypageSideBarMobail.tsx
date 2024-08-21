@@ -7,6 +7,7 @@ import ArrowRightIcon24px from '../common/icons/24px/ArrowRightIcon24px';
 import Link from 'next/link';
 import LogoutBtn from '../auth/logout/LogoutBtn';
 import useAuthStore from '@/zustand/store/useAuth';
+import SideBarLogoutBtn from '../auth/logout/SideBarLogoutBtn';
 
 const MyPageSideBarMobile = () => {
   const [isPending] = useTransition();
@@ -93,9 +94,7 @@ const MyPageSideBarMobile = () => {
             <p className='text-lg '>회원탈퇴</p>
             <ArrowRightIcon24px />
           </Link>
-          <div className='flex text-sm pt-5 border-b-[1px] justify-between w-fit'>
-            <LogoutBtn />
-          </div>
+          <SideBarLogoutBtn />
         </div>
       </div>
     </div>

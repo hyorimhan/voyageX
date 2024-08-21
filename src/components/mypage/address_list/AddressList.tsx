@@ -84,7 +84,7 @@ const AddressesList = ({
                 )}
                 <p className='text-sm text-center'>{address.alias}</p>
               </div>
-              <div className='text-left text-sm w-[363px] px-2 sm:text-xs sm:mt-2 sm:w-full'>
+              <div className='text-left md:ml-4 lg:ml-4 text-sm w-[363px] px-2 sm:text-xs sm:mt-2 sm:w-full'>
                 <p className='mb-1 md:hidden lg:hidden'>{address.recipient}</p>
                 <p className='mb-1 sm:mb-0'>({address.postcode})</p>
                 <p>
