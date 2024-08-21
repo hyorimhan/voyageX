@@ -98,35 +98,39 @@ const MainPage = () => {
           backgroundPosition: 'center',
         }}
       >
-        <div className='sm:block hidden'>
+        {/* <div className='lg:hidden sm:block md:hidden'>
           <p
             className={`absolute top-24 left-8 text-white text-2xl font-medium ${orbitron.className}`}
           >
-            Let&apos;s Find <br /> Popular Planets!
+            <span className='hidden sm:inline'>
+              Let&apos;s Find <br className='sm:block hidden' /> Popular
+              Planets!
+            </span>
+             <span className='sm:hidden '>Let&apos;s Find Popular Planets!</span> 
           </p>
+
           <Link href='/tour'>
             <p className='absolute top-36 right-6 z-10 text-xs font-normal underline'>
               MORE+
             </p>
           </Link>
-        </div>
-
-        <div className='sm:hidden flex flex-col items-center justify-center w-full'>
-          <div className='flex justify-between items-center w-full max-w-7xl px-4'>
-            <h2
-              className={`text-4xl font-semibold text-white ${orbitron.className}`}
-            >
-              Let&apos;s Find Popular Planets!
-            </h2>
-            <Link href='/tour' className='text-white text-lg hover:underline'>
-              MORE +
-            </Link>
-          </div>
-        </div>
-
-        <div className=' sm:h-full sm:scroll-container lg:min-h-screen w-full relative flex lg:flex-col items-center justify-center'>
+        </div> */}
+        <p
+          className={`absolute top-40 left-20 lg:hidden text-white text-4xl font-semibold fade-text ${orbitron.className} sm:text-2xl sm:font-medium sm:top-24 sm:left-8`}
+        >
+          <span className='hidden sm:inline'>
+            Let&apos;s Find <br className='sm:block hidden' /> Popular Planets!
+          </span>
+          <span className='sm:hidden'>Let&apos;s Find Popular Planets!</span>
+        </p>
+        <Link href='/tour'>
+          <p className='absolute lg:hidden top-36 right-20 sm:right-6 z-10 sm:text-xs sm:top-36 text-lg font-normal underline'>
+            MORE+
+          </p>
+        </Link>
+        <div className='scroll-container h-full w-full relative flex items-center justify-center'>
           <div className='flex  justify-between absolute top-20   items-center lg:w-[1120px]'>
-            <div className='flex justify-between items-center w-full'>
+            <div className='flex justify-between items-center w-full sm:hidden'>
               <h2
                 className={`text-4xl sm:text-2xl font-semibold sm:font-medium text-white ${orbitron.className} top-20`}
               >
@@ -228,30 +232,28 @@ const MainPage = () => {
         }}
         className='section section-bg h-screen flex flex-col items-center justify-center transition-opacity duration-500'
       >
-        {/* <div className='lg:hidden '>
-          <h1
-            className={`text-4xl absolute font-semibold top-40 left-20 ${
-              orbitron.className
-            } transition-opacity duration-500 ${
-              videoLoaded ? 'opacity-100' : 'opacity-0'
-            }
+        <h1
+          className={`text-4xl absolute lg:hidden font-semibold top-40 left-20 ${
+            orbitron.className
+          } transition-opacity duration-500 ${
+            videoLoaded ? 'opacity-100' : 'opacity-0'
+          }
     sm:text-2xl sm:font-medium sm:top-16 sm:left-4`}
+        >
+          GOODS SHOP
+        </h1>
+        <Link href='/shop'>
+          <p
+            className={`absolute top-48 right-20 lg:hidden underline transition-opacity duration-500 ${
+              videoLoaded ? 'opacity-100' : 'opacity-0'
+            } sm:top-16 sm:right-4`}
           >
-            GOODS SHOP
-          </h1>
-          <Link href='/shop'>
-            <p
-              className={`absolute top-48 right-20 underline transition-opacity duration-500 ${
-                videoLoaded ? 'opacity-100' : 'opacity-0'
-              } sm:top-16 sm:right-4`}
-            >
-              MORE+
-            </p>
-          </Link>
-        </div> */}
+            MORE+
+          </p>
+        </Link>
 
         <div className='lg:w-full lg:max-w-[1120px] '>
-          <div className='flex justify-between items-center lg:mb-12 '>
+          <div className='flex justify-between items-center lg:mb-12 sm:hidden '>
             <h2
               className={`text-4xl sm:text-2xl font-semibold sm:font-medium text-white ${orbitron.className} top-20`}
             >
@@ -267,7 +269,7 @@ const MainPage = () => {
               <Loading />
             </div>
           ) : (
-            <ul className='grid grid-cols-3 gap-4 p-4 sm:grid-cols-2 sm:gap-2'>
+            <ul className='grid grid-cols-3 gap-4 p-4 sm:mt-40 sm:grid-cols-2 sm:gap-2'>
               {goods?.slice(0, 4).map((item, index) => (
                 <li
                   key={item.id}

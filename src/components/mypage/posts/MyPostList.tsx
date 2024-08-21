@@ -22,7 +22,6 @@ const MyPostList = () => {
     queryFn: () => getMyPosts(user_id),
   });
 
-
   if (isLoading) return <Loading />;
   if (isError || !posts || posts.length === 0) {
     return (
@@ -69,8 +68,12 @@ const MyPostList = () => {
               </div>
               <p className='font-bold line-clamp-1'>{post.title}</p>
               <div>
-                <p className='line-clamp-4 text-sm sm:text-xs'>
-                  {post.content}
+                <p className='text-black-300 mb-4 text-sm md:text-base'>
+                  {post.content.replace(/<\/?[^>]+(>|$)/g, '').length > 120
+                    ? `${post.content
+                        .replace(/<\/?[^>]+(>|$)/g, '')
+                        .substring(0, 120)}...`
+                    : post.content.replace(/<\/?[^>]+(>|$)/g, '')}
                 </p>
               </div>
             </div>

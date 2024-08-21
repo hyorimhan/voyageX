@@ -124,7 +124,7 @@ export default function NewsList() {
                       objectFit='cover'
                       className='brightness-[0.7] '
                     />
-                    <div className='absolute top-3 right-3 opacity-0 group-hover:opacity-100'>
+                    <div className='absolute top-3 right-3'>
                       <OpenNewTabIcon16px />
                     </div>
                     <div className='absolute left-3 top-[108px] flex flex-col gap-2'>
