@@ -54,18 +54,8 @@ const TopPostsSection = () => {
   return (
     <section className='w-full h-full flex flex-col items-center justify-start pt-40 md:pt-60 sm:px-5'>
       <div className=' lg:mb-20 md:mb-32 w-full lg:max-w-[1120px]'>
-        <div className='flex justify-between  items-center lg:hidden'>
-          <h1
-            className={`text-4xl ${orbitron.className} font-semibold sm:text-2xl sm:font-medium`}
-          >
-            FREE BOARD
-          </h1>
-          <Link href='/community'>
-            <p className='text-lg sm:text-base underline'>MORE+</p>
-          </Link>
-        </div>
         <div className='w-full lg:max-w-[1120px] mx-auto'>
-          <div className='flex mb-12  justify-between sm:hidden  items-center'>
+          <div className='flex mb-12  justify-between items-center'>
             <h2
               className={`text-4xl sm:text-2xl font-semibold sm:font-medium text-white ${orbitron.className} top-20`}
             >
@@ -103,10 +93,9 @@ const TopPostsSection = () => {
                 </div>
                 <div className='text-black-50 flex justify-between items-center mt-auto text-xs md:text-sm'>
                   <span>{formatDate(post.created_at)}</span>
-                  {/* <span>
-                    좋아요 {post.likes}
-                    댓글 {post.comments}
-                  </span> */}
+                  <span>
+                    좋아요 {post.likes}  댓글 {post.comments}
+                  </span>
                 </div>
               </div>
             </Link>
