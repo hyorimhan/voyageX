@@ -27,7 +27,7 @@ function TourList() {
   return (
     <>
       <div
-        className={`text-[28px] sm:mt-[100px] md:mt-20 mt-32 text-center ${orbitron.className} font-semibold`}
+        className={`text-[28px] sm:mt-[94px] md:mt-20 mt-32 text-center ${orbitron.className} font-semibold`}
       >
         <TourRouter url='/' />
       </div>

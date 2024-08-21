@@ -6,9 +6,9 @@ import NewsSearch from '@/components/news/NewsSearch';
 const NewsPage = () => {
   return (
     <div>
-      <div className='flex justify-between mb-14 mt-26 sm:flex-col sm:w-full sm:gap-7 sm:p-5 sm:mb-4 md:p-11 md:mb-6 md:mt-16 lg:mb-14'>
+      <div className='flex justify-between mb-14 sm:flex-col sm:w-full sm:gap-7 sm:p-5 sm:mb-4 md:p-11 md:mb-6 md:mt-16 lg:mb-14'>
         <h1
-          className={`text-[36px] font-bold text-white text-left ${orbitron.className} sm:text-left`}
+          className={`text-[36px] sm:text-3xl font-bold text-white text-left ${orbitron.className} sm:text-left`}
         >
           <Link href='/news'>NEWS</Link>
         </h1>
