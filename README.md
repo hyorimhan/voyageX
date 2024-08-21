@@ -113,7 +113,7 @@ Quill 에디터를 사용 시에 html을 사용하게 되는데, 이 때, innerH
 
 ### 메인 페이지
 
-<details><summary></summary><p align="center"><img src="https://github.com/user-attachments/assets/8f2ea0d4-f0f4-4c7a-a510-c72ad779965f" width ="500"></p>
+<details><summary></summary><p align="center"><img src="https://github.com/user-attachments/assets/d20eadf4-a37c-4940-a4a6-89c2b5784a7e" width ="500"></p>
 
 <br>
 
@@ -129,13 +129,25 @@ Quill 에디터를 사용 시에 html을 사용하게 되는데, 이 때, innerH
 
 </details>
 
-### 여행상품 페이지
+### 로그인 페이지
 
-<details><summary></summary>
+<details><summary></summary><p align="center"><img src="https://github.com/user-attachments/assets/0a2a902b-c302-49c3-80e4-8581d52a32b3" width ="500"></p>
 
 <br>
 
-- 토스 페이먼츠 api를 사용한 우주 여행 상품 결제 기능
+- 로그인을 할 수 있는 페이지
+
+- 카카오 로그인, 구글 로그인 같은 소셜 로그인도 지원함
+
+</details>
+
+### 여행상품 페이지
+
+<details><summary></summary>
+<p align="center"><img src="https://github.com/user-attachments/assets/444a7d5b-a3c2-47bb-b322-0258e1d16d20" width ="500"></p>
+<p align="center"><img src="https://github.com/user-attachments/assets/2dd32302-cfaa-4ed2-950a-c603ff378ad0" width ="500"></p>
+
+<br>
 
 - 각 상품 별로 일정, 사진이 다른 우주 여행 상품
 
@@ -148,9 +160,8 @@ Quill 에디터를 사용 시에 html을 사용하게 되는데, 이 때, innerH
 
 ### 굿즈샵 페이지
 
-<details><summary></summary></details>
-
-- 토스 페이먼츠 api 이용한 결제 기능
+<details><summary></summary><p align="center"><img src="https://github.com/user-attachments/assets/ea7aa83c-23bd-4958-b462-7ef6b2aa71f9" width ="500"></p>
+<p align="center"><img src="https://github.com/user-attachments/assets/e1a19984-c371-4184-8650-96416e286ba7" width ="500"></p>
 
 - 로고가 들어간 다양한 굿즈 구경 가능
 
@@ -159,19 +170,294 @@ Quill 에디터를 사용 시에 html을 사용하게 되는데, 이 때, innerH
 - 구매한 상품별로 리뷰 조회 / 작성 / 수정 기능, 한 번에 여러 개의 상품을 사도 상품별로 리뷰 작성 / 수정 가능, 재구매한 상품도 리뷰 작성 / 수정 가능
 
 - 상품 정렬 기능
+</details>
+
+### 결제 페이지
+
+<details><summary></summary>
+
+<p align="center"><img src="https://github.com/user-attachments/assets/f59349b8-f3e1-4da5-b3a9-e1781bf17e28" width ="500"></p>
+
+<p align="center"><img src="https://github.com/user-attachments/assets/80118317-9f94-4292-8570-cc0569370b7f" width ="500"></p>
+
+<p align="center"><img src="https://github.com/user-attachments/assets/c69a5134-caed-43e1-b26c-c11ecb5bc33c" width ="500"></p>
+
+- 토스 페이먼츠 API를 이용한 결제 페이지
+
+- 우주 여행 상품이나 굿즈 등을 구매할 때 이용함
+
+</details>
 
 ### 자유 게시판
 
-<details><summary></summary></details>
+<details><summary></summary>
+
+<p align="center"><img src="https://github.com/user-attachments/assets/58cdc8a1-00df-4ec2-90ec-9c5711f31ee8" width ="500"></p>
+
+<p align="center"><img src="https://github.com/user-attachments/assets/fb9b629e-27e3-4f68-8d35-10fcc2988ce1" width ="500"></p>
+
+<p align="center"><img src="https://github.com/user-attachments/assets/7b4449fb-0513-4503-a4ba-34d071bc4fba" width ="500"></p>
+
+- 우주 여행 관련 정보를 가진 익명 커뮤니티
+
+- 페이지네이션으로 여러 페이지를 쉽게 오갈 수 있음
+
+- 필터 별로 글을 볼 수 있음
+
+- Quill Editor로 HTML을 이용해서 글을 더 풍부하고 다양하게 작성할 수 있음
+
+- 좋아요가 높은 게시글들은 리스트 상단에 배치함으로써 HOT 게시글들을 모아볼 수 있음
+
+</details>
 
 ### 뉴스 페이지
 
-<details><summary></summary></details>
+<details><summary></summary>
+
+<p align="center"><img src="https://github.com/user-attachments/assets/f4029c4d-dd91-4b9f-b057-d8d5babba2c7" width ="500"></p>
+
+- 크롤링을 이용하여 supabase 서버에 저장된 NASA NEWS 기사들을 한 눈에 볼 수 있는 페이지
+
+- 상단에는 최신 뉴스들이 배치되어 있고, 모바일 환경에선 캐러셀로 표시됨
+
+- 뉴스를 검색할 수 있고, 해당 NASA 뉴스 페이지로 이동됨
+
+</details>
 
 ### 마이 페이지
 
-<details><summary></summary></details>
+<details><summary></summary>
+
+<p align="center"><img src="https://github.com/user-attachments/assets/e050f550-0068-4038-a945-991a1516fa63" width ="500"></p>
+
+<p align="center"><img src="https://github.com/user-attachments/assets/9a301153-e7df-467c-9bfa-6b43221ef6ab" width ="500"></p>
+
+<p align="center"><img src="https://github.com/user-attachments/assets/db215e66-c011-471f-9526-513cb754825b" width ="500"></p>
+
+<p align="center"><img src="https://github.com/user-attachments/assets/b8f98afe-6bfd-4a97-8db6-95bd4b600cb8" width ="500"></p>
+
+<p align="center"><img src="https://github.com/user-attachments/assets/a120e1a2-94cf-4c3f-89b9-6d2f524e7ebb" width ="500"></p>
+
+- 여행상품 및 굿즈 샵 주문 내역, 비밀 번호 변경, 배송지 관리, 작성 글 목록, 찜 목록, 탈퇴가 가능한 마이 페이지
+
+- 여행상품 결제 페이지에선 티켓이 애니메이션으로 움직이며, 이미지 저장이 가능함
+
+- 배송지 관리에선 배송지를 등록할 수 있음
+
+  - DAUM 주소 API를 사용했으며, 기본 배송지 설정이 가능하고 최대 세 개까지 등록이 가능함
+
+- 찜 목록에선 내가 찜한 목록을 볼 수 있으며, 커뮤니티 작성 글 목록에선 작성한 글을 모아볼 수 있음
+
+- 회원탈퇴도 가능함
+
+</details>
 
 ### ABOUT US
 
-<details><summary></summary></details>
+<details><summary></summary>
+
+<p align="center"><img src="https://github.com/user-attachments/assets/00af32af-bb37-451b-9540-46c5689fe2db" width ="500"></p>
+
+- 프로젝트의 방향성과 팀을 소개하는 페이지
+
+- 애니메이션 라이브러리를 활용해 보다 더 효과적으로 전달함
+
+</details>
+
+<br><br>
+
+# 프로젝트 파일 구조📁
+
+```
+📦src
+ ┣ 📂app
+ ┃ ┣ 📂(providers)
+ ┃ ┃ ┣ 📂(root)
+ ┃ ┃ ┃ ┣ 📂(auth)
+ ┃ ┃ ┃ ┃ ┣ 📂login
+ ┃ ┃ ┃ ┃ ┗ 📂signup
+ ┃ ┃ ┃ ┣ 📂(goodsShop)
+ ┃ ┃ ┃ ┃ ┣ 📂shop
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂order
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂payment
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂fail
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂success
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂result
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂[orderId]
+ ┃ ┃ ┃ ┃ ┗ 📂shop_detail
+ ┃ ┃ ┃ ┃ ┃ ┗ 📂[id]
+ ┃ ┃ ┃ ┣ 📂(main)
+ ┃ ┃ ┃ ┣ 📂(mypage)
+ ┃ ┃ ┃ ┃ ┣ 📂mypage
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂address_list
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂delete_account
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂goods_orders
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂[id]
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂my_posts
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂password_change
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂side_bar
+ ┃ ┃ ┃ ┃ ┃ ┗ 📂tour_orders
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂[id]
+ ┃ ┃ ┃ ┃ ┣ 📂wishlist
+ ┃ ┃ ┃ ┣ 📂(tour)
+ ┃ ┃ ┃ ┃ ┗ 📂tour
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂payment
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂success
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂result
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂[id]
+ ┃ ┃ ┃ ┣ 📂about
+ ┃ ┃ ┃ ┣ 📂community
+ ┃ ┃ ┃ ┃ ┣ 📂edit
+ ┃ ┃ ┃ ┃ ┃ ┗ 📂[postId]
+ ┃ ┃ ┃ ┃ ┣ 📂search
+ ┃ ┃ ┃ ┃ ┣ 📂write
+ ┃ ┃ ┃ ┃ ┣ 📂[postId]
+ ┃ ┃ ┃ ┣ 📂news
+ ┃ ┃ ┃ ┃ ┣ 📂search
+ ┃ ┃ ┣ 📂_providers
+ ┃ ┣ 📂api
+ ┃ ┃ ┣ 📂auth
+ ┃ ┃ ┃ ┣ 📂deleteUser
+ ┃ ┃ ┃ ┣ 📂google
+ ┃ ┃ ┃ ┣ 📂kakao
+ ┃ ┃ ┃ ┣ 📂login
+ ┃ ┃ ┃ ┣ 📂logout
+ ┃ ┃ ┃ ┗ 📂signup
+ ┃ ┃ ┣ 📂community
+ ┃ ┃ ┃ ┣ 📂category
+ ┃ ┃ ┃ ┃ ┗ 📂[category]
+ ┃ ┃ ┃ ┣ 📂comments
+ ┃ ┃ ┃ ┃ ┣ 📂[postId]
+ ┃ ┃ ┃ ┣ 📂detail
+ ┃ ┃ ┃ ┃ ┗ 📂[postId]
+ ┃ ┃ ┃ ┣ 📂likes
+ ┃ ┃ ┃ ┃ ┗ 📂[postId]
+ ┃ ┃ ┃ ┣ 📂search
+ ┃ ┃ ┃ ┣ 📂top-liked
+ ┃ ┃ ┃ ┣ 📂upload
+ ┃ ┃ ┣ 📂crawling
+ ┃ ┃ ┣ 📂goods
+ ┃ ┃ ┃ ┣ 📂cart
+ ┃ ┃ ┃ ┃ ┣ 📂[user_id]
+ ┃ ┃ ┃ ┣ 📂like
+ ┃ ┃ ┃ ┣ 📂pay
+ ┃ ┃ ┃ ┃ ┗ 📂[user_id]
+ ┃ ┃ ┃ ┣ 📂[goods_id]
+ ┃ ┃ ┃ ┃ ┣ 📂like
+ ┃ ┃ ┣ 📂mypage
+ ┃ ┃ ┃ ┣ 📂addresses
+ ┃ ┃ ┃ ┃ ┣ 📂address
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂default
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂[user_id]
+ ┃ ┃ ┃ ┃ ┃ ┗ 📂[address_id]
+ ┃ ┃ ┃ ┃ ┣ 📂reset_default
+ ┃ ┃ ┃ ┃ ┣ 📂set_default
+ ┃ ┃ ┃ ┃ ┗ 📂user
+ ┃ ┃ ┃ ┃ ┃ ┗ 📂[user_id]
+ ┃ ┃ ┃ ┣ 📂my_goods_order
+ ┃ ┃ ┃ ┃ ┣ 📂goods
+ ┃ ┃ ┃ ┃ ┃ ┗ 📂[order_id]
+ ┃ ┃ ┃ ┃ ┗ 📂user
+ ┃ ┃ ┃ ┃ ┃ ┗ 📂[user_id]
+ ┃ ┃ ┃ ┣ 📂my_posts
+ ┃ ┃ ┃ ┃ ┗ 📂[user_id]
+ ┃ ┃ ┃ ┣ 📂recommend
+ ┃ ┃ ┃ ┃ ┗ 📂[user_id]
+ ┃ ┃ ┃ ┗ 📂tour_order
+ ┃ ┃ ┃ ┃ ┣ 📂tour
+ ┃ ┃ ┃ ┃ ┃ ┗ 📂[order_id]
+ ┃ ┃ ┃ ┃ ┗ 📂user
+ ┃ ┃ ┃ ┃ ┃ ┗ 📂[user_id]
+ ┃ ┃ ┣ 📂news
+ ┃ ┃ ┃ ┣ 📂search
+ ┃ ┃ ┣ 📂review
+ ┃ ┃ ┃ ┣ 📂goods
+ ┃ ┃ ┃ ┃ ┣ 📂goods
+ ┃ ┃ ┃ ┃ ┃ ┗ 📂[goods_id]
+ ┃ ┃ ┃ ┃ ┣ 📂order
+ ┃ ┃ ┃ ┃ ┃ ┗ 📂[order_id]
+ ┃ ┃ ┃ ┃ ┗ 📂[user_id]
+ ┃ ┃ ┃ ┗ 📂tour
+ ┃ ┃ ┃ ┃ ┣ 📂order
+ ┃ ┃ ┃ ┃ ┃ ┗ 📂[order_id]
+ ┃ ┃ ┃ ┃ ┣ 📂tour
+ ┃ ┃ ┃ ┃ ┃ ┗ 📂[tour_id]
+ ┃ ┃ ┃ ┃ ┗ 📂[user_id]
+ ┃ ┃ ┗ 📂tours
+ ┃ ┃ ┃ ┣ 📂like
+ ┃ ┃ ┃ ┃ ┗ 📂[user_id]
+ ┃ ┃ ┃ ┣ 📂pay
+ ┃ ┃ ┃ ┃ ┗ 📂[user_id]
+ ┃ ┃ ┃ ┣ 📂tourOrderInfo
+ ┃ ┃ ┃ ┣ 📂[tour_id]
+ ┃ ┃ ┃ ┃ ┗ 📂like
+ ┣ 📂components
+ ┃ ┣ 📂about
+ ┃ ┃ ┣ 📂section5
+ ┃ ┃ ┣ 📂section8
+ ┃ ┣ 📂auth
+ ┃ ┃ ┣ 📂login
+ ┃ ┃ ┣ 📂logout
+ ┃ ┃ ┣ 📂signup
+ ┃ ┃ ┃ ┣ 📂modal
+ ┃ ┣ 📂chatbot
+ ┃ ┣ 📂common
+ ┃ ┃ ┣ 📂icons
+ ┃ ┃ ┃ ┣ 📂16px
+ ┃ ┃ ┃ ┣ 📂20px
+ ┃ ┃ ┃ ┣ 📂24px
+ ┃ ┃ ┃ ┣ 📂32px
+ ┃ ┃ ┃ ┣ 📂40px
+ ┃ ┣ 📂community
+ ┃ ┃ ┣ 📂comment
+ ┃ ┃ ┣ 📂common
+ ┃ ┃ ┣ 📂edit
+ ┃ ┃ ┣ 📂main
+ ┃ ┃ ┣ 📂ProfileImages
+ ┃ ┃ ┣ 📂read
+ ┃ ┃ ┣ 📂search
+ ┃ ┃ ┗ 📂write
+ ┃ ┣ 📂crawling
+ ┃ ┣ 📂main
+ ┃ ┣ 📂mypage
+ ┃ ┃ ┣ 📂address_list
+ ┃ ┃ ┣ 📂delete_account
+ ┃ ┃ ┣ 📂goods_orders
+ ┃ ┃ ┣ 📂password_change
+ ┃ ┃ ┣ 📂posts
+ ┃ ┃ ┣ 📂tour_orders
+ ┃ ┃ ┣ 📂wishlist
+ ┃ ┃ ┃ ┣ 📂liked_goods
+ ┃ ┃ ┃ ┣ 📂liked_planets
+ ┃ ┃ ┃ ┣ 📂my_cart
+ ┃ ┣ 📂news
+ ┃ ┣ 📂order
+ ┃ ┃ ┣ 📂modal
+ ┃ ┃ ┣ 📂payment
+ ┃ ┃ ┃ ┣ 📂success
+ ┃ ┣ 📂pages
+ ┃ ┣ 📂shop
+ ┃ ┃ ┣ 📂detail
+ ┃ ┗ 📂tour
+ ┃ ┃ ┣ 📂tourDetail
+ ┃ ┃ ┃ ┣ 📂tourTab
+ ┃ ┃ ┃ ┃ ┣ 📂guideContents
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂Guidelines
+ ┃ ┃ ┃ ┃ ┗ 📂tourContents
+ ┃ ┃ ┣ 📂tourList
+ ┃ ┃ ┗ 📂tourPayment
+ ┃ ┃ ┃ ┣ 📂payment
+ ┃ ┃ ┃ ┃ ┗ 📂success
+ ┣ 📂constants
+ ┣ 📂hooks
+ ┃ ┣ 📂apis
+ ┣ 📂services
+ ┣ 📂supabase
+ ┃ ┣ 📜client.ts
+ ┃ ┣ 📜middleware.ts
+ ┃ ┗ 📜server.ts
+ ┣ 📂types
+ ┣ 📂utils
+ ┣ 📂zustand
+ ┃ ┗ 📂store
+```
