@@ -89,7 +89,7 @@ RTK에 비해 간단하고 직관적으로 상태 관리를 쉽게 할 수 있�
 
 <br>
 
-<div style="display: inline-block;"><img src="https://github.com/user-attachments/assets/03650775-effa-41e3-9c3d-a8bfff04ede6" width="20px" style="vertical-align: middle;" /></div> Cheerio.js<br>
+<div style="display: flex; align-items: center;"><img src="https://github.com/user-attachments/assets/03650775-effa-41e3-9c3d-a8bfff04ede6" width="20px" style="margin-right: 5px;" /> Cheerio.js</div>
 Next.js의 SSR를 이용하여 서버에서 크롤링을 할 수 있는 기능을 구현하기 위해 사용하였습니다.
 
 <br>
