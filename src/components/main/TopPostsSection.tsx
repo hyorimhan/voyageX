@@ -61,7 +61,7 @@ const TopPostsSection = () => {
             >
               FREE BOARD
             </h2>
-            <Link href='/news' className='text-white '>
+            <Link href='/community' className='text-white text-lg sm:text-xs hover:underline'>
               MORE +
             </Link>
           </div>
