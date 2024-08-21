@@ -1,6 +1,6 @@
 'use client';
 import useAuthStore from '@/zustand/store/useAuth';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaBars } from 'react-icons/fa';
 import LogoutBtn from '@/components/auth/logout/LogoutBtn';
 import MyPageIcon24px from './icons/24px/MyPageIcon24px';
@@ -12,21 +12,14 @@ import Link from 'next/link';
 import ShoppingBagIcon24px from './icons/24px/ShoppingBagIcon24px';
 import { useQuery } from '@tanstack/react-query';
 import { getMyPosts } from '@/services/community';
-import { logout, userLoginInfo } from '@/services/auth';
 import { getLikeLength } from '@/services/mypage';
-import toast from 'react-hot-toast';
-import { useRouter } from 'next/navigation';
-import useUpdateInfoStore from '@/zustand/store/useUpdateInfo';
+import SideBarLogoutBtn from '../auth/logout/SideBarLogoutBtn';
 
 const Header = () => {
   const user = useAuthStore((state) => state.user);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const { setLastSelectTab } = useLastSelectWishListStore((state) => state);
-  const menuRef = useRef<HTMLElement>(null);
   const [likeCount, setLikeCount] = useState(0);
-  const router = useRouter();
-  const { saveUser } = useAuthStore((state) => state);
-  const { setUpdateInfo } = useUpdateInfoStore((state) => state);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -46,25 +39,6 @@ const Header = () => {
     queryFn: () => getMyPosts(user?.id),
     enabled: !!user?.id,
   });
-
-  const logoutFunc = async () => {
-    if (!user) {
-      toast.error('이미 로그아웃 되었습니다');
-      return;
-    }
-    const response = await logout();
-    if (response.message) {
-      toast.success(response.message);
-    }
-
-    saveUser(null);
-    setUpdateInfo({
-      customerName: '',
-      customerPhone: '',
-      customerEmail: '',
-    });
-    router.replace('/');
-  };
 
   useEffect(() => {
     if (isOpen) {
@@ -120,7 +94,7 @@ const Header = () => {
           <div className='flex items-center justify-end gap-4'>
             <Link
               href={'/wishlist'}
-              className='text-white hover:text-gray-300 md:block'
+              className='text-white hover:text-gray-300 md:block sm:hidden'
               onClick={() => setLastSelectTab('LikedGoods')}
             >
               <HeartDefaultIcon24px />
@@ -193,7 +167,7 @@ const Header = () => {
                     className='flex gap-1 text-center'
                     onClick={() => setLastSelectTab('LikedGoods')}
                   >
-                    찜<p>{likeCount}</p>
+                    🤍<p>{likeCount}</p>
                   </Link>
                 </div>
               </div>
@@ -252,16 +226,6 @@ const Header = () => {
               >
                 MY PAGE <span>&gt;</span>
               </Link>
-              <button
-                onClick={logoutFunc}
-                className={`${
-                  user ? 'flex' : 'hidden'
-                } mt-12 text-white text-base font-semibold justify-center items-center py-3 border-[1.5px] rounded-lg border-primary-400 bg-transparent transition-colors duration-200 hover:bg-primary-200 hover:text-black-1000 active:bg-primary-300 ${
-                  orbitron.className
-                }`}
-              >
-                LOG OUT
-              </button>
             </nav>
           </div>
         </div>
