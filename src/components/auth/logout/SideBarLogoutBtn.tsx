@@ -6,11 +6,19 @@ import useUpdateInfoStore from '@/zustand/store/useUpdateInfo';
 import toast from 'react-hot-toast';
 import { orbitron } from '../../../../public/fonts/orbitron';
 import { useRouter } from 'next/navigation';
+import useExpressInfoStore from '@/zustand/store/useExpressInfoStore';
+import useGoodsOrderStore from '@/zustand/store/useGoodsOrderInfoStore';
+import useTourOrderInfoStore from '@/zustand/store/useTourOrderInfoStore';
+import usePayResultStore from '@/zustand/store/usePayResultStore';
 
 function SideBarLogoutBtn() {
   const router = useRouter();
   const { user, saveUser } = useAuthStore();
   const { setUpdateInfo } = useUpdateInfoStore();
+  const { setExpressAddress } = useExpressInfoStore();
+  const { setGoodsOrderInfo } = useGoodsOrderStore();
+  const { setTourOrder } = useTourOrderInfoStore();
+  const { setPayResult } = usePayResultStore();
   const logoutFunc = async () => {
     if (!user) {
       toast.error('이미 로그아웃 되었습니다');
@@ -27,6 +35,10 @@ function SideBarLogoutBtn() {
       customerPhone: '',
       customerEmail: '',
     });
+    setExpressAddress(null);
+    setGoodsOrderInfo(null);
+    setTourOrder(null);
+    setPayResult(null);
     router.replace('/');
   };
   return (
