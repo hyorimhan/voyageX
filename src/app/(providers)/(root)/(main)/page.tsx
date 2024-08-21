@@ -8,7 +8,7 @@ import TopPostsSection from '@/components/main/TopPostsSection';
 import useScrollTrigger from '@/hooks/useScrollTrigger';
 import useSlideAnimation from '@/hooks/useSlideAnimation';
 import VideoSection from '@/components/main/VideoSection';
-import { Planet } from '@/services/tour';
+import { getTourDateList, Planet } from '@/services/tour';
 import { useQuery } from '@tanstack/react-query';
 import { getPlanetsList } from '@/services/plants';
 import Loading from '@/components/common/Loading';
@@ -16,12 +16,23 @@ import Chatbot from '@/components/chatbot/Chatbot';
 import { orbitron } from '../../../../../public/fonts/orbitron';
 import TopBtn from '@/components/common/TopBtn';
 import NewsSection from '@/components/main/NewsSection';
+import { TourDateList } from '@/types/tourPropsType';
+import { format } from 'date-fns';
 
 const MainPage = () => {
   const sectionsRef = useRef<(HTMLDivElement | null)[]>([]);
   const planetsRef = useRef<(HTMLDivElement | null)[]>([]);
   const [videoLoaded, setVideoLoaded] = useState<boolean>(false);
   const [currentSlide, setCurrentSlide] = useState<number>(0);
+
+  const { data: dateList } = useQuery<TourDateList[]>({
+    queryKey: ['dateList'],
+    queryFn: getTourDateList,
+  });
+
+  const formatDate = (date: string | null) => {
+    return date ? format(new Date(date), 'yyyy.MM.dd') : 'N/A';
+  };
 
   const {
     data: goods,
@@ -98,23 +109,6 @@ const MainPage = () => {
           backgroundPosition: 'center',
         }}
       >
-        {/* <div className='lg:hidden sm:block md:hidden'>
-          <p
-            className={`absolute top-24 left-8 text-white text-2xl font-medium ${orbitron.className}`}
-          >
-            <span className='hidden sm:inline'>
-              Let&apos;s Find <br className='sm:block hidden' /> Popular
-              Planets!
-            </span>
-             <span className='sm:hidden '>Let&apos;s Find Popular Planets!</span> 
-          </p>
-
-          <Link href='/tour'>
-            <p className='absolute top-36 right-6 z-10 text-xs font-normal underline'>
-              MORE+
-            </p>
-          </Link>
-        </div> */}
         <p
           className={`absolute top-40 left-20 lg:hidden text-white text-4xl font-semibold fade-text ${orbitron.className} sm:text-2xl sm:font-medium sm:top-24 sm:left-8`}
         >
@@ -124,7 +118,7 @@ const MainPage = () => {
           <span className='sm:hidden'>Let&apos;s Find Popular Planets!</span>
         </p>
         <Link href='/tour'>
-          <p className='absolute lg:hidden top-36 right-20 sm:right-6 z-10 sm:text-xs sm:top-36 text-lg font-normal underline'>
+          <p className='absolute lg:hidden top-36 right-20 sm:right-6 z-10 sm:text-sm  sm:top-36 lg:text-lg font-normal underline'>
             MORE+
           </p>
         </Link>
@@ -198,14 +192,36 @@ const MainPage = () => {
                       sizes='100vw'
                       objectFit='contain'
                     />
+
                     {isActive && (
-                      <div className='text-center absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-full w-max'>
-                        <p>{planet.name}</p>
-                        <p>
-                          {planet.price
-                            ? `₩${planet.price.toLocaleString()}`
-                            : 'Price Does Not Exist'}
-                        </p>
+                      <div className='text-sm py-5 text-center absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-full w-max'>
+                        <div>
+                          <span className='font-semibold'>{planet.name}</span>
+                          <span className='ml-5 font-semibold'>
+                            {planet.price
+                              ? `${planet.price.toLocaleString()}원`
+                              : 'Price Does Not Exist'}
+                          </span>
+                          <p className='text-xs text-left mt-2'>6박 7일</p>
+                          <div className='flex items-center mt-[6px]'>
+                            <Image
+                              src={'/icons/20px/calendar.svg'}
+                              alt='calendar'
+                              width={20}
+                              height={20}
+                              className='mr-[1.5px]'
+                            />
+                            <p className='text-xs'>
+                              {dateList && dateList.length > 0 ? (
+                                <p>
+                                  {formatDate(dateList[0]?.depart_date)} 출발{' '}
+                                </p>
+                              ) : (
+                                <p>새로운 여행을 기다려주세요!</p>
+                              )}
+                            </p>
+                          </div>
+                        </div>
                       </div>
                     )}
                   </div>
