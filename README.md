@@ -226,8 +226,48 @@ Quill 에디터를 사용 시에 html을 사용하게 되는데, 이 때, innerH
 
 ### 마이 페이지
 
-<details><summary></summary></details>
+<details><summary></summary>
+
+<p align="center"><img src="https://github.com/user-attachments/assets/e050f550-0068-4038-a945-991a1516fa63" width ="500"></p>
+
+<p align="center"><img src="https://github.com/user-attachments/assets/9a301153-e7df-467c-9bfa-6b43221ef6ab" width ="500"></p>
+
+<p align="center"><img src="https://github.com/user-attachments/assets/db215e66-c011-471f-9526-513cb754825b" width ="500"></p>
+
+<p align="center"><img src="https://github.com/user-attachments/assets/b8f98afe-6bfd-4a97-8db6-95bd4b600cb8" width ="500"></p>
+
+<p align="center"><img src="https://github.com/user-attachments/assets/a120e1a2-94cf-4c3f-89b9-6d2f524e7ebb" width ="500"></p>
+
+- 여행상품 및 굿즈 샵 주문 내역, 비밀 번호 변경, 배송지 관리, 작성 글 목록, 찜 목록, 탈퇴가 가능한 마이 페이지
+
+- 여행상품 결제 페이지에선 티켓이 애니메이션으로 움직이며, 이미지 저장이 가능함
+
+- 배송지 관리에선 배송지를 등록할 수 있음
+
+  - DAUM 주소 API를 사용했으며, 기본 배송지 설정이 가능하고 최대 세 개까지 등록이 가능함
+
+- 찜 목록에선 내가 찜한 목록을 볼 수 있으며, 커뮤니티 작성 글 목록에선 작성한 글을 모아볼 수 있음
+
+- 회원탈퇴도 가능함
+
+</details>
 
 ### ABOUT US
 
-<details><summary></summary></details>
+<details><summary></summary>
+
+<p align="center"><img src="https://github.com/user-attachments/assets/00af32af-bb37-451b-9540-46c5689fe2db" width ="500"></p>
+
+- 프로젝트의 방향성과 팀을 소개하는 페이지
+
+- 애니메이션 라이브러리를 활용해 보다 더 효과적으로 전달함
+
+</details>
+
+<br><br>
+
+# 프로젝트 파일 구조📁
+
+```
+
+```
