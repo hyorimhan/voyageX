@@ -94,7 +94,7 @@ const Header = () => {
           <div className='flex items-center justify-end gap-4'>
             <Link
               href={'/wishlist'}
-              className='text-white hover:text-gray-300 md:block'
+              className='text-white hover:text-gray-300 md:block sm:hidden'
               onClick={() => setLastSelectTab('LikedGoods')}
             >
               <HeartDefaultIcon24px />
@@ -167,7 +167,7 @@ const Header = () => {
                     className='flex gap-1 text-center'
                     onClick={() => setLastSelectTab('LikedGoods')}
                   >
-                    찜<p>{likeCount}</p>
+                    🤍<p>{likeCount}</p>
                   </Link>
                 </div>
               </div>
