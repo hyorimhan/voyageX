@@ -61,24 +61,26 @@ const TopPostsSection = () => {
             >
               FREE BOARD
             </h2>
-            <Link href='/news' className='text-white '>
+            <Link href='/community' className='text-white text-lg sm:text-xs hover:underline'>
               MORE +
             </Link>
           </div>
         </div>
       </div>
-      <div className='lg:max-w-max-[1120px] lg:w-full mx-auto px-8'>
+      <div className='lg:max-w-max-[1120px]  sm:py-5 w-full mx-auto lg:px-8'>
         <div className='grid grid-cols-2 gap-12 relative sm:grid-cols-1 sm:gap-8 lg:w-[1120px] lg:mx-auto'>
           {sortedTopPosts.slice(0, 4).map((post: Post, index) => (
             <Link
               href={`/community/${post.id}`}
               key={post.id}
-              className={`p-8 rounded-md block bg-black  text-white hover:bg-gray-700 transition-colors
+              className={`lg:p-8 sm:p-3 rounded-md block bg-black  text-white hover:bg-gray-700 transition-colors
               ${index >= 2 ? 'sm:hidden' : ''}`}
             >
               <div className='flex flex-col justify-between h-full'>
                 <div className='mb-5'>
-                  <HotPostBadge />
+                  <div className='mb-2'>
+                    <HotPostBadge />
+                  </div>
                   <h2 className='text-base font-pretendard font-semibold mb-2 md:text-xl md:mb-4'>
                     {post.title}
                   </h2>
@@ -116,4 +118,3 @@ const TopPostsSection = () => {
 };
 
 export default TopPostsSection;
-

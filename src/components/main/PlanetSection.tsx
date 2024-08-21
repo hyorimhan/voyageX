@@ -26,9 +26,9 @@ const PlanetSection: React.FC<PlanetSectionProps> = ({
         className={`absolute top-32 left-4 text-white text-4xl font-semibold fade-text ${orbitron.className} sm:text-2xl sm:font-medium sm:top-24`}
       >
         <span className='hidden sm:inline'>
-          Let's Find <br className='sm:block hidden' /> Popular Planets!
+          Let&aposs Find <br className='sm:block hidden' /> Popular Planets!
         </span>
-        <span className='sm:hidden'>Let's Find Popular Planets!</span>
+        <span className='sm:hidden'>Let&aposs Find Popular Planets!</span>
       </p>
 
       <Link href='/tour'>

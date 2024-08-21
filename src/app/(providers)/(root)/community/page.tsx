@@ -11,7 +11,7 @@ const CommunityPage = () => {
       <div className='flex justify-between sm:flex-col sm:w-full sm:gap-4 md:mb-14 lg:mb-14'>
         <div className='flex items-center justify-between w-full'>
           <h1
-            className={`text-[36px] sm:text-xl font-bold text-white ${orbitron.className}`}
+            className={`text-[36px] sm:text-3xl font-bold text-white ${orbitron.className}`}
           >
             <Link href='/community'>FREE BOARD</Link>
           </h1>

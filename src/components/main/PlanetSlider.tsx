@@ -22,7 +22,7 @@ const PlanetSlider = ({ planets }: { planets: Planet[] }) => {
     planets,
     currentSlide,
     visiblePlanetsCount,
-    planetsRef
+    planetsRef,
   );
 
   const handleNextSlide = () => {
@@ -93,7 +93,7 @@ const PlanetSlider = ({ planets }: { planets: Planet[] }) => {
                 />
                 {isActive && (
                   <div className='text-center absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-full w-max'>
-                    <p>{planet.name}</p>
+                    <p className='font-semibold text-black-50'>{planet.name}</p>
                     <p>
                       {planet.price
                         ? `₩${planet.price.toLocaleString()}`
