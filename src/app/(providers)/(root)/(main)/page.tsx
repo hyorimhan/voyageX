@@ -100,7 +100,7 @@ const MainPage = () => {
       >
         {/* <div className='lg:hidden sm:block md:hidden'>
           <p
-            className={` absolute top-40 left-20 text-white text-4xl font-semibold fade-text ${orbitron.className} sm:text-2xl sm:font-medium sm:top-24 sm:left-8`}
+            className={`absolute top-24 left-8 text-white text-2xl font-medium ${orbitron.className}`}
           >
             <span className='hidden sm:inline'>
               Let&apos;s Find <br className='sm:block hidden' /> Popular
@@ -110,7 +110,7 @@ const MainPage = () => {
           </p>
 
           <Link href='/tour'>
-            <p className='absolute top-36 right-20 sm:right-6 z-10 sm:text-xs sm:top-36 text-lg font-normal underline'>
+            <p className='absolute top-36 right-6 z-10 text-xs font-normal underline'>
               MORE+
             </p>
           </Link>
