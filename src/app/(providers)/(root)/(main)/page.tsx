@@ -116,7 +116,7 @@ const MainPage = () => {
           </Link>
         </div> */}
         <p
-          className={`absolute top-40 left-20 md:hidden text-white text-4xl font-semibold fade-text ${orbitron.className} sm:text-2xl sm:font-medium sm:top-24 sm:left-8`}
+          className={`absolute top-40 left-20 sm:text-2xl sm:left-3 md:hidden text-white text-4xl font-semibold fade-text ${orbitron.className} sm:text-2xl sm:font-medium sm:top-24 sm:left-8`}
         >
           <span className='hidden sm:inline'>
             Let&apos;s Find <br className='sm:block hidden' /> Popular Planets!
@@ -124,7 +124,7 @@ const MainPage = () => {
           <span className='sm:hidden'>Let&apos;s Find Popular Planets!</span>
         </p>
         <Link href='/tour'>
-          <p className='absolute top-36 right-20 sm:right-6 z-10 sm:text-xs sm:top-36 text-lg font-normal underline'>
+          <p className='absolute top-36 right-20 sm:right-6 z-10 sm:text-xs sm:top-36 text-lg font-normal hover:underline'>
             MORE+
           </p>
         </Link>
@@ -248,7 +248,7 @@ const MainPage = () => {
           <p
             className={`absolute top-48 right-20 lg:hidden underline transition-opacity duration-500 ${
               videoLoaded ? 'opacity-100' : 'opacity-0'
-            } sm:top-16 sm:right-4`}
+            } sm:top-16 sm:right-6 sm:text-xs`}
           >
             MORE+
           </p>
@@ -261,7 +261,7 @@ const MainPage = () => {
             >
               GOODS SHOP
             </h2>
-            <Link href='/shop' className='text-white sm:text-xs '>
+            <Link href='/shop' className='text-white text-lg hover:underline sm:text-xs '>
               MORE +
             </Link>
           </div>
