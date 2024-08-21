@@ -54,7 +54,7 @@ const NewsSection: React.FC = () => {
       className='w-full min-h-screen  flex flex-col  items-center justify-center bg-cover bg-center bg-no-repeat bg-black sm:justify-start sm:pt-20'
       style={{ backgroundImage: 'url(/images/section5-bg2.png)' }}
     >
-      <div className='lg:w-full lg:max-w-[1120px] mt-[15%] px-5 mb-72 sm:mb-10'>
+      <div className='lg:w-full lg:max-w-[1120px] mt-[15%] sm:px-5 mb-72 sm:mb-10'>
         <div className='flex justify-between items-center mb-8'>
           <h2
             className={`text-4xl sm:text-2xl  font-semibold text-white ${orbitron.className}`}
@@ -85,7 +85,7 @@ const NewsSection: React.FC = () => {
                   objectFit='cover'
                 />
               </div>
-              <div className='p-4 sm:p-3 text-left gap-4'>
+              <div className='sm:p-3 text-left gap-4'>
                 <p className='text-black-100 text-xs mb-2 font-medium'>
                   {new Date(item.created_at).toLocaleDateString()}
                 </p>

@@ -195,7 +195,7 @@ const MainPage = () => {
                     />
 
                     {isActive && (
-                      <div className='text-sm py-5 text-center absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-full w-max'>
+                      <div className='text-xs py-3 text-center absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-full w-max'>
                         <div>
                           <span className='font-semibold'>{planet.name}</span>
                           <span className='ml-5 font-semibold'>
@@ -203,16 +203,18 @@ const MainPage = () => {
                               ? `${planet.price.toLocaleString()}원`
                               : 'Price Does Not Exist'}
                           </span>
-                          <p className='text-xs text-left mt-2'>6박 7일</p>
-                          <div className='flex items-center mt-[6px]'>
+                          <p className='text-xs text-left mt-[6px] lg:hidden'>
+                            6박 7일
+                          </p>
+                          <div className='flex items-center mt-1'>
                             <Image
                               src={'/icons/20px/calendar.svg'}
                               alt='calendar'
-                              width={20}
-                              height={20}
-                              className='mr-[1.5px]'
+                              width={14}
+                              height={14}
+                              className='mr-1'
                             />
-                            <p className='text-xs'>
+                            <p className='text-[10px]'>
                               {dateList && dateList.length > 0 ? (
                                 <p>
                                   {formatDate(dateList[0]?.depart_date)} 출발{' '}
