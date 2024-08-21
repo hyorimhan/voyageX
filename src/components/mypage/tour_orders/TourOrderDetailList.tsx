@@ -7,6 +7,8 @@ import { TourOrderType } from '@/types/tour';
 import Loading from '@/components/common/Loading';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import usePayResultStore from '@/zustand/store/usePayResultStore';
+import useTourOrderInfoStore from '@/zustand/store/useTourOrderInfoStore';
 
 type TourOrderDetailListProps = {
   order_id: string;
@@ -22,6 +24,8 @@ const TourOrderDetailList = ({ order_id }: TourOrderDetailListProps) => {
     queryKey: ['tourOrderDetail', order_id],
     queryFn: () => getTourOrderDetail(order_id),
   });
+  const { payResult } = usePayResultStore();
+  const { tourOrder } = useTourOrderInfoStore();
 
   if (isLoading) return <Loading />;
 
@@ -65,11 +69,11 @@ const TourOrderDetailList = ({ order_id }: TourOrderDetailListProps) => {
       <div className='flex gap-2 sm:text-sm sm:justify-between'>
         <div className='flex'>
           <p>주문일자</p>
-          <p>{formatOrderDate(order.pay_at)}</p>
+          <p>{formatOrderDate(order.pay_at ?? payResult?.approvedAt)}</p>
         </div>
         <div className='flex'>
           <p className='ml-8'>주문번호</p>
-          <p>{order.id}</p>
+          <p>{order.id ?? payResult?.orderId}</p>
         </div>
       </div>
       <div className='border-b-[1px] border-solid border-white mt-8 sm:mt-6'></div>
@@ -82,8 +86,8 @@ const TourOrderDetailList = ({ order_id }: TourOrderDetailListProps) => {
           <div className='border-b-[1px] border-solid border-black-700 mt-3'></div>
           <div className='mt-4 flex'>
             <Image
-              src={order.planet.planet_img}
-              alt={order.planet.description}
+              src={order.planet.planet_img ?? tourOrder?.planet_img}
+              alt={order.planet.description ?? tourOrder?.planet_name}
               height={104}
               width={104}
               className='object-cover cursor-pointer'
@@ -96,24 +100,34 @@ const TourOrderDetailList = ({ order_id }: TourOrderDetailListProps) => {
               >
                 <p className='text-sm'>6박 7일 패키지</p>
                 <div className='text-lg font-semibold flex gap-2 mt-1'>
-                  <p className='text-lg font-semibold'>{order.planet.name}</p>
-                  <p>{order.planet.english_name}</p>
+                  <p className='text-lg font-semibold'>
+                    {order.planet.name ?? tourOrder?.planet_name}
+                  </p>
+                  <p>{order.planet.english_name ?? tourOrder?.eng_name}</p>
                 </div>
                 <div className='flex gap-2'>
-                  <p>{order.tour.price.toLocaleString()}원</p>
+                  <p>
+                    {order.tour.price.toLocaleString() ??
+                      tourOrder?.price.toLocaleString()}
+                    원
+                  </p>
                   <p>|</p>
                   <p>수량 1개</p>
                 </div>
               </Link>
               <div className='flex flex-col justify-center md:hidden lg:hidden'>
                 <div className='flex text-sm'>
-                  <p>{order.planet.name}</p>
-                  <p className='ml-1'>{order.planet.english_name}</p>
+                  <p>{order.planet.name ?? tourOrder?.planet_name}</p>
+                  <p className='ml-1'>
+                    {order.planet.english_name ?? tourOrder?.eng_name}
+                  </p>
                   <p className='ml-2'>6박 7일 패키지</p>
                 </div>
                 <p className='text-xs text-black-200 mt-1'>수량 1개</p>
                 <p className='font-semibold mt-5'>
-                  {order.tour.price.toLocaleString()}원
+                  {order.tour.price.toLocaleString() ??
+                    tourOrder?.price.toLocaleString()}
+                  원
                 </p>
               </div>
               <div className='flex w-[126px] justify-center items-center gap-2 border-l-[1px] border-black-300 sm:hidden'>
@@ -127,7 +141,11 @@ const TourOrderDetailList = ({ order_id }: TourOrderDetailListProps) => {
           <div className='h-[77px] flex flex-col gap-4 border-b-[1px] mt-4 border-black-50'>
             <div className='flex w-full justify-between text-sm'>
               <p>총 주문 금액</p>
-              <p>{order.tour.price.toLocaleString()}원</p>
+              <p>
+                {order.tour.price.toLocaleString() ??
+                  tourOrder?.price.toLocaleString()}
+                원
+              </p>
             </div>
             <div className='flex w-full justify-between text-sm'>
               <p>총 배송비</p>
@@ -136,7 +154,11 @@ const TourOrderDetailList = ({ order_id }: TourOrderDetailListProps) => {
           </div>
           <div className='flex justify-between mt-[17px]'>
             <p className='text-sm'>총 결제 금액</p>
-            <p>{order.tour.price.toLocaleString()} 원</p>
+            <p>
+              {order.tour.price.toLocaleString() ??
+                tourOrder?.price.toLocaleString()}{' '}
+              원
+            </p>
           </div>
         </div>
         <div className='flex gap-8'>
@@ -152,11 +174,13 @@ const TourOrderDetailList = ({ order_id }: TourOrderDetailListProps) => {
                 <p>주문 상태</p>
               </div>
               <div className='flex flex-col gap-5'>
-                <p>{order.pay_method}</p>
+                <p>{order.pay_method ?? '카드'}</p>
                 <p>
-                  {order.installment ? `${order.installment}개월` : '일시불'}
+                  {(order.installment
+                    ? `${order.installment}개월`
+                    : '일시불') ?? ''}
                 </p>
-                <p>{formatDateTime(order.pay_at)}</p>
+                <p>{formatDateTime(order.pay_at ?? payResult?.approvedAt)}</p>
                 <p>결제완료</p>
               </div>
             </div>
