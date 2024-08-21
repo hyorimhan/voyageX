@@ -102,9 +102,11 @@ Quill 에디터를 사용 시에 html을 사용하게 되는데, 이 때, innerH
 
 # 화면 구성 및 주요 기술 ‍💻
 
-<p align="center"><img src="https://github.com/user-attachments/assets/8f2ea0d4-f0f4-4c7a-a510-c72ad779965f" width ="500"></p>
-
 #### 메인 페이지
+
+<details><summary></summary><p align="center"><img src="https://github.com/user-attachments/assets/8f2ea0d4-f0f4-4c7a-a510-c72ad779965f" width ="500"></p>
+
+<br>
 
 - 스크롤 애니메이션 기능
 
@@ -115,6 +117,8 @@ Quill 에디터를 사용 시에 html을 사용하게 되는데, 이 때, innerH
 - 챗봇
 
 - 모든 페이지에 접근 가능함
+
+</details>
 
 #### 여행상품 페이지
 
