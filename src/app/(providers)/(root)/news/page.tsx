@@ -12,7 +12,7 @@ const NewsPage = () => {
         >
           <Link href='/news'>NEWS</Link>
         </h1>
-        <div className='flex justify-end items-center sm:w-full'>
+        <div className='flex justify-end items-center w-[320px] sm:w-full'>
           <div className='w-full'>
             <NewsSearch />
           </div>
