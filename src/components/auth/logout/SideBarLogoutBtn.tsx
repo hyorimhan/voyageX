@@ -34,7 +34,7 @@ function SideBarLogoutBtn() {
       onClick={logoutFunc}
       className={`${
         user ? 'flex' : 'hidden'
-      } mt-12 w-full text-white text-base font-semibold justify-center items-center py-3 border-[1.5px] rounded-lg border-primary-400 bg-transparent transition-colors duration-200 hover:bg-primary-200 hover:text-black-1000 active:bg-primary-300 ${
+      } mt-9 w-full text-white text-base font-semibold justify-center items-center py-3 border-[1.5px] rounded-lg border-primary-400 bg-transparent transition-colors duration-200 hover:bg-primary-200 hover:text-black-1000 active:bg-primary-300 ${
         orbitron.className
       }`}
     >

@@ -226,7 +226,6 @@ const Header = () => {
               >
                 MY PAGE <span>&gt;</span>
               </Link>
-              <SideBarLogoutBtn />
             </nav>
           </div>
         </div>
