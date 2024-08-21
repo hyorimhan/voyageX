@@ -14,9 +14,9 @@ function TourRouter({ url }: { url: string }) {
         router.replace(`${url}`);
       }}
     >
-      <div className='flex items-center mb-4 gap-4 mt-[100px]'>
+      <div className='flex items-center mb-4 gap-4 mt-[94px] sm:mx-5'>
         <div
-          className={` md:text-4xl lg:text-4xl font-semibold text-white sm:text-xl ${orbitron.className}`}
+          className={`md:text-4xl lg:text-4xl font-semibold text-white sm:text-3xl ${orbitron.className}`}
         >
           TRAVEL PACKAGE
         </div>
