@@ -43,7 +43,7 @@ const VideoSection: React.FC<VideoSectionProps> = ({
     >
       <video
         ref={videoRef}
-        className='absolute top-0 left-0 w-full h-full object-cover z-0'
+        className='absolute sm:object-left top-0 left-0 w-full h-full object-cover z-0'
         src={videoSrc}
         autoPlay
         loop
