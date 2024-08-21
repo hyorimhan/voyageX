@@ -14,6 +14,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getMyPosts } from '@/services/community';
 import { getLikeLength } from '@/services/mypage';
 import SideBarLogoutBtn from '../auth/logout/SideBarLogoutBtn';
+import ArrowRightIcon24px from './icons/24px/ArrowRightIcon24px';
 
 const Header = () => {
   const user = useAuthStore((state) => state.user);
@@ -214,38 +215,43 @@ const Header = () => {
             <nav className='flex flex-col gap-4'>
               <Link
                 href={'/shop'}
-                className={`text-white text-xl flex justify-between items-center py-2 border-b border-gray-700 ${orbitron.className}`}
+                className={`text-white text-xl flex justify-between items-center py-5 border-b border-gray-700 ${orbitron.className}`}
                 onClick={() => setIsOpen(false)}
               >
-                GOODS SHOP <span>&gt;</span>
+                GOODS SHOP
+                <ArrowRightIcon24px />
               </Link>
               <Link
                 href={'/tour'}
-                className={`text-white text-xl flex justify-between items-center py-2 border-b border-gray-700 ${orbitron.className}`}
+                className={`text-white text-xl flex justify-between items-center py-5 border-b border-gray-700 ${orbitron.className}`}
                 onClick={() => setIsOpen(false)}
               >
-                TRAVEL PACKAGE <span>&gt;</span>
+                TRAVEL PACKAGE
+                <ArrowRightIcon24px />
               </Link>
               <Link
                 href={'/community'}
-                className={`text-white text-xl flex justify-between items-center py-2 border-b border-gray-700 ${orbitron.className}`}
+                className={`text-white text-xl flex justify-between items-center py-5 border-b border-gray-700 ${orbitron.className}`}
                 onClick={() => setIsOpen(false)}
               >
-                FREE BOARD <span>&gt;</span>
+                FREE BOARD
+                <ArrowRightIcon24px />
               </Link>
               <Link
                 href={'/news'}
-                className={`text-white text-xl flex justify-between items-center py-2 border-b border-gray-700 ${orbitron.className}`}
+                className={`text-white text-xl flex justify-between items-center py-5 border-b border-gray-700 ${orbitron.className}`}
                 onClick={() => setIsOpen(false)}
               >
-                NEWS <span>&gt;</span>
+                NEWS
+                <ArrowRightIcon24px />
               </Link>
               <Link
                 href={'/mypage/side_bar'}
-                className={`text-white text-xl flex justify-between items-center py-2 border-b border-gray-700 ${orbitron.className}`}
+                className={`text-white text-xl flex justify-between items-center py-5 border-b border-gray-700 ${orbitron.className}`}
                 onClick={() => setIsOpen(false)}
               >
-                MY PAGE <span>&gt;</span>
+                MY PAGE
+                <ArrowRightIcon24px />
               </Link>
             </nav>
           </div>

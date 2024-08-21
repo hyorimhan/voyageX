@@ -109,8 +109,25 @@ const MainPage = () => {
           backgroundPosition: 'center',
         }}
       >
+        {/* <div className='lg:hidden sm:block md:hidden'>
+          <p
+            className={`absolute top-24 left-8 text-white text-2xl font-medium ${orbitron.className}`}
+          >
+            <span className='hidden sm:inline'>
+              Let&apos;s Find <br className='sm:block hidden' /> Popular
+              Planets!
+            </span>
+             <span className='sm:hidden '>Let&apos;s Find Popular Planets!</span> 
+          </p>
+
+          <Link href='/tour'>
+            <p className='absolute top-36 right-6 z-10 text-xs font-normal underline'>
+              MORE+
+            </p>
+          </Link>
+        </div> */}
         <p
-          className={`absolute top-40 left-20 lg:hidden text-white text-4xl font-semibold fade-text ${orbitron.className} sm:text-2xl sm:font-medium sm:top-24 sm:left-8`}
+          className={`absolute top-40 left-20 sm:text-2xl sm:left-3 md:hidden text-white text-4xl font-semibold fade-text ${orbitron.className} sm:text-2xl sm:font-medium sm:top-24 sm:left-8`}
         >
           <span className='hidden sm:inline'>
             Let&apos;s Find <br className='sm:block hidden' /> Popular Planets!
@@ -118,19 +135,23 @@ const MainPage = () => {
           <span className='sm:hidden'>Let&apos;s Find Popular Planets!</span>
         </p>
         <Link href='/tour'>
-          <p className='absolute lg:hidden top-36 right-20 sm:right-6 z-10 sm:text-sm  sm:top-36 lg:text-lg font-normal underline'>
+          <p className='absolute top-36 right-20 sm:right-6 z-10 sm:text-sm  sm:top-36 lg:text-lg font-normal hover:underline'>
             MORE+
           </p>
         </Link>
+
         <div className='scroll-container h-full w-full relative flex items-center justify-center'>
-          <div className='flex  justify-between absolute top-20   items-center lg:w-[1120px]'>
-            <div className='flex justify-between items-center w-full sm:hidden'>
+          <div className='flex justify-between absolute top-20 items-center max-w-[1120px] px-4'>
+            <div className='flex justify-between items-center w-full sm:hidden md:p-4 md:flex md:justify-between'>
               <h2
-                className={`text-4xl sm:text-2xl font-semibold sm:font-medium text-white ${orbitron.className} top-20`}
+                className={`text-4xl sm:text-2xl lg:hidden font-semibold sm:font-medium text-white ${orbitron.className} top-20`}
               >
                 Let&apos;s Find Popular Planets!
               </h2>
-              <Link href='/news' className='text-white '>
+              <Link
+                href='/tour'
+                className='text-white lg:hidden sm:text-xs md:text-base lg:text-lg absolute md:absolute md:right-0 md:hidden'
+              >
                 MORE +
               </Link>
             </div>
@@ -262,20 +283,23 @@ const MainPage = () => {
           <p
             className={`absolute top-48 right-20 lg:hidden underline transition-opacity duration-500 ${
               videoLoaded ? 'opacity-100' : 'opacity-0'
-            } sm:top-16 sm:right-4`}
+            } sm:top-16 sm:right-6 sm:text-xs`}
           >
             MORE+
           </p>
         </Link>
 
         <div className='lg:w-full lg:max-w-[1120px] '>
-          <div className='flex justify-between items-center lg:mb-12 sm:hidden '>
+          <div className='flex justify-between items-center lg:mb-12 sm:hidden md:hidden '>
             <h2
               className={`text-4xl sm:text-2xl font-semibold sm:font-medium text-white ${orbitron.className} top-20`}
             >
               GOODS SHOP
             </h2>
-            <Link href='/news' className='text-white '>
+            <Link
+              href='/shop'
+              className='text-white text-lg hover:underline sm:text-xs '
+            >
               MORE +
             </Link>
           </div>
