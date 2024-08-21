@@ -73,7 +73,7 @@ const TourOrderDetailList = ({ order_id }: TourOrderDetailListProps) => {
         </div>
         <div className='flex'>
           <p className='ml-8'>주문번호</p>
-          <p>{order.id}</p>
+          <p>{order.id ?? payResult?.orderId}</p>
         </div>
       </div>
       <div className='border-b-[1px] border-solid border-white mt-8 sm:mt-6'></div>
