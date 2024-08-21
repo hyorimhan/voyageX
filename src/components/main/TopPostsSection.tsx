@@ -79,7 +79,7 @@ const TopPostsSection = () => {
       </div>
       <div className='lg:max-w-max-[1120px] lg:w-full mx-auto px-8'>
         <div className='grid grid-cols-2 gap-12 relative sm:grid-cols-1 sm:gap-8 lg:w-[1120px] lg:mx-auto'>
-          {posts.slice(0, 4).map((post: Post, index) => (
+          {sortedTopPosts.slice(0, 4).map((post: Post, index) => (
             <Link
               href={`/community/${post.id}`}
               key={post.id}
