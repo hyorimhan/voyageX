@@ -72,10 +72,10 @@ const Header = () => {
             </Link>
             <Link href={'/'} className='lg:hidden'>
               <Image
-                src={'/icons/logo/mobile.svg'}
+                src={'/icons/logo/textlogo.svg'}
                 alt='voyage_x_logo'
-                width={40}
-                height={40}
+                width={100}
+                height={100}
               />
             </Link>
           </div>
@@ -162,7 +162,7 @@ const Header = () => {
           <div className='flex flex-col h-full p-4'>
             <div className='flex justify-between items-center mb-8'>
               <Image
-                src={'/icons/logo/logo3.svg'}
+                src={'/icons/logo/textlogo3.svg'}
                 alt='voyage_x_logo'
                 width={150}
                 height={40}
